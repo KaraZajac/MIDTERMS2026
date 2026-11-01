@@ -1,12 +1,12 @@
 ---
 // Races as rows: who's running, the forecast, the chance each side wins.
 // Sorted by the caller; everything version-dependent renders three ways.
-import { VERSIONS, pD, raceRating, sideKey, sideLabel, partyTag } from "../lib/model.js";
+import { VERSIONS, pD, raceRating, sideKey, sideLabel, partyTag, isIncumbent } from "../lib/model.js";
 import { pct, margin, surname, url } from "../lib/format.js";
 
 interface Props { races: any[] }
 const { races } = Astro.props;
-const inc = (r: any, c: any) => r.incumbent?.running && r.incumbent?.name && c?.name === r.incumbent.name;
+const inc = (r: any, c: any) => isIncumbent(r, c);
 ---
 
 <ol class="race-list">

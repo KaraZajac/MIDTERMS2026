@@ -7,7 +7,7 @@ import MarginDensity from "../../components/MarginDensity.astro";
 import TrendChart from "../../components/TrendChart.astro";
 import {
   races, raceById, pollsFor, stateRaces, VERSIONS, VERSION_NAMES, pD, raceRating,
-  sideKey, sideLabel, partyTag, candShort,
+  sideKey, sideLabel, partyTag, candShort, isIncumbent,
 } from "../../lib/model.js";
 import { pct, pct1, aPct, margin, fmtDate, fmtShortDate, surname, inWords, url, PARTY_NAMES } from "../../lib/format.js";
 import { scorecard } from "../../lib/data.js";
@@ -27,7 +27,7 @@ const dKey = sideKey(r.d.party), rKey = sideKey(r.r.party);
 const dL = sideLabel(r, "d"), rL = sideLabel(r, "r");
 const dName = r.d.name ? surname(r.d.name) : "Democrats";
 const rName = r.r.name ? surname(r.r.name) : "Republicans";
-const isInc = (c: any) => r.incumbent?.running && r.incumbent?.name && c?.name === r.incumbent.name;
+const isInc = (c: any) => isIncumbent(r, c);
 const fixed = !!r.fixed;
 // After Election Day: this race's result, once `midterms score` has it
 const result = scorecard()?.races?.find((x: any) => x.id === id) ?? null;

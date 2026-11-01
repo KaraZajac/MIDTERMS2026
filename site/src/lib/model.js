@@ -62,6 +62,16 @@ export function raceRating(r, v = "deluxe") {
   return out;
 }
 
+/**
+ * Is this candidate a sitting member? Redistricting put two incumbents in
+ * some districts, and the export then names both: "Al Green & Christian
+ * Menefee". Match the candidate against each.
+ */
+export function isIncumbent(r, c) {
+  if (!r.incumbent?.running || !r.incumbent?.name || !c?.name) return false;
+  return r.incumbent.name.split(" & ").some((n) => n.trim() === c.name);
+}
+
 /** Party letter as shown beside a name. */
 export const partyTag = (party) => PARTY_SHORT[party] ?? party;
 /** "Collins (R)" */
