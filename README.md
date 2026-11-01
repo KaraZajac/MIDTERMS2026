@@ -194,4 +194,4 @@ the attribution chain in [DATA-RIGHTS.md](DATA-RIGHTS.md).
 *An analytical exercise in public forecasting. Not affiliated with
 FiveThirtyEight, ABC News, Wikipedia, or any campaign or party; not a
 prediction service and not advice. Probabilities are not certainties: a
-78% favorite loses about one time in five.*
+75% favorite loses about one time in four.*
