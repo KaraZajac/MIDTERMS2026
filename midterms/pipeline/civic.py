@@ -126,6 +126,18 @@ def result(c: dict, race: dict) -> dict:
     i_d, i_r = _find(cands, race.get("d_cand")), _find(cands, race.get("r_cand"))
     if i_d is not None and i_d == i_r:                   # never one candidate on both sides
         i_d = i_r = None
+    # a last resort if a name stops matching on the night: the one candidate
+    # of the side's major party (never for independents, who are many)
+    for side, want in (("D", "Democratic"), ("R", "Republican")):
+        if (i_d if side == "D" else i_r) is not None or race.get(f"{side.lower()}_side") != side:
+            continue
+        taken = i_r if side == "D" else i_d
+        hits = [i for i, x in enumerate(cands) if i != taken and str(x.get("party", "")).startswith(want)]
+        if len(hits) == 1:
+            if side == "D":
+                i_d = hits[0]
+            else:
+                i_r = hits[0]
     votes = {"D": 0, "R": 0, "other": 0}
     winners = []
     for i, x in enumerate(cands):

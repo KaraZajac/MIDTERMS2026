@@ -216,6 +216,10 @@ the newer `generated`. Every string is plain text.
     winner_name?,             // only when the winner is neither nominee
     called_at?,               // when a call was first seen
     upset?,                   // the winner had under 50% in the forecast
+    called_by?,               // "wikipedia" when only Wikipedia's results box
+                              // has settled it (civicAPI otherwise)
+    disputed?,                // civicAPI and Wikipedia call it differently:
+                              // shown as counting, not used
     pct_reporting?, votes?: {D, R, other}, margin?,
                               // the current count; margin is two-party,
                               // D-side minus R-side, points

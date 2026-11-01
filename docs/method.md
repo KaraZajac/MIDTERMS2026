@@ -368,6 +368,10 @@ Two choices keep it from overreacting:
 Calls and counts come from civicAPI (counts from secretaries of state,
 calls by its own decision desk; sources.md §7). The scorecard does not
 use them: it resolves races from Wikipedia's results boxes, as before.
+The two are cross-checked: a race they call differently is shown as
+disputed and left out of the update; a race only Wikipedia has settled
+counts as called; and if civicAPI is unreachable, the committed copy
+carries on from Wikipedia's results boxes alone.
 
 **Check** (`midterms live --check N`): N election nights drawn from the
 forecast itself, each revealed the way a decision desk would — by poll

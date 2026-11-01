@@ -130,5 +130,25 @@ class TestCivic(unittest.TestCase):
         self.assertIsNone(f([{"name": "Ann Smith"}, {"name": "Bob Jones"}], "Carl Wu"))
 
 
+class TestSafetyNets(unittest.TestCase):
+    def test_party_fallback(self):
+        # a nominee whose name no longer matches is found by party (D/R only)
+        race = {"d_cand": "Kelly Nobody", "r_cand": "Austin Scott", "d_side": "D", "r_side": "R", "state": "GA"}
+        c = civic_race(province="GA", candidates=[{"name": "Austin Scott", "party": "Republican", "votes": 10},
+                                                 {"name": "Kelly Etsi", "party": "Democratic", "votes": 5}])
+        self.assertEqual(civic.result(c, race)["matched"], {"D": True, "R": True})
+        race["d_side"] = "IND"                                     # never for an independent
+        self.assertFalse(civic.result(c, race)["matched"]["D"])
+
+    def test_wikipedia_reconciles(self):
+        from midterms.pipeline import livefeed as F
+        out = F.reconcile({"senate:ME": {"status": "called", "winner": "R"},
+                           "house:PA-07": {"status": "counting"}},
+                          {"senate:ME": "D", "house:PA-07": "D"})
+        self.assertEqual(out["senate:ME"]["status"], "counting")          # disputed: not used
+        self.assertTrue(out["senate:ME"]["disputed"])
+        self.assertEqual((out["house:PA-07"]["status"], out["house:PA-07"]["called_by"]), ("called", "wikipedia"))
+
+
 if __name__ == "__main__":
     unittest.main()

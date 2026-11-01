@@ -32,7 +32,7 @@ import numpy as np
 import yaml
 
 from midterms.model import live as L
-from midterms.paths import CURATED, FORECAST, RACES, SITE
+from midterms.paths import CURATED, DATA, FORECAST, RACES, SITE
 from midterms.pipeline import civic
 
 DEADLINE = "2026-11-03T10:00:00Z"
@@ -74,6 +74,25 @@ def forecast_of_record(now: str) -> tuple[dict, str, bool]:
     return json.loads((FORECAST / "latest.json").read_text()), "latest.json", False
 
 
+def wikipedia_calls(fc: dict) -> dict[str, str]:
+    """Races Wikipedia's results boxes have settled (data/scorecard.yaml,
+    written by `midterms score` from the hold/gain lines): race -> side.
+    A cross-check on civicAPI's calls, and the fallback when it is down."""
+    path = DATA / "scorecard.yaml"
+    if not path.exists():
+        return {}
+    try:
+        sc = yaml.safe_load(path.read_text()) or {}
+    except yaml.YAMLError:
+        return {}
+    out = {}
+    for row in sc.get("races") or []:
+        m = fc["races"].get(row.get("id"))
+        if m and row.get("winner_name"):
+            out[row["id"]] = "D" if row["winner_name"] == m.get("d_cand") else "R"
+    return out
+
+
 def _sim(fc: dict, rows: dict) -> dict:
     from midterms.pipeline.site_export import sim_params
     cur = yaml.safe_load((CURATED / "chambers.yaml").read_text())
@@ -90,10 +109,26 @@ def _r(x, k=4):
     return None if x is None else round(float(x), k)
 
 
+def reconcile(res: dict[str, dict], wiki: dict[str, str]) -> dict[str, dict]:
+    """civicAPI's calls against Wikipedia's settled results: a race the two
+    call differently is disputed (shown, not used); a race only Wikipedia
+    has settled counts as called."""
+    out = {rid: dict(r) for rid, r in res.items()}
+    for rid, side in wiki.items():
+        r = out.setdefault(rid, {"status": "awaiting"})
+        if r.get("status") == "called" and r.get("winner") in ("D", "R") and r["winner"] != side:
+            r.update(status="counting", disputed=True)
+            r.pop("winner", None)
+        elif r.get("status") != "called":
+            r.update(status="called", winner=side, called_by="wikipedia")
+    return out
+
+
 def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str, dict],
              fetched: str | None, previous: dict | None, generated: str, *,
-             draws: int = DRAWS, fixture: bool = False) -> dict:
+             draws: int = DRAWS, fixture: bool = False, wiki: dict | None = None) -> dict:
     head = fc["headline"]
+    res = reconcile(res, wiki or {})
     sim = _sim(fc, rows)
     eng = L.Engine(sim, version=head)
     calls = {rid: r["winner"] for rid, r in res.items()
@@ -131,6 +166,10 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
             if r["winner"] in ("D", "R"):
                 p_w = p_pre if r["winner"] == "D" else 1 - p_pre
                 row["upset"] = p_w < 0.5
+            if r.get("called_by"):
+                row["called_by"] = r["called_by"]
+        if r.get("disputed"):
+            row["disputed"] = True
         if r.get("votes") and sum(r["votes"].values()):
             row["pct_reporting"] = r.get("pct_reporting", 0.0)
             row["votes"] = r["votes"]
@@ -288,14 +327,25 @@ def main(out: str | None = None, previous: str | None = None, draws: int = DRAWS
         res, fetched = fixture_results(fc, rows, fixture, seed=seed), None
         prev = json.loads(Path(previous).read_text()) if previous else None      # a fixture sequence
     else:
-        civic_races, fetched = civic.fetch_all()
-        res = civic.results(civic_races, rows)
-        if len(res) < MIN_MAPPED:
-            raise SystemExit(f"civicapi: only {len(res)} of {len(rows)} races mapped — not writing")
         fc, snapshot, of_record = forecast_of_record(generated)
+        wiki = wikipedia_calls(fc)
+        try:
+            civic_races, fetched = civic.fetch_all()
+            res = civic.results(civic_races, rows)
+            if len(res) < MIN_MAPPED:
+                raise SystemExit(f"civicapi: only {len(res)} of {len(rows)} races mapped — not writing")
+        except SystemExit as e:
+            # the web server writes nothing (its last good file stays up); the
+            # committed copy carries on with Wikipedia's settled races alone
+            if out is not None or not wiki:
+                raise
+            print(f"  ! {e} — calls from Wikipedia's results boxes only")
+            res, fetched = {}, None
         prev = _previous(Path(out) if out else None, previous)
     doc = assemble(fc, snapshot, of_record, rows, res, fetched, prev, generated,
-                   draws=draws, fixture=fixture is not None)
+                   draws=draws, fixture=fixture is not None, wiki=wiki if fixture is None else None)
+    if fixture is None and fetched is None:
+        doc["source"]["note"] = "civicAPI was unreachable: calls from Wikipedia's results boxes, no counts"
     text = json.dumps(doc, separators=(",", ":"), ensure_ascii=False)
     path = Path(out) if out else SITE / "live.json"
     path.write_text(text)
