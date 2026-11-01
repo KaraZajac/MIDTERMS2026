@@ -59,6 +59,17 @@ allocation).
   grades, bans) — "free of charge for any purpose", with attribution
 - FiveThirtyEight, final 2024 (`fivethirtyeight/data`, CC BY 4.0) — fallback
 
+### 6. Backtest inputs (`midterms pull --only history`)
+- Wikipedia's 2014–2024 Senate and governor race pages and the 2025 NJ/VA
+  governorships (353 pages; fetched by `midterms backtest`, pinned by
+  revision in `data/backtest_statewide.yaml`) — the same layout the 2026
+  pages use, so the same parser reads polls, ratings and results boxes
+- FiveThirtyEight's generic-ballot poll archive, 2018–2024
+  (`web.archive.org/web/20250305204633id_/https://projects.fivethirtyeight.com/polls/data/generic_ballot_polls_historical.csv`,
+  CC BY 4.0) — Wikipedia no longer carries past cycles' generic-ballot
+  tables
+- FEC *Federal Elections 2020* (national House vote for the generic check)
+
 ## Pulled, not yet used
 - **VoteHub** public polls API (`api.votehub.com/polls`, CC BY 4.0): one JSON
   array, ~6,000 polls, no party field, likely/registered versions merged,
