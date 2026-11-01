@@ -1,8 +1,8 @@
-generated: '2026-11-01T16:03:20Z'
+generated: '2026-11-01T16:10:35Z'
 generator: python3 -m midterms build
 asof: '2026-11-01'
 election_day: '2026-11-03'
-sources_digest: 75a1aa3ad7871ed7
+sources_digest: 11037e7f19ce04a7
 counts:
   house_races: 435
   senate_races: 35
@@ -69,7 +69,6 @@ sources:
     2026 United States House of Representatives elections in Alabama: 1382919989
     2026 United States House of Representatives elections in Arizona: 1382918620
     2026 United States House of Representatives elections in Arkansas: 1382855440
-    2026 United States House of Representatives elections in California: 1383103594
     2026 United States House of Representatives elections in California (districts 1–26): 1383079181
     2026 United States House of Representatives elections in California (districts 27–52): 1383079672
     2026 United States House of Representatives elections in Colorado: 1382934300
@@ -154,101 +153,21 @@ sources:
     2026 Wyoming gubernatorial election: 1382903554
     Template:2026 United States elections/polling: 1383110234
   files:
-    census-cd120-bef:
-      url: https://www2.census.gov/programs-surveys/decennial/rdo/mapping-files/2027/120-congressional-district-befs/cd120.zip
-      fetched: '2026-11-01T03:49:57Z'
-      sha256: bc9a4fc543b8b279ce3663642a5cc4e19e32a8ef84f12371e26f754e5b8cc8a5
-    downballot-pres-2018-lines:
-      url: https://docs.google.com/spreadsheets/d/1zLNAuRqPauss00HDz4XbTH2HqsCzMe0pR8QmD1K8jk8/export?format=csv&gid=0
-      fetched: '2026-11-01T03:57:07Z'
-      sha256: 1ac29ca1575210f62470732cacd2b8d0203b6219ef5223bf12ae309f54f7a23e
-    downballot-pres-by-cd-2024-lines:
-      url: https://docs.google.com/spreadsheets/d/1ng1i_Dm_RMDnEvauH44pgE6JCUsapcuu8F2pCfeLWFo/export?format=csv&gid=1491069057
-      fetched: '2026-11-01T03:49:55Z'
-      sha256: 938410ae6b42104eb6ee73ff1fcb4de13f39c2aefa607c73b5664eec9ade974e
-    downballot-pres-by-cd-2026-lines:
-      url: https://docs.google.com/spreadsheets/d/1eZfaFI-c-PFOoKx1-zZA2MP0_dxRq_LVK0re3BOQqy0/export?format=csv&gid=1491069057
-      fetched: '2026-11-01T03:49:54Z'
-      sha256: cc1d51ab58dfbdeb0f7ddaa8daf9e15f32e15845f2c3cc6c28bd2c84c79d9348
-    downballot-pres20-2022-lines:
-      url: https://docs.google.com/spreadsheets/d/1CKngqOp8fzU22JOlypoxNsxL6KSAH920Whc-rd7ebuM/export?format=csv&gid=1913458313
-      fetched: '2026-11-01T03:57:06Z'
-      sha256: bf8fcea4252230233de0cc7d7b4199601a4aa0dfc0e2e246efe41912fae119b7
-    dra-blocks-AL:
-      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_AL.v07.zip
-      fetched: '2026-11-01T03:49:58Z'
-      sha256: 43218b8ba5fdd62edefb629c1468b2a6cf57aaa075786ab63d834d8cfec394df
-    dra-blocks-CA:
-      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_CA.v07.zip
-      fetched: '2026-11-01T03:50:00Z'
-      sha256: 3f28f5085808bf0fbac689495c2980e0de65eaff6052156e9efe255433f5358b
-    dra-blocks-FL:
-      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_FL.v07.zip
-      fetched: '2026-11-01T03:50:01Z'
-      sha256: e3ebf1d1e0b1e9faf4cc2d61010bb080c0d2c5ffea69e1b96e198f32091c3d60
-    dra-blocks-LA:
-      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_LA.v07.zip
-      fetched: '2026-11-01T03:50:02Z'
-      sha256: 01a30f78111e7f8ca9949997d719428e4ed56fc4f9f3c82c3f00ea3364e31b19
-    dra-blocks-NC:
-      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_NC.v07.zip
-      fetched: '2026-11-01T03:50:03Z'
-      sha256: 87ac258e7c090685d81ce1e1fd362dee24caf5290d7c461523cc6a00dacd726a
-    dra-blocks-OH:
-      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_OH.v07.zip
-      fetched: '2026-11-01T03:50:04Z'
-      sha256: 6b5735c0a8a362635f78324adf91340cc64759a074a64e16f9a674cd817efe8a
-    dra-blocks-TN:
-      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_TN.v07.zip
-      fetched: '2026-11-01T03:50:06Z'
-      sha256: 161da7f1d12ff20aeb530f5bbcfc12812c3c429d35a2cb4983cf7c00db23d080
-    dra-blocks-TX:
-      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_TX.v07.zip
-      fetched: '2026-11-01T03:50:07Z'
-      sha256: 2af4478cca7eeb2b0b533e28e6e5ce06317c2a34c2b8401ae52e322717c2e696
-    dra-blocks-UT:
-      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_UT.v07.zip
-      fetched: '2026-11-01T03:50:09Z'
-      sha256: 59392239dd45fc87129ae8155d7d6907e8dfb0dae447ca2950bca7db1ef7893c
-    fec-results-2018:
-      url: https://www.fec.gov/documents/2706/federalelections2018.xlsx
-      fetched: '2026-11-01T03:57:05Z'
-      sha256: f2c42311862b4927df2ca5908c5f9c8f8da6221a8db88fd00434a22ec1e0e303
-    fec-results-2020:
-      url: https://www.fec.gov/documents/4228/federalelections2020.xlsx
-      fetched: '2026-11-01T04:56:45Z'
-      sha256: 5073b6d2c76c86c941508dfb1a11cc497e8529b0068c5132aceb0f385c19352e
-    fec-results-2022:
-      url: https://www.fec.gov/documents/5676/federalelections2022.xlsx
-      fetched: '2026-11-01T03:57:05Z'
-      sha256: cdb258ea23803e50d752bcea19faa39b3c201eb960094bcb556c3a38c2350897
-    fec-weball18:
-      url: https://www.fec.gov/files/bulk-downloads/2018/weball18.zip
-      fetched: '2026-11-01T03:57:09Z'
-      sha256: 21da81f561dce1653f7282a2b4916346d3fc8cc35b5b8109954467415c081570
-    fec-weball22:
-      url: https://www.fec.gov/files/bulk-downloads/2022/weball22.zip
-      fetched: '2026-11-01T03:57:08Z'
-      sha256: 250844cf6391ef9982c6425699fbdb8f658f150f7ec823d5575f0469f8dd7d46
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-01T15:56:01Z'
+      fetched: '2026-11-01T16:09:53Z'
       sha256: d00e654b157cc8110c983b385b109884f289f4d2f18876f643e48aad4a9fc842
-    fte-generic-ballot-historical:
-      url: https://web.archive.org/web/20250305204633id_/https://projects.fivethirtyeight.com/polls/data/generic_ballot_polls_historical.csv
-      fetched: '2026-11-01T04:58:25Z'
-      sha256: 138a2ca649a8cec8db084269b3740f0d680a90954e18a784a5d0931e1991959a
     fte-pollster-ratings:
       url: https://raw.githubusercontent.com/fivethirtyeight/data/master/pollster-ratings/pollster-ratings-combined.csv
-      fetched: '2026-11-01T15:56:00Z'
+      fetched: '2026-11-01T16:09:51Z'
       sha256: 75215795f59d6dd9c725c794b2222db140048aff27510847d1c5b145af3c04ef
     silver-bulletin-ratings:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
-      fetched: '2026-11-01T15:55:59Z'
+      fetched: '2026-11-01T16:09:51Z'
       sha256: 14f5aeba96e21c3535fca225869595557347d2a1005dbe0303fc082cf6261d61
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-01T15:56:08Z'
+      fetched: '2026-11-01T16:09:59Z'
       sha256: 28c9fc81be517b9e55c87bcc844505c806acf66fb956260ede81021d3bb789bf
   votehub_supplement:
     basis: api
