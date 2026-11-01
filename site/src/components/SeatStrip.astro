@@ -2,49 +2,91 @@
 // All 435 House seats as squares, ordered from the safest Democratic seat to
 // the safest Republican one. The 218th square is the seat that decides the
 // majority if every race goes to its favourite.
+//
+// Rendered once, in Deluxe order; each square carries all three versions'
+// numbers and the script re-sorts and recolours on a version switch. (Three
+// static copies tripled the House page, the heaviest on the site.)
 import { chamberRaces, pD, raceRating, VERSIONS, candShort } from "../lib/model.js";
 import { pct, url } from "../lib/format.js";
 
 const house = chamberRaces("house");
 const MAJ = 218;
+const sorted = (v: string) => [...house].sort((a, b) => pD(b, v) - pD(a, v) || a.id.localeCompare(b.id));
+const order = sorted("deluxe");
 ---
 
 <figure class="strip-fig">
+  <div class="strip" id="seat-strip" aria-hidden="true">
+    {
+      order.map((r, i) => {
+        const p = pD(r, "deluxe");
+        const rt = raceRating(r, "deluxe");
+        return (
+          <a
+            href={url(`/${r.slug}/`)}
+            tabindex="-1"
+            class={`sq ${rt.key}${i === MAJ - 1 ? " pivot" : ""}`}
+            data-id={r.id}
+            data-l={r.label}
+            data-cd={candShort(r.d)}
+            data-cr={candShort(r.r)}
+            data-p={VERSIONS.map((v) => pD(r, v).toFixed(4)).join(",")}
+            data-k={VERSIONS.map((v) => raceRating(r, v).key).join(",")}
+            data-tip-value={`${r.label}: ${pct(p >= 0.5 ? p : 1 - p)} ${p >= 0.5 ? candShort(r.d) : candShort(r.r)}`}
+            data-tip-label={`Seat ${i + 1} of 435 · ${rt.label}`}
+          />
+        );
+      })
+    }
+  </div>
   {
     VERSIONS.map((v) => {
-      const sorted = [...house].sort((a, b) => pD(b, v) - pD(a, v) || a.id.localeCompare(b.id));
-      const pivot = sorted[MAJ - 1];
-      const dFav = sorted.filter((r) => pD(r, v) >= 0.5).length;
+      const s = sorted(v);
+      const pivot = s[MAJ - 1];
+      const dFav = s.filter((r) => pD(r, v) >= 0.5).length;
       return (
-        <div class={`v v-${v}`}>
-          <div class="strip">
-            {sorted.map((r, i) => {
-              const rt = raceRating(r, v);
-              const p = pD(r, v);
-              return (
-                <a
-                  href={url(`/${r.slug}/`)}
-                  tabindex="-1"
-                  class={`sq ${rt.key}${i === MAJ - 1 ? " pivot" : ""}`}
-                  data-tip-value={`${r.label}: ${pct(p >= 0.5 ? p : 1 - p)} ${p >= 0.5 ? candShort(r.d) : candShort(r.r)}`}
-                  data-tip-label={`Seat ${i + 1} of 435 · ${rt.label}`}
-                  aria-label={`${r.label}, ${rt.label}`}
-                />
-              );
-            })}
-          </div>
-          <figcaption>
-            Democrats are favored in <strong>{dFav}</strong> seats. The 218th-most-Democratic seat, the one that decides the
-            majority if every favorite wins, is <a href={url(`/${pivot.slug}/`)}>{pivot.label}</a>, where Democrats have a
-            {" "}{pct(pD(pivot, v))} chance. It is outlined above.
-          </figcaption>
-        </div>
+        <figcaption class={`v v-${v}`}>
+          Democrats are favored in <strong>{dFav}</strong> seats. The 218th-most-Democratic seat, the one that decides the
+          majority if every favorite wins, is <a href={url(`/${pivot.slug}/`)}>{pivot.label}</a>, where Democrats have a
+          {" "}{pct(pD(pivot, v))} chance. It is outlined above.
+        </figcaption>
       );
     })
   }
 </figure>
 
-<style>
+<script>
+  const V = ["lite", "classic", "deluxe"];
+  const LABEL: Record<string, string> = {
+    d3: "Solid D", d2: "Likely D", d1: "Lean D", tu: "Toss-up", r1: "Lean R", r2: "Likely R", r3: "Solid R",
+    i3: "Solid Ind.", i2: "Likely Ind.", i1: "Lean Ind.", na: "No forecast",
+  };
+  const pct = (p: number) => (p < 0.005 ? "<1%" : p > 0.995 ? ">99%" : `${Math.round(p * 100)}%`);
+  const strip = document.getElementById("seat-strip");
+  let painted = "deluxe";
+  function paint() {
+    const v = document.documentElement.dataset.version || "deluxe";
+    if (!strip || v === painted) return;
+    painted = v;
+    const vi = V.indexOf(v);
+    const rows = [...strip.children].map((el) => {
+      const e = el as HTMLElement;
+      return { e, p: Number(e.dataset.p!.split(",")[vi]), k: e.dataset.k!.split(",")[vi] };
+    });
+    rows.sort((a, b) => b.p - a.p || a.e.dataset.id!.localeCompare(b.e.dataset.id!));
+    rows.forEach((r, i) => {
+      const fav = r.p >= 0.5;
+      r.e.className = `sq ${r.k}${i === 217 ? " pivot" : ""}`;
+      r.e.dataset.tipValue = `${r.e.dataset.l}: ${pct(fav ? r.p : 1 - r.p)} ${fav ? r.e.dataset.cd : r.e.dataset.cr}`;
+      r.e.dataset.tipLabel = `Seat ${i + 1} of 435 · ${LABEL[r.k] ?? ""}`;
+    });
+    strip.append(...rows.map((r) => r.e));
+  }
+  document.addEventListener("midterms:version", paint);
+  paint();
+</script>
+
+<style is:global>
   .strip {
     display: grid;
     grid-template-columns: repeat(29, minmax(0, 1fr));

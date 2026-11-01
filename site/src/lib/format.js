@@ -19,18 +19,24 @@ export const url = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
 
 export const num = (n) => (n == null ? "—" : Math.round(n).toLocaleString("en-US"));
 
-/** A probability for display: whole percent, with the tails kept honest. */
-export function pct(p, digits = 0) {
+/**
+ * A probability for display: whole percent, with the tails kept honest.
+ * A simulated 0 or 1 is only "never/always in 50,000 draws", so it prints as
+ * <1% / >99%; pass exact for a race decided before Election Day.
+ */
+export function pct(p, digits = 0, exact = false) {
   if (p == null || Number.isNaN(p)) return "—";
-  if (p > 0 && p < 0.005) return "<1%";
-  if (p < 1 && p > 0.995) return ">99%";
+  if (exact && (p === 0 || p === 1)) return `${p * 100}%`;
+  const lo = digits ? 0.0005 : 0.005;
+  if (p < lo) return digits ? "<0.1%" : "<1%";
+  if (p > 1 - lo) return digits ? ">99.9%" : ">99%";
   return (p * 100).toFixed(digits) + "%";
 }
 /** One decimal, for the chamber headlines. Tails still clamp. */
 export function pct1(p) {
   if (p == null) return "—";
-  if (p > 0 && p < 0.001) return "<0.1%";
-  if (p < 1 && p > 0.999) return ">99.9%";
+  if (p < 0.0005) return "<0.1%";
+  if (p > 0.9995) return ">99.9%";
   return (p * 100).toFixed(1) + "%";
 }
 

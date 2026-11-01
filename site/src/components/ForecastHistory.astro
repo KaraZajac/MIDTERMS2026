@@ -1,0 +1,77 @@
+---
+// The headline (Deluxe) chance of Democratic control at each frozen
+// snapshot, one small chart per chamber. history.json has a row per snapshot.
+//
+// The model was revised at 2026-11-01 05:00 UTC (the statewide polling
+// backtest widened the national error), so earlier snapshots are a different
+// model: a jump across that line would be a change of method, not news.
+// The lines start after it.
+import { history } from "../lib/data.js";
+import { pct1, fmtStamp } from "../lib/format.js";
+
+const SINCE = "2026-11-01T05:00:00Z";
+const h = history();
+const snaps = (h?.snapshots ?? []).filter((s: any) => s.ex_ante !== false && s.generated >= SINCE);
+const chambers = [
+  ["house", "House"],
+  ["senate", "Senate"],
+  ["governor", "Governorships"],
+] as const;
+const W = 1000, H = 70;
+const t = (iso: string) => Date.parse(iso);
+const t0 = snaps.length ? t(snaps[0].generated) : 0;
+const t1 = snaps.length ? t(snaps[snaps.length - 1].generated) : 1;
+const X = (iso: string) => ((t(iso) - t0) / Math.max(t1 - t0, 1)) * W;
+---
+
+{
+  snaps.length >= 2 && (
+    <section class="section">
+      <h2>How the forecast has moved</h2>
+      <p class="section-note">
+        Democrats' chance of control at each snapshot since the model's last revision ({fmtStamp(SINCE)}), Deluxe. A new snapshot lands every six hours until the polls open.
+      </p>
+      <div class="grid-3">
+        {chambers.map(([k, name]) => {
+          const ys = snaps.map((s: any) => s[k].p);
+          const lo = Math.max(0, Math.min(...ys) - 0.06), hi = Math.min(1, Math.max(...ys) + 0.06);
+          const Y = (p: number) => 6 + ((hi - p) / (hi - lo || 1)) * (H - 12);
+          const d = snaps.map((s: any, i: number) => `${i ? "L" : "M"}${X(s.generated).toFixed(1)},${Y(s[k].p).toFixed(1)}`).join("");
+          const first = ys[0], last = ys[ys.length - 1];
+          const delta = last - first;
+          return (
+            <div class="card fh">
+              <div class="fh-head">
+                <span class="fh-name">{name}</span>
+                <span class="fh-now">{pct1(last)}</span>
+              </div>
+              <div class="viz" style={`--h:${H}px`}>
+                <div class="plot">
+                  <svg class="marks" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
+                    {lo < 0.5 && hi > 0.5 && <line class="nss" x1="0" x2={W} y1={Y(0.5)} y2={Y(0.5)} stroke="var(--axis)" />}
+                    <path class="nss s-d" d={d} fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+                    {snaps.map((s: any) => (
+                      <g data-tip-value={pct1(s[k].p)} data-tip-label={fmtStamp(s.generated)}>
+                        <path class="nss" d={`M${X(s.generated).toFixed(1)},${Y(s[k].p).toFixed(1)}h0`} stroke="transparent" stroke-width="22" stroke-linecap="round" />
+                        <path class="nss mark s-d" d={`M${X(s.generated).toFixed(1)},${Y(s[k].p).toFixed(1)}h0`} stroke-width="7" stroke-linecap="round" />
+                      </g>
+                    ))}
+                  </svg>
+                </div>
+              </div>
+              <p class="small muted" style="margin:6px 0 0">
+                {Math.abs(delta) < 0.0005 ? "Unchanged" : `${delta > 0 ? "Up" : "Down"} ${Math.abs(delta * 100).toFixed(1)} points`} since {fmtStamp(snaps[0].generated)}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .fh-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .fh-name { font-weight: 700; color: var(--ink-strong); }
+  .fh-now { font-size: 1.3rem; font-weight: 750; color: var(--ink-strong); letter-spacing: -0.02em; }
+</style>

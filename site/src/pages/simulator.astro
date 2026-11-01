@@ -137,8 +137,8 @@ const lamText = (() => {
   const forced: Record<string, "D" | "R"> = {};
   const ver = () => document.documentElement.dataset.version || "deluxe";
   const fmtM = (v: number) => (Math.abs(v) < 0.05 ? "Even" : `${v > 0 ? "D" : "R"}+${Math.abs(v).toFixed(1)}`);
-  const pctS = (p: number) => (p > 0 && p < 0.005 ? "<1%" : p < 1 && p > 0.995 ? ">99%" : `${Math.round(p * 100)}%`);
-  const pct1 = (p: number) => (p > 0 && p < 0.001 ? "<0.1%" : p < 1 && p > 0.999 ? ">99.9%" : `${(p * 100).toFixed(1)}%`);
+  const pctS = (p: number) => (p < 0.005 ? "<1%" : p > 0.995 ? ">99%" : `${Math.round(p * 100)}%`);
+  const pct1 = (p: number) => (p < 0.0005 ? "<0.1%" : p > 0.9995 ? ">99.9%" : `${(p * 100).toFixed(1)}%`);
 
   function readHash() {
     const h = new URLSearchParams(location.hash.slice(1));

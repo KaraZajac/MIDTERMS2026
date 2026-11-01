@@ -77,7 +77,7 @@ const desc = fixed
             return (
               <div class={`v v-${v} cand-p`}>
                 <span class={side === (pD(r, v) >= 0.5 ? "d" : "r") ? "hero-fig" : "hero-fig lesser"}>
-                  {pct1(p).replace("%", "")}<span class="unit">%</span>
+                  {(fixed ? `${Math.round(p * 100)}%` : pct1(p)).replace("%", "")}<span class="unit">%</span>
                 </span>
               </div>
             );

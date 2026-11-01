@@ -129,6 +129,30 @@ const name = (p: string) => p.replace(/\b\w/g, (c) => c.toUpperCase());
             non-Republican side in five of six cycles through 2024, then understated Democrats in both 2025 governor races, so the
             model widens instead of leaning. The method below (§8b) has the full argument.
           </p>
+          {sw.generic_ballot && (
+            <>
+              <h3 style="margin-top:20px">And the generic ballot</h3>
+              <p class="small ink-2">The same averaging code run on FiveThirtyEight's archived generic-ballot polls, three days out, against the national House vote and against the district baseline the House model actually uses.</p>
+              <div class="table-scroll">
+                <table class="data">
+                  <thead><tr><th>Cycle</th><th class="num">Polls</th><th class="num">Average</th><th class="num">House vote</th><th class="num">Miss</th><th class="num">Miss vs. baseline</th></tr></thead>
+                  <tbody>
+                    {Object.entries(sw.generic_ballot.cycles).map(([y, c]: any) => (
+                      <tr>
+                        <td>{y}</td>
+                        <td class="num">{c.n_polls}</td>
+                        <td class="num">{margin(c.average)}</td>
+                        <td class="num">{margin(c.house_vote)}</td>
+                        <td class="num">{margin(c.miss_vs_vote)}</td>
+                        <td class="num">{c.miss_vs_baseline != null ? margin(c.miss_vs_baseline) : "—"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="small muted" style="margin-top:6px">Misses are the result minus the average: negative means Republicans did better than the polls. Source: {sw.generic_ballot.source}.</p>
+            </>
+          )}
           <details class="tableview">
             <summary>Table view of the cycles</summary>
             <div class="table-scroll">

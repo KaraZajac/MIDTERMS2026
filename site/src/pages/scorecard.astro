@@ -31,7 +31,7 @@ const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1)
   {sc ? (
     <>
       <p class="callout">
-        Grading the forecast made {fmtStamp(sc.forecast_generated)} (<code>{sc.forecast}</code>). {resolvedCount} race{resolvedCount === 1 ? "" : "s"} resolved
+        Grading the forecast made {fmtStamp(sc.forecast_generated)} (<code>{sc.forecast}</code>, the <a href="https://github.com/KaraZajac/MIDTERMS2026/releases/tag/forecast-of-record">forecast of record</a>). {resolvedCount} race{resolvedCount === 1 ? "" : "s"} resolved
         so far, {sc.open_count} still open. Lower is better for both scores.
       </p>
       <div class="table-scroll">
@@ -95,7 +95,7 @@ const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1)
         <div class="card">
           <h2 style="font-size:1.15rem">What gets scored</h2>
           <p class="small">The last snapshot made before {fmtStamp(s.deadline)}. Every race where both parties' candidates are on the ballot counts once the result is clear; races decided before Election Day don't.</p>
-          <p class="small">{lastSnap ? <>The latest snapshot so far: <code>{lastSnap.snapshot}</code>, made {fmtStamp(lastSnap.generated)}.</> : null} Snapshots live in <a href="https://github.com/KaraZajac/MIDTERMS2026/tree/main/data/forecast/snapshots">data/forecast/snapshots</a>.</p>
+          <p class="small">{lastSnap ? <>The latest snapshot so far: <code>{lastSnap.snapshot}</code>, made {fmtStamp(lastSnap.generated)}.</> : null} Snapshots live in <a href="https://github.com/KaraZajac/MIDTERMS2026/tree/main/data/forecast/snapshots">data/forecast/snapshots</a>. After the deadline the last one is sealed as the GitHub release <a href="https://github.com/KaraZajac/MIDTERMS2026/releases/tag/forecast-of-record"><code>forecast-of-record</code></a>.</p>
         </div>
         <div class="card">
           <h2 style="font-size:1.15rem">Against whom</h2>

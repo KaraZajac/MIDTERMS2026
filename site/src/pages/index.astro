@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import VersionBar from "../components/VersionBar.astro";
 import ChamberCard from "../components/ChamberCard.astro";
 import TrendChart from "../components/TrendChart.astro";
+import ForecastHistory from "../components/ForecastHistory.astro";
 import { summary, generic, meta, history } from "../lib/data.js";
 import { VERSIONS, raceById, pD, raceRating, flips, candShort } from "../lib/model.js";
 import { pct, pct1, margin, favoured, fmtStamp, fmtDate, url, inWords } from "../lib/format.js";
@@ -71,6 +72,8 @@ const distinctDays = new Set(snapshots.map((x: any) => x.asof)).size;
     <ChamberCard chamber="senate" />
     <ChamberCard chamber="governor" />
   </div>
+
+  <ForecastHistory />
 
   <section class="section">
     <h2>Both chambers</h2>

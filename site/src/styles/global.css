@@ -7,7 +7,8 @@
    and normal-vision separation pass in both modes. Latte amber is under 3:1
    on the page, and Mocha's pastels sit above the dark lightness band by
    brand design (as on TOCSIN), so every chart ships labels and a table view.
-   The Solid/Likely/Lean steps of each arm pass the ordinal ramp checks.
+   The Solid/Likely/Lean steps of each arm pass the ordinal ramp checks, and
+   every label set inside a fill clears 4.5:1 (WCAG AA) in both themes.
    The UI accent is mauve, so no link or button reads as partisan. */
 
 @font-face {
@@ -53,7 +54,7 @@
   --ink: #4c4f69;           /* text */
   --ink-strong: #2f3146;    /* headings, hero figures */
   --ink-2: #5c5f77;         /* subtext1 */
-  --muted: #7c7f93;         /* overlay2 */
+  --muted: #63667c;         /* between subtext0 and subtext1: 4.5:1 on page, cards and table heads */
   --grid: #dce0e8;          /* crust, hairline grid */
   --axis: #acb0be;          /* surface2 */
   --border: rgba(76, 79, 105, 0.14);
@@ -65,7 +66,7 @@
 
   /* party: solid / likely / lean, and the neutral toss-up */
   --d: #1e66f5; --d3: #1e66f5; --d2: #548af5; --d1: #87acf5;
-  --r: #d20f39; --r3: #d20f39; --r2: #da4a6a; --r1: #e18097;
+  --r: #d20f39; --r3: #d20f39; --r2: #dc5c79; --r1: #e18097;
   --i: #df8e1d; --i3: #df8e1d; --i2: #e3a855; --i1: #e7c089;
   --tu: #acb0be;
   --na: #dce0e8;
@@ -73,8 +74,8 @@
   /* labels set inside those fills: white or near-black by luminance */
   --on-dark: #ffffff;
   --on-light: #1c1d2b;
-  --on-d3: var(--on-dark); --on-d2: var(--on-dark); --on-d1: var(--on-light);
-  --on-r3: var(--on-dark); --on-r2: var(--on-dark); --on-r1: var(--on-light);
+  --on-d3: var(--on-dark); --on-d2: var(--on-light); --on-d1: var(--on-light);
+  --on-r3: var(--on-dark); --on-r2: var(--on-light); --on-r1: var(--on-light);
   --on-i3: var(--on-light); --on-i2: var(--on-light); --on-i1: var(--on-light);
   --on-tu: var(--on-light); --on-na: var(--muted);
   --d-wash: rgba(30, 102, 245, 0.1);

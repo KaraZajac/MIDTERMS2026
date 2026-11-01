@@ -10,6 +10,9 @@ export default defineConfig({
   trailingSlash: "ignore",
   integrations: [sitemap({ filter: (page) => !page.endsWith("/404/") })],
   build: { format: "directory" },
+  // Scope component styles with a class, not a data-astro-cid attribute:
+  // same specificity, a third of the bytes on the table-heavy pages.
+  scopedStyleStrategy: "class",
   vite: {
     // The simulator is imported from ../sim/ and the data from ../data/.
     server: { fs: { allow: [".."] } },

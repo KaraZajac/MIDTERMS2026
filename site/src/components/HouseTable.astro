@@ -33,6 +33,7 @@ const cand = (c: any) => (c?.name ? c.name : "—");
   <span class="ht-count small muted" id="ht-count" aria-live="polite"></span>
 </div>
 
+<script type="application/json" id="ht-states" set:html={JSON.stringify(Object.fromEntries(statesWithHouse.map((s) => [s, STATES[s]])))} />
 <div class="table-scroll ht-scroll">
   <table class="data house-table" id="house-table">
     <thead>
@@ -55,36 +56,27 @@ const cand = (c: any) => (c?.name ? c.name : "—");
           const attrs: Record<string, string | number> = {
             "data-order": i,
             "data-st": r.state,
-            "data-q": `${r.label} ${r.state_name} ${r.d.name ?? ""} ${r.r.name ?? ""} ${r.incumbent?.name ?? ""}`.toLowerCase(),
             "data-inc": (r.incumbent?.name ? surname(r.incumbent.name) : "zzz").toLowerCase(),
             "data-lean": r.lean ?? 0,
             "data-polls": pl,
+            "data-dl": sideLabel(r, "d"),
+            "data-rl": sideLabel(r, "r"),
           };
-          for (const v of VERSIONS) {
-            attrs[`data-p-${v}`] = pD(r, v);
-            attrs[`data-m-${v}`] = r.forecast[v].margin?.q50 ?? (r.fixed ? (r.fixed === r.d.party ? 99 : -99) : 0);
-            attrs[`data-k-${v}`] = raceRating(r, v).key;
-            attrs[`data-f-${v}`] = flipSets[v].has(r.id) ? 1 : 0;
-          }
+          if (r.fixed) attrs["data-fixed"] = 1;
+          // one attribute per measure, versions in VERSIONS order (lite, classic, deluxe)
+          attrs["data-p"] = VERSIONS.map((v) => +pD(r, v).toFixed(4)).join(",");
+          attrs["data-m"] = VERSIONS.map((v) => r.forecast[v].margin?.q50 ?? (r.fixed ? (r.fixed === r.d.party ? 99 : -99) : 0)).join(",");
+          attrs["data-k"] = VERSIONS.map((v) => raceRating(r, v).key).join(",");
+          attrs["data-f"] = VERSIONS.map((v) => (flipSets[v].has(r.id) ? 1 : 0)).join(",");
           return (
             <tr {...attrs}>
               <th scope="row"><a href={url(`/${r.slug}/`)}>{r.label}</a></th>
               <td class="nowrap">{r.incumbent?.name ? <>{r.incumbent.name} <span class="muted">{partyTag(r.incumbent.party)}{r.incumbent.running ? "" : ", retiring"}</span></> : <span class="muted">Open</span>}</td>
               <td class="nowrap"><span class={`key ${sideKey(r.d.party)}`} />{cand(r.d)}{r.d.party !== "D" && <span class="muted"> {partyTag(r.d.party)}</span>}</td>
               <td class="nowrap"><span class={`key ${sideKey(r.r.party)}`} />{cand(r.r)}{r.r.party !== "R" && <span class="muted"> {partyTag(r.r.party)}</span>}</td>
-              <td class="num">{VERSIONS.map((v) => <span class={`v v-${v}`}>{pct(pD(r, v))}</span>)}</td>
-              <td class="num">
-                {VERSIONS.map((v) => {
-                  const m = r.forecast[v].margin;
-                  return <span class={`v v-${v}`}>{m ? margin(m.q50, sideLabel(r, "d"), sideLabel(r, "r")) : "Uncontested"}</span>;
-                })}
-              </td>
-              <td>
-                {VERSIONS.map((v) => {
-                  const rt = raceRating(r, v);
-                  return <span class={`v v-${v} chip ${rt.key}`}>{rt.label}</span>;
-                })}
-              </td>
+              <td class="num" data-cell="p">{pct(pD(r, "deluxe"))}</td>
+              <td class="num" data-cell="m">{r.forecast.deluxe.margin ? margin(r.forecast.deluxe.margin.q50, sideLabel(r, "d"), sideLabel(r, "r")) : "Uncontested"}</td>
+              <td><span class={`chip ${raceRating(r, "deluxe").key}`} data-cell="k">{raceRating(r, "deluxe").label}</span></td>
               <td class="num">{r.lean == null ? "—" : margin(r.lean, "D", "R", 0)}</td>
               <td class="num">{pl || ""}</td>
             </tr>
@@ -103,24 +95,29 @@ const cand = (c: any) => (c?.name ? c.name : "—");
   const table = document.getElementById("house-table") as HTMLTableElement;
   const tbody = table.tBodies[0];
   const rows = [...tbody.rows];
+  // search text: the row's own visible text (district, names) plus the state's name
+  const STATES = JSON.parse(document.getElementById("ht-states")!.textContent!);
+  const hay = new Map(rows.map((tr) => [tr, `${tr.textContent} ${STATES[tr.dataset.st!] ?? ""}`.toLowerCase()]));
   const q = document.getElementById("ht-q") as HTMLInputElement;
   const cat = document.getElementById("ht-cat") as HTMLSelectElement;
   const st = document.getElementById("ht-st") as HTMLSelectElement;
   const count = document.getElementById("ht-count")!;
   const ver = () => document.documentElement.dataset.version || "deluxe";
+  const VI: Record<string, number> = { lite: 0, classic: 1, deluxe: 2 };
+  const at = (tr: HTMLTableRowElement, key: string, v: string) => tr.dataset[key]!.split(",")[VI[v]];
   let sort = { key: "order", dir: 1 };
 
   function matches(tr: HTMLTableRowElement, v: string) {
     const d = tr.dataset;
     if (st.value && d.st !== st.value) return false;
     const term = q.value.trim().toLowerCase();
-    if (term && !d.q!.includes(term)) return false;
-    const k = d[`k${v[0].toUpperCase()}${v.slice(1)}`] || tr.getAttribute(`data-k-${v}`) || "";
+    if (term && !hay.get(tr)!.includes(term)) return false;
+    const k = at(tr, "k", v);
     switch (cat.value) {
       case "comp": return k === "tu" || k.endsWith("1");
       case "tu": return k === "tu";
       case "1": case "2": case "3": return k.endsWith(cat.value) && k !== "tu";
-      case "flip": return tr.getAttribute(`data-f-${v}`) === "1";
+      case "flip": return at(tr, "f", v) === "1";
       default: return true;
     }
   }
@@ -135,7 +132,7 @@ const cand = (c: any) => (c?.name ? c.name : "—");
     count.textContent = `Showing ${n} of ${rows.length} districts`;
   }
   function value(tr: HTMLTableRowElement, key: string, v: string): number | string {
-    if (key === "p" || key === "m") return Number(tr.getAttribute(`data-${key}-${v}`));
+    if (key === "p" || key === "m") return Number(at(tr, key, v));
     if (key === "inc") return tr.dataset.inc!;
     return Number(tr.getAttribute(`data-${key}`));
   }
@@ -162,10 +159,36 @@ const cand = (c: any) => (c?.name ? c.name : "—");
     });
   }
   for (const el of [q, cat, st]) el.addEventListener("input", apply);
+  // Cells are rendered for Deluxe; other versions are painted from the row's
+  // data attributes (rendering all three tripled the page).
+  const LABEL: Record<string, string> = {
+    d3: "Solid D", d2: "Likely D", d1: "Lean D", tu: "Toss-up", r1: "Lean R", r2: "Likely R", r3: "Solid R",
+    i3: "Solid Ind.", i2: "Likely Ind.", i1: "Lean Ind.", na: "No forecast",
+  };
+  const pctS = (p: number) => (p < 0.005 ? "<1%" : p > 0.995 ? ">99%" : `${Math.round(p * 100)}%`);
+  const marginS = (m: number, dl: string, rl: string) => (Math.abs(m) < 0.05 ? "Even" : `${m > 0 ? dl : rl}+${Math.abs(m).toFixed(1)}`);
+  let painted = "deluxe";
+  function paintCells() {
+    const v = ver();
+    if (v === painted) return;
+    painted = v;
+    for (const tr of rows) {
+      const p = Number(at(tr, "p", v));
+      const m = Number(at(tr, "m", v));
+      const k = at(tr, "k", v) || "na";
+      (tr.querySelector('[data-cell="p"]') as HTMLElement).textContent = pctS(p);
+      (tr.querySelector('[data-cell="m"]') as HTMLElement).textContent = tr.dataset.fixed ? "Uncontested" : marginS(m, tr.dataset.dl!, tr.dataset.rl!);
+      const chip = tr.querySelector('[data-cell="k"]') as HTMLElement;
+      chip.className = `chip ${k}`;
+      chip.textContent = LABEL[k] ?? k;
+    }
+  }
   document.addEventListener("midterms:version", () => {
+    paintCells();
     apply();
     if (sort.key === "p" || sort.key === "m") resort();
   });
+  paintCells();
   // deep link: /house/?q=texas or ?cat=comp
   const params = new URLSearchParams(location.search);
   if (params.get("q")) q.value = params.get("q")!;
@@ -174,7 +197,7 @@ const cand = (c: any) => (c?.name ? c.name : "—");
   apply();
 </script>
 
-<style>
+<style is:global>
   .ht-controls { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; margin: 0 0 12px; }
   .ht-controls input[type="search"] { flex: 1 1 260px; min-width: 0; }
   .ht-scroll { max-height: 78vh; overflow: auto; }
