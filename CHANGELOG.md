@@ -7,7 +7,7 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
-### 2026-11-01 — model frozen (05:30 UTC)
+### 2026-11-01 — model frozen (05:08 UTC; first frozen snapshot 2026-11-01T050841Z)
 From here to the deadline only the data changes; any later model change
 would be recorded here with its reason.
 

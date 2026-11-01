@@ -127,7 +127,8 @@ Two backtests set the parameters and are re-run by `make backtest`:
 - **The generic ballot** — checked against 2018, 2020 and 2022: it shares
   the national polling miss, and the House interval is, if anything, wide.
 
-The model was frozen at 2026-11-01 05:30 UTC; from then until the polls
+The model was frozen at 2026-11-01 05:08 UTC (first frozen snapshot:
+`2026-11-01T050841Z`); from then until the polls
 open, only the data changes.
 
 ## The loop
