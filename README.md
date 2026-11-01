@@ -27,7 +27,7 @@ an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
 |---|---:|---:|---:|
 | House (218 for control) | **94.9%** | 237 | 222–251 |
 | Senate (51; VP breaks ties) | **75.4%** | 52 | 49–55 |
-| Governorships (26 of 50) | 78.4% | 28 | 24–31 |
+| Governorships (26 of 50) | 78.4% | 27 | 24–31 |
 
 House tipping points: PA-07, NC-11, FL-25. Senate: Ohio (special), Texas, Maine.
 <!-- forecast:end -->
@@ -38,13 +38,13 @@ House tipping points: PA-07, NC-11, FL-25. Senate: Ohio (special), Texas, Maine.
 | | |
 |---|---:|
 | Races modeled (435 House, 35 Senate, 36 governor) | **506** |
-| General-election head-to-head polls, in 176 races | **1,640** |
+| General-election head-to-head polls, in 176 races | **1,649** |
 | Generic-ballot polls (Dec 2024 – latest) | **724** |
 | Handicapper ratings (Cook, Sabato, Inside Elections and more) | **2,687** |
 | Nominees matched to FEC filings | **871 / 906** |
 | Contested House districts in the fundamentals backtest (2018 + 2022) | **739** |
 | Senate and governor races in the polling backtest (2014–2025) | **323** |
-| Latest poll in the data | **2026-10-30** |
+| Latest poll in the data | **2026-10-31** |
 <!-- counts:end -->
 
 ```
