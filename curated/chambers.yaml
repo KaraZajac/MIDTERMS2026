@@ -1,0 +1,32 @@
+# Hand-maintained control math. Never generated; every line is a checkable
+# fact about who holds the seats/offices NOT on the 2026 ballot.
+#
+# Senate: 119th Congress, 53 R / 45 D / 2 I (Sanders VT, King ME — both
+# caucus with Democrats). Up in 2026: the 33 Class 2 seats (20 R, 13 D) plus
+# two R-held specials (Ohio: Husted, appointed for Vance's seat; Florida:
+# Moody, appointed for Rubio's) = 35 races, 22 R / 13 D.
+# Not up: 31 R, 32 D, 2 I. The Vice President (JD Vance, R) breaks ties, so
+# Democrats need 51 seats (17 of the 35 races) and Republicans 50 (19).
+senate:
+  majority: 51
+  tie_breaker: R
+  seats_not_up: {R: 31, D: 32, I: 2}
+  caucus: {I: D}            # Sanders, King
+  class2: [AL, AK, AR, CO, DE, GA, ID, IL, IA, KS, KY, LA, ME, MA, MI, MN, MS,
+           MT, NE, NH, NJ, NM, NC, OK, OR, RI, SC, SD, TN, TX, VA, WV, WY]
+  specials: [OH, FL]
+
+# Governors: 36 races. Not up in 2026 (14): DE D, IN R, KY D, LA R, MS R,
+# MO R, MT R, NJ D (Sherrill, elected 2025), NC D, ND R, UT R,
+# VA D (Spanberger, elected 2025), WA D, WV R.
+governor:
+  majority: 26
+  seats_not_up: {D: 6, R: 8}
+  not_up: {DE: D, IN: R, KY: D, LA: R, MS: R, MO: R, MT: R, NJ: D, NC: D,
+           ND: R, UT: R, VA: D, WA: D, WV: R}
+  up: [AL, AK, AZ, AR, CA, CO, CT, FL, GA, HI, ID, IL, IA, KS, ME, MD, MA, MI,
+       MN, NE, NV, NH, NM, NY, OH, OK, OR, PA, RI, SC, SD, TN, TX, VT, WI, WY]
+
+house:
+  seats: 435
+  majority: 218

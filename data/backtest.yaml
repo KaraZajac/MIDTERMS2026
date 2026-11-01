@@ -1,0 +1,152 @@
+generated_by: python3 -m midterms backtest
+sample:
+  2018: 355
+  2022: 384
+national_house_margin:
+  2018: 8.82
+  2022: -3.05
+fit:
+  lean_coef: 0.875
+  incumbency: 2.88
+  money_coef: 0.813
+  sd: 5.69
+  sd_incumbent: 5.58
+  sd_open: 6.02
+  year_intercepts:
+    2018: 7.09
+    2022: -0.57
+  intercept_minus_national:
+    2018: -1.73
+    2022: 2.48
+  n: 739
+per_year:
+  2018:
+    lean_coef: 0.848
+    incumbency: 2.961
+    money_coef: 1.06
+    sd: 6.079
+    sd_incumbent: 6.05
+    sd_open: 5.705
+    n: 355
+  2022:
+    lean_coef: 0.907
+    incumbency: 2.81
+    money_coef: 0.597
+    sd: 5.251
+    sd_incumbent: 5.041
+    sd_open: 6.089
+    n: 384
+out_of_sample:
+- train: 2018
+  test: 2022
+  n: 384
+  brier: 0.0411
+  rmse: 7.05
+  mean_error: 4.61
+  reliability:
+  - bin: 0.0-0.1
+    n: 179
+    forecast: 0.003
+    observed: 0.011
+  - bin: 0.1-0.2
+    n: 9
+    forecast: 0.137
+    observed: 0.556
+  - bin: 0.2-0.3
+    n: 6
+    forecast: 0.256
+    observed: 0.667
+  - bin: 0.3-0.4
+    n: 7
+    forecast: 0.333
+    observed: 0.714
+  - bin: 0.4-0.5
+    n: 6
+    forecast: 0.461
+    observed: 0.667
+  - bin: 0.5-0.6
+    n: 7
+    forecast: 0.57
+    observed: 0.714
+  - bin: 0.6-0.7
+    n: 5
+    forecast: 0.65
+    observed: 0.8
+  - bin: 0.7-0.8
+    n: 7
+    forecast: 0.757
+    observed: 0.857
+  - bin: 0.8-0.9
+    n: 9
+    forecast: 0.854
+    observed: 1.0
+  - bin: 0.9-1.0
+    n: 149
+    forecast: 0.991
+    observed: 1.0
+- train: 2022
+  test: 2018
+  n: 355
+  brier: 0.0416
+  rmse: 7.24
+  mean_error: -3.77
+  reliability:
+  - bin: 0.0-0.1
+    n: 134
+    forecast: 0.01
+    observed: 0.022
+  - bin: 0.1-0.2
+    n: 16
+    forecast: 0.15
+    observed: 0.062
+  - bin: 0.2-0.3
+    n: 8
+    forecast: 0.244
+    observed: 0.125
+  - bin: 0.3-0.4
+    n: 7
+    forecast: 0.34
+    observed: 0.143
+  - bin: 0.4-0.5
+    n: 7
+    forecast: 0.458
+    observed: 0.143
+  - bin: 0.5-0.6
+    n: 4
+    forecast: 0.564
+    observed: 0.5
+  - bin: 0.6-0.7
+    n: 5
+    forecast: 0.634
+    observed: 0.4
+  - bin: 0.7-0.8
+    n: 7
+    forecast: 0.756
+    observed: 0.571
+  - bin: 0.8-0.9
+    n: 6
+    forecast: 0.847
+    observed: 1.0
+  - bin: 0.9-1.0
+    n: 161
+    forecast: 0.994
+    observed: 0.981
+sources:
+  downballot-pres-2018-lines:
+    url: https://docs.google.com/spreadsheets/d/1zLNAuRqPauss00HDz4XbTH2HqsCzMe0pR8QmD1K8jk8/export?format=csv&gid=0
+    sha256: 1ac29ca1575210f62470732cacd2b8d0203b6219ef5223bf12ae309f54f7a23e
+  downballot-pres20-2022-lines:
+    url: https://docs.google.com/spreadsheets/d/1CKngqOp8fzU22JOlypoxNsxL6KSAH920Whc-rd7ebuM/export?format=csv&gid=1913458313
+    sha256: bf8fcea4252230233de0cc7d7b4199601a4aa0dfc0e2e246efe41912fae119b7
+  fec-results-2018:
+    url: https://www.fec.gov/documents/2706/federalelections2018.xlsx
+    sha256: f2c42311862b4927df2ca5908c5f9c8f8da6221a8db88fd00434a22ec1e0e303
+  fec-results-2022:
+    url: https://www.fec.gov/documents/5676/federalelections2022.xlsx
+    sha256: cdb258ea23803e50d752bcea19faa39b3c201eb960094bcb556c3a38c2350897
+  fec-weball18:
+    url: https://www.fec.gov/files/bulk-downloads/2018/weball18.zip
+    sha256: 21da81f561dce1653f7282a2b4916346d3fc8cc35b5b8109954467415c081570
+  fec-weball22:
+    url: https://www.fec.gov/files/bulk-downloads/2022/weball22.zip
+    sha256: 250844cf6391ef9982c6425699fbdb8f658f150f7ec823d5575f0469f8dd7d46

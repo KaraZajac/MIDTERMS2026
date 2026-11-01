@@ -1,0 +1,75 @@
+# Every six hours: re-pull the race pages (polls, ratings, nominees) and
+# FEC filings, rebuild data/, rerun the forecast and commit what changed.
+#
+# Before the deadline (polls open, 10:00 UTC Nov 3) each run freezes a
+# timestamped snapshot into data/forecast/snapshots/ — the last one before
+# the deadline is the forecast that gets scored. After the deadline the
+# same job stops forecasting and starts scoring: results boxes fill in on
+# Wikipedia, `midterms score` grades the frozen snapshot, and the
+# scorecard is committed as races resolve.
+#
+# Partisan lean is rebuilt from the committed data/lean/ tables (its raw
+# block-level sources are ~125 MB and don't change).
+
+name: refresh
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pip install pyyaml numpy
+
+      - name: Pull (race pages, FEC, pollster ratings)
+        run: python -m midterms pull --only wiki --only fec --only pollsters --force
+
+      - name: Build
+        run: python -m midterms build
+
+      - name: Forecast (before the deadline) or score (after)
+        run: |
+          now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          if [[ "$now" < "2026-11-03T10:00:00Z" ]]; then
+            python -m midterms forecast --snapshot
+          else
+            python -m midterms score
+          fi
+
+      - name: Verify
+        run: |
+          python -m midterms verify
+          python -m unittest discover -s tests -q
+
+      - name: Commit if substantively changed
+        run: |
+          git config user.name "midterms-refresh"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A data README.md
+          if git diff --cached --quiet -I'^generated:' -I'^  fetched:' -I'^asof:'; then
+            echo "no substantive changes"
+          else
+            git commit -m "refresh: $(date -u +%Y-%m-%dT%H:%MZ) — polls, ratings, forecast"
+            for i in 1 2 3; do
+              git push && break
+              git pull --rebase origin main || exit 1
+              [ "$i" = 3 ] && exit 1
+            done
+          fi

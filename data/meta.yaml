@@ -1,0 +1,242 @@
+generated: '2026-11-01T04:09:01Z'
+generator: python3 -m midterms build
+asof: '2026-11-01'
+election_day: '2026-11-03'
+sources_digest: 6765b414010b0719
+counts:
+  house_races: 435
+  senate_races: 35
+  governor_races: 36
+  fixed:
+    house:D: 16
+    house:R: 1
+  race_polls: 1640
+  generic_polls: 724
+  polled_races: 176
+  ratings: 2687
+  outside_averages: 177
+  pollsters: 317
+  pollsters_rated: 195
+  finance_matched: 856
+  finance_rows: 906
+  latest_poll: '2026-10-30'
+sources:
+  wikipedia_revisions:
+    2026 Alabama gubernatorial election: 1382964995
+    2026 Alaska gubernatorial election: 1383130145
+    2026 Arizona gubernatorial election: 1382950072
+    2026 Arkansas gubernatorial election: 1383078574
+    2026 California gubernatorial election: 1382882164
+    2026 Colorado gubernatorial election: 1382519959
+    2026 Connecticut gubernatorial election: 1382887682
+    2026 Florida gubernatorial election: 1383078321
+    2026 Georgia gubernatorial election: 1383041834
+    2026 Hawaii gubernatorial election: 1382520957
+    2026 Idaho gubernatorial election: 1383033638
+    2026 Illinois gubernatorial election: 1382902615
+    2026 Iowa gubernatorial election: 1382963071
+    2026 Kansas gubernatorial election: 1383128144
+    2026 Maine gubernatorial election: 1383118852
+    2026 Maryland gubernatorial election: 1382894361
+    2026 Massachusetts gubernatorial election: 1382543901
+    2026 Michigan gubernatorial election: 1383111815
+    2026 Minnesota gubernatorial election: 1383079069
+    2026 Nebraska gubernatorial election: 1383061518
+    2026 Nevada gubernatorial election: 1382885617
+    2026 New Hampshire gubernatorial election: 1383069123
+    2026 New Mexico gubernatorial election: 1382949690
+    2026 New York gubernatorial election: 1382903180
+    2026 Ohio gubernatorial election: 1383087878
+    2026 Oklahoma gubernatorial election: 1382602339
+    2026 Oregon gubernatorial election: 1382669610
+    2026 Pennsylvania gubernatorial election: 1382614138
+    2026 Rhode Island gubernatorial election: 1382685886
+    2026 South Carolina gubernatorial election: 1382624862
+    2026 South Dakota gubernatorial election: 1382924393
+    2026 Tennessee gubernatorial election: 1383121630
+    2026 Texas gubernatorial election: 1383119448
+    2026 United States House of Representatives election in Alaska: 1382855006
+    2026 United States House of Representatives election in Delaware: 1383069669
+    2026 United States House of Representatives election in North Dakota: 1382592840
+    2026 United States House of Representatives election in South Dakota: 1382876916
+    2026 United States House of Representatives election in Vermont: 1382960577
+    2026 United States House of Representatives election in Wyoming: 1382679515
+    2026 United States House of Representatives elections: 1383103767
+    2026 United States House of Representatives elections in Alabama: 1382919989
+    2026 United States House of Representatives elections in Arizona: 1382918620
+    2026 United States House of Representatives elections in Arkansas: 1382855440
+    2026 United States House of Representatives elections in California: 1383103594
+    2026 United States House of Representatives elections in California (districts 1–26): 1383079181
+    2026 United States House of Representatives elections in California (districts 27–52): 1383079672
+    2026 United States House of Representatives elections in Colorado: 1382934300
+    2026 United States House of Representatives elections in Connecticut: 1382470623
+    2026 United States House of Representatives elections in Florida: 1383070756
+    2026 United States House of Representatives elections in Georgia: 1383071588
+    2026 United States House of Representatives elections in Hawaii: 1381768843
+    2026 United States House of Representatives elections in Idaho: 1382490588
+    2026 United States House of Representatives elections in Illinois: 1382916418
+    2026 United States House of Representatives elections in Indiana: 1383067073
+    2026 United States House of Representatives elections in Iowa: 1382960298
+    2026 United States House of Representatives elections in Kansas: 1382856541
+    2026 United States House of Representatives elections in Kentucky: 1382957484
+    2026 United States House of Representatives elections in Louisiana: 1383035948
+    2026 United States House of Representatives elections in Maine: 1382773871
+    2026 United States House of Representatives elections in Maryland: 1382898492
+    2026 United States House of Representatives elections in Massachusetts: 1382774388
+    2026 United States House of Representatives elections in Michigan: 1383053353
+    2026 United States House of Representatives elections in Minnesota: 1383044562
+    2026 United States House of Representatives elections in Mississippi: 1383057272
+    2026 United States House of Representatives elections in Missouri: 1382933578
+    2026 United States House of Representatives elections in Montana: 1383096747
+    2026 United States House of Representatives elections in Nebraska: 1383096209
+    2026 United States House of Representatives elections in Nevada: 1382921177
+    2026 United States House of Representatives elections in New Hampshire: 1383077168
+    2026 United States House of Representatives elections in New Jersey: 1382945843
+    2026 United States House of Representatives elections in New Mexico: 1383076003
+    2026 United States House of Representatives elections in New York: 1383016091
+    2026 United States House of Representatives elections in North Carolina: 1382921712
+    2026 United States House of Representatives elections in Ohio: 1382897568
+    2026 United States House of Representatives elections in Oklahoma: 1382924664
+    2026 United States House of Representatives elections in Oregon: 1382605853
+    2026 United States House of Representatives elections in Pennsylvania: 1382925084
+    2026 United States House of Representatives elections in Rhode Island: 1382619674
+    2026 United States House of Representatives elections in South Carolina: 1383097002
+    2026 United States House of Representatives elections in Tennessee: 1383097378
+    2026 United States House of Representatives elections in Texas: 1382928098
+    2026 United States House of Representatives elections in Utah: 1382668794
+    2026 United States House of Representatives elections in Virginia: 1383062572
+    2026 United States House of Representatives elections in Washington: 1383008130
+    2026 United States House of Representatives elections in West Virginia: 1382858408
+    2026 United States House of Representatives elections in Wisconsin: 1382935814
+    2026 United States Senate election in Alabama: 1382939228
+    2026 United States Senate election in Alaska: 1383128906
+    2026 United States Senate election in Arkansas: 1383096289
+    2026 United States Senate election in Colorado: 1383102799
+    2026 United States Senate election in Delaware: 1383069693
+    2026 United States Senate election in Georgia: 1383071329
+    2026 United States Senate election in Idaho: 1382544118
+    2026 United States Senate election in Illinois: 1383107478
+    2026 United States Senate election in Iowa: 1383068027
+    2026 United States Senate election in Kansas: 1383123771
+    2026 United States Senate election in Kentucky: 1383049517
+    2026 United States Senate election in Louisiana: 1382940350
+    2026 United States Senate election in Maine: 1383115522
+    2026 United States Senate election in Massachusetts: 1382941284
+    2026 United States Senate election in Michigan: 1383109303
+    2026 United States Senate election in Minnesota: 1383077031
+    2026 United States Senate election in Mississippi: 1383055947
+    2026 United States Senate election in Montana: 1383113143
+    2026 United States Senate election in Nebraska: 1383107798
+    2026 United States Senate election in New Hampshire: 1383076846
+    2026 United States Senate election in New Jersey: 1382938100
+    2026 United States Senate election in New Mexico: 1383075444
+    2026 United States Senate election in North Carolina: 1382844720
+    2026 United States Senate election in Oklahoma: 1382941943
+    2026 United States Senate election in Oregon: 1383077496
+    2026 United States Senate election in Rhode Island: 1382830606
+    2026 United States Senate election in South Carolina: 1383102248
+    2026 United States Senate election in South Dakota: 1383039474
+    2026 United States Senate election in Tennessee: 1383041243
+    2026 United States Senate election in Texas: 1383123361
+    2026 United States Senate election in Virginia: 1382673527
+    2026 United States Senate election in West Virginia: 1382667996
+    2026 United States Senate election in Wyoming: 1382942403
+    2026 United States Senate elections: 1383102895
+    2026 United States Senate special election in Florida: 1383079280
+    2026 United States Senate special election in Ohio: 1383125356
+    2026 United States gubernatorial elections: 1383130028
+    2026 Wisconsin gubernatorial election: 1382860705
+    2026 Wyoming gubernatorial election: 1382903554
+    Opinion polling on the second Trump presidency: 1383105362
+    Template:2026 United States elections/polling: 1383110234
+  files:
+    census-cd120-bef:
+      url: https://www2.census.gov/programs-surveys/decennial/rdo/mapping-files/2027/120-congressional-district-befs/cd120.zip
+      fetched: '2026-11-01T03:49:57Z'
+      sha256: bc9a4fc543b8b279ce3663642a5cc4e19e32a8ef84f12371e26f754e5b8cc8a5
+    downballot-pres-2018-lines:
+      url: https://docs.google.com/spreadsheets/d/1zLNAuRqPauss00HDz4XbTH2HqsCzMe0pR8QmD1K8jk8/export?format=csv&gid=0
+      fetched: '2026-11-01T03:57:07Z'
+      sha256: 1ac29ca1575210f62470732cacd2b8d0203b6219ef5223bf12ae309f54f7a23e
+    downballot-pres-by-cd-2024-lines:
+      url: https://docs.google.com/spreadsheets/d/1ng1i_Dm_RMDnEvauH44pgE6JCUsapcuu8F2pCfeLWFo/export?format=csv&gid=1491069057
+      fetched: '2026-11-01T03:49:55Z'
+      sha256: 938410ae6b42104eb6ee73ff1fcb4de13f39c2aefa607c73b5664eec9ade974e
+    downballot-pres-by-cd-2026-lines:
+      url: https://docs.google.com/spreadsheets/d/1eZfaFI-c-PFOoKx1-zZA2MP0_dxRq_LVK0re3BOQqy0/export?format=csv&gid=1491069057
+      fetched: '2026-11-01T03:49:54Z'
+      sha256: cc1d51ab58dfbdeb0f7ddaa8daf9e15f32e15845f2c3cc6c28bd2c84c79d9348
+    downballot-pres20-2022-lines:
+      url: https://docs.google.com/spreadsheets/d/1CKngqOp8fzU22JOlypoxNsxL6KSAH920Whc-rd7ebuM/export?format=csv&gid=1913458313
+      fetched: '2026-11-01T03:57:06Z'
+      sha256: bf8fcea4252230233de0cc7d7b4199601a4aa0dfc0e2e246efe41912fae119b7
+    dra-blocks-AL:
+      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_AL.v07.zip
+      fetched: '2026-11-01T03:49:58Z'
+      sha256: 43218b8ba5fdd62edefb629c1468b2a6cf57aaa075786ab63d834d8cfec394df
+    dra-blocks-CA:
+      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_CA.v07.zip
+      fetched: '2026-11-01T03:50:00Z'
+      sha256: 3f28f5085808bf0fbac689495c2980e0de65eaff6052156e9efe255433f5358b
+    dra-blocks-FL:
+      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_FL.v07.zip
+      fetched: '2026-11-01T03:50:01Z'
+      sha256: e3ebf1d1e0b1e9faf4cc2d61010bb080c0d2c5ffea69e1b96e198f32091c3d60
+    dra-blocks-LA:
+      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_LA.v07.zip
+      fetched: '2026-11-01T03:50:02Z'
+      sha256: 01a30f78111e7f8ca9949997d719428e4ed56fc4f9f3c82c3f00ea3364e31b19
+    dra-blocks-NC:
+      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_NC.v07.zip
+      fetched: '2026-11-01T03:50:03Z'
+      sha256: 87ac258e7c090685d81ce1e1fd362dee24caf5290d7c461523cc6a00dacd726a
+    dra-blocks-OH:
+      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_OH.v07.zip
+      fetched: '2026-11-01T03:50:04Z'
+      sha256: 6b5735c0a8a362635f78324adf91340cc64759a074a64e16f9a674cd817efe8a
+    dra-blocks-TN:
+      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_TN.v07.zip
+      fetched: '2026-11-01T03:50:06Z'
+      sha256: 161da7f1d12ff20aeb530f5bbcfc12812c3c429d35a2cb4983cf7c00db23d080
+    dra-blocks-TX:
+      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_TX.v07.zip
+      fetched: '2026-11-01T03:50:07Z'
+      sha256: 2af4478cca7eeb2b0b533e28e6e5ce06317c2a34c2b8401ae52e322717c2e696
+    dra-blocks-UT:
+      url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_UT.v07.zip
+      fetched: '2026-11-01T03:50:09Z'
+      sha256: 59392239dd45fc87129ae8155d7d6907e8dfb0dae447ca2950bca7db1ef7893c
+    fec-results-2018:
+      url: https://www.fec.gov/documents/2706/federalelections2018.xlsx
+      fetched: '2026-11-01T03:57:05Z'
+      sha256: f2c42311862b4927df2ca5908c5f9c8f8da6221a8db88fd00434a22ec1e0e303
+    fec-results-2022:
+      url: https://www.fec.gov/documents/5676/federalelections2022.xlsx
+      fetched: '2026-11-01T03:57:05Z'
+      sha256: cdb258ea23803e50d752bcea19faa39b3c201eb960094bcb556c3a38c2350897
+    fec-weball18:
+      url: https://www.fec.gov/files/bulk-downloads/2018/weball18.zip
+      fetched: '2026-11-01T03:57:09Z'
+      sha256: 21da81f561dce1653f7282a2b4916346d3fc8cc35b5b8109954467415c081570
+    fec-weball22:
+      url: https://www.fec.gov/files/bulk-downloads/2022/weball22.zip
+      fetched: '2026-11-01T03:57:08Z'
+      sha256: 250844cf6391ef9982c6425699fbdb8f658f150f7ec823d5575f0469f8dd7d46
+    fec-webl26:
+      url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
+      fetched: '2026-11-01T03:51:32Z'
+      sha256: 715554a9b7a03a7654182cb06b722dc42da9be6661978551b6fc85638ddd8075
+    fte-pollster-ratings:
+      url: https://raw.githubusercontent.com/fivethirtyeight/data/master/pollster-ratings/pollster-ratings-combined.csv
+      fetched: '2026-11-01T03:52:51Z'
+      sha256: 75215795f59d6dd9c725c794b2222db140048aff27510847d1c5b145af3c04ef
+    silver-bulletin-ratings:
+      url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
+      fetched: '2026-11-01T03:52:51Z'
+      sha256: 14f5aeba96e21c3535fca225869595557347d2a1005dbe0303fc082cf6261d61
+    votehub-polls:
+      url: https://api.votehub.com/polls
+      fetched: '2026-11-01T03:52:59Z'
+      sha256: 28c9fc81be517b9e55c87bcc844505c806acf66fb956260ede81021d3bb789bf
+  lean: data/lean/sources.yaml
+  backtest: data/backtest.yaml (sources:)

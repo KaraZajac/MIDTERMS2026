@@ -1,0 +1,48 @@
+census-cd120-bef:
+  fetched: '2026-11-01T03:49:57Z'
+  sha256: bc9a4fc543b8b279ce3663642a5cc4e19e32a8ef84f12371e26f754e5b8cc8a5
+  url: https://www2.census.gov/programs-surveys/decennial/rdo/mapping-files/2027/120-congressional-district-befs/cd120.zip
+downballot-pres-by-cd-2024-lines:
+  fetched: '2026-11-01T03:49:55Z'
+  sha256: 938410ae6b42104eb6ee73ff1fcb4de13f39c2aefa607c73b5664eec9ade974e
+  url: https://docs.google.com/spreadsheets/d/1ng1i_Dm_RMDnEvauH44pgE6JCUsapcuu8F2pCfeLWFo/export?format=csv&gid=1491069057
+downballot-pres-by-cd-2026-lines:
+  fetched: '2026-11-01T03:49:54Z'
+  sha256: cc1d51ab58dfbdeb0f7ddaa8daf9e15f32e15845f2c3cc6c28bd2c84c79d9348
+  url: https://docs.google.com/spreadsheets/d/1eZfaFI-c-PFOoKx1-zZA2MP0_dxRq_LVK0re3BOQqy0/export?format=csv&gid=1491069057
+dra-blocks-AL:
+  fetched: '2026-11-01T03:49:58Z'
+  sha256: 43218b8ba5fdd62edefb629c1468b2a6cf57aaa075786ab63d834d8cfec394df
+  url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_AL.v07.zip
+dra-blocks-CA:
+  fetched: '2026-11-01T03:50:00Z'
+  sha256: 3f28f5085808bf0fbac689495c2980e0de65eaff6052156e9efe255433f5358b
+  url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_CA.v07.zip
+dra-blocks-FL:
+  fetched: '2026-11-01T03:50:01Z'
+  sha256: e3ebf1d1e0b1e9faf4cc2d61010bb080c0d2c5ffea69e1b96e198f32091c3d60
+  url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_FL.v07.zip
+dra-blocks-LA:
+  fetched: '2026-11-01T03:50:02Z'
+  sha256: 01a30f78111e7f8ca9949997d719428e4ed56fc4f9f3c82c3f00ea3364e31b19
+  url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_LA.v07.zip
+dra-blocks-NC:
+  fetched: '2026-11-01T03:50:03Z'
+  sha256: 87ac258e7c090685d81ce1e1fd362dee24caf5290d7c461523cc6a00dacd726a
+  url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_NC.v07.zip
+dra-blocks-OH:
+  fetched: '2026-11-01T03:50:04Z'
+  sha256: 6b5735c0a8a362635f78324adf91340cc64759a074a64e16f9a674cd817efe8a
+  url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_OH.v07.zip
+dra-blocks-TN:
+  fetched: '2026-11-01T03:50:06Z'
+  sha256: 161da7f1d12ff20aeb530f5bbcfc12812c3c429d35a2cb4983cf7c00db23d080
+  url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_TN.v07.zip
+dra-blocks-TX:
+  fetched: '2026-11-01T03:50:07Z'
+  sha256: 2af4478cca7eeb2b0b533e28e6e5ce06317c2a34c2b8401ae52e322717c2e696
+  url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_TX.v07.zip
+dra-blocks-UT:
+  fetched: '2026-11-01T03:50:09Z'
+  sha256: 59392239dd45fc87129ae8155d7d6907e8dfb0dae447ca2950bca7db1ef7893c
+  url: https://data.dra2020.net/file/dra-block-data/Election_Data_Block_UT.v07.zip

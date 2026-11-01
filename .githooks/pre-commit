@@ -1,0 +1,3 @@
+#!/bin/sh
+# MIDTERMS2026 pre-commit gate: refuse to commit malformed data or forecasts.
+exec make -s verify

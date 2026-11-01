@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: >-
+  If you use MIDTERMS2026 (the forecast, the poll ledger, or the derived
+  tables), please cite it as below, and credit the underlying sources listed
+  in DATA-RIGHTS.md.
+type: dataset
+title: "MIDTERMS2026: an open forecast of the 2026 U.S. midterm elections"
+authors:
+  - family-names: Zajac
+    given-names: Kara
+    orcid: "https://orcid.org/0009-0001-7400-1394"
+repository-code: "https://github.com/KaraZajac/MIDTERMS2026"
+license: CC-BY-SA-4.0
+date-released: "2026-11-01"
+keywords:
+  - elections
+  - forecasting
+  - 2026 midterms
+  - U.S. House
+  - U.S. Senate
+  - polling
+  - Monte Carlo simulation
+abstract: >-
+  An open, FiveThirtyEight-style forecast of every 2026 U.S. House, Senate
+  and gubernatorial race. Polls compiled from Wikipedia are averaged with
+  measured house-effect, population and sponsor adjustments and weighted by
+  pollster quality; House fundamentals (partisan lean on the 2026 lines,
+  incumbency, fundraising) are fit on 739 contested districts from the 2018
+  and 2022 midterms; expert ratings enter as a further measurement. Races
+  are simulated jointly with national, regional, state and chamber-level
+  correlated error. Forecasts are frozen in git before Election Day and
+  scored against the results alongside the raters' consensus and naive
+  baselines.

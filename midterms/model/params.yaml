@@ -1,0 +1,52 @@
+# Model parameters. Each carries `basis`: `fit` (re-estimated by
+# `midterms backtest` / the poll adjuster from data in this repo) or
+# `prior` (set from the published forecasting literature, documented in
+# docs/method.md, and open to being overturned by a backtest).
+
+national:
+  # sd of the national environment error at E-3: the final generic-ballot
+  # average missed the House popular vote by ~0.5-3.5 pts (2006-2022)
+  sd: {value: 2.8, basis: prior}
+  nu: {value: 5, basis: prior}          # t tails: rare large misses (2014)
+  generic_half_life_days: {value: 10, basis: prior}
+
+shared:
+  sd_region: {value: 1.5, basis: prior}
+  sd_state: {value: 1.8, basis: prior}
+  nu_race: {value: 6, basis: prior}
+
+house:
+  lean_coef: {value: 1.0, basis: prior}       # district swing ~ uniform
+  lean_weight_2024: {value: 0.75, basis: prior}  # vs 2020, where both exist
+  incumbency: {value: 3.0, basis: prior}      # margin pts for a running incumbent
+  freshman_bonus: {value: 1.0, basis: prior}  # first-term incumbents' extra
+  money_coef: {value: 1.2, basis: prior}      # pts per doubling of D/R receipts
+  money_cap: {value: 4.0, basis: prior}
+  sd_fundamentals: {value: 6.0, basis: prior}
+  sd_fundamentals_open: {value: 7.0, basis: prior}
+  translation_sd: {value: 2.0, basis: prior}  # national vote -> district baseline instability
+  # lean_coef, incumbency, money_coef, sd_fundamentals(_open), translation_sd
+  # are overwritten by `midterms backtest` fits (data/backtest.yaml) when present
+
+senate:
+  lean_coef: {value: 0.85, basis: prior}
+  incumbency: {value: 2.5, basis: prior}
+  sd_fundamentals: {value: 8.5, basis: prior}
+
+governor:
+  lean_coef: {value: 0.55, basis: prior}      # governors are less nationalized
+  national_coef: {value: 0.6, basis: prior}
+  incumbency: {value: 4.0, basis: prior}
+  sd_fundamentals: {value: 11.0, basis: prior}
+
+polls:
+  half_life_days: {value: 14, basis: prior}
+  max_age_days: {value: 150, basis: prior}
+  sd_nonsampling: {value: 3.0, basis: prior}  # statewide race-level, beyond shared error
+  sd_nonsampling_house: {value: 5.0, basis: prior}  # district polls miss by more (538)
+  sd_partisan: {value: 3.5, basis: prior}     # extra sd, scaled by sponsored-poll share
+  trend_lambda: {value: 1.0, basis: prior}
+
+ratings:
+  sd: {value: 5.5, basis: prior}
+  raters: [Cook, Sabato, Inside Elections]
