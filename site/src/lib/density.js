@@ -62,5 +62,28 @@ export function densityFromQuantiles(margin, n = 160) {
     fs.push(Math.max(dF, 0));
     Fs.push(Math.min(Math.max(F, 0), 1));
   }
+  // The derivative of a piecewise cubic through nine quantiles has small
+  // spurious dips at the knots (a "double hump" at the median that the
+  // simulations don't have). A light Gaussian smooth, 0.2 x IQR wide,
+  // removes them without moving mass: the CDF used for read-outs is
+  // untouched, so hovering still reports the exported quantiles exactly.
+  const dx = (b - a) / (n - 1);
+  const sigma = (0.2 * (margin.q75 - margin.q25)) / dx;
+  if (sigma > 0.5) {
+    const half = Math.ceil(3 * sigma);
+    const kern = [];
+    for (let k = -half; k <= half; k++) kern.push(Math.exp(-(k * k) / (2 * sigma * sigma)));
+    const sm = fs.map((_, i) => {
+      let acc = 0, wsum = 0;
+      for (let k = -half; k <= half; k++) {
+        const j = i + k;
+        if (j < 0 || j >= n) continue;
+        acc += fs[j] * kern[k + half];
+        wsum += kern[k + half];
+      }
+      return acc / wsum;
+    });
+    return { x: xs, f: sm, F: Fs };
+  }
   return { x: xs, f: fs, F: Fs };
 }

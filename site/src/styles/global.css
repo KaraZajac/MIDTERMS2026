@@ -562,6 +562,7 @@ input[type="search"]:focus, select:focus { outline: 2px solid var(--focus); outl
 }
 .viz .xaxis span.first { transform: none; }
 .viz .xaxis span.last { transform: translateX(-100%); }
+@media (max-width: 560px) { .viz .xaxis span.minor { display: none; } }
 .viz .note {
   position: absolute; font-size: 12px; font-weight: 650; color: var(--ink-2);
   white-space: nowrap; pointer-events: none; line-height: 1.2;

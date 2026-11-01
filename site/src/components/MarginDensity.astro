@@ -78,7 +78,13 @@ const cdf = JSON.stringify({ x: x.map((v) => +v.toFixed(2)), F: F.map((v) => +v.
     <div class="xhair" />
   </div>
   <div class="xaxis" aria-hidden="true">
-    {ticks.map((v) => { const p = (X(v) / W) * 100; return <span class={p > 93 ? "last" : p < 7 ? "first" : undefined} style={`left:${p}%`}>{lab(v)}</span>; })}
+    {ticks.map((v) => {
+      const p = (X(v) / W) * 100;
+      // every other label drops out on a phone, keeping Even
+      const minor = Math.round(v / step) % 2 !== 0;
+      const cls = [p > 93 ? "last" : p < 7 ? "first" : "", minor ? "minor" : ""].join(" ").trim();
+      return <span class={cls || undefined} style={`left:${p}%`}>{lab(v)}</span>;
+    })}
   </div>
   <figcaption>
     The bar under the curve spans the middle 80% of simulated outcomes, {fmtMargin(m.q10, dLabel, rLabel)} to {fmtMargin(m.q90, dLabel, rLabel)}.
