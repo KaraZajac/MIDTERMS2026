@@ -11,6 +11,15 @@ import { history } from "../lib/data.js";
 import { pct1, fmtStamp } from "../lib/format.js";
 
 const SINCE = "2026-11-01T05:08:00Z";
+// Steps that are corrections, not news (CHANGELOG.md): marked on the chart.
+const NOTES = [
+  {
+    at: "2026-11-01T05:19:57Z",
+    short: "Data fix, no model change",
+    text: "FEC money matching corrected for 50 nominees (see the repository's CHANGELOG)",
+    caption: "the corrected matching of 50 nominees' FEC filings",
+  },
+];
 const h = history();
 const snaps = (h?.snapshots ?? []).filter((s: any) => s.ex_ante !== false && s.generated >= SINCE);
 const chambers = [
@@ -23,6 +32,7 @@ const t = (iso: string) => Date.parse(iso);
 const t0 = snaps.length ? t(snaps[0].generated) : 0;
 const t1 = snaps.length ? t(snaps[snaps.length - 1].generated) : 1;
 const X = (iso: string) => ((t(iso) - t0) / Math.max(t1 - t0, 1)) * W;
+const notes = NOTES.filter((n) => snaps.length >= 2 && t(n.at) > t0 && t(n.at) <= t1);
 ---
 
 {
@@ -31,6 +41,7 @@ const X = (iso: string) => ((t(iso) - t0) / Math.max(t1 - t0, 1)) * W;
       <h2>How the forecast has moved</h2>
       <p class="section-note">
         Democrats' chance of control at each snapshot since the method was finalized ({fmtStamp(SINCE)}), Deluxe. From there only the data changes; a new snapshot lands every six hours until the polls open.
+        {notes.length > 0 && <> The grey line marks a data correction, not news: {notes.map((n) => n.caption).join("; ")}.</>}
       </p>
       <div class="grid-3">
         {chambers.map(([k, name]) => {
@@ -50,6 +61,12 @@ const X = (iso: string) => ((t(iso) - t0) / Math.max(t1 - t0, 1)) * W;
                 <div class="plot">
                   <svg class="marks" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
                     {lo < 0.5 && hi > 0.5 && <line class="nss" x1="0" x2={W} y1={Y(0.5)} y2={Y(0.5)} stroke="var(--axis)" />}
+                    {notes.map((n) => (
+                      <g data-tip-value={n.short} data-tip-label={n.text}>
+                        <rect class="hit" x={X(n.at) - 14} y="0" width="28" height={H} />
+                        <line class="nss" x1={X(n.at)} x2={X(n.at)} y1="0" y2={H} stroke="var(--muted)" stroke-width="1" />
+                      </g>
+                    ))}
                     <path class="nss s-d" d={d} fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
                     {snaps.map((s: any) => (
                       <g data-tip-value={pct1(s[k].p)} data-tip-label={fmtStamp(s.generated)}>
