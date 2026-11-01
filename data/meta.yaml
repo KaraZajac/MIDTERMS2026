@@ -1,8 +1,8 @@
-generated: '2026-11-01T22:52:54Z'
+generated: '2026-11-01T23:10:05Z'
 generator: python3 -m midterms build
 asof: '2026-11-01'
 election_day: '2026-11-03'
-sources_digest: b00fa2c1ae4abb6d
+sources_digest: 1a5ca30350cc59d5
 counts:
   house_races: 435
   senate_races: 35
@@ -103,7 +103,7 @@ sources:
     2026 United States House of Representatives elections in Oregon: 1382605853
     2026 United States House of Representatives elections in Pennsylvania: 1382925084
     2026 United States House of Representatives elections in Rhode Island: 1382619674
-    2026 United States House of Representatives elections in South Carolina: 1383097002
+    2026 United States House of Representatives elections in South Carolina: 1383287201
     2026 United States House of Representatives elections in Tennessee: 1383097378
     2026 United States House of Representatives elections in Texas: 1383261766
     2026 United States House of Representatives elections in Utah: 1382668794
@@ -125,11 +125,11 @@ sources:
     2026 United States Senate election in Louisiana: 1383210923
     2026 United States Senate election in Maine: 1383281286
     2026 United States Senate election in Massachusetts: 1383211162
-    2026 United States Senate election in Michigan: 1383281601
+    2026 United States Senate election in Michigan: 1383285669
     2026 United States Senate election in Minnesota: 1383251303
     2026 United States Senate election in Mississippi: 1383251446
     2026 United States Senate election in Montana: 1383215042
-    2026 United States Senate election in Nebraska: 1383268350
+    2026 United States Senate election in Nebraska: 1383286838
     2026 United States Senate election in New Hampshire: 1383251556
     2026 United States Senate election in New Jersey: 1383215577
     2026 United States Senate election in New Mexico: 1383215693
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-01T22:52:28Z'
+      fetched: '2026-11-01T23:09:20Z'
       sha256: d00e654b157cc8110c983b385b109884f289f4d2f18876f643e48aad4a9fc842
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-01T22:52:34Z'
+      fetched: '2026-11-01T23:09:28Z'
       sha256: cf0bdc0e3918a728fb7e527516828b33a615d3d480b2400244fcbe3f8f2ab47f
   votehub_supplement:
     basis: api
