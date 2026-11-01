@@ -131,9 +131,25 @@ def main() -> dict:
     resolved = {r: res[r] for r in common}
     board = {name: score(probs, resolved) for name, probs in contenders.items()}
     open_races = sorted(set(fc["races"]) - set(res) - {r for r, m in fc["races"].items() if m.get("fixed")})
+    head = fc["headline"]
+    table = []
+    for rid in sorted(resolved):
+        m, o = fc["races"][rid], resolved[rid]
+        win_d = o["winner_side"] == "D"
+        p_d = fc["versions"][head]["races"][rid]["p_d_side"]
+        table.append({
+            "id": rid, "slug": rid.split(":")[0] + "/" + rid.split(":")[1].lower(),
+            "label": m["label"],
+            "winner": m["d_side"] if win_d else "R",
+            "winner_name": m["d_cand"] if win_d else m["r_cand"],
+            "margin": o["margin"],                       # D-side minus R-side, two-party
+            "p_winner": round(p_d if win_d else 1 - p_d, 4),   # the headline version's
+            "p_d_side": {v: round(fc["versions"][v]["races"][rid]["p_d_side"], 4) for v in VERSIONS},
+            "called_right": (p_d > 0.5) == win_d,
+        })
     out = {"forecast": path.name, "forecast_generated": fc["generated"], "deadline": DEADLINE,
-           "resolved": len(resolved), "open": open_races[:60], "open_count": len(open_races),
-           "scoreboard": board}
+           "headline": head, "resolved": len(resolved), "open": open_races[:60],
+           "open_count": len(open_races), "scoreboard": board, "races": table}
     (DATA / "scorecard.yaml").write_text(yaml.safe_dump(out, sort_keys=False))
     print(f"scoring {path.name} (generated {fc['generated']}) on {len(resolved)} resolved races")
     for name, s in sorted(board.items(), key=lambda kv: kv[1].get("brier", 9)):

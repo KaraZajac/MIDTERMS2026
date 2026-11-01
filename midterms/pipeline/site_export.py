@@ -337,7 +337,7 @@ def sim_params(fc: dict, cur: dict, race_rows: dict) -> dict:
     out = []
     for rid, m in fc["races"].items():
         det = fc["detail"].get(rid) or {}
-        lam = p["governor"]["national_coef"] if m["chamber"] == "governor" else 1.0
+        lam = p["national"]["loading"][m["chamber"]]
         row = {"id": rid, "chamber": m["chamber"], "state": m["state"], "lam": lam,
                "d_side": m["d_side"] or "D", "r_side": race_rows.get(rid, {}).get("r_side") or "R",
                "fixed": m.get("fixed") or None}
@@ -383,9 +383,17 @@ def backtest() -> dict:
                                "rmse": o["rmse"], "mean_error": o["mean_error"],
                                "calibration": o["reliability"]} for o in b["out_of_sample"]],
         }
-    sb = DATA / "backtest_senate.yaml"
-    if sb.exists():
-        out["senate_polls"] = yaml.safe_load(sb.read_text())
+    sw = DATA / "backtest_statewide.yaml"
+    if sw.exists():
+        s = yaml.safe_load(sw.read_text())
+        out["statewide_polls"] = {
+            "what": s["what"], "n_races": s["n_races"], "by_year": s["by_year"],
+            "error": s["error"], "fit": s["fit"], "national_error": s["national_error"],
+            "scores": s["scores"],
+            "races": [{k: x[k] for k in ("id", "year", "chamber", "state", "d", "d_party", "r",
+                                         "actual", "poll_avg", "error", "n_polls")}
+                      for x in s["races"]],
+        }
     return out
 
 

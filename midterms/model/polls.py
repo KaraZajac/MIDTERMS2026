@@ -193,13 +193,14 @@ class Average:
     weights: list            # (poll, weight, adjusted margin) for display
     partisan_share: float = 0.0
     se: float | None = None  # standard error of the average itself (poll dispersion)
+    samp_var: float = 0.0    # the sampling-error part of sd^2
 
 
 def average(polls: list[Poll], asof: str, adj: Adjustments, *,
             half_life: float = 14.0, max_age: int = 150,
             quality: dict | None = None, trend=None, lam: float = 1.0,
             sd_nonsampling: float = 3.0, sd_floor: float = 2.0,
-            sd_partisan: float = 3.5) -> Average:
+            sd_partisan: float = 3.5, sd_per_poll: float = 0.0) -> Average:
     """Weighted, adjusted average of one race's polls as of `asof`.
 
     `trend(date) -> national margin` enables the trend-line adjustment.
@@ -208,7 +209,7 @@ def average(polls: list[Poll], asof: str, adj: Adjustments, *,
     ps = [p for p in pick_versions(polls)
           if 0 <= days_between(p.end, asof) <= max_age]
     if not ps:
-        return Average(None, None, 0, 0.0, None, 0, [], 0.0, None)
+        return Average(None, None, 0, 0.0, None, 0, [], 0.0, None, 0.0)
     counts = defaultdict(int)
     for p in ps:
         counts[canonical_pollster(p.pollster)] += 1
@@ -245,13 +246,17 @@ def average(polls: list[Poll], asof: str, adj: Adjustments, *,
     # against independent ones: their release bias varies race to race
     partisan_share = sum(w for p, w, _ in rows if p.partisan) / sw
     partisan_var = (sd_partisan ** 2) * partisan_share
-    sd = math.sqrt(sd_nonsampling ** 2 + samp_var + stale_var + partisan_var)
+    # nonsampling error has a part every poll of the race shares and a part
+    # each poll carries alone (mode, frame, house-effect misfit) that
+    # averages out as polls accumulate: sd_per_poll^2 / n_eff
+    per_poll_var = (sd_per_poll ** 2) / n_eff
+    sd = math.sqrt(sd_nonsampling ** 2 + per_poll_var + samp_var + stale_var + partisan_var)
     # how uncertain the *average* is (for charts): the weighted dispersion of
     # the adjusted polls around it, never below pure sampling error
     disp = math.sqrt(sum(w * w * (m - mean) ** 2 for _, w, m in rows)) / sw
     se = max(disp, math.sqrt(samp_var))
     return Average(mean, max(sd, sd_floor), len(rows), n_eff, latest,
-                   len(counts), rows, partisan_share, se)
+                   len(counts), rows, partisan_share, se, samp_var + stale_var + partisan_var)
 
 
 def daily_series(polls: list[Poll], adj: Adjustments, start: str, end: str, **kw) -> dict:

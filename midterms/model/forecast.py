@@ -204,7 +204,8 @@ def poll_component(race: dict, polls: list, asof: str, adj, params: dict,
                   max_age=_v(params, "polls", "max_age_days"), quality=quality,
                   trend=trend, lam=lam * _v(params, "polls", "trend_lambda"),
                   sd_nonsampling=_v(params, "polls", key),
-                  sd_partisan=_v(params, "polls", "sd_partisan"))
+                  sd_partisan=_v(params, "polls", "sd_partisan"),
+                  sd_per_poll=_v(params, "polls", "sd_per_poll"))
     if a.margin is None:
         return None
     return {"mu": a.margin, "sd": a.sd, "n_polls": a.n_polls, "n_eff": round(a.n_eff, 2),
@@ -309,7 +310,9 @@ def run(inp: dict, asof: str, params: dict, *, sims: int, seed: int) -> dict:
         rid = race["id"]
         fixed = race.get("fixed") or None
         d_side = race.get("d_side") or "D"
-        lam = _v(params, "governor", "national_coef") if race["chamber"] == "governor" else 1.0
+        # loading of the shared national *error* (the mean's national
+        # coefficient is a separate thing, in fundamentals())
+        lam = _v(params, "national", "loading")[race["chamber"]]
         if fixed:
             for v in VERSIONS:
                 sim_races[v].append(Race(rid, race["chamber"], race["state"], fixed=fixed,
@@ -366,6 +369,12 @@ def load_params() -> dict:
         mean = sum(offs) / len(offs)
         sd = (sum((o - mean) ** 2 for o in offs) / len(offs)) ** 0.5
         params["house"]["translation_sd"] = {"value": round(sd, 2), "basis": "fit"}
+    sw = DATA / "backtest_statewide.yaml"
+    if sw.exists():
+        fit = yaml.safe_load(sw.read_text()).get("fit") or {}
+        for key in ("sd_nonsampling", "sd_per_poll"):
+            if key in fit:
+                params["polls"][key] = {"value": fit[key], "basis": "fit"}
     return params
 
 

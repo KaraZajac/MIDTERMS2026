@@ -63,14 +63,21 @@ toward zero so thin evidence moves little):
 **Uncertainty of a race's average** (race-level, excluding the error all
 races share, which the simulator adds):
 
-  sd² = nonsampling² + Σ(wᵢ/Σw)² · sampling_sdᵢ² + 1.5² · (days since last poll / 30)
-        + 3.5² · (share of weight from sponsored polls)
+  sd² = shared² + per_poll² / n_eff + Σ(wᵢ/Σw)² · sampling_sdᵢ²
+        + 1.5² · (days since last poll / 30) + 3.5² · (share of weight from sponsored polls)
 
-with nonsampling 3.0 pts for statewide races and **5.0 for House
-districts** (district polls miss by more, and 64% of 2026 district polls
-are campaign- or party-sponsored, against 47% for the Senate). An average
-built entirely of one campaign's internals is therefore far less certain
-than one with independent polls.
+Nonsampling error has two parts: a piece every poll of the race shares,
+and a piece each poll carries alone (mode, frame, a house effect that
+doesn't fit this race) that averages out as polls accumulate — hence
+÷ n_eff, the effective number of polls. Both are **fit** on 323 Senate and
+governor races, 2014–2025 (§8b): **shared 1.2, per-poll 8.75** for
+statewide races. A race with 30 polls is thus about as certain as one
+with 10 by sampling error alone, but a race with two polls is far less
+certain than either. House districts use a larger shared part (3.0, prior):
+district polls miss by more, and 64% of 2026 district polls are campaign-
+or party-sponsored, against 47% statewide. An average built entirely of
+one campaign's internals is far less certain than one with independent
+polls.
 
 ## 3. The national environment
 
@@ -141,7 +148,7 @@ Each component is treated as an independent measurement of the margin:
 
 | term | distribution | sd |
 |---|---|---|
-| national | Student t, 5 df | 2.8 (λ = 1; 0.6 for governors) |
+| national | Student t, 5 df | 3.5, on the statewide-poll scale (fit-informed, §8b); loading λ = 1 for Senate and governor races, 0.7 for the House (whose national error rides on the generic ballot) |
 | Census region | normal | 1.5 |
 | state (shared by a state's House, Senate and governor races) | normal | 1.8 |
 | House-wide translation | normal | 2.1 (fit: the instability of the national-vote → district-baseline offset between 2018 and 2022) |
@@ -154,7 +161,11 @@ an independent who hasn't committed to a caucus is counted as neither
 (a headline "unclear" outcome), with an alternate tally if they sided with
 Democrats. Governors: 26 of 50 (14 not up: 6 D, 8 R).
 
-Reported per race: P(win), margin mean and 10/50/90 quantiles, and the
+(The governor *mean* moves only 0.6× with the national environment — §4 —
+but governor polls share the national polling *error* fully; the backtest
+found their cycle-level misses as large as the Senate's.)
+
+Reported per race: P(win), margin mean, sd and 1–99% quantiles, and the
 **tipping-point** frequency — how often the race is the one that delivers
 the decisive seat (the 218th House seat; the 17th Democratic / 19th
 Republican Senate win). Chamber seat distributions and the joint
@@ -184,7 +195,62 @@ error. The pooled fit, not either single year, sets the parameters.
 Caveats: lean in 2022 uses 2020 only (no 2016 results exist on the 2022
 lines); fundraising uses final cycle totals, which include some
 post-election money; two midterms are a small sample for the translation
-error. Senate and governor parameters are *not* backtested (priors).
+error.
+
+## 8b. The statewide polling backtest — how accurate is this average?
+
+The Senate and governor forecasts are mostly polls, so `midterms
+backtest` also replays this exact averaging code on every Senate and
+governor race of 2014–2024 plus the 2025 New Jersey and Virginia
+governorships — 323 races with polls and a Republican vs non-Republican
+result — as of three days before each election, with every adjustment fit
+on that year's polls only, and compares with the results
+(`data/backtest_statewide.yaml`).
+
+| cycle | races | mean miss (D-side minus average) | RMSE |
+|---|---:|---:|---:|
+| 2014 | 68 | −4.14 | 6.90 |
+| 2016 | 42 | −2.64 | 7.62 |
+| 2018 | 65 | +0.36 | 5.27 |
+| 2020 | 42 | −7.17 | 9.23 |
+| 2022 | 62 | −2.43 | 6.60 |
+| 2024 | 42 | −5.00 | 6.53 |
+| 2025 (NJ, VA) | 2 | +6.80 | 7.10 |
+
+What it changed:
+
+1. **Race-level error, fit.** Net of each cycle's shared miss, the spread
+   is 5.8 points. The old fixed race-level term was right for well-polled
+   races and badly overconfident for thinly polled ones (errors 1.5× the
+   stated sd with fewer than six polls). The shared + per-poll structure in
+   §2, fit by maximum likelihood under the simulator's own t(6) error, is
+   calibrated across poll counts (standardized error 0.8–1.1 in every
+   bucket) and raises the log-likelihood by 16 units.
+2. **The national error, sized.** Net of race-level noise, the cycle-level
+   miss has an sd of ~3.6 across the midterm-like cycles (2014, 2018, 2022,
+   2025) and ~4.3 across all; the national sd is 3.5 (it was 2.8).
+3. **The national error, *not* signed.** Polls overstated the D-side in
+   five of six cycles from 2014 to 2024, and a leave-one-cycle-out test
+   shows that shading every average halfway toward Republicans would have
+   scored better in those years (Brier 0.048 vs 0.055) — even in 2018.
+   But the misses track context, not party: the large ones came with Trump
+   on the ballot (2016, 2020, 2024); midterms ran −4.1, +0.4, −2.4; and the
+   two contests polled under the current administration, the 2025 New
+   Jersey and Virginia governorships, *under*stated Democrats by 8.8 and
+   4.8 points. A correction fit to 2014–2024 would have made 2025 worse.
+   The model therefore assumes no direction and widens instead; the
+   scorecard will show whether that was right.
+
+Scores on the same races (probabilities from the forecast's own
+uncertainty): polls alone Brier 0.0550 · ratings alone 0.0535 · **polls +
+ratings 0.0524** (log loss 0.163, calls 92%) — the blend beats either
+input, which is the case for Deluxe.
+
+Caveats: quality weights use Silver Bulletin's 2026 ratings, which were
+themselves informed by these results (a mild leak); no trend-line
+adjustment (it needs each year's generic-ballot series; negligible three
+days out); and the national loading for the House (0.7) is a prior — no
+generic-ballot backtest yet.
 
 ## 9. Known limitations
 
@@ -205,9 +271,9 @@ error. Senate and governor parameters are *not* backtested (priors).
   (more complete than VoteHub's public API), but editors make typos; the
   pipeline drops impossible rows and pins revisions, and `make verify`
   checks every value's range, but a mis-keyed number can get through.
-- **Senate and governor parameters are priors**, and the rating-to-margin
-  map is calibrated to published hit rates rather than fit here.
-- **The national error is symmetric.** Markets price Republicans higher
-  than this model does in the close Senate races — consistent with
-  expecting a 2016/2020-style polling miss. This model does not assume the
-  direction of the next miss.
+- **Senate and governor fundamentals are priors** (they carry little
+  weight next to the polls), and the rating-to-margin map is calibrated to
+  published hit rates rather than fit here.
+- **The national error is symmetric** — a choice, argued in §8b, not an
+  oversight. Markets price Republicans higher than this model does in the
+  close Senate races, consistent with expecting a 2016/2020-style miss.

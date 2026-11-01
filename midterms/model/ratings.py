@@ -79,6 +79,11 @@ RATERS = {
     "sabato's crystal ball": "Sabato",
     "sabato": "Sabato",
     "inside elections": "Inside Elections",
+    "rothenberg political report": "Inside Elections",    # IE's name before 2018
+    "the rothenberg political report": "Inside Elections",
+    "rothenberg & gonzales political report": "Inside Elections",
+    "the rothenberg & gonzales political report": "Inside Elections",
+    "rothenberg and gonzales political report": "Inside Elections",
     "split ticket": "Split Ticket",
     "decision desk hq": "DDHQ",
     "ddhq": "DDHQ",

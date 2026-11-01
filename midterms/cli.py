@@ -60,8 +60,9 @@ def main(argv: list[str] | None = None) -> None:
         from midterms.model import forecast
         forecast.main(sims=args.sims, seed=args.seed, asof=args.asof, snapshot=args.snapshot)
     elif args.cmd == "backtest":
-        from midterms.model import backtest
+        from midterms.model import backtest, backtest_statewide
         backtest.main()
+        backtest_statewide.main()
     elif args.cmd == "show":
         from midterms.model import forecast
         forecast.show(args.race)

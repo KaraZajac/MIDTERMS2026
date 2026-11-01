@@ -4,9 +4,17 @@
 # docs/method.md, and open to being overturned by a backtest).
 
 national:
-  # sd of the national environment error at E-3: the final generic-ballot
-  # average missed the House popular vote by ~0.5-3.5 pts (2006-2022)
-  sd: {value: 2.8, basis: prior}
+  # sd of the shared (national) polling error at E-3, on the statewide-poll
+  # scale. The statewide backtest (data/backtest_statewide.yaml) estimates it,
+  # net of race-level noise, at ~3.6 across the midterm-like cycles (2014,
+  # 2018, 2022 and the 2025 NJ/VA governorships) and ~4.3 across all; 3.5.
+  # Its sign is not modeled: those misses ran both ways (2025: +6.8 toward D).
+  sd: {value: 3.5, basis: fit-informed}
+  # how much of that error each chamber's forecast carries. Senate and
+  # governor polls shared the cycle-level miss fully in the backtest; the
+  # House rides on the generic ballot, whose misses have run smaller (prior),
+  # and carries its own measured translation error on top.
+  loading: {value: {house: 0.7, senate: 1.0, governor: 1.0}, basis: prior}
   nu: {value: 5, basis: prior}          # t tails: rare large misses (2014)
   generic_half_life_days: {value: 10, basis: prior}
 
@@ -42,8 +50,11 @@ governor:
 polls:
   half_life_days: {value: 14, basis: prior}
   max_age_days: {value: 150, basis: prior}
-  sd_nonsampling: {value: 3.0, basis: prior}  # statewide race-level, beyond shared error
-  sd_nonsampling_house: {value: 5.0, basis: prior}  # district polls miss by more (538)
+  sd_nonsampling: {value: 3.0, basis: prior}  # statewide, race-shared (fit overrides)
+  sd_per_poll: {value: 0.0, basis: prior}     # per-poll, / n_eff (fit overrides)
+  sd_nonsampling_house: {value: 3.0, basis: prior}  # district polls: a larger race-shared part
+  # sd_nonsampling and sd_per_poll are overwritten by the statewide backtest
+  # fit (data/backtest_statewide.yaml) when present
   sd_partisan: {value: 3.5, basis: prior}     # extra sd, scaled by sponsored-poll share
   trend_lambda: {value: 1.0, basis: prior}
 

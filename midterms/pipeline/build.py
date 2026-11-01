@@ -245,7 +245,10 @@ def main() -> None:
 
     # provenance
     files = m.get("files", {})
-    wiki_revs = {k.split(":", 1)[1]: v.get("revid") for k, v in files.items() if k.startswith("wikipedia:")}
+    # the forecast's own pages; historical pages (backtests) carry their
+    # revisions in data/backtest_*.yaml instead
+    wiki_revs = {k.split(":", 1)[1]: v.get("revid") for k, v in files.items()
+                 if k.startswith("wikipedia:") and "2026" in k}
     other = {k: {"url": v["url"], "fetched": v["fetched"], "sha256": v["sha256"]}
              for k, v in files.items() if not k.startswith("wikipedia:")}
     digest = hashlib.sha256(json.dumps({"w": wiki_revs, "o": {k: v["sha256"] for k, v in other.items()}},

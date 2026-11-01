@@ -1,8 +1,8 @@
-generated: '2026-11-01T04:30:14Z'
+generated: '2026-11-01T04:53:29Z'
 generator: python3 -m midterms build
 asof: '2026-11-01'
 election_day: '2026-11-03'
-sources_digest: 6765b414010b0719
+sources_digest: 78c0e853041bb301
 counts:
   house_races: 435
   senate_races: 35
@@ -147,7 +147,6 @@ sources:
     2026 United States gubernatorial elections: 1383130028
     2026 Wisconsin gubernatorial election: 1382860705
     2026 Wyoming gubernatorial election: 1382903554
-    Opinion polling on the second Trump presidency: 1383105362
     Template:2026 United States elections/polling: 1383110234
   files:
     census-cd120-bef:

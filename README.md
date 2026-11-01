@@ -1,5 +1,10 @@
 # MIDTERMS2026
 
+[![validate](https://github.com/KaraZajac/MIDTERMS2026/actions/workflows/ci.yml/badge.svg)](https://github.com/KaraZajac/MIDTERMS2026/actions/workflows/ci.yml)
+[![refresh](https://github.com/KaraZajac/MIDTERMS2026/actions/workflows/refresh.yml/badge.svg)](https://github.com/KaraZajac/MIDTERMS2026/actions/workflows/refresh.yml)
+[![code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
+[![data: CC BY-SA 4.0](https://img.shields.io/badge/data-CC%20BY--SA%204.0-lightgrey.svg)](DATA-RIGHTS.md)
+
 **An open, FiveThirtyEight-style forecast of the 2026 U.S. midterm elections:
 every House district, every Senate seat and every governorship, simulated
 50,000 times with correlated error, frozen in git before the polls open,
@@ -8,18 +13,23 @@ and scored against the results after they close.**
 FiveThirtyEight went dark in March 2025. Its method didn't have to. This
 repository rebuilds the core of it from public, openly licensed data and
 publishes everything: the poll ledger, the adjustments, the parameters,
-the backtest that set them, and the snapshot that gets graded.
+the backtests that set them, and the snapshot that gets graded.
+
+**Live site: [midterms.karazajac.io](https://midterms.karazajac.io)** — every
+race with its polls and inputs, chamber odds under each model version, and
+an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
+(shift the national environment, call races, watch control move).
 
 <!-- forecast:start -->
 **Forecast as of 2026-11-01** (deluxe version, 50,000 simulations) · generic ballot D+9.1 (two-party)
 
 | | Democrats win | Median D seats | 80% interval |
 |---|---:|---:|---:|
-| House (218 for control) | **92.8%** | 238 | 220–254 |
-| Senate (51; VP breaks ties) | **78.3%** | 52 | 49–55 |
-| Governorships (26 of 50) | 84.9% | 27 | 25–30 |
+| House (218 for control) | **94.0%** | 237 | 221–253 |
+| Senate (51; VP breaks ties) | **75.1%** | 52 | 49–55 |
+| Governorships (26 of 50) | 77.5% | 28 | 24–31 |
 
-House tipping points: PA-07, AZ-01, VA-02. Senate: Ohio (special), Kansas, Texas.
+House tipping points: PA-07, NY-17, VA-02. Senate: Ohio (special), Texas, Maine.
 <!-- forecast:end -->
 
 ## What's here
@@ -31,7 +41,8 @@ House tipping points: PA-07, AZ-01, VA-02. Senate: Ohio (special), Kansas, Texas
 | Generic-ballot polls (Dec 2024 – Oct 2026) | **724** |
 | Handicapper ratings (Cook, Sabato, Inside Elections and 7 more) | **2,687** |
 | Nominees matched to FEC filings | **856 / 906** |
-| Contested districts in the backtest (2018 + 2022) | **739** |
+| Contested House districts in the fundamentals backtest (2018 + 2022) | **739** |
+| Senate and governor races in the polling backtest (2014–2025) | **323** |
 
 ```
 midterms/
@@ -39,8 +50,10 @@ midterms/
 │                     ratings) → build (races, polls, ratings, finance, lean)
 │                     → validate; a stdlib HTML-table parser for Wikipedia
 ├── model/          poll averaging + adjustments, fundamentals, ratings map,
-│                     correlated simulator, the 2018/2022 backtest
+│                     correlated simulator, the House and statewide backtests
 └── journal/        the ex-ante scorecard
+sim/simulator.mjs   the same simulator for the browser (CI-checked against Python)
+site/               the Astro site at midterms.karazajac.io (builds from data/site/)
 curated/            hand-maintained control math (seats not up, caucusing)
 data/
 ├── races/          house.csv · senate.csv · governor.csv — nominees, D-side /
@@ -52,9 +65,11 @@ data/
 │                     Bulletin…) — challengers, never inputs
 ├── finance.csv     FEC individual contributions per nominee
 ├── backtest.yaml   the fitted House parameters and their out-of-sample test
+├── backtest_statewide.yaml   323 past races: how accurate this polling average is
 ├── meta.yaml       provenance: URLs, fetch times, sha256s, revision ids
-└── forecast/       latest.json + snapshots/ (the timestamped record)
-docs/               method (read the caveats), sources, roadmap
+├── forecast/       latest.json + snapshots/ (the timestamped record)
+└── site/           the website's data contract (docs/site-data.md)
+docs/               method (read the caveats), sources, site data, roadmap
 tests/              stdlib unittest; `make verify` gates every commit
 ```
 
@@ -78,6 +93,10 @@ voter gaps and partisan sponsorship — each adjustment *measured from the
 poll set itself* (this cycle: RV polls run 0.5 pts more Democratic than LV
 versions of the same poll; D-sponsored polls lean 2.1 pts D, R-sponsored
 1.9 pts R). Older state polls are moved along the national trend line.
+The uncertainty of each average is fit too: a small error every poll of a
+race shares plus a large one each poll carries alone, which averages away
+as polls accumulate — so a race with two polls is far less certain than one
+with thirty.
 
 Each simulation draws one fat-tailed national error, Census-region and
 state errors (a district shares its state's error with the Senate and
@@ -88,16 +107,33 @@ President Vance's tiebreak; an independent who hasn't picked a caucus
 (Nebraska's Dan Osborn) counted as neither. Full method and its
 limitations: [docs/method.md](docs/method.md).
 
+## Accuracy
+
+Two backtests set the parameters and are re-run by `make backtest`:
+
+- **House fundamentals** — fit on 739 contested districts (2018, 2022);
+  out of sample (fit one midterm, predict the other) Brier 0.041. The fit
+  also exposed that the national-vote → district translation shifts by
+  ±2 points between cycles, which the simulator now carries.
+- **The polling average itself** — this exact averaging code replayed on
+  323 Senate and governor races, 2014–2025, three days out. Polls + ratings
+  (the Deluxe blend) scored best: Brier 0.052 vs 0.055 for polls alone and
+  0.054 for ratings alone. Cycle-level misses ran −4.1, −2.6, +0.4, −7.2,
+  −2.4, −5.0 and, in 2025's New Jersey and Virginia races, **+6.8 toward
+  Democrats**: the national error is sized from them (sd 3.5) but not
+  signed — [why](docs/method.md#8b-the-statewide-polling-backtest--how-accurate-is-this-average).
+
 ## The loop
 
 ```console
 $ make pull        # Wikipedia (127 pages, pinned by revision), FEC, lean, ratings
 $ make build       # sources/ -> data/ ; then `make verify`
-$ make backtest    # refit the House fundamentals on 2018 + 2022
+$ make backtest    # refit: House fundamentals (2018/22) + statewide polls (2014-25)
 $ make forecast    # -> data/forecast/latest.json (and this README's block)
 $ make snapshot    # freeze a timestamped forecast into the record
 $ python3 -m midterms show senate:ME     # one race, every input shown
 $ make score       # after Election Day: the scorecard
+$ make web-test    # the browser simulator must reproduce the Python forecast
 ```
 
 ## Honesty guarantees
