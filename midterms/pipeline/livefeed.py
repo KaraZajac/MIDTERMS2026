@@ -318,16 +318,20 @@ def _previous(out: Path | None, explicit: str | None) -> dict | None:
     return None
 
 
-def main(out: str | None = None, previous: str | None = None, draws: int = DRAWS,
+def main(out: str | None = None, previous: str | None = None, draws: int | None = None,
          fixture: float | None = None, seed: int = FIXTURE_SEED) -> None:
+    draws = draws or DRAWS
     generated = now_utc()
+    fc, snapshot, of_record = forecast_of_record(generated)
+    # nominees as frozen in the forecast (the build re-reads Wikipedia on
+    # Election Day, when editors are reshaping the pages); r_side from data/races
     rows = race_rows()
+    rows = {rid: {**rows.get(rid, {}), **{k: m[k] for k in ("state", "d_cand", "r_cand", "d_side") if m.get(k)}}
+            for rid, m in fc["races"].items()}
     if fixture is not None:
-        fc, snapshot, of_record = forecast_of_record(generated)
         res, fetched = fixture_results(fc, rows, fixture, seed=seed), None
         prev = json.loads(Path(previous).read_text()) if previous else None      # a fixture sequence
     else:
-        fc, snapshot, of_record = forecast_of_record(generated)
         wiki = wikipedia_calls(fc)
         try:
             civic_races, fetched = civic.fetch_all()

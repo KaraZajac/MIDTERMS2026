@@ -54,7 +54,7 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--out", help="write here instead of data/site/live.json (the web server)")
     p.add_argument("--previous", help="the last live.json (default: --out without .tmp, "
                                       "then data/site/live.json)")
-    p.add_argument("--draws", type=int, default=20000)
+    p.add_argument("--draws", type=int, help="weighted simulations (default 40000)")
     p.add_argument("--fixture", type=float, metavar="HOUR",
                    help="no fetch: a simulated night at HOUR (Eastern, e.g. 21.5) for testing")
     p.add_argument("--seed", type=int, default=3, help="the simulated night (--fixture)")

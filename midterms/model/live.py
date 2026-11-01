@@ -398,20 +398,37 @@ def _called(margin: float, hours_since_close: float) -> bool:
     return abs(margin) > need
 
 
-def selfcheck(sim: dict, nights: int = 100, draws: int = 5000, seed: int = 7) -> dict:
+def _truth_control(eng: "Engine", dwin: np.ndarray) -> dict:
+    """Who controls each chamber when every race goes as `dwin` says."""
+    party = np.where(dwin, eng.d_party, eng.r_party)[None, :]
+    out = {}
+    for cname, ch in eng.chambers.items():
+        m = np.array([c == cname for c in eng.chamber_of])
+        totals = {p: (party[:, m] == k).sum(axis=1) + (ch.get("seats_not_up") or {}).get(p, 0)
+                  for p, k in eng.pcode.items()}
+        _, dc, _ = _control(totals, ch, ch.get("caucus") or {})
+        out[cname] = float(dc[0])
+    return out
+
+
+def selfcheck(sim: dict, nights: int = 100, draws: int = 4000, seed: int = 7,
+              checkpoints: list[float] = CHECKPOINTS) -> dict:
     """Simulation-based calibration: draw `nights` true outcomes from the
     forecast itself, reveal them as calls the way a decision desk would
     (by poll closing, lopsided races first), and score the live control
-    probabilities at each checkpoint against what actually happened."""
+    probabilities at each checkpoint against what actually happened —
+    next to the pre-election probabilities on the same nights, so the
+    luck of the sample cancels: `bias` is the mean of (outcome − p)."""
     eng = Engine(sim)
     rng = np.random.default_rng(seed)
     R = len(eng.ids)
     close = np.array([_CLOSE.get(r["state"], 21.0) for r in eng.races])
-    rows = {cp: {c: [] for c in eng.chambers} for cp in CHECKPOINTS}
-    ess = {cp: [] for cp in CHECKPOINTS}
-    ncalls = {cp: [] for cp in CHECKPOINTS}
+    pre = {c: sim["reference"][eng.version][c]["D"] for c in eng.chambers}
+    rows = {cp: {c: [] for c in eng.chambers} for cp in checkpoints}
+    ess = {cp: [] for cp in checkpoints}
+    ncalls = {cp: [] for cp in checkpoints}
+    outcomes = {c: [] for c in eng.chambers}
     for k in range(nights):
-        # a true night from the model's own prior
         th = np.zeros(eng.D)
         th[0] = eng.c_nat * rng.standard_t(eng.nu_nat)
         th[1:] = rng.standard_normal(eng.D - 1) * eng.prior_sd[1:]
@@ -421,24 +438,31 @@ def selfcheck(sim: dict, nights: int = 100, draws: int = 5000, seed: int = 7) ->
         m = eng.mu + eng.A @ th + eps * eng.sd
         m = np.where(eng.fixed == 1, 99.0, np.where(eng.fixed == -1, -99.0, m))
         side = np.where(m > 0, "D", "R")
-        truth = eng.run({rid: side[i] for i, rid in enumerate(eng.ids)}, n=200, seed=k)
-        for cp in CHECKPOINTS:
+        truth = _truth_control(eng, m > 0)
+        for c in eng.chambers:
+            outcomes[c].append(truth[c])
+        for cp in checkpoints:
             calls = {rid: side[i] for i, rid in enumerate(eng.ids)
                      if not eng.fixed[i] and _called(m[i], cp - close[i])}
             out = eng.run(calls, n=draws, seed=1000 + k)
             ess[cp].append(out["ess"])
             ncalls[cp].append(len(calls))
             for c in eng.chambers:
-                won = truth["chambers"][c]["p_control"]["D"] > 0.5
-                rows[cp][c].append((out["chambers"][c]["p_control"]["D"], float(won)))
-    report = {"nights": nights, "draws": draws, "checkpoints": []}
+                rows[cp][c].append((out["chambers"][c]["p_control"]["D"], truth[c]))
+    report = {"nights": nights, "draws": draws,
+              "pre": {c: {"p": round(pre[c], 4), "observed": round(float(np.mean(outcomes[c])), 4),
+                          "brier": round(float(np.mean((pre[c] - np.array(outcomes[c])) ** 2)), 4)}
+                      for c in eng.chambers},
+              "checkpoints": []}
     pooled = []
-    for cp in CHECKPOINTS:
+    for cp in checkpoints:
         row = {"hour_et": cp, "calls": round(float(np.mean(ncalls[cp]))),
                "ess_median": round(float(np.median(ess[cp]))), "ess_min": int(min(ess[cp]))}
         for c in eng.chambers:
             p, o = np.array(rows[cp][c]).T
-            row[c] = {"brier": round(float(np.mean((p - o) ** 2)), 4)}
+            row[c] = {"brier": round(float(np.mean((p - o) ** 2)), 4),
+                      "bias": round(float(np.mean(o - p)), 4),
+                      "bias_pre": round(float(np.mean(o - pre[c])), 4)}
             pooled += list(zip(p, o))
         report["checkpoints"].append(row)
     p, o = np.array(pooled).T
