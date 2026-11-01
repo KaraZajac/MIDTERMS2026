@@ -132,6 +132,18 @@ polls: [… same poll fields …], outside_averages: [...]}`
 house|senate|governor: {p, p50, p10, p90}}]}` — one row per frozen snapshot;
 `ex_ante` false for anything generated after the deadline.
 
+## changes.json — what each refresh changed
+
+`{generated, asof, basis, entries: [{t, previous, chambers: {house|senate|governor:
+{from, to}}, polls: [{race, pollster, end, margin, partisan, via, weight}],
+polls_total, moved: [{race, from, to}], moved_total}]}` — newest first, the
+last 96 refreshes that changed anything (`model/changes.py`). `polls` are the
+polls that entered an average since the previous forecast (`margin`: raw
+two-party, D-side minus R-side; `weight`: share of that race's average);
+`moved` are the races whose P(D-side wins) moved two points or more; the
+chamber values are P(Democratic control). Headline version throughout.
+Frozen after the deadline, when the forecast stops rerunning.
+
 ## sim.json — input for `sim/simulator.mjs`
 
 `{national_mu, shared: {sd_national, nu_national, sd_region, sd_state,

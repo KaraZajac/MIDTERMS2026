@@ -18,7 +18,10 @@ model and pipeline that produced it. Automated six-hourly refreshes
 - The web server runs it every minute through the night; the refresh
   workflow commits `data/site/live.json` as the record (every 10 minutes
   overnight). Contract: docs/site-data.md.
-- `summary.json` gains `next_refresh`, when the next refresh starts.
+- `summary.json` gains `next_refresh`, when the next refresh starts; and
+  a new `changes.json` lists what each refresh changed — the polls that
+  entered an average, the races that moved two points or more, the
+  chambers (backfilled from today's refresh commits).
 
 ### 2026-11-01 — refresh fixes: ratings pinned, a 30-minute chain (no model change)
 - Silver Bulletin put its ratings file behind a login on Nov 1, and the

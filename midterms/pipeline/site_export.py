@@ -16,6 +16,7 @@ never more than one refresh behind. Every file is an object carrying
                   URL) and the daily polling-average trend with an 80% band
   generic.json    the generic-ballot daily average (80% band) and its polls
   history.json    the topline across frozen snapshots (the ex-ante record)
+  changes.json    what each refresh changed: new polls, races that moved
   sim.json        parameters for the in-browser simulator (sim/simulator.mjs)
   backtest.json   out-of-sample accuracy: Brier, log loss, calibration bins
   meta.json       phase, provenance, counts, licensing, state reference data
@@ -431,6 +432,10 @@ def main() -> None:
                                  for p in ledger["ledgers"].get("generic", [])],
                        "outside_averages": summary(fc, meta, cur, averages, ph)["national"]["outside_averages"]})
     w("history.json", {"snapshots": history()})
+    from midterms.model import changes
+    w("changes.json", {"basis": "each refresh against the one before; p = P(D-side wins), "
+                                "chambers = P(Democratic control), headline version",
+                       "entries": changes.load()["entries"]})
     w("sim.json", sim_params(fc, cur, race_rows))
     w("backtest.json", backtest())
     if scorecard:

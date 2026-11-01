@@ -409,6 +409,13 @@ def main(*, sims: int = 50_000, seed: int = 20261103, asof: str | None = None,
                       for k, v in params.items()},
            "races": races_meta, **res}
     FORECAST.mkdir(parents=True, exist_ok=True)
+    from midterms.model import changes
+    try:                             # the forecast this one replaces, for the updates feed
+        old = json.loads((FORECAST / "latest.json").read_text())
+        old_ledger = json.loads((FORECAST / "ledger.json").read_text())
+    except (OSError, ValueError):
+        old = old_ledger = None
+    changes.record(old, old_ledger, doc, {"ledgers": ledgers})
     (FORECAST / "latest.json").write_text(json.dumps(doc, indent=1, sort_keys=True))
     (FORECAST / "ledger.json").write_text(json.dumps(
         {"generated": generated, "asof": asof, "ledgers": ledgers, "trends": trends},

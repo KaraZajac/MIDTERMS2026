@@ -147,7 +147,7 @@ def check_forecast(g: Gate) -> None:
 def check_site(g: Gate) -> None:
     """data/site/ must be complete and agree with the forecast it came from."""
     from midterms.paths import SITE
-    want = ["summary", "races", "polls", "generic", "history", "sim", "backtest", "meta"]
+    want = ["summary", "races", "polls", "generic", "history", "changes", "sim", "backtest", "meta"]
     if not SITE.exists():
         return
     for name in want:
