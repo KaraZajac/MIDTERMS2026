@@ -169,7 +169,7 @@ function chamberCard(key, c, N) {
       ? h(
           "p",
           { class: "live-unreliable" },
-          `Too few simulations match the calls so far to give a steady chance (an effective ${fmtInt(L.ess)} of ${fmtInt(L.draws)}). Before results, Democrats had ${pct1(pp.D)}.`,
+          `Too few simulations fit the calls so far to give a steady chance (an effective ${fmtInt(L.ess)} of ${fmtInt(L.draws)}). Before results, Democrats had ${pct1(pp.D)}.`,
         )
       : [
           h(
@@ -349,7 +349,7 @@ function raceBanner(box, data) {
     chance = [
       `Chance now, given the races called elsewhere: ${side.D.name || "D-side"} ${pct1(pLive)}, ${side.R.name || "R-side"} ${pct1(1 - pLive)}`,
       pPre != null ? ` (before results: ${pct1(pPre)} and ${pct1(1 - pPre)})` : "",
-      ". The count itself doesn't move it.",
+      ". Only calls move it, not this count: early returns can mislead.",
       r.disputed ? " civicAPI and Wikipedia call this race differently, so it isn't treated as called." : "",
     ];
   }
