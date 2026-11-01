@@ -2,7 +2,8 @@
 import Base from "../layouts/Base.astro";
 import TrendChart from "../components/TrendChart.astro";
 import { generic, summary } from "../lib/data.js";
-import { margin, fmtShortDate, fmtDate, fmtStamp, pct } from "../lib/format.js";
+import { margin, fmtShortDate, fmtDate, pct } from "../lib/format.js";
+import Ago from "../components/Ago.astro";
 
 const g = generic();
 const s = summary();
@@ -21,7 +22,7 @@ const change = last[1] - first[1];
       Which party would you vote for in your district? The answer, averaged across polls, sets the national environment
       every race in the model starts from. Two-party margin; 80% band shaded.
     </p>
-    <p class="updated">Updated {fmtStamp(g.generated)} · {change >= 0 ? "up" : "down"} {Math.abs(change).toFixed(1)} points for Democrats since {fmtDate(first[0])}</p>
+    <p class="updated">Updated <Ago iso={g.generated} /> · {change >= 0 ? "up" : "down"} {Math.abs(change).toFixed(1)} points for Democrats since {fmtDate(first[0])}</p>
   </section>
 
   <div class="card">

@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { meta, buildCommit } from "../lib/data.js";
 import { fmtStamp, url } from "../lib/format.js";
+import Ago from "../components/Ago.astro";
 
 interface Props {
   title: string;
@@ -137,6 +138,12 @@ const phase = m.phase ?? "forecast";
       <slot />
     </main>
 
+    <div class="update-note" id="update-note" role="status" data-src={url("/build.json")} data-generated={m.generated} data-phase={phase} hidden>
+      <span id="update-note-text"></span>
+      <button type="button" class="update-note-go" id="update-note-go">Reload</button>
+      <button type="button" class="update-note-x" id="update-note-x" aria-label="Dismiss">×</button>
+    </div>
+
     <footer class="site-foot">
       <div class="wrap cols">
         <div>
@@ -147,7 +154,7 @@ const phase = m.phase ?? "forecast";
             simulations, frozen before the polls open on November 3 and scored after they close.
           </p>
           <p>
-            Forecast updated {fmtStamp(m.generated)} · model {m.model ?? "midterms2026"} · built from{" "}
+            Forecast updated <Ago iso={m.generated} /> · model {m.model ?? "midterms2026"} · built from{" "}
             <a href={`${REPO_URL}/commit/${commit}`}><code>{commit.slice(0, 7)}</code></a>
           </p>
           <div class="onion-line">
@@ -222,6 +229,73 @@ const phase = m.phase ?? "forecast";
           paintVersion();
         });
         paintVersion();
+
+        // Freshness. Pages are static, so each <time data-ago> carries the
+        // absolute time and this adds its age, every 30 s. The reader's clock
+        // is corrected by the server's Date header from the check below.
+        var skew = 0;
+        function ago(ms) {
+          var m = Math.floor(ms / 60000);
+          if (m < 1) return "just now";
+          if (m < 60) return m + " min ago";
+          var h = Math.floor(m / 60);
+          if (h < 24) return h + (h === 1 ? " hour ago" : " hours ago");
+          var n = Math.floor(h / 24);
+          return n + (n === 1 ? " day ago" : " days ago");
+        }
+        function paintAges() {
+          document.querySelectorAll("time[data-ago]").forEach(function (t) {
+            if (!t.dataset.abs) t.dataset.abs = t.textContent;
+            var ms = Date.now() + skew - Date.parse(t.getAttribute("datetime"));
+            if (!(ms > -300000)) return; // a clock far behind, or no date: keep the absolute time
+            t.textContent = ago(Math.max(0, ms)) + " (" + t.dataset.abs + ")";
+          });
+        }
+        paintAges();
+        setInterval(paintAges, 30000);
+
+        // A newer forecast. While the tab is visible, ask /build.json each
+        // minute what the live site was built from. When the forecast or its
+        // phase has changed since this page was built, offer a reload, never
+        // force one: the reader may be mid-simulation. Commits that change
+        // neither (site fixes, results data the page fetches itself) stay quiet.
+        var note = document.getElementById("update-note");
+        var mine = note.dataset.generated + "|" + note.dataset.phase;
+        var shown = mine;
+        function stampET(iso) {
+          return new Date(iso)
+            .toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" })
+            .replace("AM", "a.m.")
+            .replace("PM", "p.m.") + " ET";
+        }
+        function checkBuild() {
+          if (document.hidden) return;
+          fetch(note.dataset.src, { cache: "no-cache" })
+            .then(function (r) {
+              var date = Date.parse(r.headers.get("Date") || "");
+              if (!isNaN(date)) { skew = date - Date.now(); paintAges(); }
+              return r.ok ? r.json() : null;
+            })
+            .then(function (b) {
+              if (!b || !b.generated) return;
+              var key = b.generated + "|" + b.phase;
+              if (key === shown) return;
+              shown = key;
+              document.getElementById("update-note-text").textContent =
+                b.phase !== note.dataset.phase
+                  ? b.phase === "frozen" ? "The forecast is now frozen for scoring."
+                    : b.phase === "results" ? "Results are coming in."
+                    : "This page has been updated."
+                  : "A newer forecast is out, made " + stampET(b.generated) + ".";
+              note.hidden = false;
+            })
+            .catch(function () {});
+        }
+        document.getElementById("update-note-go").addEventListener("click", function () { location.reload(); });
+        document.getElementById("update-note-x").addEventListener("click", function () { note.hidden = true; });
+        document.addEventListener("visibilitychange", function () { if (!document.hidden) checkBuild(); });
+        setInterval(checkBuild, 60000);
+        checkBuild();
       })();
     </script>
     <script>

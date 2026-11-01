@@ -2,7 +2,8 @@
 // Page head for a chamber page: the headline sentence per version.
 import { summary } from "../lib/data.js";
 import { VERSIONS } from "../lib/model.js";
-import { favoured, fmtStamp } from "../lib/format.js";
+import { favoured } from "../lib/format.js";
+import Ago from "./Ago.astro";
 
 interface Props { chamber: "house" | "senate" | "governor"; eyebrow: string }
 const { chamber, eyebrow } = Astro.props;
@@ -26,5 +27,5 @@ function line(v: string) {
   <p class="eyebrow">{eyebrow}</p>
   {VERSIONS.map((v) => <h1 class={`v v-${v}`}>{line(v)}</h1>)}
   <slot />
-  <p class="updated">Updated {fmtStamp(s.generated)}</p>
+  <p class="updated">Updated <Ago iso={s.generated} /></p>
 </section>

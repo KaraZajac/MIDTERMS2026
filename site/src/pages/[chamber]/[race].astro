@@ -10,7 +10,8 @@ import {
   sideKey, sideLabel, partyTag, candShort, isIncumbent,
 } from "../../lib/model.js";
 import { pct, pct1, aPct, margin, fmtDate, fmtShortDate, surname, inWords, url, PARTY_NAMES } from "../../lib/format.js";
-import { scorecard } from "../../lib/data.js";
+import { scorecard, meta } from "../../lib/data.js";
+import Ago from "../../components/Ago.astro";
 
 export function getStaticPaths() {
   return races().map((r) => {
@@ -131,6 +132,7 @@ const desc = fixed
           : "it is not contested between the two parties"}{r.others?.length ? `, so ${candShort(r.fixed === r.d.party ? r.d : r.r)} faces ${r.others.join(", ")}` : ""}. The model counts it as a certain {r.fixed} seat.
       </p>
     )}
+    <p class="updated">Forecast updated <Ago iso={meta().generated} /></p>
   </header>
 
   {!fixed && (

@@ -1,0 +1,13 @@
+---
+// A timestamp that says how old it is: "12 min ago (Nov 1, 2026, 6:23 p.m. ET)".
+// The build writes the absolute time; the script in Base.astro adds the age and
+// keeps it current. Without JavaScript the absolute time stands alone.
+import { fmtStamp } from "../lib/format.js";
+
+interface Props {
+  iso: string;
+}
+const { iso } = Astro.props;
+---
+
+<time datetime={iso} data-ago>{fmtStamp(iso)}</time>
