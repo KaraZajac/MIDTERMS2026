@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import io
 import re
+import unicodedata
 import zipfile
 
 from midterms.paths import SOURCES
@@ -54,16 +55,48 @@ def load() -> list[dict]:
     return out
 
 
+SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "mr", "mrs", "ms", "dr"}
+
+
+def _ascii(s: str) -> str:
+    return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
+
+
+def _tokens(s: str) -> list[str]:
+    s = re.sub(r"\(.*?\)|\".*?\"", " ", _ascii(s).lower())
+    return [t for t in re.sub(r"[^a-z' -]", " ", s).replace("-", " ").split()
+            if t.strip("'") and t.strip("'") not in SUFFIXES]
+
+
 def _surname(name: str) -> str:
     """FEC 'BEGICH, NICHOLAS III' / wiki 'Nick Begich' -> 'begich'."""
     n = name.strip()
-    if "," in n:
-        last = n.split(",")[0]
-    else:
-        toks = [t for t in re.sub(r"[^A-Za-z' -]", " ", n).split()
-                if t.lower() not in ("jr", "sr", "ii", "iii", "iv")]
-        last = toks[-1] if toks else ""
-    return re.sub(r"[^a-z]", "", last.lower())
+    toks = _tokens(n.split(",")[0]) if "," in n else _tokens(n)[-1:]
+    return "".join(t.replace("'", "") for t in toks)
+
+
+def _names_match(wiki: str, fec: str) -> bool:
+    """Does an FEC 'LAST, FIRST' name belong to this Wikipedia nominee?
+    Handles compound and accented surnames (Wasserman Schultz, De La Cruz,
+    Luján) and the FEC's occasional swapped fields ('NICK, LALOTA')."""
+    w = [t.replace("'", "") for t in _tokens(wiki)]
+    if not w:
+        return False
+    last, _, first = fec.partition(",")
+    fl = "".join(t.replace("'", "") for t in _tokens(last))
+    ff = [t.replace("'", "") for t in _tokens(first)]
+    # FEC surname equals the wiki name's last k tokens joined (k = 1..3)
+    for k in (1, 2, 3):
+        if len(w) >= k and fl == "".join(w[-k:]):
+            return True
+    # swapped: the FEC 'first' field holds the surname
+    if ff and "".join(ff) == w[-1] and fl and fl[:1] == w[0][:1]:
+        return True
+    # filed under a legal surname, public name in the first-name field
+    # ('ARENHOLZ, ASHLEY HINSON' is Ashley Hinson)
+    if len(w) >= 2 and len(ff) >= 2 and ff[-1] == w[-1] and ff[0] == w[0]:
+        return True
+    return False
 
 
 def index(rows: list[dict]) -> dict:
@@ -78,8 +111,7 @@ def index(rows: list[dict]) -> dict:
 
 def match(idx: dict, office: str, state: str, district: str, name: str, party: str) -> dict | None:
     pool = idx.get((office, state, district), [])
-    sn = _surname(name)
-    hits = [r for r in pool if _surname(r["CAND_NAME"]) == sn]
+    hits = [r for r in pool if _names_match(name, r["CAND_NAME"])]
     if len(hits) > 1:
         hits = [r for r in hits if r["party"] == party] or hits
     if not hits and party in ("D", "R"):

@@ -7,6 +7,18 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-01 — data fix after the freeze (no model change)
+- **FEC matching.** 50 nominee sides had failed to match an FEC filing —
+  compound or accented surnames (Wasserman Schultz, Gluesenkamp Perez,
+  Trone Garriott, Van Epps, De La Cruz, Luján), a record with swapped name
+  fields ("NICK, LALOTA") and a legal-surname filing ("ARENHOLZ, ASHLEY
+  HINSON") — and an unmatched side counted as $0 raised, pinning the
+  money term at its ±4 cap. Matching now handles all of these (871/906
+  matched; the rest are mostly unregistered minor candidates), and an
+  unmatched side is *unknown* money, which skips the term rather than
+  zeroing it. Races that moved: IA-03 68% → 84% D, WA-03 76% → 88%,
+  TX-35 68% → 57%, CA-48 94% → 97%; House control 94.6% → 94.9%.
+
 ### 2026-11-01 — model frozen (05:08 UTC; first frozen snapshot 2026-11-01T050841Z)
 From here to the deadline only the data changes; any later model change
 would be recorded here with its reason.

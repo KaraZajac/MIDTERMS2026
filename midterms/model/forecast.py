@@ -93,7 +93,10 @@ def load_inputs() -> dict:
                                        "label": r.get("rating", ""), "asof": r.get("asof", "")})
     finance = defaultdict(dict)
     for r in _csv(DATA / "finance.csv"):
-        finance[r["race"]][r["side"]] = _f(r.get("receipts")) or 0.0
+        # an unmatched nominee is *unknown* money, not zero: fundamentals()
+        # skips the money term unless both sides are known
+        if r.get("fec_id"):
+            finance[r["race"]][r["side"]] = _f(r.get("receipts")) or 0.0
     quality = {}
     for r in _csv(DATA / "pollster_quality.csv"):
         quality[P.canonical_pollster(r["pollster"])] = float(r["weight"])

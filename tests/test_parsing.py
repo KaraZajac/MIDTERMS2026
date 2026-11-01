@@ -117,3 +117,17 @@ class TestRatings(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestFecNames(unittest.TestCase):
+    def test_name_matching(self):
+        from midterms.pipeline.finance import _names_match as m
+        for wiki, fec in [("Nick LaLota", "NICK, LALOTA"),                 # swapped fields
+                          ("Debbie Wasserman Schultz", "WASSERMAN SCHULTZ, DEBBIE"),
+                          ("Ben Ray Luján", "LUJAN, BEN RAY"),              # accents
+                          ("Carlos De La Cruz", "DE LA CRUZ, CARLOS"),
+                          ("Ashley Hinson", "ARENHOLZ, ASHLEY HINSON"),     # legal surname
+                          ("Nick Begich III", "BEGICH, NICHOLAS III")]:
+            self.assertTrue(m(wiki, fec), (wiki, fec))
+        self.assertFalse(m("Nick LaLota", "WILSON, CELINA MRS."))
+        self.assertFalse(m("John Smith", "DOE, JANE SMITH"))
