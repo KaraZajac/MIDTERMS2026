@@ -40,7 +40,7 @@ House tipping points: PA-07, NC-11, FL-25. Senate: Ohio (special), Texas, Maine.
 | General-election head-to-head polls, in 176 races | **1,640** |
 | Generic-ballot polls (Dec 2024 – Oct 2026) | **724** |
 | Handicapper ratings (Cook, Sabato, Inside Elections and 7 more) | **2,687** |
-| Nominees matched to FEC filings | **856 / 906** |
+| Nominees matched to FEC filings | **871 / 906** |
 | Contested House districts in the fundamentals backtest (2018 + 2022) | **739** |
 | Senate and governor races in the polling backtest (2014–2025) | **323** |
 
@@ -127,9 +127,10 @@ Two backtests set the parameters and are re-run by `make backtest`:
 - **The generic ballot** — checked against 2018, 2020 and 2022: it shares
   the national polling miss, and the House interval is, if anything, wide.
 
-The model was frozen at 2026-11-01 05:08 UTC (first frozen snapshot:
-`2026-11-01T050841Z`); from then until the polls
-open, only the data changes.
+The model was frozen at 2026-11-01 05:08 UTC (first frozen snapshot
+`2026-11-01T050841Z`). From then until the polls open only the data
+changes — including two matching fixes found in a later audit, recorded
+with the races they moved in [CHANGELOG.md](CHANGELOG.md).
 
 ## The loop
 
@@ -150,8 +151,8 @@ $ make web-test    # the browser simulator must reproduce the Python forecast
   before polls open (10:00 UTC, Nov 3). Snapshots are committed, so git
   timestamps them; nothing generated later can enter the record.
 - **Every input is traceable.** Each Wikipedia page is pinned by revision
-  id; each file by sha256 (`data/meta.yaml`). Rebuilding from those
-  revisions reproduces `data/` exactly.
+  id; each file by sha256 (`data/meta.yaml`). The build is deterministic:
+  the same revisions and files reproduce `data/` exactly.
 - **No hidden knobs.** Every parameter lives in `midterms/model/params.yaml`
   marked `fit` (estimated in this repo) or `prior` (from the literature,
   documented, and open to being overturned).
@@ -165,8 +166,10 @@ Wikipedia's race pages (candidates, polls, ratings, outside averages;
 CC BY-SA 4.0) · The Downballot (2024/2020 presidential results by district,
 2026 lines) · Dave's Redistricting App block data (2020 results on the nine
 redrawn maps) with the Census Bureau's 120th-Congress block equivalency
-files · the FEC (fundraising; 2018/2022 official results) · Silver Bulletin
-and FiveThirtyEight pollster ratings. Several obvious sources are
+files · the FEC (fundraising; 2018/2020/2022 official results) · Silver
+Bulletin and FiveThirtyEight pollster ratings · for the backtests, 353
+past Wikipedia race pages and FiveThirtyEight's archived generic-ballot
+polls. Several obvious sources are
 deliberately *not* used — Cook (terms forbid scraping), RealClearPolling,
 prediction markets, FRED — see [docs/sources.md](docs/sources.md) for why,
 and [DATA-RIGHTS.md](DATA-RIGHTS.md) for the layered licensing.
