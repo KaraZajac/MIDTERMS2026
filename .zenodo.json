@@ -1,0 +1,36 @@
+{
+  "title": "MIDTERMS2026: an open forecast of the 2026 U.S. midterm elections",
+  "upload_type": "software",
+  "description": "An open, FiveThirtyEight-style forecast of every 2026 U.S. House, Senate and gubernatorial race, frozen in git before the polls opened on November 3, 2026 and scored against the results. Polls compiled from Wikipedia's race pages are averaged with recency, sample-size, pollster-quality (Silver Bulletin), sponsorship and crowding weights and with house-effect, likely-vs-registered-voter and sponsor adjustments measured from the polls themselves; House fundamentals (partisan lean on the 2026 district lines, incumbency, fundraising) are fit on 739 contested districts from the 2018 and 2022 midterms; expert ratings enter as a further measurement (Lite, Classic and Deluxe versions). Races are simulated jointly — 50,000 draws with Student-t national and race errors and Census-region, state and House-wide correlated terms — and rolled up with the real control rules. A statewide polling backtest (323 Senate and governor races, 2014-2025) sets the poll and national error structure. Code is MIT; the derived tables are CC BY-SA 4.0, built from Wikipedia, The Downballot, Dave's Redistricting App block data (VEST; Redistricting Data Hub), the Census Bureau, the FEC and Silver Bulletin / FiveThirtyEight pollster ratings — see DATA-RIGHTS.md. The frozen pre-election forecast is attached to the GitHub release; the live site is at https://midterms.karazajac.io.",
+  "creators": [
+    {
+      "name": "Zajac, Kara",
+      "orcid": "0009-0001-7400-1394"
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "keywords": [
+    "election forecasting",
+    "2026 midterm elections",
+    "U.S. House",
+    "U.S. Senate",
+    "governors",
+    "polling averages",
+    "Monte Carlo simulation",
+    "calibration",
+    "Brier score"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://midterms.karazajac.io",
+      "resource_type": "other"
+    },
+    {
+      "relation": "isDerivedFrom",
+      "identifier": "https://en.wikipedia.org/wiki/2026_United_States_elections",
+      "resource_type": "dataset"
+    }
+  ]
+}

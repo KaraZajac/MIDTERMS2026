@@ -389,7 +389,7 @@ def backtest() -> dict:
         out["statewide_polls"] = {
             "what": s["what"], "n_races": s["n_races"], "by_year": s["by_year"],
             "error": s["error"], "fit": s["fit"], "national_error": s["national_error"],
-            "scores": s["scores"],
+            "scores": s["scores"], "generic_ballot": s.get("generic_ballot"),
             "races": [{k: x[k] for k in ("id", "year", "chamber", "state", "d", "d_party", "r",
                                          "actual", "poll_avg", "error", "n_polls")}
                       for x in s["races"]],

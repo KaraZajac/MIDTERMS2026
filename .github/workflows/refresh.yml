@@ -58,6 +58,26 @@ jobs:
           python -m midterms verify
           python -m unittest discover -s tests -q
 
+      - name: Seal the forecast of record (first run after the deadline)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          if [[ "$now" > "2026-11-03T10:00:00Z" ]] && ! gh release view forecast-of-record >/dev/null 2>&1; then
+            snap=$(python - <<'PY'
+          import json, pathlib
+          snaps = sorted(pathlib.Path("data/forecast/snapshots").glob("*.json"))
+          ok = [p for p in snaps if json.loads(p.read_text())["generated"] < "2026-11-03T10:00:00Z"]
+          print(ok[-1] if ok else "")
+          PY
+            )
+            if [ -n "$snap" ]; then
+              gh release create forecast-of-record "$snap" --target "$(git log -1 --format=%H -- "$snap")" \
+                --title "The forecast of record — $(basename "$snap" .json)" \
+                --notes "The last forecast generated before polls opened on Election Day (2026-11-03T10:00Z). This snapshot, unchanged, is what the scorecard grades. See README.md and docs/method.md."
+            fi
+          fi
+
       - name: Commit if substantively changed
         run: |
           git config user.name "midterms-refresh"
