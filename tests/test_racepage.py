@@ -60,7 +60,19 @@ class TestRacePage(unittest.TestCase):
         self.assertEqual([n["candidate"] for n in noms], ["Amy Klobuchar", "Lisa Demuth"])
         self.assertEqual(noms[0]["party_code"], "D")
         inc = rp.incumbent(self.tables)
-        self.assertEqual(inc, {"name": "Tim Walz", "party_code": "D"})
+        self.assertEqual(inc, {"name": "Tim Walz", "names": ["Tim Walz"], "party_code": "D"})
+
+    def test_two_incumbents_and_new_seats(self):
+        two = ("<table><tr><td>Incumbent U.S. Representative<br>Al Green<br>Christian Menefee"
+               "<br>Democratic</td></tr></table>")
+        inc = rp.incumbent(extract_tables(two))
+        self.assertEqual(inc["names"], ["Al Green", "Christian Menefee"])
+        self.assertEqual(inc["party_code"], "D")
+        inline = ("<table><tr><td>Incumbent U.S. Representative<br>Greg Casar (Democratic)"
+                  "<br>Lloyd Doggett (Democratic)</td></tr></table>")
+        self.assertEqual(rp.incumbent(extract_tables(inline))["names"], ["Greg Casar", "Lloyd Doggett"])
+        new = "<table><tr><td>Incumbent U.S. Representative<br>None<br>(New seat)</td></tr></table>"
+        self.assertIsNone(rp.incumbent(extract_tables(new))["name"])
 
     def test_hypothetical_block_excluded(self):
         polls = [t for t in self.gen if rp.is_polling(t)]

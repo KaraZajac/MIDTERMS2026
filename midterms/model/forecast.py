@@ -158,9 +158,11 @@ def fundamentals(race: dict, nat_mu: float, params: dict, finance: dict) -> dict
     lam = _v(params, ch, "national_coef") if ch == "governor" else 1.0
     parts = {"lean": round(b * lean, 2), "national": round(lam * nat_mu, 2)}
     inc_party = race.get("inc_party", "")
-    running = race.get("inc_running", "") == "yes"
+    running = race.get("inc_running", "") in ("yes", "both")
     inc = 0.0
-    if running and inc_party:
+    if race.get("inc_running") == "both":
+        pass                                  # two incumbents: no net advantage
+    elif running and inc_party:
         size = _v(params, ch, "incumbency")
         if ch == "house" and race.get("first_elected") == "2024":
             size += _v(params, "house", "freshman_bonus")

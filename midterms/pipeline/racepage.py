@@ -267,10 +267,17 @@ _INC_RE = re.compile(
     r"Nonpartisan|Vacant)(?:\s*\((?:DFL|D|R)\))?\s*$", re.I)
 
 
+_PARTY_WORD = re.compile(r"^(Democratic(?:[-–]Farmer[-–]Labor)?|Republican|Independent|Libertarian|"
+                         r"Nonpartisan)(?:\s*\((?:DFL|D|R)\))?$", re.I)
+
+
 def incumbent(section_tables: list[Table]) -> dict | None:
-    """{'name', 'party_code'} of the officeholder going into the election,
-    from the race infobox ('Incumbent U.S. Representative Dwight Evans
-    Democratic'). Vacant seats return {'name': None, 'party_code': ''}."""
+    """{'name', 'names', 'party_code'} of the officeholder(s) going into the
+    election, from the race infobox. Redistricting can put two incumbents
+    in one new district ('Al Green' / 'Christian Menefee' / 'Democratic',
+    or 'Greg Casar (Democratic)' / 'Lloyd Doggett (Democratic)'); `name`
+    joins them for display, `names` lists them for matching. New or vacant
+    seats return name None."""
     for t in section_tables:
         for row in t.grid():
             for c in row:
@@ -278,11 +285,28 @@ def incumbent(section_tables: list[Table]) -> dict | None:
                     continue
                 if not re.match(r"^(Incumbent|Before election)\b", c.text):
                     continue
-                if re.search(r"\bvacant\b", c.text, re.I):
-                    return {"name": None, "party_code": ""}
+                if re.search(r"\bvacant\b|\(new seat\)", c.text, re.I):
+                    return {"name": None, "names": [], "party_code": ""}
+                lines = c.lines[1:] if len(c.lines) > 1 else []
+                if lines:
+                    party = ""
+                    if _PARTY_WORD.match(lines[-1]):
+                        party, lines = lines[-1], lines[:-1]
+                    names = []
+                    for ln in lines:
+                        m = re.match(r"^(.*?)\s*\((.+?)\)\s*$", ln)
+                        if m and _PARTY_WORD.match(m.group(2)):
+                            names.append(m.group(1).strip())
+                            party = party or m.group(2)
+                        else:
+                            names.append(ln.strip())
+                    names = [n for n in names if n and n.lower() != "none"]
+                    if names:
+                        return {"name": " & ".join(names), "names": names,
+                                "party_code": party_code(party)}
                 m = _INC_RE.match(c.text)
                 if m:
-                    return {"name": m.group("name").strip(),
+                    return {"name": m.group("name").strip(), "names": [m.group("name").strip()],
                             "party_code": party_code(m.group("party"))}
     return None
 

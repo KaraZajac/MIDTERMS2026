@@ -162,12 +162,13 @@ def one_race(race_id: str, chamber: str, state: str, label: str, tables: list[Ta
         cand_source = "infobox"
     # the '(incumbent)' tag is applied inconsistently; the infobox's
     # 'Incumbent U.S. Representative <name>' row is the authority
-    if inc and inc.get("name"):
+    if inc and inc.get("names"):
         for c in cands:
-            if rp._norm(c["candidate"]) == rp._norm(inc["name"]) or (
-                    rp.match_label(c["candidate"], inc["name"])
-                    and c["party_code"] == inc.get("party_code")):
-                c["incumbent"] = True
+            for nm in inc["names"]:
+                if rp._norm(c["candidate"]) == rp._norm(nm) or (
+                        rp.match_label(c["candidate"], nm)
+                        and c["party_code"] == inc.get("party_code")):
+                    c["incumbent"] = True
     preds = rp.predictions(gen)
     shares = rp.main_poll_shares(gen, cands) if len(cands) > 2 else {}
     d, r, others = sides(cands, shares)
@@ -189,6 +190,8 @@ def one_race(race_id: str, chamber: str, state: str, label: str, tables: list[Ta
     if running:
         inc_c = next(c for c in cands if c["incumbent"])
         row["inc_party"] = inc_c["party_code"] or inc_party
+        if d is not None and r is not None and d.get("incumbent") and r.get("incumbent"):
+            row["inc_running"] = "both"      # member vs member: the advantage cancels
     fund, fund_asof = rp.fundraising(gen)
     return {"race": row,
             "polls": polls,
