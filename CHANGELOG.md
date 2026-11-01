@@ -7,7 +7,14 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
-### 2026-11-01
+### 2026-11-01 — model frozen (05:30 UTC)
+From here to the deadline only the data changes; any later model change
+would be recorded here with its reason.
+
+- **Rating map rescaled** (×1.25, fit on 318 rated statewide races; stable
+  whichever cycle is held out). The rating sd is deliberately left at its
+  prior: fitting it would let the raters' caution about Democratic-leaning
+  polls in 2014–2024 into the model by the back door (method.md §5).
 - **Statewide polling backtest** (`midterms backtest`): this exact averaging
   code replayed on 323 Senate and governor races, 2014–2025, three days
   out. It refit the poll-error structure (a race-shared part plus a

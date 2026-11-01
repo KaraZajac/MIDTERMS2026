@@ -61,7 +61,12 @@ def scale(label: str, d_side_party: str = "D") -> float | None:
     return lvl
 
 
-def implied_margin(s: float, anchors=ANCHORS) -> float:
+def implied_margin(s: float, anchors=ANCHORS, k: float = 1.0) -> float:
+    """Margin implied by scale value s. `k` rescales the anchors: the
+    statewide backtest fits k ~ 1.25 (raters' Lean races were won by ~8,
+    not 5.5) — see data/backtest_statewide.yaml, ratings_fit."""
+    if k != 1.0:
+        return k * implied_margin(s, anchors)
     sign = 1.0 if s >= 0 else -1.0
     x = abs(s)
     for (x0, y0), (x1, y1) in zip(anchors, anchors[1:]):

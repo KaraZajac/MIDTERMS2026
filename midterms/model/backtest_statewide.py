@@ -166,6 +166,48 @@ def national_error(year_stats: dict, race_var: float) -> dict:
                 "modeled: see docs/method.md, Accuracy."}
 
 
+def fit_ratings(rows: list[dict], fit: dict, params: dict) -> dict:
+    """Rescale the rating -> margin anchors (k) and choose the rating sd,
+    both by leave-one-cycle-out log loss of the polls + ratings blend."""
+    rated = [x for x in rows if x["rating_scale"] is not None]
+    years = sorted({x["year"] for x in rated})
+    shared = math.sqrt(_v(params, "national", "sd") ** 2 + _v(params, "shared", "sd_region") ** 2
+                       + _v(params, "shared", "sd_state") ** 2)
+
+    def k_of(xs):
+        X = np.array([R.implied_margin(x["rating_scale"]) for x in xs])
+        Y = np.array([x["actual"] for x in xs])
+        return float((X @ Y) / (X @ X))
+
+    def loyo(sd_r):
+        loss = n = 0
+        for y in years:
+            k = k_of([x for x in rated if x["year"] != y])
+            for x in rated:
+                if x["year"] != y:
+                    continue
+                sd_p = math.sqrt(fit["sd_nonsampling"] ** 2 + fit["sd_per_poll"] ** 2 / x["n_eff"]
+                                 + x["other_var"])
+                w1, w2 = 1 / sd_p ** 2, 1 / (sd_r * 1.3) ** 2
+                mu = (w1 * x["poll_avg"] + w2 * k * R.implied_margin(x["rating_scale"])) / (w1 + w2)
+                sd = (w1 + w2) ** -0.5
+                p = min(max(_phi(mu / math.sqrt(sd ** 2 + shared ** 2)), 1e-4), 1 - 1e-4)
+                yv = 1 if x["actual"] > 0 else 0
+                loss += -(yv * math.log(p) + (1 - yv) * math.log(1 - p))
+                n += 1
+        return loss / n
+
+    grid = {sd: round(loyo(sd), 4) for sd in (1.5, 2.5, 3.5, 4.5, 5.5, 6.5)}
+    return {"k": round(k_of(rated), 3),
+            "k_leave_one_cycle_out": {y: round(k_of([x for x in rated if x["year"] != y]), 3) for y in years},
+            "loyo_log_loss_by_sd": grid, "n": len(rated),
+            "sd_note": "Not adopted: the loss falls monotonically as the rating sd shrinks, i.e. "
+                       "'trust raters over polls' -- because 2014-2024 polls overstated Democrats "
+                       "and raters were more cautious. That is the directional correction the "
+                       "model declines to make (2025 ran the other way); the rating sd stays at "
+                       "its prior. k, a scale calibration, is adopted."}
+
+
 def generic_ballot_check(params: dict, quality_db: dict) -> dict | None:
     """The generic-ballot average (this code, 3 days out, on FiveThirtyEight's
     archived polls) against the national House vote (FEC) and against the
@@ -315,7 +357,9 @@ def main() -> dict:
         resid += list(e - e.mean())
     e_all = np.array([x["error"] for x in rows])
     means = np.array([v["mean_error"] for v in year_stats.values()])
-    # --- probabilities: polls alone, ratings alone, blended — the forecast's sds
+    # --- probabilities: polls alone, ratings alone, blended — the forecast's
+    # sds and the fitted rating-map scale (k barely moves between held-out cycles)
+    rf = fit_ratings(rows, fit, params)
     ys = [1 if x["actual"] > 0 else 0 for x in rows]
     sd_rating = _v(params, "ratings", "sd") * 1.3
     p_polls, p_ratings, p_blend, y_r = [], [], [], []
@@ -323,7 +367,7 @@ def main() -> dict:
         tot_p = math.sqrt(x["poll_sd"] ** 2 + shared ** 2)
         p_polls.append(_phi(x["poll_avg"] / tot_p))
         if x["rating_scale"] is not None:
-            mu_e = R.implied_margin(x["rating_scale"])
+            mu_e = R.implied_margin(x["rating_scale"], k=rf["k"])
             p_ratings.append(_phi(mu_e / math.sqrt(_v(params, "ratings", "sd") ** 2 + shared ** 2)))
             w1, w2 = 1 / x["poll_sd"] ** 2, 1 / sd_rating ** 2
             mu_b = (w1 * x["poll_avg"] + w2 * mu_e) / (w1 + w2)
@@ -346,6 +390,7 @@ def main() -> dict:
         "national_error": national_error(year_stats, float(np.var(resid))),
         "model_assumptions": {"sd_national": sd_nat, "shared_sd": round(shared, 2),
                               "typical_poll_sd": round(float(np.median([x["poll_sd"] for x in rows])), 2)},
+        "ratings_fit": rf,
         "generic_ballot": generic_ballot_check(params, qdb),
         "scores": {"polls": score(p_polls, ys),
                    "polls_on_rated": score(p_polls_r, y_r) if y_r else None,
@@ -366,6 +411,10 @@ def main() -> dict:
     ne = out["national_error"]
     print(f"  national-miss sd (net of noise): midterm-like {ne['sd_estimate_midterm_like']}, "
           f"all cycles {ne['sd_estimate_all_cycles']}, presidential {ne['sd_estimate_presidential']}")
+    rf = out["ratings_fit"]
+    print(f"  ratings map: k {rf['k']} (leave-one-out {min(rf['k_leave_one_cycle_out'].values())}-"
+          f"{max(rf['k_leave_one_cycle_out'].values())}); rating-sd grid (not adopted) "
+          f"{rf['loyo_log_loss_by_sd']}")
     gb = out.get("generic_ballot")
     if gb:
         for y, c in gb["cycles"].items():

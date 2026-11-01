@@ -86,7 +86,12 @@ def challengers(fc: dict) -> dict:
     """race id -> {contender: P(D side)} for the non-model contenders."""
     out = {}
     nat = fc["national"]["environment"]["mu"] or 0.0
-    total_sd = 6.5    # the rating map's calibration scale (see model/ratings.py)
+    p = fc["params"]
+    # the raters alone, through the same fitted map and the forecast's own
+    # shared error (national, region, state)
+    shared = math.sqrt(p["national"]["sd"] ** 2 + p["shared"]["sd_region"] ** 2
+                       + p["shared"]["sd_state"] ** 2)
+    total_sd = math.sqrt(p["ratings"]["sd"] ** 2 + shared ** 2)
     for rid, meta in fc["races"].items():
         det = fc["detail"].get(rid) or {}
         c = {"coin-flip": 0.5}

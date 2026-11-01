@@ -257,7 +257,7 @@ def rating_component(race_ratings: list, params: dict, has_polls: bool) -> dict 
         return None
     s = sum(r["scale"] for r in latest.values()) / len(latest)
     sd = _v(params, "ratings", "sd") * (1.3 if has_polls else 1.0)  # raters read polls too
-    return {"mu": R.implied_margin(s), "sd": sd, "scale": round(s, 3),
+    return {"mu": R.implied_margin(s, k=_v(params, "ratings", "k")), "sd": sd, "scale": round(s, 3),
             "raters": {k: v["label"] for k, v in latest.items()}}
 
 
@@ -375,6 +375,9 @@ def load_params() -> dict:
         for key in ("sd_nonsampling", "sd_per_poll"):
             if key in fit:
                 params["polls"][key] = {"value": fit[key], "basis": "fit"}
+        rf = yaml.safe_load(sw.read_text()).get("ratings_fit") or {}
+        if rf:   # k is a scale calibration; the rating sd stays a prior (see sd_note)
+            params["ratings"]["k"] = {"value": rf["k"], "basis": "fit"}
     return params
 
 

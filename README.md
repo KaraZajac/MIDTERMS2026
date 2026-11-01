@@ -25,11 +25,11 @@ an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
 
 | | Democrats win | Median D seats | 80% interval |
 |---|---:|---:|---:|
-| House (218 for control) | **94.0%** | 237 | 221–253 |
-| Senate (51; VP breaks ties) | **75.1%** | 52 | 49–55 |
-| Governorships (26 of 50) | 77.5% | 28 | 24–31 |
+| House (218 for control) | **94.6%** | 237 | 221–251 |
+| Senate (51; VP breaks ties) | **75.4%** | 52 | 49–55 |
+| Governorships (26 of 50) | 78.4% | 28 | 24–31 |
 
-House tipping points: PA-07, NY-17, VA-02. Senate: Ohio (special), Texas, Maine.
+House tipping points: PA-07, OH-09, IA-01. Senate: Ohio (special), Texas, Maine.
 <!-- forecast:end -->
 
 ## What's here
@@ -116,12 +116,19 @@ Two backtests set the parameters and are re-run by `make backtest`:
   also exposed that the national-vote → district translation shifts by
   ±2 points between cycles, which the simulator now carries.
 - **The polling average itself** — this exact averaging code replayed on
-  323 Senate and governor races, 2014–2025, three days out. Polls + ratings
-  (the Deluxe blend) scored best: Brier 0.052 vs 0.055 for polls alone and
-  0.054 for ratings alone. Cycle-level misses ran −4.1, −2.6, +0.4, −7.2,
-  −2.4, −5.0 and, in 2025's New Jersey and Virginia races, **+6.8 toward
-  Democrats**: the national error is sized from them (sd 3.5) but not
-  signed — [why](docs/method.md#8b-the-statewide-polling-backtest--how-accurate-is-this-average).
+  323 Senate and governor races, 2014–2025, three days out. It refit the
+  poll-error structure, sized the national error, and rescaled the
+  rating map (raters' "Lean" races were won by 8 points, not 5.5).
+  Rating-based forecasts beat polls alone (Brier 0.050–0.052 vs 0.055).
+  Cycle-level misses ran −4.1, −2.6, +0.4, −7.2, −2.4, −5.0 and, in 2025's
+  New Jersey and Virginia races, **+6.8 toward Democrats**: the national
+  error is sized from them (sd 3.5) but not signed —
+  [why](docs/method.md#8b-the-statewide-polling-backtest--how-accurate-is-this-average).
+- **The generic ballot** — checked against 2018, 2020 and 2022: it shares
+  the national polling miss, and the House interval is, if anything, wide.
+
+The model was frozen at 2026-11-01 05:30 UTC; from then until the polls
+open, only the data changes.
 
 ## The loop
 

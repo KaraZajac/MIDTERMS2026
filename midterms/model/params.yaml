@@ -59,5 +59,6 @@ polls:
   trend_lambda: {value: 1.0, basis: prior}
 
 ratings:
-  sd: {value: 5.5, basis: prior}
+  sd: {value: 5.5, basis: prior}      # race-level; deliberately not fit (backtest ratings_fit.sd_note)
+  k: {value: 1.0, basis: prior}       # anchor rescale; fit overrides (~1.25)
   raters: [Cook, Sabato, Inside Elections]

@@ -123,10 +123,16 @@ wins in a D+30 state).
 The latest Cook, Sabato and Inside Elections ratings (as compiled on
 Wikipedia, dated) are mapped to a scale (Solid ±3, Likely ±2, Lean ±1,
 Tilt ±0.5, Toss-up 0), averaged, and converted to a margin through the
-anchors 0 → 0, 0.5 → 2.5, 1 → 5.5, 2 → 11, 3 → 22 points, with sd 5.5
-(×1.3 when the race is polled, since raters read the same polls). With the
-shared error added, those anchors reproduce the raters' long-run hit rates
-(Tilt ≈ 65%, Lean ≈ 80%, Likely ≈ 95%, Solid > 99.9%). Seven other
+anchors 0 → 0, 0.5 → 2.5, 1 → 5.5, 2 → 11, 3 → 22 points **× k = 1.25**,
+with sd 5.5 (×1.3 when the race is polled, since raters read the same
+polls). The rescale k is fit on 318 rated statewide races, 2014–2025: the
+raters' Lean races were won by 8.1 points on average, not 5.5, and their
+Solid races by 28 (k is 1.22–1.28 whichever cycle is held out; it improves
+the ratings' and the blend's out-of-sample Brier). The rating sd is *not*
+fit, on purpose: the leave-one-cycle-out loss keeps falling as it shrinks —
+"trust the raters over the polls" — because the raters were more cautious
+than polls that overstated Democrats in 2014–2024. That is the directional
+correction §8b declines; 2025's misses ran the other way. Seven other
 handicappers Wikipedia tracks are recorded but not blended.
 
 ## 6. Versions and the blend
@@ -242,9 +248,12 @@ What it changed:
    scorecard will show whether that was right.
 
 Scores on the same races (probabilities from the forecast's own
-uncertainty): polls alone Brier 0.0550 · ratings alone 0.0535 · **polls +
-ratings 0.0524** (log loss 0.163, calls 92%) — the blend beats either
-input, which is the case for Deluxe.
+uncertainty and the rescaled rating map of §5): polls alone Brier 0.055 /
+log loss 0.174 · ratings alone 0.050 / 0.160 · **polls + ratings 0.052 /
+0.159**. Both rating-based scores beat polls alone. The raters' edge over
+the blend on Brier is the same cautious-rater effect that §5 declines to
+lean on; the blend has the best log loss, which punishes confident misses
+hardest.
 
 **The generic ballot, checked the same way** (FiveThirtyEight's archived
 generic-ballot polls, CC BY, averaged by this code three days out):
