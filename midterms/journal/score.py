@@ -140,4 +140,6 @@ def main() -> dict:
         if s.get("n"):
             print(f"  {name:10s} Brier {s['brier']:.4f}  log {s['log_loss']:.4f}  calls {s['calls']}")
     print(f"  {len(open_races)} races unresolved")
+    from midterms.pipeline import site_export
+    site_export.main()               # scorecard.json + phase for the site
     return out

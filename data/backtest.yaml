@@ -41,6 +41,7 @@ out_of_sample:
   test: 2022
   n: 384
   brier: 0.0411
+  log_loss: 0.1266
   rmse: 7.05
   mean_error: 4.61
   reliability:
@@ -88,6 +89,7 @@ out_of_sample:
   test: 2018
   n: 355
   brier: 0.0416
+  log_loss: 0.1483
   rmse: 7.24
   mean_error: -3.77
   reliability:

@@ -192,7 +192,7 @@ def oos(rows: list[dict], train: int, test: int) -> dict:
     f = fit(rows, [train])
     offset = f["a"][train] - next(r["national"] for r in rows if r["year"] == train)
     nat_test = next(r["national"] for r in rows if r["year"] == test)
-    briers, bins = [], defaultdict(lambda: [0, 0, 0.0])
+    briers, losses, bins = [], [], defaultdict(lambda: [0, 0, 0.0])
     errs = []
     for r in rows:
         if r["year"] != test:
@@ -203,6 +203,8 @@ def oos(rows: list[dict], train: int, test: int) -> dict:
         p = _phi(mu / sd)
         won = 1.0 if r["margin"] > 0 else 0.0
         briers.append((p - won) ** 2)
+        pc = min(max(p, 1e-4), 1 - 1e-4)
+        losses.append(-(won * math.log(pc) + (1 - won) * math.log(1 - pc)))
         errs.append(r["margin"] - mu)
         b = min(9, int(p * 10))
         bins[b][0] += 1
@@ -211,6 +213,7 @@ def oos(rows: list[dict], train: int, test: int) -> dict:
     e = np.array(errs)
     return {"train": train, "test": test, "n": len(briers),
             "brier": round(float(np.mean(briers)), 4),
+            "log_loss": round(float(np.mean(losses)), 4),
             "rmse": round(float(np.sqrt((e ** 2).mean())), 2),
             "mean_error": round(float(e.mean()), 2),
             "reliability": [{"bin": f"{b / 10:.1f}-{(b + 1) / 10:.1f}", "n": v[0],

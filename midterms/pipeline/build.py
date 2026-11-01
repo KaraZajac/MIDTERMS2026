@@ -33,13 +33,13 @@ from midterms.model import pollsters as PQ
 from midterms.paths import DATA, POLLS, RACES, SOURCES
 from midterms.pipeline import fetch, finance, lean, races, states, wiki
 from midterms.pipeline import wikipolls as wp
-from midterms.pipeline.htmltable import extract_tables
+from midterms.pipeline.htmltable import extract_tables, references
 
 RACE_COLS = ["id", "chamber", "state", "label", "incumbent", "inc_party", "inc_running",
              "first_elected", "d_cand", "d_side", "r_cand", "r_side", "others", "fixed",
              "lean", "pres24_margin", "pres20_margin", "lean_basis", "notes", "source"]
 POLL_COLS = ["race", "pollster", "partisan", "start", "end", "n", "population", "d", "r",
-             "other", "undecided", "d_label", "r_label", "source", "table"]
+             "other", "undecided", "d_label", "r_label", "source", "table", "url"]
 
 
 def _write(path, rows, cols):
@@ -85,6 +85,7 @@ def first_elected() -> dict:
 def generic_polls() -> tuple[list[dict], dict]:
     page = _page(states.GENERIC_BALLOT)
     src = f"wikipedia:{page['title']}@{page['revid']}"
+    urls = references(page["html"])
     out = []
     asof = datetime.date.today().isoformat()
     for t in extract_tables(page["html"]):
@@ -106,7 +107,8 @@ def generic_polls() -> tuple[list[dict], dict]:
                         "start": start, "end": end, "n": row["n"] or "", "population": row["population"] or "",
                         "d": a[dk], "r": a[rk], "other": row["other"] if row["other"] is not None else "",
                         "undecided": row["undecided"] if row["undecided"] is not None else "",
-                        "d_label": dk, "r_label": rk, "source": src, "table": t.index})
+                        "d_label": dk, "r_label": rk, "source": src, "table": t.index,
+                        "url": next((urls[x] for x in row.get("refs", []) if x in urls), "")})
     return out, {"title": page["title"], "revid": page["revid"]}
 
 

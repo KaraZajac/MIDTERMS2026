@@ -24,3 +24,10 @@ jobs:
 
       - name: Unit tests
         run: python -m unittest discover -s tests -q
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - name: Browser simulator parity (sim/simulator.mjs vs the Python forecast)
+        run: node sim/simulator.test.mjs

@@ -18,7 +18,7 @@ import re
 from midterms.model import ratings as R
 from midterms.pipeline import racepage as rp
 from midterms.pipeline import wikipolls as wp
-from midterms.pipeline.htmltable import Table, extract_tables
+from midterms.pipeline.htmltable import Table, extract_tables, references
 from midterms.pipeline.states import AT_LARGE, STATES
 
 MINOR = {"L", "G", "C", "WF", "FWD", "AKIP"}
@@ -91,7 +91,9 @@ def classify(cands: list[dict], preds: list[dict], n_polls: int, shares: dict | 
     return out
 
 
-def _poll_rows(race_id: str, tables: list[Table], d: dict, r: dict, src: str) -> list[dict]:
+def _poll_rows(race_id: str, tables: list[Table], d: dict, r: dict, src: str,
+               urls: dict | None = None) -> list[dict]:
+    urls = urls or {}
     out = []
     for t in rp.poll_tables(tables, d["candidate"], r["candidate"]):
         cols, _ = wp.columns(t)
@@ -117,7 +119,8 @@ def _poll_rows(race_id: str, tables: list[Table], d: dict, r: dict, src: str) ->
                         "population": row["population"] or "", "d": a[dl], "r": a[rl],
                         "other": "" if row["other"] is None else row["other"],
                         "undecided": "" if row["undecided"] is None else row["undecided"],
-                        "d_label": dl, "r_label": rl, "source": src, "table": t.index})
+                        "d_label": dl, "r_label": rl, "source": src, "table": t.index,
+                        "url": next((urls[x] for x in row.get("refs", []) if x in urls), "")})
     return out
 
 
@@ -148,7 +151,7 @@ def _rating_rows(race_id: str, preds: list[dict], d_party: str) -> list[dict]:
 
 
 def one_race(race_id: str, chamber: str, state: str, label: str, tables: list[Table],
-             prefix: str, src: str) -> dict:
+             prefix: str, src: str, urls: dict | None = None) -> dict:
     gen = rp.general(tables, prefix)
     inc = rp.incumbent(rp.section_tables(tables, prefix) if prefix else tables)
     cands = rp.results_box(gen) or []
@@ -168,7 +171,7 @@ def one_race(race_id: str, chamber: str, state: str, label: str, tables: list[Ta
     preds = rp.predictions(gen)
     shares = rp.main_poll_shares(gen, cands) if len(cands) > 2 else {}
     d, r, others = sides(cands, shares)
-    polls = _poll_rows(race_id, gen, d, r, src) if (d and r) else []
+    polls = _poll_rows(race_id, gen, d, r, src, urls) if (d and r) else []
     cls = classify(cands, preds, len(polls), shares)
     d, r = cls["d"], cls["r"]
     inc_name = inc["name"] if inc else ""
@@ -203,11 +206,12 @@ DISTRICT_RE = re.compile(r"^District (\d+)$")
 
 def house_state(st: str, page: dict) -> list[dict]:
     tables = extract_tables(page["html"])
+    urls = references(page["html"])
     src = f"wikipedia:{page['title']}@{page['revid']}"
     if st in AT_LARGE:
         label = _ordinal_label(st, None)
         # at-large pages put the general election at the top level
-        return [one_race(f"house:{label}", "house", st, label, tables, "", src)]
+        return [one_race(f"house:{label}", "house", st, label, tables, "", src, urls)]
     seen = []
     for t in tables:
         top = t.headings[0]
@@ -217,7 +221,7 @@ def house_state(st: str, page: dict) -> list[dict]:
     out = []
     for n in sorted(seen):
         label = _ordinal_label(st, n)
-        out.append(one_race(f"house:{label}", "house", st, label, tables, f"District {n}", src))
+        out.append(one_race(f"house:{label}", "house", st, label, tables, f"District {n}", src, urls))
     return out
 
 
@@ -225,4 +229,4 @@ def statewide(race_id: str, chamber: str, st: str, page: dict) -> dict:
     tables = extract_tables(page["html"])
     src = f"wikipedia:{page['title']}@{page['revid']}"
     label = f"{STATES[st]}" + (" (special)" if race_id.endswith("-special") else "")
-    return one_race(race_id, chamber, st, label, tables, "", src)
+    return one_race(race_id, chamber, st, label, tables, "", src, references(page["html"]))

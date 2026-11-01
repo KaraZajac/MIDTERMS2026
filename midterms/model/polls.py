@@ -48,6 +48,7 @@ class Poll:
     r: float | None = None
     source: str = ""               # provenance (page + revision)
     key: str = ""                  # identity of the underlying poll
+    url: str = ""                  # the poll's own source (Wikipedia's citation)
 
 
 def two_party(d: float, r: float) -> float:
@@ -191,6 +192,7 @@ class Average:
     pollsters: int
     weights: list            # (poll, weight, adjusted margin) for display
     partisan_share: float = 0.0
+    se: float | None = None  # standard error of the average itself (poll dispersion)
 
 
 def average(polls: list[Poll], asof: str, adj: Adjustments, *,
@@ -206,7 +208,7 @@ def average(polls: list[Poll], asof: str, adj: Adjustments, *,
     ps = [p for p in pick_versions(polls)
           if 0 <= days_between(p.end, asof) <= max_age]
     if not ps:
-        return Average(None, None, 0, 0.0, None, 0, [], 0.0)
+        return Average(None, None, 0, 0.0, None, 0, [], 0.0, None)
     counts = defaultdict(int)
     for p in ps:
         counts[canonical_pollster(p.pollster)] += 1
@@ -244,19 +246,23 @@ def average(polls: list[Poll], asof: str, adj: Adjustments, *,
     partisan_share = sum(w for p, w, _ in rows if p.partisan) / sw
     partisan_var = (sd_partisan ** 2) * partisan_share
     sd = math.sqrt(sd_nonsampling ** 2 + samp_var + stale_var + partisan_var)
+    # how uncertain the *average* is (for charts): the weighted dispersion of
+    # the adjusted polls around it, never below pure sampling error
+    disp = math.sqrt(sum(w * w * (m - mean) ** 2 for _, w, m in rows)) / sw
+    se = max(disp, math.sqrt(samp_var))
     return Average(mean, max(sd, sd_floor), len(rows), n_eff, latest,
-                   len(counts), rows, partisan_share)
+                   len(counts), rows, partisan_share, se)
 
 
 def daily_series(polls: list[Poll], adj: Adjustments, start: str, end: str, **kw) -> dict:
     """Average as of each day in [start, end] (for the national trend line
-    and the site's chart). Returns {iso_date: (margin, sd, n_polls)}."""
+    and the site's charts). Returns {iso_date: (margin, sd, n_polls, se)}."""
     out = {}
     d = datetime.date.fromisoformat(start)
     stop = datetime.date.fromisoformat(end)
     while d <= stop:
         a = average(polls, d.isoformat(), adj, **kw)
         if a.margin is not None:
-            out[d.isoformat()] = (a.margin, a.sd, a.n_polls)
+            out[d.isoformat()] = (a.margin, a.sd, a.n_polls, a.se)
         d += datetime.timedelta(days=1)
     return out

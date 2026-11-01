@@ -124,6 +124,40 @@ def check_forecast(g: Gate) -> None:
                 g.check(p in (0.0, 1.0), f"{version}/{rid}: fixed race has p={p}")
 
 
+def check_site(g: Gate) -> None:
+    """data/site/ must be complete and agree with the forecast it came from."""
+    from midterms.paths import SITE
+    want = ["summary", "races", "polls", "generic", "history", "sim", "backtest", "meta"]
+    if not SITE.exists():
+        return
+    for name in want:
+        g.check((SITE / f"{name}.json").exists(), f"data/site/{name}.json missing")
+    path = FORECAST / "latest.json"
+    if not (path.exists() and (SITE / "summary.json").exists() and (SITE / "races.json").exists()):
+        return
+    fc = json.loads(path.read_text())
+    summ = json.loads((SITE / "summary.json").read_text())
+    g.check(summ["generated"] == fc["generated"], "data/site/ is stale: rerun `midterms export`")
+    for name in want:
+        path_n = SITE / f"{name}.json"
+        if path_n.exists():
+            doc = json.loads(path_n.read_text())
+            g.check(isinstance(doc, dict) and "generated" in doc and "asof" in doc,
+                    f"data/site/{name}.json lacks the generated/asof envelope")
+    races = json.loads((SITE / "races.json").read_text())["races"]
+    g.check(len(races) == len(fc["races"]), f"races.json has {len(races)} races, forecast {len(fc['races'])}")
+    slugs = [r["slug"] for r in races]
+    g.check(len(set(slugs)) == len(slugs), "duplicate race slugs")
+    for r in races:
+        for v, f in r["forecast"].items():
+            p = f["p_d_side"]
+            g.check(abs(sum(f["p_party"].values()) - 1) < 1e-3, f"site {r['id']}/{v}: p_party sums to "
+                    f"{sum(f['p_party'].values())}")
+            g.check(p is not None and 0 <= p <= 1, f"site {r['id']}/{v}: p={p}")
+            if r["fixed"]:
+                g.check(p in (0.0, 1.0), f"site {r['id']}: fixed race p={p}")
+
+
 def main() -> int:
     g = Gate()
     meta_path = DATA / "meta.yaml"
@@ -134,6 +168,7 @@ def main() -> int:
     check_races(g)
     check_polls(g, asof)
     check_forecast(g)
+    check_site(g)
     if g.errors:
         print(f"✗ verify: {len(g.errors)} of {g.checks} checks failed")
         for e in g.errors[:40]:

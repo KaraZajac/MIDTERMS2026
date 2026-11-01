@@ -32,6 +32,8 @@ from midterms.paths import CURATED, DATA, FORECAST, POLLS, RACES, ROOT
 
 PARAMS = Path(__file__).with_name("params.yaml")
 VERSIONS = ("lite", "classic", "deluxe")
+Z80 = 1.2816    # half-width of an 80% normal band, in sds
+TREND_DAYS = 120
 
 
 def _v(params: dict, *keys):
@@ -72,7 +74,7 @@ def load_inputs() -> dict:
             race=r["race"], pollster=r["pollster"], start=r["start"] or None, end=r["end"],
             n=int(r["n"]) if r.get("n") else None, population=r.get("population") or None,
             partisan=r.get("partisan") or None, d=d, r=rr, margin=P.two_party(d, rr),
-            source=r.get("source", "")))
+            source=r.get("source", ""), url=r.get("url", "")))
     generic = []
     for r in _csv(POLLS / "generic.csv"):
         d, rr = _f(r["d"]), _f(r["r"])
@@ -81,7 +83,8 @@ def load_inputs() -> dict:
         generic.append(P.Poll(
             race="generic", pollster=r["pollster"], start=r["start"] or None, end=r["end"],
             n=int(r["n"]) if r.get("n") else None, population=r.get("population") or None,
-            partisan=r.get("partisan") or None, d=d, r=rr, margin=P.two_party(d, rr)))
+            partisan=r.get("partisan") or None, d=d, r=rr, margin=P.two_party(d, rr),
+            source=r.get("source", ""), url=r.get("url", "")))
     ratings = defaultdict(list)
     for r in _csv(DATA / "ratings.csv"):
         s = _f(r.get("scale"))
@@ -113,8 +116,11 @@ def national(inp: dict, asof: str, params: dict, adj: P.Adjustments) -> dict:
         "generic_ballot": {"margin": gb.margin, "n_polls": gb.n_polls, "n_eff": gb.n_eff,
                            "latest": gb.latest, "pollsters": gb.pollsters,
                            "sampling_sd": gb.sd},
+        "_ledger": ledger(gb),
         "environment": {"mu": gb.margin, "sd": _v(params, "national", "sd")},
         "series": {d: round(v[0], 3) for d, v in series.items()},
+        "_band": {d: [round(v[0], 2), round(v[0] - Z80 * v[3], 2), round(v[0] + Z80 * v[3], 2)]
+                  for d, v in series.items()},
     }
 
 
@@ -203,7 +209,39 @@ def poll_component(race: dict, polls: list, asof: str, adj, params: dict,
         return None
     return {"mu": a.margin, "sd": a.sd, "n_polls": a.n_polls, "n_eff": round(a.n_eff, 2),
             "latest": a.latest, "pollsters": a.pollsters,
-            "partisan_share": round(a.partisan_share, 3)}
+            "partisan_share": round(a.partisan_share, 3), "_ledger": ledger(a)}
+
+
+def race_trend(race: dict, polls: list, asof: str, adj, params: dict, quality: dict,
+               trend) -> list:
+    """[[date, average, lo80, hi80], ...] — the race's polling average as of
+    each day from its first poll (at most TREND_DAYS back) to `asof`."""
+    first = min(p.end for p in polls)
+    start = max(first, (datetime.date.fromisoformat(asof)
+                        - datetime.timedelta(days=TREND_DAYS)).isoformat())
+    if start > asof:
+        return []
+    lam = _v(params, "governor", "national_coef") if race["chamber"] == "governor" else 1.0
+    series = P.daily_series(polls, adj, start, asof,
+                            half_life=_v(params, "polls", "half_life_days"),
+                            max_age=_v(params, "polls", "max_age_days"), quality=quality,
+                            trend=trend, lam=lam * _v(params, "polls", "trend_lambda"))
+    return [[d, round(m, 2), round(m - Z80 * se, 2), round(m + Z80 * se, 2)]
+            for d, (m, _sd, _n, se) in sorted(series.items())]
+
+
+def ledger(a) -> list[dict]:
+    """Each poll in an average with its normalized weight and adjusted margin
+    (the site's poll table; kept out of the snapshots)."""
+    sw = sum(w for _, w, _ in a.weights) or 1.0
+    rows = []
+    for p, w, m in sorted(a.weights, key=lambda x: x[0].end, reverse=True):
+        rows.append({"pollster": p.pollster, "partisan": p.partisan or "", "start": p.start,
+                     "end": p.end, "n": p.n, "population": p.population or "",
+                     "d": p.d, "r": p.r, "margin": round(p.margin, 2),
+                     "adjusted": round(m, 2), "weight": round(w / sw, 4),
+                     "url": p.url or None})
+    return rows
 
 
 def rating_component(race_ratings: list, params: dict, has_polls: bool) -> dict | None:
@@ -222,12 +260,13 @@ def rating_component(race_ratings: list, params: dict, has_polls: bool) -> dict 
             "raters": {k: v["label"] for k, v in latest.items()}}
 
 
-def combine(comps: list[dict]) -> dict:
-    comps = [c for c in comps if c]
-    prec = [1.0 / c["sd"] ** 2 for c in comps]
-    tot = sum(prec)
-    mu = sum(p * c["mu"] for p, c in zip(prec, comps)) / tot
-    return {"mu": mu, "sd": tot ** -0.5, "weights": [round(p / tot, 3) for p in prec]}
+def combine(named: list[tuple[str, dict | None]]) -> dict:
+    """Precision-weighted blend of named components; weights keyed by name."""
+    comps = [(n, c) for n, c in named if c]
+    prec = [(n, 1.0 / c["sd"] ** 2) for n, c in comps]
+    tot = sum(p for _, p in prec)
+    mu = sum(p * c["mu"] for (_, p), (_, c) in zip(prec, comps)) / tot
+    return {"mu": mu, "sd": tot ** -0.5, "weights": {n: round(p / tot, 3) for n, p in prec}}
 
 
 # ------------------------------------------------------------------- run
@@ -263,6 +302,8 @@ def run(inp: dict, asof: str, params: dict, *, sims: int, seed: int) -> dict:
     chambers = chambers_from(inp["chambers"])
 
     detail = {}
+    ledgers = {"generic": nat.pop("_ledger")}
+    trends = {"generic": [[d, *b] for d, b in sorted(nat.pop("_band").items())]}
     sim_races = {v: [] for v in VERSIONS}
     for race in inp["races"]:
         rid = race["id"]
@@ -278,12 +319,18 @@ def run(inp: dict, asof: str, params: dict, *, sims: int, seed: int) -> dict:
         F = fundamentals(race, nat_mu, params, inp["finance"])
         Pc = poll_component(race, inp["polls"].get(rid, []), asof, adj, params,
                             inp["quality"], trend)
+        if Pc:
+            ledgers[rid] = Pc.pop("_ledger")
+            trends[rid] = race_trend(race, inp["polls"][rid], asof, adj, params,
+                                     inp["quality"], trend)
         E = rating_component(inp["ratings"].get(rid, []), params, Pc is not None)
         L = lite_prior(race, nat_mu, params)
+        base = [("polls", Pc)] if Pc else [("lean", L)]
         versions = {
-            "lite": combine([Pc] if Pc else [L]),
-            "classic": combine([F, Pc]) if F else combine([Pc] if Pc else [L]),
-            "deluxe": combine([F, Pc, E]) if (F or Pc or E) else combine([L]),
+            "lite": combine(base),
+            "classic": combine([("fundamentals", F), ("polls", Pc)]) if F else combine(base),
+            "deluxe": (combine([("fundamentals", F), ("polls", Pc), ("ratings", E)])
+                       if (F or Pc or E) else combine(base)),
         }
         detail[rid] = {"fundamentals": F, "polls": Pc, "ratings": E,
                        "versions": {k: {"mu": round(v["mu"], 3), "sd": round(v["sd"], 3),
@@ -299,7 +346,7 @@ def run(inp: dict, asof: str, params: dict, *, sims: int, seed: int) -> dict:
         out_versions[v]["popular_vote"] = {
             "mu": nat_mu, "p10": nat_mu + nat_q["p10"], "p90": nat_mu + nat_q["p90"]}
     return {"national": nat, "adjustments": adj.as_dict(), "detail": detail,
-            "versions": out_versions}
+            "versions": out_versions, "_ledgers": ledgers, "_trends": trends}
 
 
 def load_params() -> dict:
@@ -330,6 +377,8 @@ def main(*, sims: int = 50_000, seed: int = 20261103, asof: str | None = None,
         raise SystemExit("no races in data/races/ — run `midterms build` first")
     asof = asof or datetime.date.today().isoformat()
     res = run(inp, asof, params, sims=sims, seed=seed)
+    ledgers = res.pop("_ledgers")
+    trends = res.pop("_trends")
     generated = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     races_meta = {r["id"]: {k: r.get(k, "") for k in
                             ("chamber", "state", "label", "d_cand", "r_cand", "d_side",
@@ -343,12 +392,17 @@ def main(*, sims: int = 50_000, seed: int = 20261103, asof: str | None = None,
            "races": races_meta, **res}
     FORECAST.mkdir(parents=True, exist_ok=True)
     (FORECAST / "latest.json").write_text(json.dumps(doc, indent=1, sort_keys=True))
+    (FORECAST / "ledger.json").write_text(json.dumps(
+        {"generated": generated, "asof": asof, "ledgers": ledgers, "trends": trends},
+        sort_keys=True))
     if snapshot:
         snap = FORECAST / "snapshots"
         snap.mkdir(exist_ok=True)
         (snap / f"{generated.replace(':', '')}.json").write_text(json.dumps(doc, sort_keys=True))
     summarize(doc)
     update_readme(doc)
+    from midterms.pipeline import site_export
+    site_export.main()               # data/site/ always matches latest.json
     return doc
 
 

@@ -45,6 +45,7 @@ class Cell:
     links: list = field(default_factory=list)   # (title, href) of <a> inside
     bold: bool = False                            # any <b> text in the cell
     lines: list = field(default_factory=list)    # text split at <br>/<div>/<p>/<li>
+    refs: list = field(default_factory=list)     # footnote ids cited in the cell ('cite_note-…')
 
     def __repr__(self) -> str:  # compact, for debugging
         tag = "th" if self.header else "td"
@@ -135,6 +136,12 @@ class _Extractor(HTMLParser):
 
     def handle_starttag(self, tag: str, attrs_list) -> None:
         attrs = {k: (v or "") for k, v in attrs_list}
+        if tag == "a" and attrs.get("href", "").startswith("#cite_note"):
+            # footnote markers are hidden from the text, but which reference a
+            # cell cites is what links a poll row to its source
+            st0 = self._cur_table()
+            if st0 is not None and st0["cell"] is not None:
+                st0["cell"].refs.append(attrs["href"][1:])
         classes = set(attrs.get("class", "").split())
         style = attrs.get("style", "").replace(" ", "").lower()
         skip = (self._skipping() or tag in SKIP_TAGS or bool(classes & SKIP_CLASSES)
@@ -283,3 +290,45 @@ def extract_tables(html: str) -> list[Table]:
 
 def wikitables(html: str) -> list[Table]:
     return [t for t in extract_tables(html) if "wikitable" in t.classes]
+
+
+class _RefExtractor(HTMLParser):
+    """id -> first external URL for every <li id="cite_note-…"> in the page's
+    reference lists (where Wikipedia keeps each poll's source link)."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.urls: dict[str, str] = {}
+        self._stack: list[tuple[str, str | None]] = []   # (tag, cite id if li)
+
+    def _current(self) -> str | None:
+        for tag, cid in reversed(self._stack):
+            if cid:
+                return cid
+        return None
+
+    def handle_starttag(self, tag, attrs_list):
+        attrs = {k: (v or "") for k, v in attrs_list}
+        if tag in VOID:
+            return
+        cid = attrs.get("id") if tag == "li" and attrs.get("id", "").startswith("cite_note") else None
+        self._stack.append((tag, cid))
+        if tag == "a":
+            cur = self._current()
+            href = attrs.get("href", "")
+            if cur and cur not in self.urls and href.startswith("http") and \
+                    "external" in attrs.get("class", ""):
+                self.urls[cur] = href
+
+    def handle_endtag(self, tag):
+        for i in range(len(self._stack) - 1, -1, -1):
+            if self._stack[i][0] == tag:
+                del self._stack[i:]
+                return
+
+
+def references(html: str) -> dict:
+    p = _RefExtractor()
+    p.feed(html)
+    p.close()
+    return p.urls

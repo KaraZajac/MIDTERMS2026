@@ -1,6 +1,6 @@
 # MIDTERMS2026 — pipeline, model and verification gate. See README.md and docs/.
 
-.PHONY: help pull build verify test forecast snapshot backtest score export site site-dev install-hooks
+.PHONY: help pull build verify test web-test forecast snapshot backtest score export install-hooks
 
 help:                ## list targets
 	@grep -hE '^[a-z-]+:.*##' $(MAKEFILE_LIST) | sed 's/:.*## /\t/' | sort
@@ -18,6 +18,9 @@ verify:              ## validation gate: data + forecast checks, then unit tests
 test:                ## unit tests only
 	@python3 -m unittest discover -s tests -q
 
+web-test:            ## the browser simulator must reproduce the Python forecast
+	@node sim/simulator.test.mjs
+
 forecast:            ## run the model -> data/forecast/latest.json
 	@python3 -m midterms forecast
 
@@ -30,14 +33,8 @@ backtest:            ## walk the House fundamentals model over past midterms
 score:               ## after results land: Brier/log score vs every challenger
 	@python3 -m midterms score
 
-export:              ## write data/site/*.json for the Astro site
+export:              ## write data/site/*.json (the website's data contract)
 	@python3 -m midterms export
-
-site: export         ## build the static site (site/dist)
-	@cd site && npm run build
-
-site-dev: export     ## run the site dev server
-	@cd site && npm run dev
 
 install-hooks:       ## enable the git pre-commit gate for this clone
 	@chmod +x .githooks/pre-commit

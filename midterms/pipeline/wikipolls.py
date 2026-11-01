@@ -236,6 +236,7 @@ def rows(t: Table, default_year: int | None = None) -> list[dict]:
         if len(texts) == 1 and len(cells) > 3:   # spanning annotation row
             continue
         rec = {"answers": {}, "other": None, "undecided": None, "pollster": None, "round": None,
+               "refs": [],
                "partisan": None, "start": None, "end": None, "n": None,
                "population": None, "moe": None, "table_heading": t.heading,
                "table_index": t.index, "row": i, "leader_bold": []}
@@ -245,6 +246,7 @@ def rows(t: Table, default_year: int | None = None) -> list[dict]:
             role, label = cols[j]["role"], cols[j]["label"]
             if role == "pollster":
                 rec["pollster"], rec["partisan"] = pollster(c.text)
+                rec["refs"] = list(c.refs)
             elif role == "dates":
                 rec["start"], rec["end"] = dates(c.text, default_year)
             elif role == "sample":

@@ -41,6 +41,7 @@ REGIONS = {  # Census regions
     "West": "AZ CO ID MT NV NM UT WY AK CA HI OR WA",
 }
 STATE_REGION = {s: r for r, ss in REGIONS.items() for s in ss.split()}
+QUANTILES = [1, 5, 10, 25, 50, 75, 90, 95, 99]
 
 
 @dataclass
@@ -137,7 +138,7 @@ def simulate(races: list[Race], shared: Shared, chambers: dict[str, Chamber], *,
 
     win_sum = np.zeros(R)
     margin_samples = []               # thin sample for quantiles
-    keep_every = max(1, n_sims // 4000)
+    keep_every = max(1, n_sims // 10000)
     seat_hist = {c: {} for c in chambers}
     control = {c: {} for c in chambers}
     control_alt: dict = {}
@@ -219,8 +220,10 @@ def simulate(races: list[Race], shared: Shared, chambers: dict[str, Chamber], *,
     ms = np.concatenate(margin_samples, axis=0)
     with warnings.catch_warnings():          # fixed races are all-NaN columns
         warnings.simplefilter("ignore", RuntimeWarning)
-        q = np.nanpercentile(ms, [10, 50, 90], axis=0)
+        qs = np.nanpercentile(ms, QUANTILES, axis=0)
         mean_m = np.nanmean(ms, axis=0)
+        sd_m = np.nanstd(ms, axis=0)
+    q = qs[[QUANTILES.index(10), QUANTILES.index(50), QUANTILES.index(90)]]
     nat_all = np.concatenate(national_draws)
     out = {
         "n_sims": n_sims,
@@ -237,6 +240,9 @@ def simulate(races: list[Race], shared: Shared, chambers: dict[str, Chamber], *,
         out["races"][r.id] = {
             "p_d_side": float(win_sum[i] / n_sims),
             "margin_mean": None if r.fixed else float(mean_m[i]),
+            "margin_sd": None if r.fixed else float(sd_m[i]),
+            "margin_q": None if r.fixed else {f"q{k:02d}": round(float(qs[j, i]), 2)
+                                              for j, k in enumerate(QUANTILES)},
             "margin_p10": None if r.fixed else float(q[0, i]),
             "margin_p50": None if r.fixed else float(q[1, i]),
             "margin_p90": None if r.fixed else float(q[2, i]),
