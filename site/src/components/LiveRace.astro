@@ -1,0 +1,41 @@
+---
+// Election night, one race: the count, the call, and the chance given the
+// races called elsewhere. Hidden until live results exist; scripts/live.js
+// fills it from live.json. The names come from the build, so the live file
+// only has to say "D" or "R".
+import { sideKey, sideLabel } from "../lib/model.js";
+import { surname, PARTY_SHORT } from "../lib/format.js";
+import { meta } from "../lib/data.js";
+
+interface Props {
+  r: any;
+}
+const { r } = Astro.props;
+const side = (c: any) => ({
+  name: c?.name ? surname(c.name) : "",
+  tag: PARTY_SHORT[c?.party] ?? c?.party ?? "",
+  key: sideKey(c?.party),
+});
+const d = side(r.d), rr = side(r.r);
+---
+
+<section
+  class="live live-race"
+  data-live="race"
+  data-race={r.id}
+  data-dname={d.name}
+  data-dtag={d.tag}
+  data-dkey={d.key}
+  data-dlabel={sideLabel(r, "d")}
+  data-rname={rr.name}
+  data-rtag={rr.tag}
+  data-rkey={rr.key}
+  data-rlabel={sideLabel(r, "r")}
+  data-from={meta().deadline}
+  hidden
+>
+</section>
+
+<script>
+  import "../scripts/live.js";
+</script>

@@ -1,0 +1,26 @@
+---
+// Election night: each chamber given the races called so far, the seats won,
+// and the latest calls. Empty and hidden until live results exist, so it costs
+// nothing before then; scripts/live.js fills it and refreshes it every minute.
+import { meta } from "../lib/data.js";
+
+interface Props {
+  chambers: ("house" | "senate" | "governor")[];
+  ticker?: boolean;
+}
+const { chambers, ticker = true } = Astro.props;
+---
+
+<section
+  class="live live-chambers"
+  data-live="chambers"
+  data-chambers={chambers.join(",")}
+  data-ticker={ticker ? "1" : undefined}
+  data-from={meta().deadline}
+  hidden
+>
+</section>
+
+<script>
+  import "../scripts/live.js";
+</script>

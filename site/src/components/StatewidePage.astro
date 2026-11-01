@@ -4,6 +4,7 @@
 import Base from "../layouts/Base.astro";
 import VersionBar from "./VersionBar.astro";
 import ChamberHead from "./ChamberHead.astro";
+import LiveChambers from "./LiveChambers.astro";
 import ChamberCard from "./ChamberCard.astro";
 import SeatHist from "./SeatHist.astro";
 import TileMap from "./TileMap.astro";
@@ -39,6 +40,7 @@ const desc = isSenate
         : `${c.n_races} governorships are up. A majority of the 50 takes 26.`}
     </p>
   </ChamberHead>
+  <LiveChambers chambers={[chamber]} />
   <VersionBar />
 
   <div class="sw-top">

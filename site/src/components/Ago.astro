@@ -6,8 +6,11 @@ import { fmtStamp } from "../lib/format.js";
 
 interface Props {
   iso: string;
+  /** Leave the year out: "Nov 1, 5:53 p.m. ET". */
+  short?: boolean;
 }
-const { iso } = Astro.props;
+const { iso, short = false } = Astro.props;
+const text = short ? fmtStamp(iso).replace(/, \d{4},/, ",") : fmtStamp(iso);
 ---
 
-<time datetime={iso} data-ago>{fmtStamp(iso)}</time>
+<time datetime={iso} data-ago>{text}</time>

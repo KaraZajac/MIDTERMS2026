@@ -9,9 +9,10 @@ import {
   races, raceById, pollsFor, stateRaces, VERSIONS, VERSION_NAMES, pD, raceRating,
   sideKey, sideLabel, partyTag, candShort, isIncumbent,
 } from "../../lib/model.js";
-import { pct, pct1, aPct, margin, fmtDate, fmtShortDate, surname, inWords, url, PARTY_NAMES } from "../../lib/format.js";
-import { scorecard, meta } from "../../lib/data.js";
+import { pct, pct1, aPct, margin, fmtDate, fmtShortDate, fmtStamp, surname, inWords, url, PARTY_NAMES } from "../../lib/format.js";
+import { scorecard, meta, changes } from "../../lib/data.js";
 import Ago from "../../components/Ago.astro";
+import LiveRace from "../../components/LiveRace.astro";
 
 export function getStaticPaths() {
   return races().map((r) => {
@@ -50,6 +51,16 @@ const polls = [...(P?.polls ?? [])].sort((a: any, b: any) => (b.end ?? "").local
 const nVH = polls.filter((p: any) => p.via === "votehub").length;
 const VOTEHUB = "https://votehub.com";
 const CC_BY = "https://creativecommons.org/licenses/by/4.0/";
+// Polls that entered this race's average in the 24 hours before this forecast
+// (changes.json), keyed pollster|end -> when. Only while the forecast still moves.
+const newPolls = new Map<string, string>();
+if ((meta().phase ?? "forecast") === "forecast") {
+  const since = Date.parse(meta().generated) - 24 * 3600 * 1000;
+  for (const e of changes()?.entries ?? []) {
+    if (Date.parse(e.t) < since) continue;
+    for (const q of e.polls ?? []) if (q.race === id) newPolls.set(`${q.pollster}|${q.end}`, e.t); // newest first: ends on the first time seen
+  }
+}
 const others = stateRaces(r.state).filter((x: any) => x.id !== r.id);
 const money = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `$${Math.round(n / 1e3)}K` : `$${n}`);
 const sumParts = inputs.fundamentals?.parts ?? null;
@@ -69,6 +80,7 @@ const desc = fixed
   <header class="race-head">
     <p class="eyebrow">2026 {chamberName === "Governor" ? "governor" : chamberName} race{r.special ? " · special election" : ""}{r.rules ? ` · ${r.rules}` : ""}</p>
     <h1>{r.title}</h1>
+    <LiveRace r={r} />
     {result && (
       <p class="callout result">
         <strong>Result: {result.winner_name ?? result.winner} won</strong>
@@ -257,6 +269,7 @@ const desc = fixed
                   {p.url ? <a href={p.url} rel="nofollow noopener">{p.pollster}</a> : p.pollster}
                   {p.sponsor && <span class="spons" title={`Sponsored by a ${p.sponsor === "D" ? "Democratic" : "Republican"}-aligned group`}>{p.sponsor}</span>}
                   {p.via === "votehub" && <span class="spons via" title="From VoteHub's poll feed (CC BY 4.0): the Wikipedia page lacks this poll">VoteHub</span>}
+                  {newPolls.has(`${p.pollster}|${p.end}`) && <span class="spons new" title={`Entered the average ${fmtStamp(newPolls.get(`${p.pollster}|${p.end}`))}`}>New</span>}
                 </td>
                 <td class="nowrap">{fmtShortDate(p.start)}–{fmtShortDate(p.end)}</td>
                 <td class="num">{p.n ? p.n.toLocaleString("en-US") : "—"} {p.population ?? ""}</td>
@@ -271,7 +284,7 @@ const desc = fixed
         </table>
       </div>
     )}
-    {polls.length > 0 && <p class="small muted" style="margin-top:8px">Margins are two-party. Adjusted = after house effect, likely-voter, sponsor and trend-line adjustments. Weight = share of the current average. A letter after a pollster marks a partisan sponsor.{nVH > 0 && <> A VoteHub tag marks a poll from <a href={VOTEHUB}>VoteHub</a>'s feed that the Wikipedia page lacks.</>}</p>}
+    {polls.length > 0 && <p class="small muted" style="margin-top:8px">Margins are two-party. Adjusted = after house effect, likely-voter, sponsor and trend-line adjustments. Weight = share of the current average. A letter after a pollster marks a partisan sponsor.{newPolls.size > 0 && <> A New tag marks a poll that entered the average in the last 24 hours.</>}{nVH > 0 && <> A VoteHub tag marks a poll from <a href={VOTEHUB}>VoteHub</a>'s feed that the Wikipedia page lacks.</>}</p>}
   </section>
 
   {raters.length > 0 && (
@@ -384,6 +397,7 @@ const desc = fixed
   table.polls td, table.polls th { font-size: 13.5px; }
   .spons { font-size: 10.5px; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 4px; padding: 0 4px; margin-left: 6px; vertical-align: 1px; }
   .spons.via { font-weight: 600; }
+  .spons.new { color: var(--accent); border-color: var(--accent); }
   .money { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
   .money-fig { font-size: 1.6rem; font-weight: 750; color: var(--ink-strong); letter-spacing: -0.02em; }
   .also { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }

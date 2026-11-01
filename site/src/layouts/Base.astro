@@ -250,9 +250,14 @@ const phase = m.phase ?? "forecast";
             if (!(ms > -300000)) return; // a clock far behind, or no date: keep the absolute time
             t.textContent = ago(Math.max(0, ms)) + " (" + t.dataset.abs + ")";
           });
+          // "next update about 6:41 p.m.": drop it once it is 15 minutes overdue
+          document.querySelectorAll("[data-next]").forEach(function (el) {
+            el.hidden = Date.now() + skew > Date.parse(el.getAttribute("data-next")) + 15 * 60000;
+          });
         }
         paintAges();
         setInterval(paintAges, 30000);
+        document.addEventListener("midterms:ages", paintAges); // new <time data-ago> from scripts/live.js
 
         // A newer forecast. While the tab is visible, ask /build.json each
         // minute what the live site was built from. When the forecast or its

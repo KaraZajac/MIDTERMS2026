@@ -537,6 +537,92 @@ details.tableview[open] > summary { margin-bottom: 8px; }
 .update-note .update-note-x:hover { color: var(--ink-strong); }
 @media print { .update-note { display: none; } }
 
+/* ---------- election night (scripts/live.js; hidden until live.json exists) ---------- */
+.live[hidden] { display: none; }
+.live-chambers { margin: 0 0 32px; }
+.live-head { margin: 0 0 14px; }
+.live-head h2 { margin: 0 0 4px; }
+.live-eyebrow { display: flex; align-items: center; flex-wrap: wrap; gap: 0 8px; }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); flex: none; }
+.live-asof { text-transform: none; letter-spacing: 0; font-weight: 500; }
+.live-status { font-size: 14px; color: var(--ink-2); margin: 0; }
+.live-fixture {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 3px 10px;
+  border: 1px dashed var(--accent);
+  border-radius: 8px;
+  background: var(--accent-wash);
+  color: var(--ink-strong);
+  font-size: 13px;
+  font-weight: 700;
+}
+.live-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 16px; }
+.live-card { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.live-card-head { display: flex; flex-direction: column; gap: 2px; }
+.live-card-head h3 { margin: 0; font-size: 1.2rem; }
+.live-card-head h3 a { color: var(--ink-strong); text-decoration: none; }
+.live-card-head h3 a:hover { color: var(--accent); }
+.live-small { font-size: 13px; color: var(--muted); margin: 0; }
+.live-odds { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
+.live-odds .right { text-align: right; }
+.live-party { font-size: 13px; font-weight: 650; color: var(--ink-2); margin-bottom: 4px; }
+.live-odds .hero-fig.lesser { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.1rem); color: var(--ink-2); }
+.key.after { margin: 0 0 0 6px; }
+.key.u { background: var(--na); box-shadow: inset 0 0 0 1px var(--border); }
+.live-unreliable { margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--surface-2); font-size: 14px; color: var(--ink-2); }
+.live-seats { font-size: 14px; margin: 0; }
+.live-seatbar { position: relative; height: 14px; margin-top: 4px; }
+.live-seatfill { display: flex; height: 100%; gap: 2px; border-radius: 4px; overflow: hidden; }
+.live-seatfill > span { min-width: 0; }
+.live-seatfill > .d, .live-vbar > .d { background: var(--d); }
+.live-seatfill > .r, .live-vbar > .r { background: var(--r); }
+.live-seatfill > .i, .live-vbar > .i { background: var(--i); }
+.live-seatfill > .u { background: var(--na); }
+.live-vbar > .x { background: var(--tu); }
+.live-maj { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--ink-strong); box-shadow: 0 0 0 1px var(--surface); }
+.live-seatkey { display: flex; flex-wrap: wrap; gap: 2px 14px; margin: 0; font-size: 13px; color: var(--ink-2); }
+.live-seatkey > span:last-child { color: var(--muted); }
+.live-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 7px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 1px;
+}
+.live-tag.upset { border-color: var(--accent); background: var(--accent-wash); color: var(--ink-strong); }
+.live-ticker { margin-top: 22px; }
+.live-ticker h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.live-events { list-style: none; margin: 0; padding: 0; }
+.live-events li { display: grid; grid-template-columns: 4.6em minmax(0, 1fr); gap: 10px; padding: 8px 0; border-top: 1px solid var(--grid); font-size: 14px; }
+.live-events li:first-child { border-top: 0; }
+.live-t { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; padding-top: 1px; white-space: nowrap; }
+.live-ev-race a { font-weight: 650; }
+.live-ev-what { color: var(--ink-2); }
+.live-events li.is-upset .live-ev-what { color: var(--ink-strong); }
+.live-more > summary { cursor: pointer; padding: 6px 0; font-size: 13px; color: var(--muted); }
+.live-more > .live-events li:first-child { border-top: 1px solid var(--grid); }
+.live-credit { margin-top: 16px; max-width: 60em; }
+.live-await { display: grid; gap: 6px; }
+.live-await p { margin: 0; }
+.live-race { margin: 6px 0 18px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); }
+.live-race .live-eyebrow { margin: 0 0 6px; }
+.live-race-status { margin: 0 0 10px; font-size: 15px; }
+.live-votes { display: grid; gap: 10px; margin: 0 0 10px; }
+.live-vrow { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 4px 12px; align-items: baseline; font-size: 14px; }
+.live-vrow .nm { min-width: 0; overflow-wrap: anywhere; font-weight: 650; color: var(--ink-strong); }
+.live-vrow .sh { font-weight: 700; font-variant-numeric: tabular-nums; }
+.live-vrow .vt { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.live-vbar { grid-column: 1 / -1; display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--surface-2); }
+.live-vbar > span { border-radius: 0 4px 4px 0; }
+.live-chance { margin: 6px 0; font-size: 14px; color: var(--ink-2); }
+
 /* ---------- odds bar (tall segmented bar) ---------- */
 .odds { display: grid; gap: 6px; }
 .odds-names { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--ink-2); }

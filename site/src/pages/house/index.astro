@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import VersionBar from "../../components/VersionBar.astro";
 import ChamberHead from "../../components/ChamberHead.astro";
+import LiveChambers from "../../components/LiveChambers.astro";
 import ChamberCard from "../../components/ChamberCard.astro";
 import SeatHist from "../../components/SeatHist.astro";
 import SeatStrip from "../../components/SeatStrip.astro";
@@ -22,6 +23,7 @@ for (const v of VERSIONS) {
   <ChamberHead chamber="house" eyebrow="House forecast · 435 seats · 218 for control">
     <p class="lede">All 435 seats are up. Republicans hold the chamber now; Democrats need a net gain to take it.</p>
   </ChamberHead>
+  <LiveChambers chambers={["house"]} />
   <VersionBar />
 
   <div class="house-top">

@@ -62,6 +62,16 @@ civicAPI's results and race calls, and writes `/live.json`.
 - Caddy serves that directory's `live.json` at `/live.json`, on the site
   and on the onion, with `Cache-Control: no-cache`. It sits outside the
   web root because every deploy runs `rsync --delete` over the root.
+  Until the first run writes one, `/live.json` answers `null` (the
+  directory's `none.json`) rather than a 404.
+- The site builds `/live-build.json` (the committed
+  `data/site/live.json`, or `null`) and `/race-index.json` (race names
+  for the lists). From the deadline on, the home, chamber and race pages
+  fetch `/live.json` and `/live-build.json` every minute while visible,
+  and show whichever has the newer `generated` (`site/src/scripts/live.js`).
+  Before the deadline they request nothing. A simulated night
+  (`"fixture": true`) only ever renders on a local preview: copy one from
+  `tests/fixtures/live/` to `site/dist/live.json` and serve `dist/`.
 - Run it once now: `systemctl start midterms-live.service`. Stop it:
   `systemctl disable --now midterms-live.timer`. Logs:
   `journalctl -u midterms-live.service`.

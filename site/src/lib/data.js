@@ -39,6 +39,10 @@ export const history = () => optional("history.json");
 export const backtest = () => optional("backtest.json");
 export const scorecard = () => optional("scorecard.json");
 export const simParams = () => optional("sim.json");
+/** Election night: the copy of live.json the refresh commits (after the deadline). */
+export const liveFile = () => optional("live.json");
+/** What each refresh changed (until the deadline). */
+export const changes = () => optional("changes.json");
 
 /** The commit this build is made from: the deploy timer compares it with main. */
 export function buildCommit() {
