@@ -2,14 +2,15 @@
 // The headline (Deluxe) chance of Democratic control at each frozen
 // snapshot, one small chart per chamber. history.json has a row per snapshot.
 //
-// The model was revised at 2026-11-01 05:00 UTC (the statewide polling
-// backtest widened the national error), so earlier snapshots are a different
-// model: a jump across that line would be a change of method, not news.
-// The lines start after it.
+// The model's method was finalised at 2026-11-01 05:08 UTC (after the
+// statewide polling backtest widened the national error and the rating map
+// was refit); from then to the deadline only the data changes. Earlier
+// snapshots are a different model, and a jump across that line would be a
+// change of method, not news, so the lines start there.
 import { history } from "../lib/data.js";
 import { pct1, fmtStamp } from "../lib/format.js";
 
-const SINCE = "2026-11-01T05:00:00Z";
+const SINCE = "2026-11-01T05:08:00Z";
 const h = history();
 const snaps = (h?.snapshots ?? []).filter((s: any) => s.ex_ante !== false && s.generated >= SINCE);
 const chambers = [
@@ -29,7 +30,7 @@ const X = (iso: string) => ((t(iso) - t0) / Math.max(t1 - t0, 1)) * W;
     <section class="section">
       <h2>How the forecast has moved</h2>
       <p class="section-note">
-        Democrats' chance of control at each snapshot since the model's last revision ({fmtStamp(SINCE)}), Deluxe. A new snapshot lands every six hours until the polls open.
+        Democrats' chance of control at each snapshot since the method was finalized ({fmtStamp(SINCE)}), Deluxe. From there only the data changes; a new snapshot lands every six hours until the polls open.
       </p>
       <div class="grid-3">
         {chambers.map(([k, name]) => {
