@@ -32,6 +32,16 @@ export function pct(p, digits = 0, exact = false) {
   if (p > 1 - lo) return digits ? ">99.9%" : ">99%";
   return (p * 100).toFixed(digits) + "%";
 }
+/** "a 59%", "an 80%", "an 18%", "a better than 99%": pct() with its article. */
+export function aPct(p, digits = 0) {
+  const t = pct(p, digits);
+  if (t.startsWith(">")) return `a better than ${t.slice(1)}`;
+  if (t.startsWith("<")) return `a less than ${t.slice(1)}`;
+  const n = parseFloat(t);
+  const an = /^8/.test(t) || n === 11 || n === 18 || (n >= 11 && n < 12) || (n >= 18 && n < 19);
+  return `${an ? "an" : "a"} ${t}`;
+}
+
 /** One decimal, for the chamber headlines. Tails still clamp. */
 export function pct1(p) {
   if (p == null) return "—";

@@ -9,7 +9,8 @@ import {
   races, raceById, pollsFor, stateRaces, VERSIONS, VERSION_NAMES, pD, raceRating,
   sideKey, sideLabel, partyTag, candShort,
 } from "../../lib/model.js";
-import { pct, pct1, margin, fmtDate, fmtShortDate, surname, inWords, url, PARTY_NAMES } from "../../lib/format.js";
+import { pct, pct1, aPct, margin, fmtDate, fmtShortDate, surname, inWords, url, PARTY_NAMES } from "../../lib/format.js";
+import { scorecard } from "../../lib/data.js";
 
 export function getStaticPaths() {
   return races().map((r) => {
@@ -28,6 +29,8 @@ const dName = r.d.name ? surname(r.d.name) : "Democrats";
 const rName = r.r.name ? surname(r.r.name) : "Republicans";
 const isInc = (c: any) => r.incumbent?.running && r.incumbent?.name && c?.name === r.incumbent.name;
 const fixed = !!r.fixed;
+// After Election Day: this race's result, once `midterms score` has it
+const result = scorecard()?.races?.find((x: any) => x.id === id) ?? null;
 
 const inputs = r.inputs ?? {};
 const comps = [
@@ -61,6 +64,13 @@ const desc = fixed
   <header class="race-head">
     <p class="eyebrow">2026 {chamberName === "Governor" ? "governor" : chamberName} race{r.special ? " · special election" : ""}{r.rules ? ` · ${r.rules}` : ""}</p>
     <h1>{r.title}</h1>
+    {result && (
+      <p class="callout result">
+        <strong>Result: {result.winner_name ?? result.winner} won</strong>
+        {result.margin != null && <>, {margin(result.margin, dL, rL)}</>}. The frozen forecast gave {result.winner_name ? surname(result.winner_name) : "the winner"} {aPct(result.p_winner)} chance
+        {result.called_right ? "." : " — an upset by the forecast's own odds."} <a href={url("/scorecard/")}>Scorecard →</a>
+      </p>
+    )}
 
     <div class="duel">
       {[["d", r.d, dKey], ["r", r.r, rKey]].map(([side, c, k]: any) => (

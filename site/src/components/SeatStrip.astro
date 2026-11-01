@@ -7,7 +7,7 @@
 // numbers and the script re-sorts and recolours on a version switch. (Three
 // static copies tripled the House page, the heaviest on the site.)
 import { chamberRaces, pD, raceRating, VERSIONS, candShort } from "../lib/model.js";
-import { pct, url } from "../lib/format.js";
+import { pct, aPct, url } from "../lib/format.js";
 
 const house = chamberRaces("house");
 const MAJ = 218;
@@ -47,8 +47,8 @@ const order = sorted("deluxe");
       return (
         <figcaption class={`v v-${v}`}>
           Democrats are favored in <strong>{dFav}</strong> seats. The 218th-most-Democratic seat, the one that decides the
-          majority if every favorite wins, is <a href={url(`/${pivot.slug}/`)}>{pivot.label}</a>, where Democrats have a
-          {" "}{pct(pD(pivot, v))} chance. It is outlined above.
+          majority if every favorite wins, is <a href={url(`/${pivot.slug}/`)}>{pivot.label}</a>, where Democrats have{" "}
+          {aPct(pD(pivot, v))} chance. It is outlined above.
         </figcaption>
       );
     })
