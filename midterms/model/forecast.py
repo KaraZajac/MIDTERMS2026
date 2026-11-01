@@ -463,7 +463,33 @@ def update_readme(doc: dict) -> None:
         b,
     ])
     start, end = text.index(a), text.index(b) + len(b)
-    path.write_text(text[:start] + block + text[end:])
+    text = text[:start] + block + text[end:]
+    # the inventory table, from data/meta.yaml counts
+    a2, b2 = "<!-- counts:start -->", "<!-- counts:end -->"
+    meta_path = DATA / "meta.yaml"
+    if a2 in text and b2 in text and meta_path.exists():
+        c = (yaml.safe_load(meta_path.read_text()) or {}).get("counts", {})
+        n_races = c.get("house_races", 0) + c.get("senate_races", 0) + c.get("governor_races", 0)
+        bt = DATA / "backtest.yaml"
+        sw = DATA / "backtest_statewide.yaml"
+        n_house_bt = (yaml.safe_load(bt.read_text())["fit"]["n"]) if bt.exists() else "—"
+        n_state_bt = (yaml.safe_load(sw.read_text())["n_races"]) if sw.exists() else "—"
+        rows = [
+            (f"Races modeled ({c.get('house_races')} House, {c.get('senate_races')} Senate, "
+             f"{c.get('governor_races')} governor)", f"{n_races:,}"),
+            (f"General-election head-to-head polls, in {c.get('polled_races')} races",
+             f"{c.get('race_polls', 0):,}"),
+            ("Generic-ballot polls (Dec 2024 – latest)", f"{c.get('generic_polls', 0):,}"),
+            ("Handicapper ratings (Cook, Sabato, Inside Elections and more)", f"{c.get('ratings', 0):,}"),
+            ("Nominees matched to FEC filings", f"{c.get('finance_matched')} / {c.get('finance_rows')}"),
+            ("Contested House districts in the fundamentals backtest (2018 + 2022)", f"{n_house_bt}"),
+            ("Senate and governor races in the polling backtest (2014–2025)", f"{n_state_bt}"),
+            ("Latest poll in the data", f"{c.get('latest_poll', '—')}"),
+        ]
+        tbl = "\n".join([a2, "| | |", "|---|---:|"] + [f"| {k} | **{v}** |" for k, v in rows] + [b2])
+        s2, e2 = text.index(a2), text.index(b2) + len(b2)
+        text = text[:s2] + tbl + text[e2:]
+    path.write_text(text)
 
 
 def summarize(doc: dict) -> None:

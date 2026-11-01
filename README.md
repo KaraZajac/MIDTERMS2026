@@ -34,15 +34,18 @@ House tipping points: PA-07, NC-11, FL-25. Senate: Ohio (special), Texas, Maine.
 
 ## What's here
 
+<!-- counts:start -->
 | | |
 |---|---:|
 | Races modeled (435 House, 35 Senate, 36 governor) | **506** |
 | General-election head-to-head polls, in 176 races | **1,640** |
-| Generic-ballot polls (Dec 2024 – Oct 2026) | **724** |
-| Handicapper ratings (Cook, Sabato, Inside Elections and 7 more) | **2,687** |
+| Generic-ballot polls (Dec 2024 – latest) | **724** |
+| Handicapper ratings (Cook, Sabato, Inside Elections and more) | **2,687** |
 | Nominees matched to FEC filings | **871 / 906** |
 | Contested House districts in the fundamentals backtest (2018 + 2022) | **739** |
 | Senate and governor races in the polling backtest (2014–2025) | **323** |
+| Latest poll in the data | **2026-10-30** |
+<!-- counts:end -->
 
 ```
 midterms/
