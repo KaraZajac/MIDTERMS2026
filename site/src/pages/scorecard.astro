@@ -63,7 +63,7 @@ const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1)
                   const dl = r ? sideLabel(r, "d") : "D", rl = r ? sideLabel(r, "r") : "R";
                   return (
                     <tr>
-                      <td><a href={url(`/${x.slug ?? r?.slug}/`)}>{x.label ?? r?.short ?? x.id}</a></td>
+                      <td><a href={url(`/${x.slug ?? r?.slug}/`)}>{r ? (r.chamber === "house" ? r.label : r.title) : (x.label ?? x.id)}</a></td>
                       <td><span class={`key ${sideKey(x.winner)}`} />{x.winner_name ?? x.winner}</td>
                       <td class="num">{x.margin != null ? margin(x.margin, dl, rl) : "—"}</td>
                       <td class="num">{x.p_winner != null ? pct(x.p_winner) : "—"}</td>
@@ -82,7 +82,7 @@ const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1)
           <p class="small ink-2">
             {sc.open.map((id: string, i: number) => {
               const r = raceById(id);
-              return <>{i ? " · " : ""}{r ? <a href={url(`/${r.slug}/`)}>{r.short}</a> : id}</>;
+              return <>{i ? " · " : ""}{r ? <a href={url(`/${r.slug}/`)}>{r.chamber === "house" ? r.label : r.title}</a> : id}</>;
             })}
             {sc.open_count > sc.open.length && <> and {sc.open_count - sc.open.length} more</>}
           </p>
