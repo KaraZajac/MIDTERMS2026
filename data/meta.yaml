@@ -1,8 +1,8 @@
-generated: '2026-11-01T23:10:05Z'
+generated: '2026-11-01T23:13:39Z'
 generator: python3 -m midterms build
 asof: '2026-11-01'
 election_day: '2026-11-03'
-sources_digest: 1a5ca30350cc59d5
+sources_digest: c85b934cfc0d01b4
 counts:
   house_races: 435
   senate_races: 35
@@ -34,7 +34,7 @@ sources:
     2026 Colorado gubernatorial election: 1383271402
     2026 Connecticut gubernatorial election: 1383222683
     2026 Florida gubernatorial election: 1383241717
-    2026 Georgia gubernatorial election: 1383041834
+    2026 Georgia gubernatorial election: 1383287904
     2026 Hawaii gubernatorial election: 1382520957
     2026 Idaho gubernatorial election: 1383033638
     2026 Illinois gubernatorial election: 1383161146
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-01T23:09:20Z'
+      fetched: '2026-11-01T23:12:54Z'
       sha256: d00e654b157cc8110c983b385b109884f289f4d2f18876f643e48aad4a9fc842
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-01T23:09:28Z'
+      fetched: '2026-11-01T23:13:02Z'
       sha256: cf0bdc0e3918a728fb7e527516828b33a615d3d480b2400244fcbe3f8f2ab47f
   votehub_supplement:
     basis: api
