@@ -377,4 +377,21 @@ carries on from Wikipedia's results boxes alone.
 forecast itself, each revealed the way a decision desk would — by poll
 closing, lopsided races first, anything within a point only the next day —
 with the live control probabilities scored at each hour against how the
-night actually ended.
+night actually ended. On 500 such nights (2,000 weighted draws; Brier
+score, lower is better):
+
+| | pre-election | 8:30 PM ET | 9:30 PM | 10:30 PM | 1 AM |
+|---|---|---|---|---|---|
+| races called (of 489) | 0 | 265 | 356 | 394 | 476 |
+| House control | 0.058 | 0.030 | 0.022 | 0.016 | 0.004 |
+| Senate control | 0.198 | 0.113 | 0.091 | 0.059 | 0.049 |
+| Governors (majority) | 0.177 | 0.104 | 0.081 | 0.069 | 0.036 |
+
+The effective number of draws stays near 85% of the total all night.
+Averaged over nights, a well-calibrated update must return the
+pre-election probability; here the live probabilities average 0–1.4
+points below it (House about 1 point, 1.5 standard errors; Senate and
+governors within noise). That small lean toward Republicans is the price
+of ignoring which races are still out, and the check's decision desk is
+stylized, so read the live numbers as a careful update, not an exact one.
+`midterms live --check 500` reproduces the table.

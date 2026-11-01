@@ -386,7 +386,7 @@ _CLOSE = {**{s: 19.0 for s in "GA IN KY SC VA VT FL".split()},
           **{s: 21.0 for s in "AZ CO IA LA MN NE NM NY ND WI WY".split()},
           **{s: 22.0 for s in "MT NV UT ID".split()},
           **{s: 23.0 for s in "CA OR WA".split()}, "HI": 24.0, "AK": 25.0}
-CHECKPOINTS = [19.5, 20.5, 21.5, 22.5, 23.5, 25.0, 28.0, 48.0]
+CHECKPOINTS = [20.5, 21.5, 22.5, 25.0]       # 8:30 PM, 9:30, 10:30, 1 AM Eastern
 
 
 def _called(margin: float, hours_since_close: float) -> bool:
@@ -411,7 +411,7 @@ def _truth_control(eng: "Engine", dwin: np.ndarray) -> dict:
     return out
 
 
-def selfcheck(sim: dict, nights: int = 100, draws: int = 4000, seed: int = 7,
+def selfcheck(sim: dict, nights: int = 500, draws: int = 2000, seed: int = 11,
               checkpoints: list[float] = CHECKPOINTS) -> dict:
     """Simulation-based calibration: draw `nights` true outcomes from the
     forecast itself, reveal them as calls the way a decision desk would
