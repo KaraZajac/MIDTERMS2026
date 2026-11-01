@@ -3,7 +3,8 @@
 The website (midterms.karazajac.io, built from `site/`) reads only these
 files. They are written by `midterms export`, which runs at the end of every
 `midterms forecast` (and after `midterms score` once results arrive); the
-refresh workflow commits them every six hours. `midterms verify` checks the
+refresh workflow commits them every 30 minutes until polls open, then as
+results and scores change (`midterms/pipeline/cadence.py`). `midterms verify` checks the
 envelope, ids/slugs and probabilities on every commit.
 
 Conventions:

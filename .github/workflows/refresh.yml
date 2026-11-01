@@ -1,92 +1,98 @@
-# Every six hours: re-pull the race pages (polls, ratings, nominees), the
+# The refresh: re-pull the race pages (polls, ratings, nominees), the
 # VoteHub poll feed and FEC filings, rebuild data/, rerun the forecast and
 # commit what changed.
 #
-# Before the deadline (polls open, 10:00 UTC Nov 3) each run freezes a
-# timestamped snapshot into data/forecast/snapshots/ — the last one before
-# the deadline is the forecast that gets scored. On election morning the
-# job runs hourly until 08:17 UTC, so the record catches Monday night's
-# last polls even when GitHub delays or drops a scheduled run (it ran the
-# 12:17 UTC slot at 13:30 on Nov 1, and skipped 06:17 entirely). A run
-# that starts in the last half hour before the deadline stands down, so
-# every snapshot that can count is committed, and git-timestamped, before
-# polls open. After the deadline the
-# same job stops forecasting and starts scoring: results boxes fill in on
-# Wikipedia, `midterms score` grades the frozen snapshot, and the
-# scorecard is committed as races resolve.
+# The job keeps its own clock (midterms/pipeline/cadence.py), because
+# GitHub's scheduler runs cron jobs late or drops them under load: on Nov 1
+# it skipped 06:17 UTC, ran 12:17 at 13:30 and 18:17 at 22:05. Each run
+# ends by waiting for the next slot and dispatching it, and the cron
+# entries are only a watchdog that restarts the chain if it ever breaks.
+#
+#   until Nov 3 09:30 UTC   every 30 min: forecast + timestamped snapshot
+#                           (the last snapshot before polls open, 10:00 UTC,
+#                           is the forecast that gets scored; nothing starts
+#                           in the last half hour, so every snapshot that can
+#                           count is committed, and git-timestamped, in time)
+#   Nov 3 10:00–23:00       hourly: score (seals the forecast of record)
+#   from Nov 3 23:00        results: every 10 min overnight, then every
+#                           30 min, then hourly; the chain ends Nov 10 and
+#                           the six-hourly cron keeps scoring (runoffs)
 #
 # Partisan lean is rebuilt from the committed data/lean/ tables (its raw
-# block-level sources are ~125 MB and don't change).
+# block-level sources are ~125 MB and don't change); pollster ratings are
+# pinned in data/pollster_ratings/.
 
 name: refresh
 
 on:
   schedule:
-    - cron: "17 */6 * * *"
-    - cron: "17 1-5,7,8 3 11 *"     # Nov 3: with the line above, hourly 00:17–08:17 UTC
+    - cron: "17 * 1-9 11 *"         # watchdog: hourly while the chain should be running
+    - cron: "17 */6 * * *"          # and the long-run cadence after it ends
   workflow_dispatch: {}
 
 permissions:
   contents: write
-
-concurrency:
-  group: refresh
-  cancel-in-progress: false
+  actions: write                    # each run dispatches the next
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
+    concurrency:
+      group: refresh
+      cancel-in-progress: false
+    outputs:
+      chain: ${{ steps.phase.outputs.chain }}
+      next: ${{ steps.phase.outputs.next }}
     steps:
       - uses: actions/checkout@v5
 
-      - name: Phase
-        id: phase
-        run: |
-          now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          if [[ "$now" > "2026-11-03T09:30:00Z" && "$now" < "2026-11-03T10:00:00Z" ]]; then
-            echo "hold=true" >> "$GITHUB_OUTPUT"
-            echo "$now: within half an hour of the 10:00 UTC deadline — standing down"
-          else
-            echo "hold=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - uses: actions/setup-python@v6
-        if: steps.phase.outputs.hold != 'true'
         with:
           python-version: "3.12"
 
       - name: Install
-        if: steps.phase.outputs.hold != 'true'
         run: pip install pyyaml numpy
 
-      - name: Pull (race pages, VoteHub polls, FEC)
-        if: steps.phase.outputs.hold != 'true'
-        # pollster ratings are pinned in data/pollster_ratings/ (Silver
-        # Bulletin's file has needed a login since Nov 1)
-        run: python -m midterms pull --only wiki --only votehub --only fec --force
+      - name: Phase
+        id: phase
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run list --workflow refresh.yml --limit 30 \
+            --json databaseId,event,status,createdAt > "$RUNNER_TEMP/runs.json" || echo "[]" > "$RUNNER_TEMP/runs.json"
+          python -m midterms cadence --event "${{ github.event_name }}" --run-id "${{ github.run_id }}" \
+            --runs "$RUNNER_TEMP/runs.json" | tee -a "$GITHUB_OUTPUT"
+
+      - name: Pull
+        if: steps.phase.outputs.work == 'true'
+        run: |
+          case "${{ steps.phase.outputs.phase }}" in
+            forecast) python -m midterms pull --only wiki --only votehub --only fec --force ;;
+            *)        python -m midterms pull --only wiki --force ;;
+          esac
 
       - name: Build
-        if: steps.phase.outputs.hold != 'true'
+        if: steps.phase.outputs.work == 'true'
         run: python -m midterms build
 
       - name: Forecast (before the deadline) or score (after)
-        if: steps.phase.outputs.hold != 'true'
+        if: steps.phase.outputs.work == 'true'
         run: |
-          now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          if [[ "$now" < "2026-11-03T10:00:00Z" ]]; then
+          if [ "${{ steps.phase.outputs.phase }}" = forecast ]; then
             python -m midterms forecast --snapshot
           else
             python -m midterms score
           fi
 
       - name: Verify
-        if: steps.phase.outputs.hold != 'true'
+        if: steps.phase.outputs.work == 'true'
         run: |
           python -m midterms verify
           python -m unittest discover -s tests -q
 
       - name: Seal the forecast of record (first run after the deadline)
-        if: steps.phase.outputs.hold != 'true'
+        if: steps.phase.outputs.work == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -107,7 +113,7 @@ jobs:
           fi
 
       - name: Commit if substantively changed
-        if: steps.phase.outputs.hold != 'true'
+        if: steps.phase.outputs.work == 'true'
         run: |
           git config user.name "midterms-refresh"
           git config user.email "actions@users.noreply.github.com"
@@ -115,10 +121,42 @@ jobs:
           if git diff --cached --quiet -I'^generated:' -I'^  fetched:' -I'^asof:'; then
             echo "no substantive changes"
           else
-            git commit -m "refresh: $(date -u +%Y-%m-%dT%H:%MZ) — polls, ratings, forecast"
+            case "${{ steps.phase.outputs.phase }}" in
+              forecast) what="polls, ratings, forecast" ;;
+              *)        what="results, scorecard" ;;
+            esac
+            git commit -m "refresh: $(date -u +%Y-%m-%dT%H:%MZ) — $what"
             for i in 1 2 3; do
               git push && break
               git pull --rebase origin main || exit 1
               [ "$i" = 3 ] && exit 1
             done
           fi
+
+  # Wait for the next slot, then start it. Outside the refresh job's
+  # concurrency group, so a manual run can start while this one waits; the
+  # newest dispatched run always carries the chain.
+  next:
+    needs: refresh
+    if: ${{ !cancelled() && needs.refresh.outputs.chain == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - name: Dispatch the next refresh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          NEXT: ${{ needs.refresh.outputs.next }}
+        run: |
+          wait=$(( NEXT - $(date -u +%s) ))
+          if [ "$wait" -gt 0 ]; then
+            echo "next refresh at $(date -u -d "@$NEXT" +%Y-%m-%dT%H:%MZ) — waiting ${wait}s"
+            sleep "$wait"
+          fi
+          newer=$(gh run list --workflow refresh.yml --event workflow_dispatch --limit 20 \
+                    --json databaseId --jq "[.[] | select(.databaseId > ${{ github.run_id }})] | length")
+          if [ "${newer:-0}" -gt 0 ]; then
+            echo "a newer dispatched refresh carries the chain"
+            exit 0
+          fi
+          gh workflow run refresh.yml --ref main

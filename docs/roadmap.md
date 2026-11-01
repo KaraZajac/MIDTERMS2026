@@ -10,8 +10,9 @@
 - [x] Statewide polling backtest (323 races, 2014–2025): poll-error
       structure fit, national error sized, rating map rescaled
 - [x] Generic-ballot check (2018/2020/2022)
-- [x] Refresh every 6 hours through Election Day (hourly on election
-      morning until 08:17 UTC, standing down for the last half hour); the
+- [x] Refresh every 30 minutes through Election Day, as a chain of runs
+      that each start the next (GitHub's cron ran slots hours late on
+      Nov 1), standing down for the last half hour; the
       last snapshot before 10:00 UTC Nov 3 is the record, published as the
       `forecast-of-record` release on the first run after
 - [x] Site: midterms.karazajac.io (`site/`), with the in-browser simulator

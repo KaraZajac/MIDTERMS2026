@@ -9,6 +9,8 @@
     midterms show RACE                      one race, with every input shown
     midterms score                          after results: the arena scorecard
     midterms export                         data/site/*.json for the Astro site
+    midterms cadence                        what this refresh run does, and when
+                                            the next one starts (refresh.yml)
 """
 
 from __future__ import annotations
@@ -46,6 +48,11 @@ def main(argv: list[str] | None = None) -> None:
     sub.add_parser("score", help="score the frozen forecast against results")
     sub.add_parser("export", help="site JSON")
 
+    p = sub.add_parser("cadence", help="the refresh chain: this run's phase and the next run")
+    p.add_argument("--event", default="workflow_dispatch", help="github.event_name")
+    p.add_argument("--run-id", type=int, help="github.run_id")
+    p.add_argument("--runs", help="`gh run list --json databaseId,event,status,createdAt` output")
+
     args = ap.parse_args(argv)
     if args.cmd == "pull":
         from midterms.pipeline import pull
@@ -72,3 +79,6 @@ def main(argv: list[str] | None = None) -> None:
     elif args.cmd == "export":
         from midterms.pipeline import site_export
         site_export.main()
+    elif args.cmd == "cadence":
+        from midterms.pipeline import cadence
+        cadence.main(event=args.event, run_id=args.run_id, runs_path=args.runs)

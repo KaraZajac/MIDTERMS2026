@@ -154,9 +154,10 @@ $ make web-test    # the browser simulator must reproduce the Python forecast
 
 - **Ex-ante only.** The scored forecast is the last snapshot generated
   before polls open (10:00 UTC, Nov 3). Snapshots are committed, so git
-  timestamps them; nothing generated later can enter the record. On
-  election morning the refresh runs hourly until 08:17 UTC and stands down
-  for the last half hour, so the final snapshot is committed before 10:00.
+  timestamps them; nothing generated later can enter the record. The
+  refresh runs every 30 minutes (each run starts the next, so GitHub's
+  late or dropped cron slots don't matter) and stands down for the last
+  half hour, so the final snapshot is committed before 10:00.
 - **Every input is traceable.** Each Wikipedia page is pinned by revision
   id; each file by sha256 (`data/meta.yaml`). The build is deterministic:
   the same revisions and files reproduce `data/` exactly.

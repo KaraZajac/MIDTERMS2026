@@ -7,7 +7,7 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
-### 2026-11-01 — refresh fix: pollster ratings pinned in the repo (no model change)
+### 2026-11-01 — refresh fixes: ratings pinned, a 30-minute chain (no model change)
 - Silver Bulletin put its ratings file behind a login on Nov 1, and the
   22:05 UTC refresh failed on the download. The ratings the model has
   always used (Silver Bulletin, January 2026; FiveThirtyEight's 2024
@@ -17,6 +17,12 @@ model and pipeline that produced it. Automated six-hourly refreshes
   byte-identical).
 - An FEC outage no longer stops a refresh either: the build keeps the
   committed filings.
+- **Refresh every 30 minutes**, as a chain: each run waits for the next
+  slot and dispatches it (`midterms/pipeline/cadence.py`), because GitHub
+  ran the 18:17 UTC cron slot at 22:05. Hourly cron runs are only a
+  watchdog that restarts the chain. The last half hour before polls open
+  still stands down. After the deadline: hourly scoring, then results
+  every 10 minutes from 23:00 UTC on election night.
 
 ### 2026-11-01 — VoteHub supplement, fabricated polls excluded, election-morning refreshes (data and schedule; no model change)
 - **VoteHub's poll feed** (CC BY 4.0) now fills gaps in Wikipedia's poll
