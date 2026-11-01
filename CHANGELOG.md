@@ -7,6 +7,28 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-01 — VoteHub supplement, fabricated polls excluded, election-morning refreshes (data and schedule; no model change)
+- **VoteHub's poll feed** (CC BY 4.0) now fills gaps in Wikipedia's poll
+  tables. A VoteHub poll is added only when no Wikipedia poll of the same
+  race could be the same poll: the same pollster or sponsor within 7 days,
+  or the same sample size or topline within 4 days, counts as a match.
+  `make verify` re-checks this. Of the 860 matchup polls of 2026 races in
+  the feed, 830 were already on Wikipedia; 30 were added in 19 races (21
+  inside the averaging window).
+- **Fabricated polls excluded** (`curated/excluded_pollsters.yaml`, with
+  evidence): Wedgewood Polls, which admitted on Oct 20 that its polls were
+  made up, and Median Strategies (August). None were in Wikipedia's
+  tables, but VoteHub's feed still carried 11 Wedgewood polls; one would
+  have been 48% of Mississippi's Senate average.
+- Races that moved, against the same day's Wikipedia-only data: AL-02
+  49.0% → 45.8% D, NV-02 28.0% → 24.4%, FL-13 22.2% → 20.3%, WA-03
+  87.8% → 85.8%. House control 94.9% (unchanged), Senate 75.4% → 75.5%,
+  governors 78.4% → 78.2%.
+- **Refresh schedule**: hourly on Nov 3 from 00:17 to 08:17 UTC, because
+  GitHub ran the Nov 1 12:17 slot at 13:30 and skipped 06:17. A run that
+  starts after 09:30 UTC stands down, so every snapshot that can be the
+  record is committed before polls open.
+
 ### 2026-11-01 — data fix after the freeze (no model change)
 - **FEC matching.** 50 nominee sides had failed to match an FEC filing —
   compound or accented surnames (Wasserman Schultz, Gluesenkamp Perez,

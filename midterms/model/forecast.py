@@ -246,7 +246,8 @@ def ledger(a) -> list[dict]:
                      "end": p.end, "n": p.n, "population": p.population or "",
                      "d": p.d, "r": p.r, "margin": round(p.margin, 2),
                      "adjusted": round(m, 2), "weight": round(w / sw, 4),
-                     "url": p.url or None})
+                     "url": p.url or None,
+                     "via": "votehub" if p.source.startswith("votehub:") else "wikipedia"})
     return rows
 
 
@@ -477,7 +478,8 @@ def update_readme(doc: dict) -> None:
         rows = [
             (f"Races modeled ({c.get('house_races')} House, {c.get('senate_races')} Senate, "
              f"{c.get('governor_races')} governor)", f"{n_races:,}"),
-            (f"General-election head-to-head polls, in {c.get('polled_races')} races",
+            (f"General-election head-to-head polls, in {c.get('polled_races')} races"
+             + (f" ({c['votehub_polls']} of them from VoteHub)" if c.get("votehub_polls") else ""),
              f"{c.get('race_polls', 0):,}"),
             ("Generic-ballot polls (Dec 2024 – latest)", f"{c.get('generic_polls', 0):,}"),
             ("Handicapper ratings (Cook, Sabato, Inside Elections and more)", f"{c.get('ratings', 0):,}"),

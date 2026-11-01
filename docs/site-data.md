@@ -111,7 +111,8 @@ Conventions:
              "adjusted": 4.29,      // after house effect, population, sponsor, trend line
              "weight": 0.0588,      // share of the race's average (weights sum to 1)
              "url": "https://www.dataforprogress.org/…",   // the poll's own source
-             "wikipedia": "https://en.wikipedia.org/w/index.php?oldid=…"}],
+             "via": "wikipedia",    // or "votehub": a poll Wikipedia's tables lack
+             "wikipedia": "https://en.wikipedia.org/w/index.php?oldid=…"}],   // null when via votehub
   "trend": [["2026-07-04", 1.8, 0.4, 3.2], …]   // [date, average, lo80, hi80], daily
 }
 ```

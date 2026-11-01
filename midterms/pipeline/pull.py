@@ -7,7 +7,8 @@ Groups (select with --only):
              presidential-approval page, the three chamber overviews.
              CC BY-SA 4.0; each page pinned by revision id.
   votehub    VoteHub's public polls API — every poll in one JSON array.
-             CC BY 4.0. Supplements Wikipedia's poll tables.
+             CC BY 4.0. Supplements Wikipedia's poll tables with the
+             polls they lack (de-duplicated; see votehub.py).
   pollsters  Silver Bulletin pollster ratings (Jan 2026; free use with
              attribution) and FiveThirtyEight's final (2024) ratings
              (CC BY 4.0) as the fallback for pollsters SB doesn't rate.
@@ -46,8 +47,13 @@ def pull_wiki(force: bool = False) -> None:
 
 def pull_votehub(force: bool = False) -> None:
     print("votehub: polls API")
-    fetch.fetch_to("votehub-polls", VOTEHUB, "votehub/polls.json", force=force,
-                   max_age_hours=None if not force else 0)
+    try:
+        fetch.fetch_to("votehub-polls", VOTEHUB, "votehub/polls.json", force=force,
+                       max_age_hours=None if not force else 0)
+    except SystemExit as e:
+        # a supplement, not the ledger: an outage must not stop a refresh.
+        # build keeps the VoteHub polls already in data/polls/races.csv.
+        print(f"  ! {e} — keeping the VoteHub polls already in the data")
 
 
 def pull_pollsters(force: bool = False) -> None:

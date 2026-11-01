@@ -10,9 +10,10 @@
 - [x] Statewide polling backtest (323 races, 2014–2025): poll-error
       structure fit, national error sized, rating map rescaled
 - [x] Generic-ballot check (2018/2020/2022)
-- [x] Refresh every 6 hours through Election Day; the last snapshot before
-      10:00 UTC Nov 3 is the record, published as the `forecast-of-record`
-      release on the first run after
+- [x] Refresh every 6 hours through Election Day (hourly on election
+      morning until 08:17 UTC, standing down for the last half hour); the
+      last snapshot before 10:00 UTC Nov 3 is the record, published as the
+      `forecast-of-record` release on the first run after
 - [x] Site: midterms.karazajac.io (`site/`), with the in-browser simulator
 - [x] Model frozen (2026-11-01 05:08 UTC)
 
@@ -33,5 +34,5 @@
 - [ ] Fit the House rating map and rating sd on district ratings (the
       statewide fit sets the map now)
 - [ ] A House national-loading fit once more generic-ballot cycles are in hand
-- [ ] VoteHub as a de-duplicated poll supplement
+- [x] VoteHub as a de-duplicated poll supplement (Nov 1; admitted fabricators excluded)
 - [ ] Candidate quality (prior office) for open seats

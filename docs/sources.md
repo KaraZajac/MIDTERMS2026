@@ -59,7 +59,18 @@ allocation).
   grades, bans) — "free of charge for any purpose", with attribution
 - FiveThirtyEight, final 2024 (`fivethirtyeight/data`, CC BY 4.0) — fallback
 
-### 6. Backtest inputs (`midterms pull --only history`)
+### 6. VoteHub's public polls feed — a supplement to Wikipedia's poll tables
+`api.votehub.com/polls` (CC BY 4.0): one JSON array of ~6,000 polls (race,
+approval, favorability, generic ballot); likely/registered versions merged;
+the public feed lags VoteHub's own site. Its general-election polls of 2026
+races fill gaps in Wikipedia's tables: a poll is added only when no
+Wikipedia poll of the race could be the same one (`votehub.py`; method §2).
+On 2026-11-01: 860 matchup polls, 830 already on Wikipedia, 30 added. The
+feed still carried 11 polls from Wedgewood Polls, a firm that admitted
+fabricating its results, weeks after the other aggregators dropped them —
+excluded here by `curated/excluded_pollsters.yaml`.
+
+### 7. Backtest inputs (`midterms pull --only history`)
 - Wikipedia's 2014–2024 Senate and governor race pages and the 2025 NJ/VA
   governorships (353 pages; fetched by `midterms backtest`, pinned by
   revision in `data/backtest_statewide.yaml`) — the same layout the 2026
@@ -71,10 +82,8 @@ allocation).
 - FEC *Federal Elections 2020* (national House vote for the generic check)
 
 ## Pulled, not yet used
-- **VoteHub** public polls API (`api.votehub.com/polls`, CC BY 4.0): one JSON
-  array, ~6,000 polls, no party field, likely/registered versions merged,
-  public feed lags its own site. Planned as a de-duplicated supplement for
-  races Wikipedia hasn't covered.
+- VoteHub's generic-ballot and approval polls (the generic ballot uses
+  Wikipedia's 724-poll list alone).
 
 ## Not used
 - **FiveThirtyEight polls** — every live CSV redirects to ABC News since the

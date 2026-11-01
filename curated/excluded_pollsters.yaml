@@ -1,0 +1,37 @@
+# Pollsters whose "polls" never enter the data: firms that admitted their
+# results were fabricated. Applied at build time to every poll source
+# (Wikipedia's tables, VoteHub's feed, the generic ballot); `make verify`
+# fails if one slips through. Matching: case-insensitive substring of the
+# pollster name.
+#
+# Silver Bulletin's and FiveThirtyEight's "banned" flags (weight 0, see
+# data/pollster_quality.csv) cover fabricators known before their ratings
+# were published; this list covers those exposed since.
+#
+# Disputed, not excluded: SoCal Strategies. Its website and accounts went
+# offline on 2026-10-22 amid questions about who conducted its surveys, and
+# FiftyPlusOne removed two of its polls, but fabrication hasn't been
+# established. Its five polls here (Texas Senate and governor, Michigan
+# Senate) carry under 0.4% of any race's average; they stay at the default
+# weight for an unrated pollster.
+
+excluded:
+  - name: Wedgewood Polls
+    match: wedgewood
+    admitted: "2026-10-20"
+    reason: >-
+      Admitted, after FiftyPlusOne's investigation, that most of its data was
+      made up ("a social experiment"). The New York Times removed 15 of its
+      polls and Decision Desk HQ 17. Wikipedia's tables no longer carry them,
+      but VoteHub's public feed still did on 2026-11-01.
+    sources:
+      - https://blog.fiftyplusone.news/p/fiftyplusone-just-caught-a-pollster
+      - https://gulfnews.com/world/americas/fake-pollsters-hit-us-midterms-2-1.500721304
+  - name: Median Strategies
+    match: median strategies
+    admitted: "2026-08"
+    reason: >-
+      Admitted fabricating poll results, describing itself as "a short term
+      social experiment" (Los Angeles Times, via AFP).
+    sources:
+      - https://gulfnews.com/world/americas/fake-pollsters-hit-us-midterms-2-1.500721304

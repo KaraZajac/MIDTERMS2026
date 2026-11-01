@@ -17,11 +17,12 @@ import csv
 import datetime
 import json
 import math
-from collections import Counter
+from collections import Counter, defaultdict
 
 import yaml
 
 from midterms.paths import CURATED, DATA, FORECAST, POLLS, RACES
+from midterms.pipeline import excluded, votehub
 
 APPORTIONMENT_2020 = {
     "AL": 7, "AK": 1, "AZ": 9, "AR": 4, "CA": 52, "CO": 8, "CT": 5, "DE": 1,
@@ -100,6 +101,25 @@ def check_polls(g: Gate, asof: str) -> None:
                 if r.get(k) not in (None, ""):
                     v = float(r[k])
                     g.check(0 <= v <= 100, f"{where}: {k}={v} outside [0,100]")
+            src = r.get("source") or ""
+            g.check(src.startswith(("wikipedia:", "votehub:")), f"{where}: unknown source {src!r}")
+            fake = excluded.match(r.get("pollster", ""))
+            g.check(fake is None, f"{where}: {r.get('pollster')!r} is excluded as a fabricator "
+                    f"({fake and fake['name']}, curated/excluded_pollsters.yaml)")
+    # the VoteHub supplement never double-counts a poll Wikipedia carries
+    races_csv = POLLS / "races.csv"
+    if races_csv.exists():
+        rows = _csv(races_csv)
+        wiki_by_race = defaultdict(list)
+        for r in rows:
+            if (r.get("source") or "").startswith("wikipedia:"):
+                wiki_by_race[r["race"]].append(r)
+        for r in rows:
+            if (r.get("source") or "").startswith("votehub:"):
+                dup = next((w for w in wiki_by_race[r["race"]] if votehub.is_duplicate(r, w)), None)
+                g.check(dup is None, f"races.csv: VoteHub poll {r['source']} ({r['race']}, "
+                        f"{r['pollster']} {r['end']}) duplicates Wikipedia's "
+                        f"{dup and dup['pollster']} {dup and dup['end']}")
 
 
 def check_forecast(g: Gate) -> None:

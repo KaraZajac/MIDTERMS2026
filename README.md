@@ -26,10 +26,10 @@ an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
 | | Democrats win | Median D seats | 80% interval |
 |---|---:|---:|---:|
 | House (218 for control) | **94.9%** | 237 | 222–251 |
-| Senate (51; VP breaks ties) | **75.4%** | 52 | 49–55 |
-| Governorships (26 of 50) | 78.4% | 27 | 24–31 |
+| Senate (51; VP breaks ties) | **75.5%** | 52 | 49–55 |
+| Governorships (26 of 50) | 78.2% | 28 | 24–31 |
 
-House tipping points: PA-07, NC-11, FL-25. Senate: Ohio (special), Texas, Maine.
+House tipping points: PA-07, CO-08, VA-02. Senate: Ohio (special), Texas, Maine.
 <!-- forecast:end -->
 
 ## What's here
@@ -38,9 +38,9 @@ House tipping points: PA-07, NC-11, FL-25. Senate: Ohio (special), Texas, Maine.
 | | |
 |---|---:|
 | Races modeled (435 House, 35 Senate, 36 governor) | **506** |
-| General-election head-to-head polls, in 176 races | **1,649** |
+| General-election head-to-head polls, in 176 races (30 of them from VoteHub) | **1,679** |
 | Generic-ballot polls (Dec 2024 – latest) | **724** |
-| Handicapper ratings (Cook, Sabato, Inside Elections and more) | **2,687** |
+| Handicapper ratings (Cook, Sabato, Inside Elections and more) | **2,697** |
 | Nominees matched to FEC filings | **871 / 906** |
 | Contested House districts in the fundamentals backtest (2018 + 2022) | **739** |
 | Senate and governor races in the polling backtest (2014–2025) | **323** |
@@ -61,7 +61,8 @@ curated/            hand-maintained control math (seats not up, caucusing)
 data/
 ├── races/          house.csv · senate.csv · governor.csv — nominees, D-side /
 │                     R-side, incumbency, fixed outcomes, partisan lean
-├── polls/          races.csv · generic.csv — every poll, with page + revision
+├── polls/          races.csv · generic.csv — every poll, with its source
+│                     (Wikipedia page + revision, or a VoteHub id)
 ├── lean/           district and state partisan lean, 2026 lines
 ├── ratings.csv     every rating Wikipedia compiles, dated
 ├── averages.csv    outside polling averages (270toWin, DDHQ, RCP, Silver
@@ -152,7 +153,9 @@ $ make web-test    # the browser simulator must reproduce the Python forecast
 
 - **Ex-ante only.** The scored forecast is the last snapshot generated
   before polls open (10:00 UTC, Nov 3). Snapshots are committed, so git
-  timestamps them; nothing generated later can enter the record.
+  timestamps them; nothing generated later can enter the record. On
+  election morning the refresh runs hourly until 08:17 UTC and stands down
+  for the last half hour, so the final snapshot is committed before 10:00.
 - **Every input is traceable.** Each Wikipedia page is pinned by revision
   id; each file by sha256 (`data/meta.yaml`). The build is deterministic:
   the same revisions and files reproduce `data/` exactly.
@@ -166,8 +169,10 @@ $ make web-test    # the browser simulator must reproduce the Python forecast
 ## Data sources
 
 Wikipedia's race pages (candidates, polls, ratings, outside averages;
-CC BY-SA 4.0) · The Downballot (2024/2020 presidential results by district,
-2026 lines) · Dave's Redistricting App block data (2020 results on the nine
+CC BY-SA 4.0) · VoteHub's poll feed (CC BY 4.0) for the polls Wikipedia's
+tables lack, de-duplicated, with admitted fabricators excluded · The
+Downballot (2024/2020 presidential results by district, 2026 lines) ·
+Dave's Redistricting App block data (2020 results on the nine
 redrawn maps) with the Census Bureau's 120th-Congress block equivalency
 files · the FEC (fundraising; 2018/2020/2022 official results) · Silver
 Bulletin and FiveThirtyEight pollster ratings · for the backtests, 353

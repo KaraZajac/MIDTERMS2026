@@ -40,6 +40,30 @@ blocks) and primary tables are excluded. Ranked-choice tables keep each
 poll's final round. One version per underlying poll: likely voters over
 registered voters over adults, then the first-listed question.
 
+**The VoteHub supplement.** Wikipedia's tables miss some polls, so
+VoteHub's public poll feed (CC BY 4.0) fills the gaps. A VoteHub poll of a
+race's two sides is added only if no Wikipedia poll of that race could be
+the same poll: none from the same pollster or sponsor ending within 7
+days, and none ending within 4 days with the same sample size or the same
+topline (both shares within half a point). Doubt counts as a match:
+counting a poll twice doubles its weight, while skipping one costs a
+little information. On Nov 1 the feed had 860 matchup polls of 2026 races;
+830 were already on Wikipedia, and 30 were added (21 inside the 150-day
+window, the weightiest a late Remington poll of AL-02, a coin-flip race
+whose only other polls were three summer Democratic internals). `make
+verify` re-checks that no VoteHub poll duplicates a Wikipedia one.
+
+**Fabricated polls** never enter: pollsters that admitted making up their
+results are excluded from every source (`curated/excluded_pollsters.yaml`,
+with the evidence). This cycle that means Wedgewood Polls (exposed by
+FiftyPlusOne on Oct 20) and Median Strategies (August). Wikipedia's editors
+and the major aggregators had already removed Wedgewood's polls, but
+VoteHub's public feed still carried eleven on Nov 1, and one would have
+been nearly half of Mississippi's Senate average. SoCal Strategies,
+disputed but not shown to have fabricated anything, stays at the default
+weight for an unrated pollster (its five polls carry under 0.4% of any
+race's average).
+
 **Weights** (FiveThirtyEight's structure):
 
 | factor | form |
@@ -293,10 +317,15 @@ days out).
   and state. No ACS product yet covers the redrawn districts.
 - **No candidate-quality, scandal or ideology terms** — only lean,
   incumbency and money.
-- **Wikipedia is the poll ledger.** It is the most complete open compilation
-  (more complete than VoteHub's public API), but editors make typos; the
-  pipeline drops impossible rows and pins revisions, and `make verify`
-  checks every value's range, but a mis-keyed number can get through.
+- **Wikipedia is the poll ledger; VoteHub only fills its gaps.** Wikipedia
+  is the most complete open compilation (it already had 830 of the 860
+  matchup polls in VoteHub's feed), but editors make typos; the pipeline
+  drops impossible rows and pins revisions, and `make verify` checks every
+  value's range, but a mis-keyed number can get through. A poll Wikipedia
+  and VoteHub list under different names *and* different dates, sizes and
+  numbers would be counted twice; the matching rule makes that unlikely,
+  not impossible. And a fabricator not yet exposed is weighted like any
+  unrated pollster.
 - **Senate and governor fundamentals are priors** (they carry little
   weight next to the polls), and the rating-to-margin map is calibrated to
   published hit rates rather than fit here.

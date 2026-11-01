@@ -1,9 +1,16 @@
-# Every six hours: re-pull the race pages (polls, ratings, nominees) and
-# FEC filings, rebuild data/, rerun the forecast and commit what changed.
+# Every six hours: re-pull the race pages (polls, ratings, nominees), the
+# VoteHub poll feed and FEC filings, rebuild data/, rerun the forecast and
+# commit what changed.
 #
 # Before the deadline (polls open, 10:00 UTC Nov 3) each run freezes a
 # timestamped snapshot into data/forecast/snapshots/ — the last one before
-# the deadline is the forecast that gets scored. After the deadline the
+# the deadline is the forecast that gets scored. On election morning the
+# job runs hourly until 08:17 UTC, so the record catches Monday night's
+# last polls even when GitHub delays or drops a scheduled run (it ran the
+# 12:17 UTC slot at 13:30 on Nov 1, and skipped 06:17 entirely). A run
+# that starts in the last half hour before the deadline stands down, so
+# every snapshot that can count is committed, and git-timestamped, before
+# polls open. After the deadline the
 # same job stops forecasting and starts scoring: results boxes fill in on
 # Wikipedia, `midterms score` grades the frozen snapshot, and the
 # scorecard is committed as races resolve.
@@ -16,6 +23,7 @@ name: refresh
 on:
   schedule:
     - cron: "17 */6 * * *"
+    - cron: "17 1-5,7,8 3 11 *"     # Nov 3: with the line above, hourly 00:17–08:17 UTC
   workflow_dispatch: {}
 
 permissions:
@@ -31,20 +39,36 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Phase
+        id: phase
+        run: |
+          now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          if [[ "$now" > "2026-11-03T09:30:00Z" && "$now" < "2026-11-03T10:00:00Z" ]]; then
+            echo "hold=true" >> "$GITHUB_OUTPUT"
+            echo "$now: within half an hour of the 10:00 UTC deadline — standing down"
+          else
+            echo "hold=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-python@v6
+        if: steps.phase.outputs.hold != 'true'
         with:
           python-version: "3.12"
 
       - name: Install
+        if: steps.phase.outputs.hold != 'true'
         run: pip install pyyaml numpy
 
-      - name: Pull (race pages, FEC, pollster ratings)
-        run: python -m midterms pull --only wiki --only fec --only pollsters --force
+      - name: Pull (race pages, VoteHub polls, FEC, pollster ratings)
+        if: steps.phase.outputs.hold != 'true'
+        run: python -m midterms pull --only wiki --only votehub --only fec --only pollsters --force
 
       - name: Build
+        if: steps.phase.outputs.hold != 'true'
         run: python -m midterms build
 
       - name: Forecast (before the deadline) or score (after)
+        if: steps.phase.outputs.hold != 'true'
         run: |
           now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           if [[ "$now" < "2026-11-03T10:00:00Z" ]]; then
@@ -54,11 +78,13 @@ jobs:
           fi
 
       - name: Verify
+        if: steps.phase.outputs.hold != 'true'
         run: |
           python -m midterms verify
           python -m unittest discover -s tests -q
 
       - name: Seal the forecast of record (first run after the deadline)
+        if: steps.phase.outputs.hold != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -79,6 +105,7 @@ jobs:
           fi
 
       - name: Commit if substantively changed
+        if: steps.phase.outputs.hold != 'true'
         run: |
           git config user.name "midterms-refresh"
           git config user.email "actions@users.noreply.github.com"

@@ -311,7 +311,10 @@ def polls(led: dict, trends: dict, race_rows: dict) -> dict:
         rev = page.rpartition("@")[2]
         wiki = f"https://en.wikipedia.org/w/index.php?oldid={rev}" if rev.isdigit() else None
         out[rid] = {
-            "polls": [{**p, "sponsor": p.get("partisan") or None, "wikipedia": wiki} for p in rows],
+            # a VoteHub poll isn't on the race's Wikipedia page: its own url is its source
+            "polls": [{**p, "sponsor": p.get("partisan") or None, "via": p.get("via") or "wikipedia",
+                       "wikipedia": wiki if p.get("via", "wikipedia") == "wikipedia" else None}
+                      for p in rows],
             "trend": trends.get(rid, []),
         }
     return out

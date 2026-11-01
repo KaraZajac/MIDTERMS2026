@@ -8,6 +8,8 @@ Writes (all committed; derived data, CC BY-SA 4.0 — see DATA-RIGHTS.md):
   data/races/governor.csv    36 races
   data/polls/races.csv       every general-election head-to-head poll, as
                              D-side / R-side shares, with page + revision
+                             (plus VoteHub's polls Wikipedia lacks:
+                             source votehub:<id>, see votehub.py)
   data/polls/generic.csv     generic congressional ballot polls
   data/averages.csv          outside polling averages (270toWin, DDHQ, RCP,
                              Silver Bulletin, ...) — challengers, not inputs
@@ -31,7 +33,7 @@ import yaml
 
 from midterms.model import pollsters as PQ
 from midterms.paths import DATA, POLLS, RACES, SOURCES
-from midterms.pipeline import fetch, finance, lean, races, states, wiki
+from midterms.pipeline import excluded, fetch, finance, lean, races, states, votehub, wiki
 from midterms.pipeline import wikipolls as wp
 from midterms.pipeline.htmltable import extract_tables, references
 
@@ -218,8 +220,18 @@ def main() -> None:
                              "coverage_end": hit["CVG_END_DT"] if hit else ""})
 
     print("build: polls, ratings, averages")
-    poll_rows = [p for r in house + statewide for p in r["polls"]]
+    poll_rows, fake_race = excluded.split([p for r in house + statewide for p in r["polls"]])
+    race_index = {r["race"]["id"]: r["race"] for r in house + statewide}
+    vh_rows, vh_info = votehub.build_rows(race_index, poll_rows, POLLS / "races.csv",
+                                          until=datetime.date.today().isoformat())
+    print(f"build: VoteHub supplement — {vh_info['added']} polls Wikipedia's tables lack "
+          f"({vh_info['already_on_wikipedia']} of {vh_info['candidates']} already there; "
+          f"{vh_info['excluded_fabricated']} fabricated dropped; {vh_info['basis']})")
+    poll_rows += vh_rows
     gen_rows, gen_page = generic_polls()
+    gen_rows, fake_gen = excluded.split(gen_rows)
+    if fake_race or fake_gen:
+        print(f"build: dropped {len(fake_race) + len(fake_gen)} fabricated polls from Wikipedia's tables")
     rating_rows = [x for r in house + statewide for x in r["ratings"]]
     avg_rows = [x for r in house + statewide for x in r["averages"]] + generic_averages()
 
@@ -265,7 +277,10 @@ def main() -> None:
             "governor_races": len(by_ch["governor"]),
             "fixed": dict(Counter(f"{r['chamber']}:{r['fixed']}" for rs in by_ch.values()
                                   for r in rs if r["fixed"])),
-            "race_polls": len(poll_rows), "generic_polls": len(gen_rows),
+            "race_polls": len(poll_rows), "votehub_polls": len(vh_rows),
+            "generic_polls": len(gen_rows),
+            "fabricated_polls_excluded": {"wikipedia": len(fake_race) + len(fake_gen),
+                                          "votehub": vh_info["excluded_fabricated"]},
             "polled_races": len({p["race"] for p in poll_rows}),
             "ratings": len(rating_rows), "outside_averages": len(avg_rows),
             "pollsters": len(quality),
@@ -275,6 +290,7 @@ def main() -> None:
             "latest_poll": latest_poll,
         },
         "sources": {"wikipedia_revisions": dict(sorted(wiki_revs.items())), "files": other,
+                    "votehub_supplement": vh_info,
                     "lean": "data/lean/sources.yaml", "backtest": "data/backtest.yaml (sources:)"},
     }
     (DATA / "meta.yaml").write_text(yaml.safe_dump(meta, sort_keys=False, allow_unicode=True))
