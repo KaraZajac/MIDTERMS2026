@@ -445,6 +445,7 @@ def main() -> None:
         "site": "https://midterms.karazajac.io",
         "attribution": [
             "Race pages, polls and ratings: Wikipedia contributors (CC BY-SA 4.0)",
+            "Polls missing from Wikipedia's tables: VoteHub (votehub.com, CC BY 4.0)",
             "Presidential results by district: The Downballot (the-downballot.com/p/data)",
             "2020 results on redrawn lines: Dave's Redistricting App block data (VEST, CC BY 4.0); "
             "This data was generated using data from the Redistricting Data Hub.",
