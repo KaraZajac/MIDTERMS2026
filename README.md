@@ -49,11 +49,12 @@ House tipping points: PA-07, CO-08, WA-03. Senate: Ohio (special), Texas, Maine.
 
 ```
 midterms/
-├── pipeline/       pull (Wikipedia, FEC, The Downballot, DRA blocks, pollster
-│                     ratings) → build (races, polls, ratings, finance, lean)
-│                     → validate; a stdlib HTML-table parser for Wikipedia
+├── pipeline/       pull (Wikipedia, VoteHub, FEC, The Downballot, DRA blocks)
+│                     → build (races, polls, ratings, finance, lean) → validate;
+│                     the refresh cadence; election-night results (civicAPI)
 ├── model/          poll averaging + adjustments, fundamentals, ratings map,
-│                     correlated simulator, the House and statewide backtests
+│                     correlated simulator, the House and statewide backtests,
+│                     the forecast conditioned on election-night calls
 └── journal/        the ex-ante scorecard
 sim/simulator.mjs   the same simulator for the browser (CI-checked against Python)
 site/               the Astro site at midterms.karazajac.io (builds from data/site/)
@@ -158,6 +159,10 @@ $ make web-test    # the browser simulator must reproduce the Python forecast
   refresh runs every 30 minutes (each run starts the next, so GitHub's
   late or dropped cron slots don't matter) and stands down for the last
   half hour, so the final snapshot is committed before 10:00.
+- **Election night never touches the record.** The live view
+  (`midterms live`) conditions the frozen forecast on races as they are
+  called — counts and calls from civicAPI — and the scorecard grades the
+  forecast of record against Wikipedia's results boxes.
 - **Every input is traceable.** Each Wikipedia page is pinned by revision
   id; each file by sha256 (`data/meta.yaml`). The build is deterministic:
   the same revisions and files reproduce `data/` exactly.

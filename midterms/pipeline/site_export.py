@@ -185,8 +185,12 @@ def summary(fc: dict, meta: dict, cur: dict, averages: list[dict], ph: str) -> d
                  "margin_raw": _r(_f(a["d"]) - _f(a["r"]), 2), "updated": a["updated"] or None,
                  "url": SOURCE_URLS.get(a["source"])}
                 for a in averages if a["race"] == "generic"]
+    from midterms.pipeline import cadence
+    nxt = cadence.next_run(datetime.datetime.now(datetime.timezone.utc))
     return {
         "phase": ph, "election_day": "2026-11-03", "deadline": DEADLINE,
+        # when the refresh chain starts its next run (its data lands a few minutes later)
+        "next_refresh": nxt.strftime("%Y-%m-%dT%H:%M:%SZ") if nxt else None,
         "n_sims": fc["n_sims"], "seed": fc["seed"], "headline": fc["headline"],
         "versions": list(VERSIONS), "model": fc["model"],
         "national": {
@@ -451,6 +455,7 @@ def main() -> None:
             "This data was generated using data from the Redistricting Data Hub.",
             "Campaign finance: Federal Election Commission",
             "Pollster ratings: Silver Bulletin; FiveThirtyEight (CC BY 4.0)",
+            "Election-night results and race calls: civicAPI (civicapi.org)",
         ],
     })
     sizes = {p.name: p.stat().st_size for p in sorted(SITE.glob("*.json"))}

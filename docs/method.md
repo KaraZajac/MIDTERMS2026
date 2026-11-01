@@ -332,3 +332,45 @@ days out).
 - **The national error is symmetric** — a choice, argued in §8b, not an
   oversight. Markets price Republicans higher than this model does in the
   close Senate races, consistent with expecting a 2016/2020-style miss.
+
+## 10. Election night: the forecast, given the calls
+
+`midterms live` (`model/live.py`) keeps the forecast of record exactly as
+frozen and asks what it implies once some races are called. A race's
+margin is `mu + A·θ + sd·ε` (§7), where θ holds the errors races share —
+national, four regions, fifty states and the House-wide shift — and ε is
+the race's own error. Given θ the races are independent, so a call changes
+the rest of the map only through θ:
+
+    p(θ | calls) ∝ p(θ) · Π_called P(the called side wins | θ)
+
+and P(D-side wins | θ) is a Student-t CDF of `(mu + A·θ) / sd`. θ is drawn
+by importance sampling — the national error from a t proposal with
+heavier tails than its prior, the other 55 errors from a Gaussian fitted
+to the posterior's mode and curvature (Newton's method), then refitted to
+the weighted draws — and every draw is weighted exactly by
+`p(θ)·Π P(y|θ) / q(θ)`. The uncalled races are simulated from the
+weighted draws; `ess`, the effective number of draws, travels with every
+number. With no calls the engine reproduces the forecast within
+simulation error, and the site shows the forecast itself until the
+first contested call.
+
+Two choices keep it from overreacting:
+
+- **Calls only, never partial counts.** Which counties and which kinds of
+  ballots report first differs by state, and early margins swing on it;
+  the model has no way to know what is still out. A call is the decision
+  desk's statement that the count can no longer change the winner.
+- **A call says who won, not by how much,** and a race not yet called is
+  treated as saying nothing. Both throw information away, so the update
+  is, if anything, too cautious early in the night.
+
+Calls and counts come from civicAPI (counts from secretaries of state,
+calls by its own decision desk; sources.md §7). The scorecard does not
+use them: it resolves races from Wikipedia's results boxes, as before.
+
+**Check** (`midterms live --check N`): N election nights drawn from the
+forecast itself, each revealed the way a decision desk would — by poll
+closing, lopsided races first, anything within a point only the next day —
+with the live control probabilities scored at each hour against how the
+night actually ended.

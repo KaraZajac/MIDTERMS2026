@@ -11,6 +11,8 @@
     midterms export                         data/site/*.json for the Astro site
     midterms cadence                        what this refresh run does, and when
                                             the next one starts (refresh.yml)
+    midterms live [--out PATH]              election night: results, calls, and the
+                                            forecast conditioned on them -> live.json
 """
 
 from __future__ import annotations
@@ -48,6 +50,17 @@ def main(argv: list[str] | None = None) -> None:
     sub.add_parser("score", help="score the frozen forecast against results")
     sub.add_parser("export", help="site JSON")
 
+    p = sub.add_parser("live", help="election night: civicAPI results -> live.json")
+    p.add_argument("--out", help="write here instead of data/site/live.json (the web server)")
+    p.add_argument("--previous", help="the last live.json (default: --out without .tmp, "
+                                      "then data/site/live.json)")
+    p.add_argument("--draws", type=int, default=20000)
+    p.add_argument("--fixture", type=float, metavar="HOUR",
+                   help="no fetch: a simulated night at HOUR (Eastern, e.g. 21.5) for testing")
+    p.add_argument("--seed", type=int, default=3, help="the simulated night (--fixture)")
+    p.add_argument("--check", type=int, metavar="NIGHTS",
+                   help="calibration self-check over NIGHTS simulated election nights")
+
     p = sub.add_parser("cadence", help="the refresh chain: this run's phase and the next run")
     p.add_argument("--event", default="workflow_dispatch", help="github.event_name")
     p.add_argument("--run-id", type=int, help="github.run_id")
@@ -79,6 +92,17 @@ def main(argv: list[str] | None = None) -> None:
     elif args.cmd == "export":
         from midterms.pipeline import site_export
         site_export.main()
+    elif args.cmd == "live":
+        if args.check:
+            import json as _json
+            from midterms.model import live as _live
+            from midterms.paths import SITE
+            sim = _json.loads((SITE / "sim.json").read_text())
+            print(_json.dumps(_live.selfcheck(sim, nights=args.check), indent=1))
+        else:
+            from midterms.pipeline import livefeed
+            livefeed.main(out=args.out, previous=args.previous, draws=args.draws, fixture=args.fixture,
+                          seed=args.seed)
     elif args.cmd == "cadence":
         from midterms.pipeline import cadence
         cadence.main(event=args.event, run_id=args.run_id, runs_path=args.runs)

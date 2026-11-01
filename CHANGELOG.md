@@ -7,6 +7,19 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-01 — election night: live results and the forecast given the calls (no model change)
+- `midterms live` fetches every race's count and call from civicAPI
+  (civicapi.org; counts from secretaries of state, calls by its decision
+  desk) and writes `live.json`: each race's state of play, and each
+  chamber's chances *given the races called so far* — the frozen forecast
+  of record conditioned on the calls, never on partial counts (method
+  §10). The forecast of record itself is untouched, and the scorecard
+  still resolves races from Wikipedia.
+- The web server runs it every minute through the night; the refresh
+  workflow commits `data/site/live.json` as the record (every 10 minutes
+  overnight). Contract: docs/site-data.md.
+- `summary.json` gains `next_refresh`, when the next refresh starts.
+
 ### 2026-11-01 — refresh fixes: ratings pinned, a 30-minute chain (no model change)
 - Silver Bulletin put its ratings file behind a login on Nov 1, and the
   22:05 UTC refresh failed on the download. The ratings the model has

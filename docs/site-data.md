@@ -172,3 +172,63 @@ standard state tile-grid position for cartograms.
 `{forecast, forecast_generated, deadline, resolved, open_count, open,
 scoreboard: {lite|classic|deluxe|ratings|lean-only|coin-flip: {n, brier,
 log_loss, calls}}}` — written by `midterms score`.
+
+## live.json (election night) — written by `midterms live`
+
+Two copies, one shape. The web server runs `midterms live --out …` every
+minute from Nov 3 22:30 UTC and serves `/live.json`; the refresh workflow
+commits `data/site/live.json` (every 10 minutes overnight, then less
+often) as the record and the build-time fallback. Show whichever copy has
+the newer `generated`. Every string is plain text.
+
+```
+{
+  generated, asof,            // when this file was computed (UTC)
+  fixture: false,             // true only for simulated nights (tests/fixtures/live/)
+  status,                     // "awaiting" (no votes yet) | "counting" | "complete"
+  source: {name: "civicAPI", url, fetched, credit, note},
+  forecast: {snapshot, generated, of_record, version},
+                              // the forecast conditioned: after the deadline, the
+                              // forecast of record (of_record true)
+  method,                     // one sentence for the page
+  counts: {awaiting, counting, called, runoff, uncontested},
+  chambers: {house|senate|governor: {
+    seats, majority,
+    not_up: {party: n},       // Senate and governor seats not on the ballot
+    fixed: {party: n},        // decided before Election Day (uncontested)
+    called: {party: n},       // called tonight, by the winner's party label
+    uncalled,                 // contested races without a call
+    bloc: {D, R, other},      // not_up + fixed + called, under the caucus rule
+    pre:  {p_control: {D, R, unclear}, seats: {mean, p10, p50, p90}},
+                              // the forecast of record, unchanged
+    live: {p_control, p_control_alt?, seats, hist: {min, p: [...]},
+           ess, draws, reliable},
+                              // given the calls so far; `ess` is the effective
+                              // number of simulations behind it, and when
+                              // `reliable` is false (ess < 400) say so instead
+                              // of showing a noisy number
+    favorites: {called, won}, // called contested races the forecast favored
+    upsets: [race id]         // called against the forecast, biggest first
+  }},
+  races: {race id: {          // every race in races.json, same ids
+    status,                   // awaiting | counting | called | runoff | uncontested
+    winner?,                  // "D" | "R" (the D-side / R-side) | "other"
+    winner_name?,             // only when the winner is neither nominee
+    called_at?,               // when a call was first seen
+    upset?,                   // the winner had under 50% in the forecast
+    pct_reporting?, votes?: {D, R, other}, margin?,
+                              // the current count; margin is two-party,
+                              // D-side minus R-side, points
+    p_pre,                    // P(D-side wins), forecast of record
+    p_live                    // P(D-side wins | calls so far); 1 or 0 once called
+  }},
+  events: [{t, race, type: "call"|"changed"|"retracted", winner,
+            p_winner_pre?, upset?, after: {house, senate, governor}}]
+                              // newest first (120 kept); `after` is
+                              // P(D control) once that call was in
+}
+```
+
+Before any contested race is called, `live` equals `pre` exactly. The
+counts are display only: the live probabilities use calls, never partial
+counts (method §10).

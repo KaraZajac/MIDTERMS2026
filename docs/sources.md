@@ -75,7 +75,22 @@ feed still carried 11 polls from Wedgewood Polls, a firm that admitted
 fabricating its results, weeks after the other aggregators dropped them —
 excluded here by `curated/excluded_pollsters.yaml`.
 
-### 7. Backtest inputs (`midterms pull --only history`)
+### 7. civicAPI — election-night counts and calls
+`civicapi.org/api/v2/race/search` (no key): every race on the Nov 3
+ballot, with each candidate's votes, the share of the count reported and
+a `winner` flag set by civicAPI's own decision desk. Counts come from
+secretaries of state and refresh every 5–10 seconds while votes are
+counted. Two searches (`election_type=General`, and `query=Governor` with
+`election_type=Statewide`) list all 435 House districts, the 35 Senate
+races and the 36 governorships; `civic.py` maps each to a forecast race
+by office, state and district and each candidate to a side by name (the
+map was checked on Nov 1: 506 of 506 races, every nominee). Terms: free
+for any use, *"Attribution is required for non-personal projects —
+please either link to civicapi.org or list our name somewhere."* Used
+only on election night, by `midterms live` (method §10); never a model
+input, and not the scorecard's source of results.
+
+### 8. Backtest inputs (`midterms pull --only history`)
 - Wikipedia's 2014–2024 Senate and governor race pages and the 2025 NJ/VA
   governorships (353 pages; fetched by `midterms backtest`, pinned by
   revision in `data/backtest_statewide.yaml`) — the same layout the 2026

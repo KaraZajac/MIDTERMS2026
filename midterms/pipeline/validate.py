@@ -178,6 +178,35 @@ def check_site(g: Gate) -> None:
                 g.check(p in (0.0, 1.0), f"site {r['id']}: fixed race p={p}")
 
 
+def check_live(g: Gate) -> None:
+    """data/site/live.json (election night), when present: the contract in
+    docs/site-data.md, and never a simulated night."""
+    from midterms.paths import SITE
+    path = SITE / "live.json"
+    if not path.exists():
+        return
+    doc = json.loads(path.read_text())
+    g.check(doc.get("fixture") is False, "data/site/live.json is a fixture (a simulated night)")
+    g.check(doc.get("status") in ("awaiting", "counting", "complete"), f"live.json status {doc.get('status')!r}")
+    fc_path = FORECAST / "latest.json"
+    ids = set(json.loads(fc_path.read_text())["races"]) if fc_path.exists() else set(doc.get("races", {}))
+    races = doc.get("races", {})
+    g.check(set(races) == ids, f"live.json races differ from the forecast's ({len(races)} vs {len(ids)})")
+    for rid, r in races.items():
+        g.check(r.get("status") in ("awaiting", "counting", "called", "runoff", "uncontested"),
+                f"live {rid}: status {r.get('status')!r}")
+        for k in ("p_pre", "p_live"):
+            g.check(isinstance(r.get(k), (int, float)) and 0 <= r[k] <= 1, f"live {rid}: {k}={r.get(k)}")
+        if r.get("status") in ("called", "uncontested"):
+            g.check(r.get("winner") in ("D", "R", "other"), f"live {rid}: winner {r.get('winner')!r}")
+    for c in ("house", "senate", "governor"):
+        ch = (doc.get("chambers") or {}).get(c)
+        g.check(ch is not None, f"live.json lacks {c}")
+        if ch:
+            tot = sum(ch["live"]["p_control"].values())
+            g.check(abs(tot - 1) < 1e-3, f"live {c}: p_control sums to {tot}")
+
+
 def main() -> int:
     g = Gate()
     meta_path = DATA / "meta.yaml"
@@ -189,6 +218,7 @@ def main() -> int:
     check_polls(g, asof)
     check_forecast(g)
     check_site(g)
+    check_live(g)
     if g.errors:
         print(f"✗ verify: {len(g.errors)} of {g.checks} checks failed")
         for e in g.errors[:40]:

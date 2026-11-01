@@ -19,6 +19,7 @@ with `midterms pull`) and are not redistributed here.
 | Historical generic-ballot polls | `sources/history/` only; derived averages in `data/backtest_statewide.yaml` | FiveThirtyEight's generic-ballot poll archive (2018–2024) as of the March 2025 shutdown, via the Internet Archive | **CC BY 4.0** (fivethirtyeight/data notice); credited to FiveThirtyEight / ABC News |
 | Pollster quality | `data/pollster_quality.csv` (derived weights); `data/pollster_ratings/ratings.csv` (the ratings those weights come from: pollster, grade, plus-minus, ban — pinned because Silver Bulletin's file now needs a login) | Silver Bulletin pollster ratings, January 2026; FiveThirtyEight pollster ratings (final, 2024) for pollsters SB doesn't rate | Silver Bulletin: "You are welcome to use this data free of charge for any purpose, but please attribute it to Silver Bulletin." FiveThirtyEight: **CC BY 4.0** |
 | VoteHub polls | rows of `data/polls/races.csv` whose `source` is `votehub:<id>` (polls Wikipedia's tables lack) | VoteHub public polls API (`api.votehub.com/polls`) | **CC BY 4.0**. Attribution: "Poll data from VoteHub (votehub.com)", with each poll's own source URL in the `url` column |
+| Election-night results | `data/site/live.json` (each race's count, share reported and call, with the forecast conditioned on the calls) | civicAPI (`civicapi.org/api/v2/race/search`): counts from secretaries of state; race calls by civicAPI's decision desk | Free for personal, non-commercial and commercial use, including publishing live results; **attribution required**: "Results and race calls: civicAPI (civicapi.org)" |
 | Original contributions | the pipeline, model and journal code; adjustments, averages, forecasts, the backtest and scorecard | this project | code MIT; data outputs CC BY-SA 4.0 (attribution chains to the sources above) |
 
 ## Deliberately not used
@@ -47,3 +48,4 @@ with `midterms pull`) and are not redistributed here.
 - Federal Election Commission (data source: openFEC / FEC bulk data).
 - Silver Bulletin, pollster ratings (January 2026); FiveThirtyEight,
   pollster ratings (CC BY 4.0).
+- civicAPI (civicapi.org), election-night results and race calls.
