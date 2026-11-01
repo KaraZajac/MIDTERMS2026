@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { meta, summary } from "../lib/data.js";
+import { meta, summary, changes, liveFile } from "../lib/data.js";
 import { fmtStamp } from "../lib/format.js";
 
 const m = meta();
@@ -18,6 +18,8 @@ const files = [
   ["data/site/polls.json", "The polls in each race's average, with adjustments and weights"],
   ["data/site/generic.json", "The generic-ballot average and its polls"],
   ["data/site/sim.json", "Parameters for the simulator (sim/simulator.mjs)"],
+  ...(changes() ? [["data/site/changes.json", "What each refresh changed: chamber odds, new polls, races that moved"]] : []),
+  ...(liveFile() ? [["data/site/live.json", "Election night: results and race calls from civicAPI, and the forecast given the calls"]] : []),
   ["data/forecast/latest.json", "The model's full output"],
   ["data/polls/races.csv", "Every race poll, with its source: a Wikipedia page and revision, or a VoteHub poll id"],
   ["data/polls/generic.csv", "Every generic-ballot poll since December 2024"],
