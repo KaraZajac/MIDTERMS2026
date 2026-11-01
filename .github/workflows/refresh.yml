@@ -59,9 +59,11 @@ jobs:
         if: steps.phase.outputs.hold != 'true'
         run: pip install pyyaml numpy
 
-      - name: Pull (race pages, VoteHub polls, FEC, pollster ratings)
+      - name: Pull (race pages, VoteHub polls, FEC)
         if: steps.phase.outputs.hold != 'true'
-        run: python -m midterms pull --only wiki --only votehub --only fec --only pollsters --force
+        # pollster ratings are pinned in data/pollster_ratings/ (Silver
+        # Bulletin's file has needed a login since Nov 1)
+        run: python -m midterms pull --only wiki --only votehub --only fec --force
 
       - name: Build
         if: steps.phase.outputs.hold != 'true'

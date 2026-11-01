@@ -16,6 +16,9 @@ Writes (all committed; derived data, CC BY-SA 4.0 — see DATA-RIGHTS.md):
   data/ratings.csv           every handicapper rating Wikipedia compiles
   data/finance.csv           FEC individual contributions per side
   data/pollster_quality.csv  the weight each pollster's polls receive
+  data/pollster_ratings/     the pollster ratings those weights come from,
+                             pinned (Silver Bulletin's file has needed a
+                             login since Nov 1, 2026)
   data/meta.yaml             provenance: every source's URL, fetch time,
                              sha256, Wikipedia revision ids; counts
 """
@@ -129,6 +132,33 @@ def generic_averages() -> list[dict]:
     return out
 
 
+RATINGS_DIR = DATA / "pollster_ratings"
+RAW_RATINGS = {"silver-bulletin-ratings": SOURCES / "pollsters" / "silver-bulletin-2026-01.xlsx",
+               "fte-pollster-ratings": SOURCES / "pollsters" / "fte-pollster-ratings-2024.csv"}
+
+
+def pollster_ratings() -> tuple[list[dict], dict]:
+    """The pollster ratings table and its provenance. Rebuilt from the raw
+    files when `midterms pull --only pollsters` has fetched both, else the
+    committed data/pollster_ratings/ copy: Silver Bulletin put its file
+    behind a login on Nov 1, 2026, and the frozen model's poll weights
+    must not depend on a download."""
+    sb, fte = RAW_RATINGS["silver-bulletin-ratings"], RAW_RATINGS["fte-pollster-ratings"]
+    if sb.exists() and fte.exists():
+        rows = PQ.rating_rows(sb, fte)
+        _write(RATINGS_DIR / "ratings.csv", rows, PQ.RATING_COLS)
+        files = fetch.load_manifest().get("files", {})
+        prov = {k: {"url": files[k]["url"], "fetched": files[k]["fetched"], "sha256": files[k]["sha256"]}
+                for k in RAW_RATINGS if k in files}
+        (RATINGS_DIR / "sources.yaml").write_text(yaml.safe_dump(prov, sort_keys=True))
+        return rows, prov
+    if not (RATINGS_DIR / "ratings.csv").exists():
+        raise SystemExit("no pollster ratings and no data/pollster_ratings/ — "
+                         "run `midterms pull --only pollsters`")
+    prov = yaml.safe_load((RATINGS_DIR / "sources.yaml").read_text()) or {}
+    return PQ.read_rating_rows(RATINGS_DIR / "ratings.csv"), prov
+
+
 LEAN_DIR = DATA / "lean"
 # Only the blended lean index is committed for districts: The Downballot asks
 # that its spreadsheets not be reproduced, and the per-year district margins
@@ -201,7 +231,15 @@ def main() -> None:
             x["notes"] = f"D-side is {x['d_cand']} ({x['d_side']})"
 
     print("build: finance (FEC individual contributions)")
-    fec_idx = finance.index(finance.load())
+    carried = None
+    if (SOURCES / "fec" / "webl26.zip").exists():
+        fec_idx = finance.index(finance.load())
+    else:
+        # the download failed this run (pull warns and goes on): keep the
+        # committed filings for every side whose candidate hasn't changed
+        with open(DATA / "finance.csv", newline="") as f:
+            carried = {(r["race"], r["side"], r["candidate"]): r for r in csv.DictReader(f)}
+        print("build: no FEC download — keeping the committed data/finance.csv filings")
     fin_rows = []
     for r in house + statewide:
         x = r["race"]
@@ -210,6 +248,10 @@ def main() -> None:
             continue
         dist = "00" if office == "S" or x["label"].endswith("-AL") else x["label"].split("-")[1]
         for side, name, party in (("D", x["d_cand"], x["d_side"]), ("R", x["r_cand"], x["r_side"])):
+            if carried is not None:
+                old = carried.get((x["id"], side, name))
+                fin_rows.append(old or {"race": x["id"], "side": side, "candidate": name})
+                continue
             hit = finance.match(fec_idx, office, x["state"], dist, name, party) if name else None
             fin_rows.append({"race": x["id"], "side": side, "candidate": name,
                              "fec_id": hit["CAND_ID"] if hit else "",
@@ -236,8 +278,8 @@ def main() -> None:
     avg_rows = [x for r in house + statewide for x in r["averages"]] + generic_averages()
 
     print("build: pollster quality")
-    ratings_db = PQ.load_ratings(SOURCES / "pollsters" / "silver-bulletin-2026-01.xlsx",
-                                 SOURCES / "pollsters" / "fte-pollster-ratings-2024.csv")
+    rating_table, ratings_prov = pollster_ratings()
+    ratings_db = PQ.load_ratings(rating_table)
     names = {p["pollster"] for p in poll_rows + gen_rows}
     quality = PQ.quality_table(names, ratings_db)
 
@@ -262,7 +304,9 @@ def main() -> None:
     wiki_revs = {k.split(":", 1)[1]: v.get("revid") for k, v in files.items()
                  if k.startswith("wikipedia:") and "2026" in k}
     other = {k: {"url": v["url"], "fetched": v["fetched"], "sha256": v["sha256"]}
-             for k, v in files.items() if not k.startswith("wikipedia:")}
+             for k, v in files.items() if not k.startswith("wikipedia:") and k not in RAW_RATINGS}
+    other.update(ratings_prov)          # the pinned copy, wherever this build ran
+    other = dict(sorted(other.items()))
     digest = hashlib.sha256(json.dumps({"w": wiki_revs, "o": {k: v["sha256"] for k, v in other.items()}},
                                        sort_keys=True).encode()).hexdigest()[:16]
     latest_poll = max([p["end"] for p in poll_rows + gen_rows] or [""])

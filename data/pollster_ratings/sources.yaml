@@ -1,0 +1,8 @@
+fte-pollster-ratings:
+  fetched: '2026-11-01T15:56:00Z'
+  sha256: 75215795f59d6dd9c725c794b2222db140048aff27510847d1c5b145af3c04ef
+  url: https://raw.githubusercontent.com/fivethirtyeight/data/master/pollster-ratings/pollster-ratings-combined.csv
+silver-bulletin-ratings:
+  fetched: '2026-11-01T15:55:59Z'
+  sha256: 14f5aeba96e21c3535fca225869595557347d2a1005dbe0303fc082cf6261d61
+  url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx

@@ -287,8 +287,7 @@ def score(ps: list[float], ys: list[int]) -> dict:
 def main() -> dict:
     params = yaml.safe_load(PARAMS.read_text())
     from midterms.model import pollsters as PQ
-    qdb = PQ.load_ratings(SOURCES / "pollsters" / "silver-bulletin-2026-01.xlsx",
-                          SOURCES / "pollsters" / "fte-pollster-ratings-2024.csv")
+    qdb = PQ.load_ratings(PQ.read_rating_rows(DATA / "pollster_ratings" / "ratings.csv"))
     recs = []
     for year, chamber, st, title in pages():
         rec = race_record(year, chamber, st, title)

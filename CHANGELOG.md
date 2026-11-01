@@ -7,6 +7,17 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-01 — refresh fix: pollster ratings pinned in the repo (no model change)
+- Silver Bulletin put its ratings file behind a login on Nov 1, and the
+  22:05 UTC refresh failed on the download. The ratings the model has
+  always used (Silver Bulletin, January 2026; FiveThirtyEight's 2024
+  ratings as the fallback) are now committed in `data/pollster_ratings/`
+  with each original file's sha256, and the refresh no longer downloads
+  them. Every poll weight is unchanged (`data/pollster_quality.csv` is
+  byte-identical).
+- An FEC outage no longer stops a refresh either: the build keeps the
+  committed filings.
+
 ### 2026-11-01 — VoteHub supplement, fabricated polls excluded, election-morning refreshes (data and schedule; no model change)
 - **VoteHub's poll feed** (CC BY 4.0) now fills gaps in Wikipedia's poll
   tables. A VoteHub poll is added only when no Wikipedia poll of the same

@@ -58,6 +58,11 @@ allocation).
 - Silver Bulletin, January 2026 (540 pollsters, Predictive Plus-Minus,
   grades, bans) — "free of charge for any purpose", with attribution
 - FiveThirtyEight, final 2024 (`fivethirtyeight/data`, CC BY 4.0) — fallback
+- Both are pinned in `data/pollster_ratings/` (the fields the model uses,
+  with each original file's sha256 in `sources.yaml`). Silver Bulletin put
+  its file behind a login on Nov 1, 2026, which broke that evening's
+  refresh; the build now reads the committed copy, so the frozen model's
+  poll weights can't change with a download.
 
 ### 6. VoteHub's public polls feed — a supplement to Wikipedia's poll tables
 `api.votehub.com/polls` (CC BY 4.0): one JSON array of ~6,000 polls (race,

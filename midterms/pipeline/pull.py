@@ -12,8 +12,10 @@ Groups (select with --only):
   pollsters  Silver Bulletin pollster ratings (Jan 2026; free use with
              attribution) and FiveThirtyEight's final (2024) ratings
              (CC BY 4.0) as the fallback for pollsters SB doesn't rate.
+             The build uses the pinned copy in data/pollster_ratings/.
   fec        FEC bulk candidate summaries (public domain): 2026 for
-             fundraising, 2018/2022 for the backtest.
+             fundraising, 2018/2022 for the backtest. If the download
+             fails, the build keeps the committed filings.
   lean       2024/2020 presidential results by congressional district on
              the lines used in 2026.
   history    Past results for calibration (MEDSL; FEC official results).
@@ -57,11 +59,16 @@ def pull_votehub(force: bool = False) -> None:
 
 
 def pull_pollsters(force: bool = False) -> None:
+    """The raw ratings files. Not part of the refresh: the build uses the
+    committed copy (data/pollster_ratings/) unless both files are here, and
+    Silver Bulletin's has needed a login since Nov 1, 2026."""
     print("pollster ratings")
-    fetch.fetch_to("silver-bulletin-ratings", SB_RATINGS, "pollsters/silver-bulletin-2026-01.xlsx",
-                   force=force)
-    fetch.fetch_to("fte-pollster-ratings", FTE_RATINGS, "pollsters/fte-pollster-ratings-2024.csv",
-                   force=force)
+    for name, url, rel in (("silver-bulletin-ratings", SB_RATINGS, "pollsters/silver-bulletin-2026-01.xlsx"),
+                           ("fte-pollster-ratings", FTE_RATINGS, "pollsters/fte-pollster-ratings-2024.csv")):
+        try:
+            fetch.fetch_to(name, url, rel, force=force)
+        except SystemExit as e:
+            print(f"  ! {e} — the build keeps data/pollster_ratings/")
 
 
 FTE_GENERIC = ("https://web.archive.org/web/20250305204633id_/"

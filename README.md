@@ -64,6 +64,7 @@ data/
 ├── polls/          races.csv · generic.csv — every poll, with its source
 │                     (Wikipedia page + revision, or a VoteHub id)
 ├── lean/           district and state partisan lean, 2026 lines
+├── pollster_ratings/  the pollster ratings behind the poll weights, pinned
 ├── ratings.csv     every rating Wikipedia compiles, dated
 ├── averages.csv    outside polling averages (270toWin, DDHQ, RCP, Silver
 │                     Bulletin…) — challengers, never inputs

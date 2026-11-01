@@ -61,9 +61,15 @@ def weight_from_ppm(ppm: float) -> float:
     return max(0.35, min(1.6, math.exp(-0.35 * ppm)))
 
 
-def load_ratings(sb_xlsx: Path | None, fte_csv: Path | None) -> dict:
-    """canonical name -> {name, grade, ppm, banned, source}"""
-    out: dict[str, dict] = {}
+RATING_COLS = ["source", "pollster", "grade", "ppm", "banned"]
+
+
+def rating_rows(sb_xlsx: Path | None, fte_csv: Path | None) -> list[dict]:
+    """The raw ratings files cut down to the fields the model uses, in load
+    order: FiveThirtyEight's first, Silver Bulletin's over them. Values are
+    kept as the files spell them, so the committed table
+    (data/pollster_ratings/ratings.csv) reproduces the weights exactly."""
+    rows = []
     if fte_csv and fte_csv.exists():
         with open(fte_csv, newline="") as f:
             for r in csv.DictReader(f):
@@ -73,20 +79,32 @@ def load_ratings(sb_xlsx: Path | None, fte_csv: Path | None) -> dict:
                     continue
                 if math.isnan(ppm):
                     continue
-                out[canon(r["pollster"])] = {
-                    "name": r["pollster"], "grade": r.get("numeric_grade", ""), "ppm": ppm,
-                    "banned": False, "source": "538-2024"}
+                rows.append({"source": "538-2024", "pollster": r["pollster"],
+                             "grade": r.get("numeric_grade", ""), "ppm": r["POLLSCORE"], "banned": ""})
     if sb_xlsx and sb_xlsx.exists():
-        rows = xlsx_rows(sb_xlsx)
-        for r in rows[1:]:
+        for r in xlsx_rows(sb_xlsx)[1:]:
             if len(r) < 9 or not r[1]:
                 continue
             try:
-                ppm = float(r[7])
+                float(r[7])
             except ValueError:
                 continue
-            out[canon(r[1])] = {"name": r[1], "grade": r[8], "ppm": ppm,
-                                "banned": r[5].strip().lower() == "yes", "source": "silver-bulletin-2026-01"}
+            rows.append({"source": "silver-bulletin-2026-01", "pollster": r[1], "grade": r[8],
+                         "ppm": r[7], "banned": "yes" if r[5].strip().lower() == "yes" else ""})
+    return rows
+
+
+def read_rating_rows(path: Path) -> list[dict]:
+    with open(path, newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def load_ratings(rows: list[dict]) -> dict:
+    """canonical name -> {name, grade, ppm, banned, source}"""
+    out: dict[str, dict] = {}
+    for r in rows:
+        out[canon(r["pollster"])] = {"name": r["pollster"], "grade": r["grade"], "ppm": float(r["ppm"]),
+                                     "banned": r["banned"] == "yes", "source": r["source"]}
     for k in list(out):
         a = ALIASES.get(k)
         if a and a not in out:

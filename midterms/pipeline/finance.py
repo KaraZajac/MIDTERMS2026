@@ -30,8 +30,12 @@ PARTY = {"DEM": "D", "DFL": "D", "REP": "R", "IND": "IND", "NPA": "IND", "NNE": 
 
 def pull(force: bool = False) -> None:
     print("fec: 2026 House/Senate campaigns")
-    fetch.fetch_to("fec-webl26", WEBL, "fec/webl26.zip", force=force,
-                   max_age_hours=None if not force else 0)
+    try:
+        fetch.fetch_to("fec-webl26", WEBL, "fec/webl26.zip", force=force,
+                       max_age_hours=None if not force else 0)
+    except SystemExit as e:
+        # an outage must not stop a poll refresh: build keeps data/finance.csv
+        print(f"  ! {e} — keeping the committed filings")
 
 
 def load() -> list[dict]:
