@@ -166,6 +166,64 @@ def national_error(year_stats: dict, race_var: float) -> dict:
                 "modeled: see docs/method.md, Accuracy."}
 
 
+def generic_ballot_check(params: dict, quality_db: dict) -> dict | None:
+    """The generic-ballot average (this code, 3 days out, on FiveThirtyEight's
+    archived polls) against the national House vote (FEC) and against the
+    district baseline the House backtest fit (data/backtest.yaml)."""
+    import csv
+    path = SOURCES / "history" / "fte-generic-ballot-polls-historical.csv"
+    if not path.exists():
+        return None
+    from midterms.model import backtest as house_bt
+    from midterms.model import pollsters as PQ
+    rows = list(csv.DictReader(open(path, newline="", encoding="utf-8")))
+
+    def iso(s):
+        m, d, y = s.split("/")
+        return datetime.date(2000 + int(y), int(m), int(d)).isoformat()
+
+    hb = yaml.safe_load((DATA / "backtest.yaml").read_text()) if (DATA / "backtest.yaml").exists() else {}
+    intercepts = (hb.get("fit") or {}).get("year_intercepts", {})
+    out = {}
+    for y in (2018, 2020, 2022):
+        asof = (datetime.date.fromisoformat(ELECTION[y]) - datetime.timedelta(days=3)).isoformat()
+        ps = []
+        for r in rows:
+            if r["cycle"] != str(y) or not r["dem"] or not r["rep"]:
+                continue
+            d, rr = float(r["dem"]), float(r["rep"])
+            if d + rr <= 0:
+                continue
+            ps.append(P.Poll(race="generic", pollster=r["display_name"] or r["pollster"],
+                             start=iso(r["start_date"]), end=iso(r["end_date"]),
+                             n=int(float(r["sample_size"])) if r["sample_size"] else None,
+                             population={"lv": "LV", "rv": "RV", "a": "A", "v": "V"}.get(r["population"]),
+                             partisan={"DEM": "D", "REP": "R"}.get((r["partisan"] or "").upper()),
+                             d=d, r=rr, margin=P.two_party(d, rr)))
+        ps = [p for p in ps if p.end <= asof]
+        adj = P.fit_adjustments(ps)
+        quality = {P.canonical_pollster(q["pollster"]): q["weight"]
+                   for q in PQ.quality_table({p.pollster for p in ps}, quality_db)}
+        a = P.average(ps, asof, adj, half_life=_v(params, "national", "generic_half_life_days"),
+                      max_age=120, quality=quality, sd_nonsampling=0.0, sd_floor=0.0)
+        try:
+            _, national = house_bt.results(y)
+        except (FileNotFoundError, StopIteration):
+            national = None
+        row = {"average": round(a.margin, 2), "n_polls": a.n_polls,
+               "house_vote": None if national is None else round(national, 2)}
+        if national is not None:
+            row["miss_vs_vote"] = round(national - a.margin, 2)
+        if y in intercepts:
+            row["district_baseline"] = intercepts[y]
+            row["miss_vs_baseline"] = round(intercepts[y] - a.margin, 2)
+        out[y] = row
+    return {"what": "generic-ballot average 3 days out vs the national two-party House vote and "
+                    "vs the fitted district baseline (the quantity the House model needs)",
+            "source": "FiveThirtyEight generic-ballot poll archive (CC BY 4.0) via the Internet Archive",
+            "cycles": out}
+
+
 def score(ps: list[float], ys: list[int]) -> dict:
     ps = [min(max(p, 1e-4), 1 - 1e-4) for p in ps]
     n = len(ps)
@@ -288,6 +346,7 @@ def main() -> dict:
         "national_error": national_error(year_stats, float(np.var(resid))),
         "model_assumptions": {"sd_national": sd_nat, "shared_sd": round(shared, 2),
                               "typical_poll_sd": round(float(np.median([x["poll_sd"] for x in rows])), 2)},
+        "generic_ballot": generic_ballot_check(params, qdb),
         "scores": {"polls": score(p_polls, ys),
                    "polls_on_rated": score(p_polls_r, y_r) if y_r else None,
                    "ratings": score(p_ratings, y_r) if y_r else None,
@@ -307,6 +366,11 @@ def main() -> dict:
     ne = out["national_error"]
     print(f"  national-miss sd (net of noise): midterm-like {ne['sd_estimate_midterm_like']}, "
           f"all cycles {ne['sd_estimate_all_cycles']}, presidential {ne['sd_estimate_presidential']}")
+    gb = out.get("generic_ballot")
+    if gb:
+        for y, c in gb["cycles"].items():
+            print(f"  generic {y}: average {c['average']:+.2f}; miss vs House vote "
+                  f"{c.get('miss_vs_vote')}; vs district baseline {c.get('miss_vs_baseline')}")
     for k, s in out["scores"].items():
         if s:
             print(f"  {k:18s} n={s['n']} Brier {s['brier']} log {s['log_loss']} calls {s['calls']}")

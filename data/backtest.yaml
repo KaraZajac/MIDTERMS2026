@@ -143,6 +143,9 @@ sources:
   fec-results-2018:
     url: https://www.fec.gov/documents/2706/federalelections2018.xlsx
     sha256: f2c42311862b4927df2ca5908c5f9c8f8da6221a8db88fd00434a22ec1e0e303
+  fec-results-2020:
+    url: https://www.fec.gov/documents/4228/federalelections2020.xlsx
+    sha256: 5073b6d2c76c86c941508dfb1a11cc497e8529b0068c5132aceb0f385c19352e
   fec-results-2022:
     url: https://www.fec.gov/documents/5676/federalelections2022.xlsx
     sha256: cdb258ea23803e50d752bcea19faa39b3c201eb960094bcb556c3a38c2350897

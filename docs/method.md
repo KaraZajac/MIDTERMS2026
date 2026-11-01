@@ -246,11 +246,28 @@ uncertainty): polls alone Brier 0.0550 · ratings alone 0.0535 · **polls +
 ratings 0.0524** (log loss 0.163, calls 92%) — the blend beats either
 input, which is the case for Deluxe.
 
+**The generic ballot, checked the same way** (FiveThirtyEight's archived
+generic-ballot polls, CC BY, averaged by this code three days out):
+
+| cycle | average | national House vote | miss | district baseline (§8) | miss |
+|---|---:|---:|---:|---:|---:|
+| 2018 | D+7.9 | D+8.8 | +0.9 | D+7.1 | −0.8 |
+| 2020 | D+7.8 | D+2.6 | −5.2 | — | — |
+| 2022 | D−0.2 | R+3.1 | −2.9 | R+0.6 | −0.4 |
+
+Its misses against the vote ran ~0.8× the statewide misses, in the same
+direction — so the House does share the national polling error. Against
+the district baseline the House model actually uses, the generic ballot
+missed by under a point in both midterms (the uncontested-seat distortions
+in the raw vote cancel out). The House keeps its loading of 0.7 and its
+2.1-point translation term anyway: two midterms are too few to fit, and
+2020 shows a five-point miss is possible. If anything, the House interval
+is wide.
+
 Caveats: quality weights use Silver Bulletin's 2026 ratings, which were
 themselves informed by these results (a mild leak); no trend-line
 adjustment (it needs each year's generic-ballot series; negligible three
-days out); and the national loading for the House (0.7) is a prior — no
-generic-ballot backtest yet.
+days out).
 
 ## 9. Known limitations
 

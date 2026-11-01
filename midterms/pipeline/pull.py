@@ -58,12 +58,44 @@ def pull_pollsters(force: bool = False) -> None:
                    force=force)
 
 
+FTE_GENERIC = ("https://web.archive.org/web/20250305204633id_/"
+               "https://projects.fivethirtyeight.com/polls/data/generic_ballot_polls_historical.csv")
+HISTORY = {
+    "fec-results-2018": ("https://www.fec.gov/documents/2706/federalelections2018.xlsx",
+                         "history/federalelections2018.xlsx"),
+    "fec-results-2020": ("https://www.fec.gov/documents/4228/federalelections2020.xlsx",
+                         "history/federalelections2020.xlsx"),
+    "fec-results-2022": ("https://www.fec.gov/documents/5676/federalelections2022.xlsx",
+                         "history/federalelections2022.xlsx"),
+    "downballot-pres20-2022-lines": (
+        "https://docs.google.com/spreadsheets/d/1CKngqOp8fzU22JOlypoxNsxL6KSAH920Whc-rd7ebuM/"
+        "export?format=csv&gid=1913458313", "history/downballot-pres20-2022-lines.csv"),
+    "downballot-pres-2018-lines": (
+        "https://docs.google.com/spreadsheets/d/1zLNAuRqPauss00HDz4XbTH2HqsCzMe0pR8QmD1K8jk8/"
+        "export?format=csv&gid=0", "history/downballot-pres-2018-lines.csv"),
+    "fec-weball22": ("https://www.fec.gov/files/bulk-downloads/2022/weball22.zip", "history/weball22.zip"),
+    "fec-weball18": ("https://www.fec.gov/files/bulk-downloads/2018/weball18.zip", "history/weball18.zip"),
+    # FiveThirtyEight's generic-ballot poll archive (CC BY 4.0), as of the
+    # March 2025 shutdown, via the Internet Archive: backtest input only
+    "fte-generic-ballot-historical": (FTE_GENERIC, "history/fte-generic-ballot-polls-historical.csv"),
+}
+
+
+def pull_history(force: bool = False) -> None:
+    """Inputs of `midterms backtest` (the historical Wikipedia race pages
+    are fetched by the statewide backtest itself, pinned by revision)."""
+    print("history: backtest inputs")
+    for name, (url, rel) in HISTORY.items():
+        fetch.fetch_to(name, url, rel, force=force)
+
+
 GROUPS = {
     "wiki": pull_wiki,
     "pollsters": pull_pollsters,
     "fec": finance.pull,
     "lean": lean.pull,
     "votehub": pull_votehub,
+    "history": pull_history,
 }
 
 

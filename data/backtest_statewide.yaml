@@ -72,6 +72,31 @@ model_assumptions:
   sd_national: 3.5
   shared_sd: 4.21
   typical_poll_sd: 4.43
+generic_ballot:
+  what: generic-ballot average 3 days out vs the national two-party House vote and
+    vs the fitted district baseline (the quantity the House model needs)
+  source: FiveThirtyEight generic-ballot poll archive (CC BY 4.0) via the Internet
+    Archive
+  cycles:
+    2018:
+      average: 7.88
+      n_polls: 278
+      house_vote: 8.82
+      miss_vs_vote: 0.94
+      district_baseline: 7.09
+      miss_vs_baseline: -0.79
+    2020:
+      average: 7.82
+      n_polls: 267
+      house_vote: 2.63
+      miss_vs_vote: -5.19
+    2022:
+      average: -0.16
+      n_polls: 322
+      house_vote: -3.05
+      miss_vs_vote: -2.89
+      district_baseline: -0.57
+      miss_vs_baseline: -0.41
 scores:
   polls:
     n: 323
