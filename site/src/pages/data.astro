@@ -6,6 +6,11 @@ import { fmtStamp } from "../lib/format.js";
 const m = meta();
 const s = summary();
 const REPO = "https://github.com/KaraZajac/MIDTERMS2026";
+// VoteHub polls fill gaps in Wikipedia's tables; CC BY 4.0 asks for credit.
+const vhPolls = m.counts?.votehub_polls ?? 0;
+const fabricated = Object.values(m.counts?.fabricated_polls_excluded ?? {}).reduce((a: number, b: any) => a + (Number(b) || 0), 0);
+const attribution: string[] = m.attribution ?? [];
+const creditVH = vhPolls > 0 && !attribution.some((a) => /votehub/i.test(a));
 const raw = (p: string) => `${REPO}/blob/main/${p}`;
 const files = [
   ["data/site/summary.json", "Chamber odds, seat distributions, tipping points, the national environment"],
@@ -14,7 +19,7 @@ const files = [
   ["data/site/generic.json", "The generic-ballot average and its polls"],
   ["data/site/sim.json", "Parameters for the simulator (sim/simulator.mjs)"],
   ["data/forecast/latest.json", "The model's full output"],
-  ["data/polls/races.csv", "Every race poll, with its source page and revision"],
+  ["data/polls/races.csv", "Every race poll, with its source: a Wikipedia page and revision, or a VoteHub poll id"],
   ["data/polls/generic.csv", "Every generic-ballot poll since December 2024"],
   ["data/ratings.csv", "Every handicapper rating, dated"],
 ];
@@ -40,7 +45,8 @@ const files = [
       <p class="small">Code: <strong>{m.license?.code ?? "MIT"}</strong>. Data: <strong>{m.license?.data ?? "CC BY-SA 4.0"}</strong>, because much of it derives from Wikipedia. Reuse it with attribution and share alike.</p>
       <h2 style="font-size:1.15rem;margin-top:18px">Attribution</h2>
       <ul class="small">
-        {(m.attribution ?? []).map((a: string) => <li>{a}</li>)}
+        {attribution.map((a) => <li>{a}</li>)}
+        {creditVH && <li>Polls missing from Wikipedia's tables: <a href="https://votehub.com">VoteHub</a> (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>)</li>}
       </ul>
       <h2 style="font-size:1.15rem;margin-top:18px">Cite</h2>
       <p class="small">Zajac, Kara. <em>MIDTERMS2026: an open forecast of the 2026 U.S. midterm elections</em>. 2026. <a href={REPO}>{REPO.replace("https://", "")}</a>. See <a href={raw("CITATION.cff")}>CITATION.cff</a>.</p>
@@ -53,6 +59,8 @@ const files = [
       {[
         ["Races", s.counts.house_races + s.counts.senate_races + s.counts.governor_races],
         ["Race polls", s.counts.race_polls],
+        ...(vhPolls ? [["Race polls from VoteHub", vhPolls]] : []),
+        ...(fabricated ? [["Polls excluded as fabricated", fabricated]] : []),
         ["Generic-ballot polls", s.counts.generic_polls],
         ["Pollsters", s.counts.pollsters],
         ["Handicapper ratings", s.counts.ratings],
@@ -63,7 +71,7 @@ const files = [
 
   <section class="section">
     <h2>Wikipedia revisions</h2>
-    <p class="section-note">The {m.wikipedia?.length ?? 0} pages read for this forecast, each pinned to the revision used. Rebuilding from these revisions reproduces the data exactly.</p>
+    <p class="section-note">The {m.wikipedia?.length ?? 0} pages read for this forecast, each pinned to the revision used. Rebuilding from these revisions reproduces the Wikipedia-derived data exactly.</p>
     <details class="tableview">
       <summary>Show all {m.wikipedia?.length ?? 0}</summary>
       <ul class="wiki small">

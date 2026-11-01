@@ -29,11 +29,12 @@ mirror. The server keeps a clone at `/srv/src/midterms.karazajac.io` and
 publishes with `site-deploy midterms.karazajac.io site` (pull, `npm ci`,
 build, rsync to the web root, refresh the onion mirror).
 
-`midterms-sync.timer` runs every ten minutes. It asks GitHub for `main`'s
+`midterms-sync.timer` runs every five minutes. It asks GitHub for `main`'s
 commit (`git ls-remote`) and compares it with the `commit` in the live
-`/build.json`; if they differ it runs `site-deploy`. So the six-hourly
-refresh commits, and on election night every scoring commit, are live
-within about ten minutes. A failed build leaves the last good site up,
+`/build.json`; if they differ it runs `site-deploy`. So every refresh
+commit (six-hourly, then hourly through the night before the polls open)
+and, on election night, every scoring commit is live within about six
+minutes. A failed build leaves the last good site up,
 because `site-deploy` only publishes after a clean build.
 
 Logs: `journalctl -u midterms-sync.service`.

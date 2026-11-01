@@ -62,7 +62,7 @@ const distinctDays = new Set(snapshots.map((x: any) => x.asof)).size;
       {Number(s.n_sims).toLocaleString("en-US")} times with correlated polling error. The forecast is frozen when the
       polls open and graded in public once they close.
     </p>
-    <p class="updated">Updated {fmtStamp(s.generated)} · {s.phase === "forecast" ? `refreshed every six hours until the polls open (${fmtStamp(s.deadline)})` : "final forecast, frozen for scoring"}</p>
+    <p class="updated">Updated {fmtStamp(s.generated)} · {s.phase === "forecast" ? `refreshed every six hours, then hourly through the night before the polls open (${fmtStamp(s.deadline)})` : "final forecast, frozen for scoring"}</p>
   </section>
 
   <VersionBar />

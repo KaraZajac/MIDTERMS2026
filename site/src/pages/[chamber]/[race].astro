@@ -45,6 +45,10 @@ const raters = Object.entries(r.ratings ?? {}).sort((a: any, b: any) => {
   return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib) || a[0].localeCompare(b[0]);
 });
 const polls = [...(P?.polls ?? [])].sort((a: any, b: any) => (b.end ?? "").localeCompare(a.end ?? "") || b.weight - a.weight);
+// Wikipedia is the poll ledger; VoteHub (CC BY 4.0) only adds polls its tables lack.
+const nVH = polls.filter((p: any) => p.via === "votehub").length;
+const VOTEHUB = "https://votehub.com";
+const CC_BY = "https://creativecommons.org/licenses/by/4.0/";
 const others = stateRaces(r.state).filter((x: any) => x.id !== r.id);
 const money = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `$${Math.round(n / 1e3)}K` : `$${n}`);
 const sumParts = inputs.fundamentals?.parts ?? null;
@@ -216,7 +220,7 @@ const desc = fixed
             value: p.adjusted,
             weight: p.weight,
             tipValue: `${p.pollster}: ${margin(p.adjusted, dL, rL)} adjusted`,
-            tipLabel: `${fmtShortDate(p.start)}–${fmtShortDate(p.end)} · ${p.n ? p.n.toLocaleString("en-US") + " " : ""}${p.population ?? ""} · raw ${margin(p.margin, dL, rL)} · ${(p.weight * 100).toFixed(1)}% of the average`,
+            tipLabel: `${fmtShortDate(p.start)}–${fmtShortDate(p.end)} · ${p.n ? p.n.toLocaleString("en-US") + " " : ""}${p.population ?? ""} · raw ${margin(p.margin, dL, rL)} · ${(p.weight * 100).toFixed(1)}% of the average${p.via === "votehub" ? " · via VoteHub" : ""}`,
           }))}
           height={230}
           dLabel={dL}
@@ -250,6 +254,7 @@ const desc = fixed
                 <td>
                   {p.url ? <a href={p.url} rel="nofollow noopener">{p.pollster}</a> : p.pollster}
                   {p.sponsor && <span class="spons" title={`Sponsored by a ${p.sponsor === "D" ? "Democratic" : "Republican"}-aligned group`}>{p.sponsor}</span>}
+                  {p.via === "votehub" && <span class="spons via" title="From VoteHub's poll feed (CC BY 4.0): the Wikipedia page lacks this poll">VoteHub</span>}
                 </td>
                 <td class="nowrap">{fmtShortDate(p.start)}–{fmtShortDate(p.end)}</td>
                 <td class="num">{p.n ? p.n.toLocaleString("en-US") : "—"} {p.population ?? ""}</td>
@@ -264,7 +269,7 @@ const desc = fixed
         </table>
       </div>
     )}
-    {polls.length > 0 && <p class="small muted" style="margin-top:8px">Margins are two-party. Adjusted = after house effect, likely-voter, sponsor and trend-line adjustments. Weight = share of the current average. A letter after a pollster marks a partisan sponsor.</p>}
+    {polls.length > 0 && <p class="small muted" style="margin-top:8px">Margins are two-party. Adjusted = after house effect, likely-voter, sponsor and trend-line adjustments. Weight = share of the current average. A letter after a pollster marks a partisan sponsor.{nVH > 0 && <> A VoteHub tag marks a poll from <a href={VOTEHUB}>VoteHub</a>'s feed that the Wikipedia page lacks.</>}</p>}
   </section>
 
   {raters.length > 0 && (
@@ -342,7 +347,14 @@ const desc = fixed
 
   <p class="small muted source">
     {r.others?.length > 0 && <>Also on the ballot: {r.others.join("; ")}. </>}
-    Candidates, polls and ratings from <a href={r.source?.url}>{r.source?.title ?? "Wikipedia"}</a>, revision {r.source?.revid}. Lean {r.lean == null ? "—" : margin(r.lean, "D", "R")} against the nation.
+    {nVH === 0 ? (
+      <>Candidates, polls and ratings from <a href={r.source?.url}>{r.source?.title ?? "Wikipedia"}</a>, revision {r.source?.revid}.</>
+    ) : nVH < polls.length ? (
+      <>Candidates, ratings and polls from <a href={r.source?.url}>{r.source?.title ?? "Wikipedia"}</a>, revision {r.source?.revid}, plus {nVH} poll{nVH === 1 ? "" : "s"} from <a href={VOTEHUB}>VoteHub</a> (<a href={CC_BY}>CC BY 4.0</a>) that the page lacks.</>
+    ) : (
+      <>Candidates and ratings from <a href={r.source?.url}>{r.source?.title ?? "Wikipedia"}</a>, revision {r.source?.revid}; polls from <a href={VOTEHUB}>VoteHub</a> (<a href={CC_BY}>CC BY 4.0</a>), which the page lacks.</>
+    )}{" "}
+    Lean {r.lean == null ? "—" : margin(r.lean, "D", "R")} against the nation.
   </p>
 </Base>
 
@@ -369,6 +381,7 @@ const desc = fixed
   }
   table.polls td, table.polls th { font-size: 13.5px; }
   .spons { font-size: 10.5px; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 4px; padding: 0 4px; margin-left: 6px; vertical-align: 1px; }
+  .spons.via { font-weight: 600; }
   .money { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
   .money-fig { font-size: 1.6rem; font-weight: 750; color: var(--ink-strong); letter-spacing: -0.02em; }
   .also { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }

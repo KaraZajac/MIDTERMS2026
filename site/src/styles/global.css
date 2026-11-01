@@ -164,6 +164,8 @@ a {
 a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
 code, .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; }
+/* a long path in running text (curated/excluded_pollsters.yaml) wraps on a phone instead of widening the page */
+code { overflow-wrap: break-word; }
 small, .small { font-size: 0.85rem; }
 .muted { color: var(--muted); }
 .ink-2 { color: var(--ink-2); }

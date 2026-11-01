@@ -40,7 +40,7 @@ const notes = NOTES.filter((n) => snaps.length >= 2 && t(n.at) > t0 && t(n.at) <
     <section class="section">
       <h2>How the forecast has moved</h2>
       <p class="section-note">
-        Democrats' chance of control at each snapshot since the method was finalized ({fmtStamp(SINCE)}), Deluxe. From there only the data changes; a new snapshot lands every six hours until the polls open.
+        Democrats' chance of control at each snapshot since the method was finalized ({fmtStamp(SINCE)}), Deluxe. From there only the data changes; a new snapshot lands every six hours, then hourly through the night before the polls open.
         {notes.length > 0 && <> The grey line marks a data correction, not news: {notes.map((n) => n.caption).join("; ")}.</>}
       </p>
       <div class="grid-3">
