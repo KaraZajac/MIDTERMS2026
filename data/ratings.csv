@@ -2109,7 +2109,7 @@ senate:KS,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-29
 senate:KS,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-10-31
 senate:KS,Split Ticket,Split Ticket,Tossup,0.0,2026-10-31
 senate:KY,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
-senate:KY,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-10-31
+senate:KY,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-11-01
 senate:KY,The Economist,The Economist,Safe R,-3.0,2026-11-01
 senate:KY,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-31
 senate:KY,Fox News,Fox News,Solid R,-3.0,2026-11-01
@@ -2183,7 +2183,7 @@ senate:MN,NBC News,NBC News,Likely D,2.0,2026-11-01
 senate:MN,RCP,RealClearPolitics,Lean D,1.0,2026-10-31
 senate:MN,Sabato,Sabato's Crystal Ball,Likely D,2.0,2026-10-29
 senate:MN,Silver Bulletin,Silver Bulletin,Likely D,2.0,2026-10-31
-senate:MN,Split Ticket,Split Ticket,Likely D,2.0,2026-10-31
+senate:MN,Split Ticket,Split Ticket,Safe D,3.0,2026-11-01
 senate:MS,Cook,The Cook Political Report,Likely R,-2.0,2026-10-30
 senate:MS,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-10-31
 senate:MS,The Economist,The Economist,Likely R,-2.0,2026-11-01
@@ -2196,206 +2196,217 @@ senate:MS,RCP,RealClearPolitics,Likely R,-2.0,2026-10-31
 senate:MS,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2026-10-29
 senate:MS,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-31
 senate:MS,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-31
-senate:MT,Cook,The Cook Political Report,Solid R,-3.0,2026-10-20
-senate:MT,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-10-28
-senate:MT,The Economist,The Economist,Likely R,-2.0,2026-10-28
-senate:MT,FiftyPlusOne,FiftyPlusOne,Likely R,-2.0,2026-10-28
-senate:MT,Fox News,Fox News,Solid R,-3.0,2026-10-27
-senate:MT,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-15
-senate:MT,NBC News,NBC News,Likely R,-2.0,2026-10-28
-senate:MT,RCP,RealClearPolitics,Likely R,-2.0,2026-10-28
-senate:MT,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-senate:MT,Silver Bulletin,Silver Bulletin,Likely R,-2.0,2026-10-30
-senate:MT,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-27
+senate:MT,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
+senate:MT,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-10-31
+senate:MT,The Economist,The Economist,Likely R,-2.0,2026-11-01
+senate:MT,FiftyPlusOne,FiftyPlusOne,Likely R,-2.0,2026-10-31
+senate:MT,Fox News,Fox News,Solid R,-3.0,2026-11-01
+senate:MT,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
+senate:MT,MS NOW,MS NOW,Safe R,-3.0,2026-10-29
+senate:MT,NBC News,NBC News,Likely R,-2.0,2026-11-01
+senate:MT,RCP,RealClearPolitics,Likely R,-2.0,2026-10-31
+senate:MT,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-29
+senate:MT,Silver Bulletin,Silver Bulletin,Likely R,-2.0,2026-10-31
+senate:MT,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-31
 senate:NE,Cook,The Cook Political Report,Lean R,-1.0,2026-10-30
-senate:NE,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-10-31
-senate:NE,The Economist,The Economist,Likely R,-2.0,2026-10-28
+senate:NE,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-11-01
+senate:NE,The Economist,The Economist,Likely R,-2.0,2026-11-01
 senate:NE,FiftyPlusOne,FiftyPlusOne,Likely R,-2.0,2026-10-31
 senate:NE,Fox News,Fox News,Lean R,-1.0,2026-11-01
 senate:NE,Inside Elections,Inside Elections,Tilt R,-0.5,2026-10-29
-senate:NE,MS NOW,MS NOW,Likely R,-2.0,2026-10-12
-senate:NE,NBC News,NBC News,Likely R,-2.0,2026-10-28
+senate:NE,MS NOW,MS NOW,Likely R,-2.0,2026-10-29
+senate:NE,NBC News,NBC News,Likely R,-2.0,2026-11-01
 senate:NE,RCP,RealClearPolitics,Lean R,-1.0,2026-10-31
-senate:NE,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-27
-senate:NE,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-10-28
-senate:NE,Split Ticket,Split Ticket,Lean R,-1.0,2026-10-27
-senate:NH,CBS News,CBS News,Lean D,1.0,2026-10-17
-senate:NH,Cook,The Cook Political Report,Lean D,1.0,2026-10-20
-senate:NH,DDHQ,Decision Desk HQ,Likely D,2.0,2026-10-28
-senate:NH,The Economist,The Economist,Likely D,2.0,2026-10-28
-senate:NH,FiftyPlusOne,FiftyPlusOne,Likely D,2.0,2026-10-28
-senate:NH,Fox News,Fox News,Lean D,1.0,2026-10-27
-senate:NH,Inside Elections,Inside Elections,Tilt D,0.5,2026-10-15
-senate:NH,MS NOW,MS NOW,Lean D,1.0,2026-10-12
-senate:NH,NBC News,NBC News,Lean D,1.0,2026-10-28
-senate:NH,RCP,RealClearPolitics,Lean D,1.0,2026-10-28
-senate:NH,Sabato,Sabato's Crystal Ball,Likely D,2.0,2026-10-27
-senate:NH,Silver Bulletin,Silver Bulletin,Likely D,2.0,2026-10-28
-senate:NH,Split Ticket,Split Ticket,Likely D,2.0,2026-10-27
-senate:NJ,Cook,The Cook Political Report,Solid D,3.0,2026-10-20
-senate:NJ,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-28
-senate:NJ,The Economist,The Economist,Safe D,3.0,2026-10-28
-senate:NJ,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-28
-senate:NJ,Fox News,Fox News,Solid D,3.0,2026-10-27
-senate:NJ,Inside Elections,Inside Elections,Solid D,3.0,2026-10-15
-senate:NJ,NBC News,NBC News,Solid D,3.0,2026-10-28
-senate:NJ,RCP,RealClearPolitics,Solid D,3.0,2026-10-28
-senate:NJ,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-27
-senate:NJ,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-28
-senate:NJ,Split Ticket,Split Ticket,Safe D,3.0,2026-10-27
-senate:NM,Cook,The Cook Political Report,Solid D,3.0,2026-10-20
-senate:NM,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-28
-senate:NM,The Economist,The Economist,Safe D,3.0,2026-10-28
-senate:NM,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-28
-senate:NM,Fox News,Fox News,Solid D,3.0,2026-10-27
-senate:NM,Inside Elections,Inside Elections,Solid D,3.0,2026-10-15
-senate:NM,NBC News,NBC News,Solid D,3.0,2026-10-28
-senate:NM,RCP,RealClearPolitics,Likely D,2.0,2026-10-28
-senate:NM,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-27
-senate:NM,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-28
-senate:NM,Split Ticket,Split Ticket,Safe D,3.0,2026-10-27
-senate:NC,CBS News,CBS News,Lean D (flip),1.0,2026-10-17
-senate:NC,Cook,The Cook Political Report,Likely D (flip),2.0,2026-10-20
-senate:NC,DDHQ,Decision Desk HQ,Likely D (flip),2.0,2026-10-28
-senate:NC,The Economist,The Economist,Likely D (flip),2.0,2026-10-28
-senate:NC,FiftyPlusOne,FiftyPlusOne,Likely D (flip),2.0,2026-10-28
-senate:NC,Fox News,Fox News,Likely D (flip),2.0,2026-10-27
-senate:NC,Inside Elections,Inside Elections,Lean D (flip),1.0,2026-10-15
-senate:NC,MS NOW,MS NOW,Lean D (flip),1.0,2026-10-12
-senate:NC,NBC News,NBC News,Likely D (flip),2.0,2026-10-28
-senate:NC,RCP,RealClearPolitics,Likely D (flip),2.0,2026-10-28
-senate:NC,Sabato,Sabato's Crystal Ball,Likely D (flip),2.0,2026-10-27
-senate:NC,Silver Bulletin,Silver Bulletin,Solid D (flip),3.0,2026-10-28
-senate:NC,Split Ticket,Split Ticket,Safe D (flip),3.0,2026-10-27
-senate:OK,Cook,The Cook Political Report,Solid R,-3.0,2026-10-20
-senate:OK,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-28
-senate:OK,The Economist,The Economist,Safe R,-3.0,2026-10-28
-senate:OK,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-28
-senate:OK,Fox News,Fox News,Solid R,-3.0,2026-10-27
-senate:OK,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-15
-senate:OK,NBC News,NBC News,Solid R,-3.0,2026-10-28
-senate:OK,RCP,RealClearPolitics,Solid R,-3.0,2026-10-28
-senate:OK,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-senate:OK,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-28
-senate:OK,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-27
-senate:OR,Cook,The Cook Political Report,Solid D,3.0,2026-10-20
-senate:OR,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-28
-senate:OR,The Economist,The Economist,Safe D,3.0,2026-10-28
-senate:OR,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-28
-senate:OR,Fox News,Fox News,Solid D,3.0,2026-10-27
-senate:OR,Inside Elections,Inside Elections,Solid D,3.0,2026-10-15
-senate:OR,NBC News,NBC News,Solid D,3.0,2026-10-28
-senate:OR,RCP,RealClearPolitics,Solid D,3.0,2026-10-28
-senate:OR,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-27
-senate:OR,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-28
-senate:OR,Split Ticket,Split Ticket,Safe D,3.0,2026-10-27
-senate:RI,Cook,The Cook Political Report,Solid D,3.0,2026-10-20
-senate:RI,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-28
-senate:RI,The Economist,The Economist,Safe D,3.0,2026-10-28
-senate:RI,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-28
-senate:RI,Fox News,Fox News,Solid D,3.0,2026-10-27
-senate:RI,Inside Elections,Inside Elections,Solid D,3.0,2026-10-15
-senate:RI,NBC News,NBC News,Solid D,3.0,2026-10-28
-senate:RI,RCP,RealClearPolitics,Solid D,3.0,2026-10-28
-senate:RI,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-27
-senate:RI,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-28
-senate:RI,Split Ticket,Split Ticket,Safe D,3.0,2026-10-27
+senate:NE,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-29
+senate:NE,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-10-31
+senate:NE,Split Ticket,Split Ticket,Lean R,-1.0,2026-10-31
+senate:NH,CBS News,CBS News,Lean D,1.0,2026-10-30
+senate:NH,Cook,The Cook Political Report,Lean D,1.0,2026-10-30
+senate:NH,DDHQ,Decision Desk HQ,Likely D,2.0,2026-10-31
+senate:NH,The Economist,The Economist,Likely D,2.0,2026-11-01
+senate:NH,FiftyPlusOne,FiftyPlusOne,Likely D,2.0,2026-10-31
+senate:NH,Fox News,Fox News,Lean D,1.0,2026-11-01
+senate:NH,Inside Elections,Inside Elections,Tilt D,0.5,2026-10-29
+senate:NH,MS NOW,MS NOW,Lean D,1.0,2026-10-29
+senate:NH,NBC News,NBC News,Lean D,1.0,2026-11-01
+senate:NH,RCP,RealClearPolitics,Lean D,1.0,2026-10-31
+senate:NH,Sabato,Sabato's Crystal Ball,Likely D,2.0,2026-10-29
+senate:NH,Silver Bulletin,Silver Bulletin,Likely D,2.0,2026-10-31
+senate:NH,Split Ticket,Split Ticket,Safe D,3.0,2026-11-01
+senate:NJ,Cook,The Cook Political Report,Solid D,3.0,2026-10-30
+senate:NJ,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-31
+senate:NJ,The Economist,The Economist,Safe D,3.0,2026-11-01
+senate:NJ,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-31
+senate:NJ,Fox News,Fox News,Solid D,3.0,2026-11-01
+senate:NJ,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
+senate:NJ,MS NOW,MS NOW,Safe D,3.0,2026-10-29
+senate:NJ,NBC News,NBC News,Solid D,3.0,2026-11-01
+senate:NJ,RCP,RealClearPolitics,Solid D,3.0,2026-10-31
+senate:NJ,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-29
+senate:NJ,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-31
+senate:NJ,Split Ticket,Split Ticket,Safe D,3.0,2026-10-31
+senate:NM,Cook,The Cook Political Report,Solid D,3.0,2026-10-30
+senate:NM,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-31
+senate:NM,The Economist,The Economist,Safe D,3.0,2026-11-01
+senate:NM,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-31
+senate:NM,Fox News,Fox News,Solid D,3.0,2026-11-01
+senate:NM,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
+senate:NM,MS NOW,MS NOW,Safe D,3.0,2026-10-29
+senate:NM,NBC News,NBC News,Solid D,3.0,2026-11-01
+senate:NM,RCP,RealClearPolitics,Likely D,2.0,2026-10-31
+senate:NM,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-29
+senate:NM,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-31
+senate:NM,Split Ticket,Split Ticket,Safe D,3.0,2026-10-31
+senate:NC,CBS News,CBS News,Lean D (flip),1.0,2026-10-30
+senate:NC,Cook,The Cook Political Report,Likely D (flip),2.0,2026-10-30
+senate:NC,DDHQ,Decision Desk HQ,Likely D (flip),2.0,2026-10-31
+senate:NC,The Economist,The Economist,Likely D (flip),2.0,2026-11-01
+senate:NC,FiftyPlusOne,FiftyPlusOne,Likely D (flip),2.0,2026-10-31
+senate:NC,Fox News,Fox News,Likely D (flip),2.0,2026-11-01
+senate:NC,Inside Elections,Inside Elections,Lean D (flip),1.0,2026-10-29
+senate:NC,MS NOW,MS NOW,Lean D (flip),1.0,2026-10-29
+senate:NC,NBC News,NBC News,Likely D (flip),2.0,2026-11-01
+senate:NC,RCP,RealClearPolitics,Likely D (flip),2.0,2026-10-31
+senate:NC,Sabato,Sabato's Crystal Ball,Likely D (flip),2.0,2026-10-29
+senate:NC,Silver Bulletin,Silver Bulletin,Solid D (flip),3.0,2026-10-31
+senate:NC,Split Ticket,Split Ticket,Safe D (flip),3.0,2026-10-31
+senate:OK,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
+senate:OK,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-31
+senate:OK,The Economist,The Economist,Safe R,-3.0,2026-11-01
+senate:OK,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-31
+senate:OK,Fox News,Fox News,Solid R,-3.0,2026-11-01
+senate:OK,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
+senate:OK,MS NOW,MS NOW,Safe R,-3.0,2026-10-29
+senate:OK,NBC News,NBC News,Solid R,-3.0,2026-11-01
+senate:OK,RCP,RealClearPolitics,Solid R,-3.0,2026-10-31
+senate:OK,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-29
+senate:OK,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-31
+senate:OK,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-31
+senate:OR,Cook,The Cook Political Report,Solid D,3.0,2026-10-30
+senate:OR,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-31
+senate:OR,The Economist,The Economist,Safe D,3.0,2026-11-01
+senate:OR,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-31
+senate:OR,Fox News,Fox News,Solid D,3.0,2026-11-01
+senate:OR,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
+senate:OR,MS NOW,MS NOW,Safe D,3.0,2026-10-29
+senate:OR,NBC News,NBC News,Solid D,3.0,2026-11-01
+senate:OR,RCP,RealClearPolitics,Solid D,3.0,2026-10-31
+senate:OR,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-29
+senate:OR,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-31
+senate:OR,Split Ticket,Split Ticket,Safe D,3.0,2026-10-31
+senate:RI,Cook,The Cook Political Report,Solid D,3.0,2026-10-30
+senate:RI,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-31
+senate:RI,The Economist,The Economist,Safe D,3.0,2026-11-01
+senate:RI,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-31
+senate:RI,Fox News,Fox News,Solid D,3.0,2026-11-01
+senate:RI,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
+senate:RI,MS NOW,MS NOW,Safe D,3.0,2026-10-29
+senate:RI,NBC News,NBC News,Solid D,3.0,2026-11-01
+senate:RI,RCP,RealClearPolitics,Solid D,3.0,2026-10-31
+senate:RI,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-29
+senate:RI,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-31
+senate:RI,Split Ticket,Split Ticket,Safe D,3.0,2026-10-31
 senate:SC,CBS News,CBS News,Lean R,-1.0,2026-10-30
-senate:SC,Cook,The Cook Political Report,Lean R,-1.0,2026-10-20
-senate:SC,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-28
-senate:SC,The Economist,The Economist,Lean R,-1.0,2026-10-28
-senate:SC,FiftyPlusOne,FiftyPlusOne,Lean R,-1.0,2026-10-28
-senate:SC,Fox News,Fox News,Tossup,0.0,2026-10-29
+senate:SC,Cook,The Cook Political Report,Lean R,-1.0,2026-10-30
+senate:SC,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-31
+senate:SC,The Economist,The Economist,Lean R,-1.0,2026-11-01
+senate:SC,FiftyPlusOne,FiftyPlusOne,Lean R,-1.0,2026-10-31
+senate:SC,Fox News,Fox News,Tossup,0.0,2026-11-01
 senate:SC,Inside Elections,Inside Elections,Tilt R,-0.5,2026-10-29
 senate:SC,MS NOW,MS NOW,Lean R,-1.0,2026-10-29
-senate:SC,NBC News,NBC News,Lean R,-1.0,2026-10-28
-senate:SC,RCP,RealClearPolitics,Tossup,0.0,2026-10-28
-senate:SC,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-27
-senate:SC,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-10-28
-senate:SC,Split Ticket,Split Ticket,Lean R,-1.0,2026-10-27
-senate:SD,Cook,The Cook Political Report,Solid R,-3.0,2026-10-20
-senate:SD,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-28
-senate:SD,The Economist,The Economist,Safe R,-3.0,2026-10-28
-senate:SD,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-28
-senate:SD,Fox News,Fox News,Solid R,-3.0,2026-10-27
-senate:SD,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-15
-senate:SD,NBC News,NBC News,Solid R,-3.0,2026-10-28
-senate:SD,RCP,RealClearPolitics,Solid R,-3.0,2026-10-28
-senate:SD,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-senate:SD,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-28
-senate:SD,Split Ticket,Split Ticket,Likely R,-2.0,2026-10-30
-senate:TN,Cook,The Cook Political Report,Solid R,-3.0,2026-10-20
-senate:TN,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-28
-senate:TN,The Economist,The Economist,Safe R,-3.0,2026-10-28
-senate:TN,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-28
-senate:TN,Fox News,Fox News,Solid R,-3.0,2026-10-27
-senate:TN,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-15
-senate:TN,NBC News,NBC News,Solid R,-3.0,2026-10-28
-senate:TN,RCP,RealClearPolitics,Solid R,-3.0,2026-10-28
-senate:TN,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-senate:TN,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-28
-senate:TN,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-27
+senate:SC,NBC News,NBC News,Lean R,-1.0,2026-11-01
+senate:SC,RCP,RealClearPolitics,Tossup,0.0,2026-10-31
+senate:SC,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-29
+senate:SC,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-10-31
+senate:SC,Split Ticket,Split Ticket,Lean R,-1.0,2026-10-31
+senate:SD,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
+senate:SD,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-31
+senate:SD,The Economist,The Economist,Safe R,-3.0,2026-11-01
+senate:SD,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-31
+senate:SD,Fox News,Fox News,Solid R,-3.0,2026-11-01
+senate:SD,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
+senate:SD,MS NOW,MS NOW,Safe R,-3.0,2026-10-29
+senate:SD,NBC News,NBC News,Solid R,-3.0,2026-11-01
+senate:SD,RCP,RealClearPolitics,Solid R,-3.0,2026-10-31
+senate:SD,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-29
+senate:SD,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-31
+senate:SD,Split Ticket,Split Ticket,Likely R,-2.0,2026-10-31
+senate:TN,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
+senate:TN,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-31
+senate:TN,The Economist,The Economist,Safe R,-3.0,2026-11-01
+senate:TN,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-31
+senate:TN,Fox News,Fox News,Solid R,-3.0,2026-11-01
+senate:TN,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
+senate:TN,MS NOW,MS NOW,Safe R,-3.0,2026-10-29
+senate:TN,NBC News,NBC News,Solid R,-3.0,2026-11-01
+senate:TN,RCP,RealClearPolitics,Solid R,-3.0,2026-10-31
+senate:TN,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-29
+senate:TN,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-31
+senate:TN,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-31
 senate:TX,ABC News,ABC News,Tossup,0.0,2026-10-26
-senate:TX,CBS News,CBS News,Tossup,0.0,2026-10-17
-senate:TX,Cook,The Cook Political Report,Tossup,0.0,2026-10-20
-senate:TX,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-28
-senate:TX,The Economist,The Economist,Tossup,0.0,2026-10-28
-senate:TX,FiftyPlusOne,FiftyPlusOne,Lean D (flip),1.0,2026-10-29
-senate:TX,Fox News,Fox News,Tossup,0.0,2026-10-27
+senate:TX,CBS News,CBS News,Tossup,0.0,2026-10-30
+senate:TX,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
+senate:TX,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-31
+senate:TX,The Economist,The Economist,Tossup,0.0,2026-11-01
+senate:TX,FiftyPlusOne,FiftyPlusOne,Lean D (flip),1.0,2026-10-31
+senate:TX,Fox News,Fox News,Tossup,0.0,2026-11-01
 senate:TX,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
-senate:TX,MS NOW,MS NOW,Tossup,0.0,2026-10-12
-senate:TX,NBC News,NBC News,Tossup,0.0,2026-10-28
-senate:TX,RCP,RealClearPolitics,Tossup,0.0,2026-10-28
-senate:TX,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
-senate:TX,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-10-28
-senate:TX,Split Ticket,Split Ticket,Lean D (flip),1.0,2026-10-27
-senate:VA,Cook,The Cook Political Report,Solid D,3.0,2026-10-20
-senate:VA,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-28
-senate:VA,The Economist,The Economist,Safe D,3.0,2026-10-28
-senate:VA,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-28
-senate:VA,Fox News,Fox News,Solid D,3.0,2026-10-27
-senate:VA,Inside Elections,Inside Elections,Solid D,3.0,2026-10-15
-senate:VA,NBC News,NBC News,Solid D,3.0,2026-10-28
-senate:VA,RCP,RealClearPolitics,Solid D,3.0,2026-10-28
-senate:VA,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-27
-senate:VA,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-28
-senate:VA,Split Ticket,Split Ticket,Safe D,3.0,2026-10-27
-senate:WV,Cook,The Cook Political Report,Solid R,-3.0,2026-10-20
-senate:WV,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-28
-senate:WV,The Economist,The Economist,Safe R,-3.0,2026-10-28
-senate:WV,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-28
-senate:WV,Fox News,Fox News,Solid R,-3.0,2026-10-27
-senate:WV,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-15
-senate:WV,NBC News,NBC News,Solid R,-3.0,2026-10-28
-senate:WV,RCP,RealClearPolitics,Solid R,-3.0,2026-10-28
-senate:WV,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-senate:WV,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-28
-senate:WV,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-27
-senate:WY,Cook,The Cook Political Report,Solid R,-3.0,2026-10-20
-senate:WY,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-28
-senate:WY,The Economist,The Economist,Safe R,-3.0,2026-10-28
-senate:WY,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-28
-senate:WY,Fox News,Fox News,Solid R,-3.0,2026-10-27
-senate:WY,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-15
-senate:WY,NBC News,NBC News,Solid R,-3.0,2026-10-28
-senate:WY,RCP,RealClearPolitics,Solid R,-3.0,2026-10-28
-senate:WY,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-senate:WY,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-28
-senate:WY,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-27
+senate:TX,MS NOW,MS NOW,Tossup,0.0,2026-10-29
+senate:TX,NBC News,NBC News,Tossup,0.0,2026-11-01
+senate:TX,RCP,RealClearPolitics,Tossup,0.0,2026-10-31
+senate:TX,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-29
+senate:TX,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-10-31
+senate:TX,Split Ticket,Split Ticket,Lean D (flip),1.0,2026-10-31
+senate:VA,Cook,The Cook Political Report,Solid D,3.0,2026-10-30
+senate:VA,DDHQ,Decision Desk HQ,Safe D,3.0,2026-10-31
+senate:VA,The Economist,The Economist,Safe D,3.0,2026-11-01
+senate:VA,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-10-31
+senate:VA,Fox News,Fox News,Solid D,3.0,2026-11-01
+senate:VA,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
+senate:VA,MS NOW,MS NOW,Safe D,3.0,2026-10-29
+senate:VA,NBC News,NBC News,Solid D,3.0,2026-11-01
+senate:VA,RCP,RealClearPolitics,Solid D,3.0,2026-10-31
+senate:VA,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-29
+senate:VA,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-10-31
+senate:VA,Split Ticket,Split Ticket,Safe D,3.0,2026-10-31
+senate:WV,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
+senate:WV,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-31
+senate:WV,The Economist,The Economist,Safe R,-3.0,2026-11-01
+senate:WV,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-31
+senate:WV,Fox News,Fox News,Solid R,-3.0,2026-11-01
+senate:WV,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
+senate:WV,MS NOW,MS NOW,Safe R,-3.0,2026-10-29
+senate:WV,NBC News,NBC News,Solid R,-3.0,2026-11-01
+senate:WV,RCP,RealClearPolitics,Solid R,-3.0,2026-10-31
+senate:WV,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-29
+senate:WV,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-31
+senate:WV,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-31
+senate:WY,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
+senate:WY,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-31
+senate:WY,The Economist,The Economist,Safe R,-3.0,2026-11-01
+senate:WY,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-10-31
+senate:WY,Fox News,Fox News,Solid R,-3.0,2026-11-01
+senate:WY,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
+senate:WY,MS NOW,MS NOW,Safe R,-3.0,2026-10-29
+senate:WY,NBC News,NBC News,Solid R,-3.0,2026-11-01
+senate:WY,RCP,RealClearPolitics,Solid R,-3.0,2026-10-31
+senate:WY,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-29
+senate:WY,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-10-31
+senate:WY,Split Ticket,Split Ticket,Safe R,-3.0,2026-10-31
 senate:OH-special,ABC News,ABC News,Tossup,0.0,2026-10-26
-senate:OH-special,CBS News,CBS News,Tossup,0.0,2026-10-17
-senate:OH-special,Cook,The Cook Political Report,Tossup,0.0,2026-10-20
-senate:OH-special,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-28
-senate:OH-special,The Economist,The Economist,Tossup,0.0,2026-10-28
+senate:OH-special,CBS News,CBS News,Tossup,0.0,2026-10-30
+senate:OH-special,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
+senate:OH-special,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-31
+senate:OH-special,The Economist,The Economist,Tossup,0.0,2026-11-01
 senate:OH-special,FiftyPlusOne,FiftyPlusOne,Tossup,0.0,2026-10-31
-senate:OH-special,Fox News,Fox News,Lean D (flip),1.0,2026-10-27
+senate:OH-special,Fox News,Fox News,Lean D (flip),1.0,2026-11-01
 senate:OH-special,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
-senate:OH-special,MS NOW,MS NOW,Tossup,0.0,2026-10-12
-senate:OH-special,NBC News,NBC News,Tossup,0.0,2026-10-28
-senate:OH-special,RCP,RealClearPolitics,Tossup,0.0,2026-10-28
-senate:OH-special,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
-senate:OH-special,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-10-28
-senate:OH-special,Split Ticket,Split Ticket,Lean D (flip),1.0,2026-10-27
+senate:OH-special,MS NOW,MS NOW,Tossup,0.0,2026-10-29
+senate:OH-special,NBC News,NBC News,Tossup,0.0,2026-11-01
+senate:OH-special,RCP,RealClearPolitics,Tossup,0.0,2026-10-31
+senate:OH-special,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-29
+senate:OH-special,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-10-31
+senate:OH-special,Split Ticket,Split Ticket,Lean D (flip),1.0,2026-10-31
 senate:FL-special,Cook,The Cook Political Report,Likely R,-2.0,2026-10-30
 senate:FL-special,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-10-31
 senate:FL-special,The Economist,The Economist,Likely R,-2.0,2026-11-01
@@ -2564,7 +2575,7 @@ governor:NE,Cook,The Cook Political Report,Lean R,-1.0,2026-10-27
 governor:NE,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-10-28
 governor:NE,Fox News,Fox News,Likely R,-2.0,2026-10-27
 governor:NE,Inside Elections,Inside Elections,Likely R,-2.0,2026-10-15
-governor:NE,NBC News,NBC News,Likely R,-2.0,2026-10-28
+governor:NE,NBC News,NBC News,Lean R,-1.0,2026-11-01
 governor:NE,RCP,RealClearPolitics,Solid R,-3.0,2026-10-28
 governor:NE,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2026-10-27
 governor:NE,Silver Bulletin,Silver Bulletin,Likely R,-2.0,2026-10-28
