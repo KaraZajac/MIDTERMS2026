@@ -62,7 +62,7 @@ const distinctDays = new Set(snapshots.map((x: any) => x.asof)).size;
       {Number(s.n_sims).toLocaleString("en-US")} times with correlated polling error. The forecast is frozen when the
       polls open and graded in public once they close.
     </p>
-    <p class="updated">Updated {fmtStamp(s.generated)} · next refresh within six hours</p>
+    <p class="updated">Updated {fmtStamp(s.generated)} · {s.phase === "forecast" ? `refreshed every six hours until the polls open (${fmtStamp(s.deadline)})` : "final forecast, frozen for scoring"}</p>
   </section>
 
   <VersionBar />
@@ -77,7 +77,7 @@ const distinctDays = new Set(snapshots.map((x: any) => x.asof)).size;
 
   <section class="section">
     <h2>Both chambers</h2>
-    <p class="section-note">How the House and Senate land together, across all 50,000 simulations (deluxe). Divided outcomes are rare because the same national swing moves every race.</p>
+    <p class="section-note">How the House and Senate land together across the 50,000 simulations (Deluxe). The same national swing moves every race, so the chambers tend to move together.</p>
     <div class="joint">
       <div class="joint-cell dd"><span class="jp">{pct(joint.house_D.senate_D)}</span><span class="jl">Democrats win both</span></div>
       <div class="joint-cell dr"><span class="jp">{pct(joint.house_D.senate_R)}</span><span class="jl">Democratic House, Republican Senate</span></div>

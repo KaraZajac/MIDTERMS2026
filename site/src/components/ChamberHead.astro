@@ -14,7 +14,8 @@ function line(v: string) {
   const f = favoured(dFav ? p.D : p.R);
   const party = dFav ? "Democrats" : "Republicans";
   if (chamber === "governor") {
-    return f ? `${party} ${f} hold a majority of governorships` : "The governorships are a toss-up";
+    // Republicans hold most governorships going in, so Democrats "win" one and Republicans "keep" it
+    return f ? `${party} ${f} ${dFav ? "win" : "keep"} a majority of governorships` : "The majority of governorships is a toss-up";
   }
   const name = chamber === "house" ? "House" : "Senate";
   return f ? `${party} ${f} ${dFav ? "win" : "keep"} the ${name}` : `The ${name} is a toss-up`;
