@@ -14,9 +14,10 @@
 #                           in the last half hour, so every snapshot that can
 #                           count is committed, and git-timestamped, in time)
 #   Nov 3 10:00–23:00       hourly: score (seals the forecast of record)
-#   from Nov 3 23:00        results: every 10 min overnight, then every
-#                           30 min, then hourly; the chain ends Nov 10 and
-#                           the six-hourly cron keeps scoring (runoffs)
+#   from Nov 3 23:00        results: every 10 min overnight (live results
+#                           each run; Wikipedia + scoring every 30 min), then
+#                           every 30 min, then hourly; the chain ends Nov 10
+#                           and the six-hourly cron keeps scoring (runoffs)
 #
 # Partisan lean is rebuilt from the committed data/lean/ tables (its raw
 # block-level sources are ~125 MB and don't change); pollster ratings are
@@ -65,7 +66,7 @@ jobs:
             --runs "$RUNNER_TEMP/runs.json" | tee -a "$GITHUB_OUTPUT"
 
       - name: Pull
-        if: steps.phase.outputs.work == 'true'
+        if: steps.phase.outputs.work == 'true' && steps.phase.outputs.full == 'true'
         run: |
           case "${{ steps.phase.outputs.phase }}" in
             forecast) python -m midterms pull --only wiki --only votehub --only fec --force ;;
@@ -73,17 +74,24 @@ jobs:
           esac
 
       - name: Build
-        if: steps.phase.outputs.work == 'true'
+        if: steps.phase.outputs.work == 'true' && steps.phase.outputs.full == 'true'
         run: python -m midterms build
 
       - name: Forecast (before the deadline) or score (after)
-        if: steps.phase.outputs.work == 'true'
+        if: steps.phase.outputs.work == 'true' && steps.phase.outputs.full == 'true'
         run: |
           if [ "${{ steps.phase.outputs.phase }}" = forecast ]; then
             python -m midterms forecast --snapshot
           else
             python -m midterms score
           fi
+
+      # after the deadline: counts and calls from civicAPI, and the forecast of
+      # record conditioned on the calls -> data/site/live.json (the web server
+      # runs the same command every minute; this copy is the record)
+      - name: Live results
+        if: steps.phase.outputs.work == 'true' && steps.phase.outputs.phase != 'forecast'
+        run: python -m midterms live || echo "::warning::no live results this run (civicAPI unreachable?)"
 
       - name: Verify
         if: steps.phase.outputs.work == 'true'
