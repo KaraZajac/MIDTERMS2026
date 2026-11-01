@@ -2,8 +2,8 @@
 // Calibration: forecast probability (x) against how often it happened (y),
 // one series per test year. Square on purpose: the diagonal is the target.
 interface Bin { bin: string; n: number; forecast: number; observed: number }
-interface Props { series: { name: string; key: "c1" | "c2"; bins: Bin[] }[] }
-const { series } = Astro.props;
+interface Props { series: { name: string; key: "c1" | "c2"; bins: Bin[] }[]; unit?: string; what?: string }
+const { series, unit = "districts", what = "the Democrat" } = Astro.props;
 const S = 320, pad = 34, inner = S - pad - 12;
 const X = (p: number) => pad + p * inner;
 const Y = (p: number) => 12 + (1 - p) * inner;
@@ -27,7 +27,7 @@ const ticks = [0, 0.25, 0.5, 0.75, 1];
     {series.map((s) => (
       <g>
         {s.bins.filter((b) => b.n > 0).map((b) => (
-          <g data-tip-value={`${s.name}: forecast ${Math.round(b.forecast * 100)}%, happened ${Math.round(b.observed * 100)}%`} data-tip-label={`${b.n} districts in the ${b.bin.replace("-", "–")} bin`}>
+          <g data-tip-value={`${s.name}: forecast ${Math.round(b.forecast * 100)}%, happened ${Math.round(b.observed * 100)}%`} data-tip-label={`${b.n} ${unit} in the ${b.bin.replace("-", "–")} bin`}>
             <circle cx={X(b.forecast)} cy={Y(b.observed)} r={r(b.n) + 2} fill="var(--surface)" />
             <circle class="mark" cx={X(b.forecast)} cy={Y(b.observed)} r={r(b.n)} style={`fill:var(--${s.key});fill-opacity:.85`} />
           </g>
@@ -38,7 +38,7 @@ const ticks = [0, 0.25, 0.5, 0.75, 1];
   <ul class="legend">
     {series.map((s) => <li><span class="key" style={`background:var(--${s.key});border-radius:50%`} />{s.name}</li>)}
   </ul>
-  <figcaption>x: the model's chance that the Democrat wins, binned. y: how often the Democrat did. Dot size: districts in the bin.</figcaption>
+  <figcaption>x: the forecast chance that {what} wins, binned. y: how often {what} did. Dot size: {unit} in the bin.</figcaption>
 </figure>
 
 <style>

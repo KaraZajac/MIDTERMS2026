@@ -1,0 +1,64 @@
+---
+// Poll average three days out (x) against the result (y), every Senate and
+// governor race 2014–2025. On the diagonal the polls were exact; in the two
+// shaded corners they picked the wrong winner.
+import { margin } from "../lib/format.js";
+
+interface Race { id: string; year: number; chamber: string; state: string; d: string; r: string; actual: number; poll_avg: number; n_polls: number }
+interface Props { races: Race[] }
+const { races } = Astro.props;
+const S = 380, pad = 40, inner = S - pad - 22;
+const ext = Math.max(...races.flatMap((r) => [Math.abs(r.actual), Math.abs(r.poll_avg)]));
+const L = Math.ceil(ext / 10) * 10;
+const X = (v: number) => pad + ((v + L) / (2 * L)) * inner;
+const Y = (v: number) => 10 + ((L - v) / (2 * L)) * inner;
+const ticks = [];
+for (let v = -L; v <= L; v += L > 40 ? 20 : 10) ticks.push(v);
+const wrong = (r: Race) => (r.poll_avg > 0) !== (r.actual > 0);
+const nWrong = races.filter(wrong).length;
+const label = (r: Race) => `${r.state} ${r.chamber === "senate" ? "Senate" : "governor"} ${r.year}`;
+---
+
+<figure class="scatter">
+  <svg viewBox={`0 0 ${S} ${S + 18}`} role="img" aria-label={`Poll average against result for ${races.length} races; ${nWrong} called wrong`}>
+    <rect x={X(-L)} y={Y(L)} width={X(0) - X(-L)} height={Y(0) - Y(L)} fill="var(--d-wash)" />
+    <rect x={X(0)} y={Y(0)} width={X(L) - X(0)} height={Y(-L) - Y(0)} fill="var(--r-wash)" />
+    {ticks.map((t) => (
+      <g>
+        <line x1={X(-L)} x2={X(L)} y1={Y(t)} y2={Y(t)} stroke={t === 0 ? "var(--axis)" : "var(--grid)"} />
+        <line x1={X(t)} x2={X(t)} y1={Y(-L)} y2={Y(L)} stroke={t === 0 ? "var(--axis)" : "var(--grid)"} />
+        <text x={X(-L) - 5} y={Y(t) + 4} text-anchor="end" class="tl">{t === 0 ? "0" : margin(t, "D", "R", 0)}</text>
+        <text x={X(t)} y={Y(-L) + 15} text-anchor="middle" class="tl">{t === 0 ? "0" : margin(t, "D", "R", 0)}</text>
+      </g>
+    ))}
+    <line x1={X(-L)} y1={Y(-L)} x2={X(L)} y2={Y(L)} stroke="var(--ink-2)" />
+    <text x={X(-L) + 6} y={Y(L) + 14} class="tl corner">polls R, result D</text>
+    <text x={X(L) - 6} y={Y(-L) - 6} class="tl corner" text-anchor="end">polls D, result R</text>
+    {races.filter((r) => !wrong(r)).map((r) => (
+      <g data-tip-value={`${label(r)}: result ${margin(r.actual)}`} data-tip-label={`${r.d} vs. ${r.r} · polls ${margin(r.poll_avg)} (${r.n_polls} polls)`}>
+        <circle cx={X(r.poll_avg)} cy={Y(r.actual)} r="7" class="hit" />
+        <circle class="mark" cx={X(r.poll_avg)} cy={Y(r.actual)} r="3" fill="var(--ink-2)" fill-opacity="0.45" />
+      </g>
+    ))}
+    {races.filter(wrong).map((r) => (
+      <g data-tip-value={`${label(r)}: result ${margin(r.actual)}`} data-tip-label={`${r.d} vs. ${r.r} · polls ${margin(r.poll_avg)} (${r.n_polls} polls) · polls picked the wrong winner`}>
+        <circle cx={X(r.poll_avg)} cy={Y(r.actual)} r="8" class="hit" />
+        <circle cx={X(r.poll_avg)} cy={Y(r.actual)} r="5.5" fill="var(--surface)" />
+        <circle class="mark" cx={X(r.poll_avg)} cy={Y(r.actual)} r="4" fill="var(--accent)" />
+      </g>
+    ))}
+  </svg>
+  <ul class="legend">
+    <li><span class="key" style="background:var(--ink-2);opacity:.6;border-radius:50%" />Polls picked the winner ({races.length - nWrong})</li>
+    <li><span class="key" style="background:var(--accent);border-radius:50%" />Polls picked the wrong winner ({nWrong})</li>
+  </ul>
+  <figcaption>x: the polling average three days out. y: the result. Both are two-party margins for the non-Republican side. On the diagonal the polls were exactly right.</figcaption>
+</figure>
+
+<style>
+  .scatter { margin: 0; max-width: 420px; }
+  .scatter svg { width: 100%; height: auto; display: block; }
+  .scatter .tl { font-size: 10.5px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .scatter .corner { font-size: 10px; font-style: italic; }
+  .scatter figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; }
+</style>

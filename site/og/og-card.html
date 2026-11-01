@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Source of site/public/og.png (1200x630). Render with headless Chromium
+     at 1200x630 and save as og.png; see site/og/README. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Inter"; font-weight: 100 900; src: url("../public/fonts/inter-latin.woff2") format("woff2"); }
+  @font-face { font-family: "JetBrains Mono"; font-weight: 100 800; src: url("../public/fonts/jetbrains-mono-latin.woff2") format("woff2"); }
+  html, body { margin: 0; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #eff1f5; font-family: "Inter", sans-serif; color: #4c4f69; position: relative; }
+  .frame { position: absolute; inset: 0; border-top: 10px solid; border-image: linear-gradient(90deg, #1e66f5 0 50%, #d20f39 50% 100%) 1; }
+  .text { position: absolute; left: 72px; top: 76px; width: 700px; }
+  .brand { display: flex; align-items: center; gap: 20px; }
+  .brand svg { flex: none; }
+  .word { font-size: 70px; font-weight: 800; letter-spacing: 0.01em; color: #2f3146; line-height: 1; }
+  .word span { color: #8c8fa1; }
+  .tag { width: 620px; font-size: 38px; font-weight: 650; line-height: 1.2; color: #2f3146; margin-top: 30px; letter-spacing: -0.015em; }
+  .sub { font-size: 23px; line-height: 1.45; color: #5c5f77; margin-top: 22px; width: 560px; }
+  .foot { position: absolute; left: 72px; bottom: 56px; font-size: 22px; color: #5c5f77; font-weight: 600; }
+  .foot b { color: #8839ef; font-weight: 700; }
+  .arc { position: absolute; right: 30px; bottom: 40px; width: 520px; opacity: 0.95; }
+  .arc img { width: 100%; display: block; }
+</style>
+</head>
+<body>
+  <div class="frame"></div>
+  <div class="text">
+    <div class="brand">
+      <svg width="88" height="48" viewBox="0 0 22 12"><path fill="#1e66f5" d="M1,11 A10,10 0 0 1 10.477,1.014 L10.738,6.007 A5,5 0 0 0 6,11 Z"/><path fill="#d20f39" d="M11.523,1.014 A10,10 0 0 1 21,11 L16,11 A5,5 0 0 0 11.262,6.007 Z"/></svg>
+      <div class="word">MIDTERMS<span>2026</span></div>
+    </div>
+    <div class="tag">An open forecast of every House, Senate and governor race</div>
+    <div class="sub">Polls, fundamentals and expert ratings in 50,000 correlated simulations. Frozen before Election Day, scored after.</div>
+  </div>
+  <div class="arc"><img src="hemicycle.svg" alt=""></div>
+  <div class="foot"><b>midterms.karazajac.io</b> · Kara Zajac</div>
+</body>
+</html>

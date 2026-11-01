@@ -1,13 +1,23 @@
 ---
 import Base from "../layouts/Base.astro";
 import Calibration from "../components/Calibration.astro";
+import MissBars from "../components/MissBars.astro";
+import BacktestScatter from "../components/BacktestScatter.astro";
 import { Content as Method } from "../../../docs/method.md";
-import { backtest, summary } from "../lib/data.js";
+import { backtest, summary, simParams } from "../lib/data.js";
 import { margin } from "../lib/format.js";
 
 const b = backtest();
 const hf = b?.house_fundamentals;
 const sp = b?.senate_polls;
+const sw = b?.statewide_polls;
+const sdNat = simParams()?.shared?.sd_national;
+const SCORE_NAMES: Record<string, string> = {
+  polls: "Polls alone",
+  ratings: "Expert ratings alone",
+  polls_plus_ratings: "Polls + ratings (like Deluxe)",
+  polls_on_rated: "Polls, on the races raters covered",
+};
 const adj = summary().adjustments;
 const he = [...(adj.house_effects ?? [])].filter((x: any) => x.polls >= 5).sort((a: any, z: any) => Math.abs(z.points) - Math.abs(a.points)).slice(0, 20);
 const name = (p: string) => p.replace(/\b\w/g, (c) => c.toUpperCase());
@@ -17,12 +27,12 @@ const name = (p: string) => p.replace(/\b\w/g, (c) => c.toUpperCase());
   <section class="page-head">
     <p class="eyebrow">Methods</p>
     <h1>How the forecast works</h1>
-    <p class="lede">The full method from the repository, followed by how the fundamentals did when tested on a midterm they never saw, and the adjustments the polls get.</p>
+    <p class="lede">How the House fundamentals did on a midterm they never saw, how accurate the polling average has been in 323 statewide races, the adjustments the polls get, and then the full method from the repository.</p>
   </section>
 
   {hf && (
     <section class="section" id="backtest" style="margin-top:0">
-      <h2>The backtest</h2>
+      <h2>The House backtest</h2>
       <p class="section-note">{hf.what}. Fit on one year's {hf.out_of_sample.map((o: any) => o.n).join(" or ")} contested districts, scored on the other's.</p>
       <div class="bt">
         <Calibration
@@ -71,6 +81,69 @@ const name = (p: string) => p.replace(/\b\w/g, (c) => c.toUpperCase());
       {sp && (
         <p class="small muted">A Senate polling backtest is also in <a href="https://github.com/KaraZajac/MIDTERMS2026/blob/main/data/site/backtest.json">backtest.json</a>.</p>
       )}
+    </section>
+  )}
+
+  {sw && (
+    <section class="section" id="polling-accuracy">
+      <h2>How accurate is the polling average?</h2>
+      <p class="section-note">
+        The same averaging code, replayed on {sw.n_races} Senate and governor races from 2014 to 2025 as of three days before each
+        election, with every adjustment fit on that year's polls only, then compared with the results.
+      </p>
+      <div class="grid-2">
+        <div class="card"><h3>The miss, cycle by cycle</h3><MissBars years={sw.by_year} /></div>
+        <div class="card"><h3>Every race</h3><BacktestScatter races={sw.races} /></div>
+      </div>
+      <div class="bt" style="margin-top:16px">
+        <Calibration
+          unit="races"
+          what="the non-Republican side"
+          series={[
+            { name: "Polls alone", key: "c1", bins: sw.scores.polls.calibration },
+            { name: "Polls + ratings", key: "c2", bins: sw.scores.polls_plus_ratings.calibration },
+          ]}
+        />
+        <div>
+          <div class="table-scroll">
+            <table class="data">
+              <thead><tr><th>Forecast</th><th class="num">Races</th><th class="num">Brier</th><th class="num">Log loss</th><th class="num">Right calls</th></tr></thead>
+              <tbody>
+                {Object.entries(sw.scores).map(([k, v]: any) => (
+                  <tr>
+                    <td>{SCORE_NAMES[k] ?? k}</td>
+                    <td class="num">{v.n}</td>
+                    <td class="num">{v.brier.toFixed(4)}</td>
+                    <td class="num">{v.log_loss.toFixed(3)}</td>
+                    <td class="num">{typeof v.calls === "number" ? `${Math.round(v.calls * 100)}%` : v.calls}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="small ink-2" style="margin-top:12px">
+            The blend beats either input alone, which is the case for Deluxe. Net of each cycle's shared miss, races scatter by
+            {" "}{sw.error.race_sd_after_year_mean.toFixed(1)} points. The cycle-level miss itself has a spread of about
+            {" "}{sw.national_error.sd_estimate_midterm_like.toFixed(1)} points in midterm-like years
+            {sdNat ? <> — so the simulation's national error is ±{sdNat} points</> : null}. Its sign isn't modeled: polls overstated the
+            non-Republican side in five of six cycles through 2024, then understated Democrats in both 2025 governor races, so the
+            model widens instead of leaning. The method below (§8b) has the full argument.
+          </p>
+          <details class="tableview">
+            <summary>Table view of the cycles</summary>
+            <div class="table-scroll">
+              <table class="data">
+                <thead><tr><th>Cycle</th><th class="num">Races</th><th class="num">Mean miss</th><th class="num">RMSE</th><th class="num">Mean absolute</th></tr></thead>
+                <tbody>
+                  {Object.entries(sw.by_year).map(([y, v]: any) => (
+                    <tr><td>{y}</td><td class="num">{v.n}</td><td class="num">{margin(v.mean_error)}</td><td class="num">{v.rmse.toFixed(1)}</td><td class="num">{v.mae.toFixed(1)}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </div>
     </section>
   )}
 

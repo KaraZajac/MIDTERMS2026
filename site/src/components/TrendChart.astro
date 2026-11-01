@@ -97,7 +97,7 @@ const wMax = Math.max(...inRange.map((d) => d.weight ?? 0), 0.0001);
     <div class="xhair" />
   </div>
   <div class="xaxis" aria-hidden="true">
-    {months.map((m) => <span style={`left:${m.x}%`}>{m.label}</span>)}
+    {months.map((m) => <span class={m.x > 96 ? "last" : m.x < 4 ? "first" : undefined} style={`left:${m.x}%`}>{m.label}</span>)}
   </div>
   <slot />
 </figure>

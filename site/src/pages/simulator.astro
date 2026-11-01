@@ -17,6 +17,17 @@ const groups = [
   { ch: "house", name: "House (most competitive 60)", races: pick("house", 60) },
 ];
 const nat = sim.national_mu;
+const lamOf = (ch: string) => {
+  const ls = sim.races.filter((r: any) => r.chamber === ch).map((r: any) => r.lam ?? 1);
+  return ls.length ? ls.reduce((a: number, b: number) => a + b, 0) / ls.length : 1;
+};
+const lam = { house: lamOf("house"), senate: lamOf("senate"), governor: lamOf("governor") };
+const lamText = (() => {
+  const fmt = (x: number) => (Math.abs(x - 1) < 0.01 ? "in full" : `at ${x.toFixed(1)}×`);
+  const groups: Record<string, string[]> = {};
+  for (const [ch, v] of Object.entries(lam)) (groups[fmt(v)] ??= []).push(ch === "governor" ? "governor" : ch === "house" ? "House" : "Senate");
+  return Object.entries(groups).map(([k, chs]) => `${chs.join(" and ")} races ${k}`).join(", ");
+})();
 ---
 
 <Base title="What-if simulator" description="Run the MIDTERMS2026 model yourself: shift the national environment, call races for either party, and watch the odds of control move.">
@@ -105,8 +116,8 @@ const nat = sim.national_mu;
     </section>
     <p class="small muted">
       The simulator draws 10,000 correlated scenarios with the same structure as the published forecast (which uses 50,000), so its
-      numbers can differ from the headline by a point or so. Shifts are applied in full to Senate and House races and at 0.6× to
-      governors, whose races follow the national environment less closely.
+      numbers can differ from the headline by a point or so. A shift moves {lamText}, the way each kind of race follows the
+      national environment in the model.
     </p>
   </div>
 </Base>

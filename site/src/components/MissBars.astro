@@ -1,0 +1,52 @@
+---
+// The average polling miss in each cycle: D-side result minus the polling
+// average. Up (blue) = the D side beat its polls; down (red) = Republicans did.
+import { margin } from "../lib/format.js";
+
+interface Props { years: Record<string, { n: number; mean_error: number; rmse: number }> }
+const { years } = Astro.props;
+const rows = Object.entries(years).map(([y, v]) => ({ y, ...v }));
+const max = Math.ceil(Math.max(...rows.map((r) => Math.abs(r.mean_error))) / 2) * 2;
+const H = 110; // px per side
+---
+
+<figure class="missbars" role="img" aria-label={"Average polling miss by cycle: " + rows.map((r) => `${r.y} ${margin(r.mean_error)}`).join(", ")}>
+  <div class="mb-plot" style={`--h:${H}px`}>
+    <span class="mb-axis-lab top">Democrats beat their polls ↑</span>
+    <span class="mb-axis-lab bottom">Republicans beat their polls ↓</span>
+    <div class="mb-zero" />
+    {rows.map((r) => {
+      const h = (Math.abs(r.mean_error) / max) * H;
+      const up = r.mean_error > 0;
+      return (
+        <div class="mb-col" data-tip-value={`${r.y}: ${margin(r.mean_error)} average miss`} data-tip-label={`${r.n} races · RMSE ${r.rmse.toFixed(1)} pts`} tabindex="0">
+          <div class="mb-half up">{up && <><span class="mb-val">{margin(r.mean_error)}</span><div class="mb-bar d" style={`height:${h}px`} /></>}</div>
+          <div class="mb-half down">{!up && <><div class="mb-bar r" style={`height:${h}px`} /><span class="mb-val">{margin(r.mean_error)}</span></>}</div>
+          <span class="mb-year">{r.y}{r.n < 10 ? "*" : ""}</span>
+        </div>
+      );
+    })}
+  </div>
+  <figcaption>Average miss of this model's polling average, three days out, in every Senate and governor race of each cycle. {rows.some((r) => r.n < 10) ? "* 2025 is two races (New Jersey and Virginia governor)." : ""}</figcaption>
+</figure>
+
+<style>
+  .missbars { margin: 0; }
+  .mb-plot { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); padding-top: 22px; }
+  .mb-zero { position: absolute; left: 0; right: 0; top: calc(22px + var(--h) + 18px); border-top: 1px solid var(--ink-2); }
+  .mb-col { display: grid; grid-template-rows: calc(var(--h) + 18px) calc(var(--h) + 18px) auto; justify-items: center; outline: none; }
+  .mb-col:focus-visible { outline: 2px solid var(--focus); border-radius: 6px; }
+  .mb-half { display: flex; flex-direction: column; align-items: center; width: 100%; }
+  .mb-half.up { justify-content: flex-end; }
+  .mb-half.down { justify-content: flex-start; }
+  .mb-bar { width: min(24px, 60%); }
+  .mb-bar.d { background: var(--d); border-radius: 4px 4px 0 0; }
+  .mb-bar.r { background: var(--r); border-radius: 0 0 4px 4px; }
+  .mb-val { font-size: 12.5px; font-weight: 650; color: var(--ink-strong); font-variant-numeric: tabular-nums; padding: 2px 0; white-space: nowrap; }
+  .mb-year { font-size: 12.5px; color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .mb-col:hover .mb-bar { filter: brightness(1.1); }
+  .mb-axis-lab { position: absolute; left: 0; font-size: 11.5px; color: var(--muted); }
+  .mb-axis-lab.top { top: 0; }
+  .mb-axis-lab.bottom { top: calc(22px + 2 * var(--h) + 36px - 14px); }
+  .missbars figcaption { font-size: 13px; color: var(--muted); margin-top: 10px; }
+</style>

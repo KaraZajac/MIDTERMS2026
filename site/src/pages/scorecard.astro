@@ -1,8 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
 import { scorecard, summary, history, meta } from "../lib/data.js";
-import { raceById } from "../lib/model.js";
-import { pct, fmtStamp, url } from "../lib/format.js";
+import { raceById, sideLabel, sideKey } from "../lib/model.js";
+import { pct, fmtStamp, url, margin } from "../lib/format.js";
 
 const sc = scorecard();
 const s = summary();
@@ -13,8 +13,9 @@ const lastSnap = exAnte[exAnte.length - 1];
 const NAMES: Record<string, string> = {
   lite: "Lite", classic: "Classic", deluxe: "Deluxe", ratings: "Raters' consensus", "lean-only": "Partisan lean only", "coin-flip": "Coin flip",
 };
-const board = sc ? Object.entries(sc.scoreboard ?? {}).sort((a: any, b: any) => a[1].brier - b[1].brier) : [];
-const resolved = sc?.resolved ?? [];
+const board = sc ? Object.entries(sc.scoreboard ?? {}).sort((a: any, b: any) => (a[1].brier ?? 9) - (b[1].brier ?? 9)) : [];
+const resolvedCount = typeof sc?.resolved === "number" ? sc.resolved : (sc?.races?.length ?? 0);
+const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1) - (b.p_winner ?? 1));
 ---
 
 <Base title="Scorecard" description="How MIDTERMS2026 will be graded: the frozen pre-election forecast against the results, race by race, next to the raters, a lean-only baseline and a coin flip.">
@@ -30,45 +31,61 @@ const resolved = sc?.resolved ?? [];
   {sc ? (
     <>
       <p class="callout">
-        Grading the forecast made {fmtStamp(sc.forecast_generated)}. {resolved.length} race{resolved.length === 1 ? "" : "s"} resolved,
-        {" "}{sc.open_count} still open. Lower is better for both scores.
+        Grading the forecast made {fmtStamp(sc.forecast_generated)} (<code>{sc.forecast}</code>). {resolvedCount} race{resolvedCount === 1 ? "" : "s"} resolved
+        so far, {sc.open_count} still open. Lower is better for both scores.
       </p>
       <div class="table-scroll">
         <table class="data">
           <thead><tr><th>Forecaster</th><th class="num">Races</th><th class="num">Brier score</th><th class="num">Log loss</th><th class="num">Right calls</th></tr></thead>
           <tbody>
             {board.map(([k, v]: any) => (
-              <tr>
-                <td>{NAMES[k] ?? k}</td>
+              <tr class={k === (sc.headline ?? "deluxe") ? "ours" : undefined}>
+                <td>{NAMES[k] ?? k}{k === (sc.headline ?? "deluxe") ? " (headline)" : ""}</td>
                 <td class="num">{v.n}</td>
-                <td class="num">{v.brier?.toFixed(3) ?? "—"}</td>
+                <td class="num">{v.brier?.toFixed(4) ?? "—"}</td>
                 <td class="num">{v.log_loss?.toFixed(3) ?? "—"}</td>
-                <td class="num">{v.calls != null ? (typeof v.calls === "number" && v.calls <= 1 ? pct(v.calls) : v.calls) : "—"}</td>
+                <td class="num">{v.calls ?? "—"}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      {resolved.length > 0 && Array.isArray(resolved) && typeof resolved[0] === "object" && (
+      {scored.length > 0 && (
         <section class="section">
-          <h2>Resolved races</h2>
-          <div class="table-scroll" style="max-height:640px;overflow:auto">
+          <h2>Every resolved race, biggest surprises first</h2>
+          <p class="section-note">The chance the headline forecast gave whoever won. A 30% candidate winning should happen about three times in ten; a scorecard full of them would mean the forecast was too sure.</p>
+          <div class="table-scroll" style="max-height:720px;overflow:auto">
             <table class="data">
-              <thead><tr><th>Race</th><th>Winner</th><th class="num">Forecast for the winner</th></tr></thead>
+              <thead><tr><th>Race</th><th>Winner</th><th class="num">Margin</th><th class="num">Forecast for the winner</th><th class="num">Called</th></tr></thead>
               <tbody>
-                {resolved.map((x: any) => {
+                {scored.map((x: any) => {
                   const r = raceById(x.id);
+                  const dl = r ? sideLabel(r, "d") : "D", rl = r ? sideLabel(r, "r") : "R";
                   return (
                     <tr>
-                      <td>{r ? <a href={url(`/${r.slug}/`)}>{r.short}</a> : x.id}</td>
-                      <td>{x.winner ?? x.result ?? "—"}</td>
-                      <td class="num">{x.p_winner != null ? pct(x.p_winner) : x.p != null ? pct(x.p) : "—"}</td>
+                      <td><a href={url(`/${x.slug ?? r?.slug}/`)}>{x.label ?? r?.short ?? x.id}</a></td>
+                      <td><span class={`key ${sideKey(x.winner)}`} />{x.winner_name ?? x.winner}</td>
+                      <td class="num">{x.margin != null ? margin(x.margin, dl, rl) : "—"}</td>
+                      <td class="num">{x.p_winner != null ? pct(x.p_winner) : "—"}</td>
+                      <td class="num">{x.called_right ? "✓" : <strong>✗</strong>}</td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
           </div>
+        </section>
+      )}
+      {sc.open?.length > 0 && (
+        <section class="section">
+          <h2>Still open</h2>
+          <p class="small ink-2">
+            {sc.open.map((id: string, i: number) => {
+              const r = raceById(id);
+              return <>{i ? " · " : ""}{r ? <a href={url(`/${r.slug}/`)}>{r.short}</a> : id}</>;
+            })}
+            {sc.open_count > sc.open.length && <> and {sc.open_count - sc.open.length} more</>}
+          </p>
         </section>
       )}
     </>
@@ -101,3 +118,7 @@ const resolved = sc?.resolved ?? [];
     </>
   )}
 </Base>
+
+<style>
+  tr.ours td { font-weight: 700; color: var(--ink-strong); background: var(--accent-wash); }
+</style>

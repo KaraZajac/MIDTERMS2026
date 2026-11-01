@@ -84,7 +84,7 @@ if (chamber === "house") {
     {!compact && <span class="note center" style={`left:${(xLine / W) * 100}%;top:-4px`}>{lineLabel}</span>}
   </div>
   <div class="xaxis" aria-hidden="true">
-    {ticks.map((s) => <span style={`left:${xPct(s)}%`}>{s}</span>)}
+    {ticks.map((s) => <span class={xPct(s) > 96 ? "last" : xPct(s) < 4 ? "first" : undefined} style={`left:${xPct(s)}%`}>{s}</span>)}
   </div>
   {
     table && (
