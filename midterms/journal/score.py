@@ -35,8 +35,10 @@ import yaml
 
 from midterms.model import ratings as R
 from midterms.paths import DATA, FORECAST, RACES
+from midterms.pipeline import racepage as rp
 from midterms.pipeline import races as racemod
 from midterms.pipeline import states, wiki
+from midterms.pipeline.htmltable import extract_tables
 
 DEADLINE = "2026-11-03T10:00:00Z"
 VERSIONS = ("lite", "classic", "deluxe")
@@ -51,9 +53,23 @@ def frozen_forecast() -> tuple[dict, Path]:
     return json.loads(path.read_text()), path
 
 
+MAJORITY_RULE = {"GA"}            # statewide: runoff (Dec 1) below 50%
+RCV = {"ME", "AK"}                 # ranked-choice: first-round totals can mislead
+
+
+def needs_majority(rid: str, state: str) -> bool:
+    ch = rid.split(":")[0]
+    return (state in RCV or (state in MAJORITY_RULE and ch != "house")
+            or (state == "LA" and ch == "house"))      # Louisiana: Nov 3 is round one
+
+
 def outcomes() -> dict:
     """race id -> {'winner_side': 'D'|'R', 'd_votes', 'r_votes'} for races
-    whose results box has votes for both sides."""
+    that are *called*: the results box carries its hold/gain line (so
+    partial election-night counts never resolve a race), both sides have
+    votes, and — where a majority decides (Georgia, Louisiana's House
+    first round, ranked-choice Maine and Alaska) — the leader has one.
+    Everything else stays open until a later refresh."""
     meta = {}
     for ch in ("house", "senate", "governor"):
         with open(RACES / f"{ch}.csv", newline="") as f:
@@ -64,15 +80,27 @@ def outcomes() -> dict:
         page = wiki.fetch_page(title, max_age_hours=None)
         rows = (racemod.house_state(rid.split(":")[1], page) if ch == "house"
                 else [racemod.statewide(rid, ch, rid.split(":")[1][:2], page)])
+        tables = None
         for r in rows:
             x = r["race"]
             m = meta.get(x["id"])
             if not m or m.get("fixed"):
                 continue
+            if tables is None:
+                tables = extract_tables(page["html"])
+            prefix = ""
+            if ch == "house" and not x["label"].endswith("-AL"):
+                prefix = f"District {int(x['label'].split('-')[1])}"
+            if not rp.results_called(rp.general(tables, prefix)):
+                continue
             votes = {c["candidate"]: c["votes"] for c in r["cands"] if c.get("votes")}
             dv, rv = votes.get(m["d_cand"]), votes.get(m["r_cand"])
             if dv is None or rv is None:
                 continue
+            if needs_majority(x["id"], x["state"]):
+                total = sum(votes.values())
+                if max(dv, rv) <= total / 2:
+                    continue
             out[x["id"]] = {"winner_side": "D" if dv > rv else "R", "d_votes": dv, "r_votes": rv,
                             "margin": round(100 * (dv - rv) / (dv + rv), 2)}
     return out

@@ -327,3 +327,25 @@ def infobox_nominees(lead: list[Table]) -> list[dict]:
         if out:
             return out
     return []
+
+
+_CALLED = re.compile(r"\b(hold|gain|flip|pickup|win)\b", re.I)
+
+
+def results_called(tables: list[Table]) -> bool:
+    """Has the results box been closed out? Editors add a 'Republican hold' /
+    'Democratic gain from Republican' line once a race is called; partial
+    election-night counts don't have one."""
+    for t in tables:
+        if subsection(t) not in ("Results", ""):
+            continue
+        g = t.texts()
+        if not g:
+            continue
+        head = [c.lower() for c in g[0]]
+        if "candidate" not in head:
+            continue
+        for row in g[1:]:
+            if any(_CALLED.search(c or "") and len(c) < 60 for c in row):
+                return True
+    return False

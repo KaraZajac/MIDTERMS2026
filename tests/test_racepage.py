@@ -105,3 +105,29 @@ class TestClassify(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestCalled(unittest.TestCase):
+    BOX = """<div class="mw-heading mw-heading2"><h2>General election</h2></div>
+    <div class="mw-heading mw-heading3"><h3>Results</h3></div>
+    <table class="wikitable"><tr><th>Party</th><th>Party</th><th>Candidate</th><th>Votes</th><th>%</th></tr>
+    <tr><td></td><td>Democratic</td><td>A</td><td>1,000</td><td>51</td></tr>
+    <tr><td></td><td>Republican</td><td>B</td><td>960</td><td>49</td></tr>
+    {tail}</table>"""
+
+    def test_partial_count_is_not_called(self):
+        gen = rp.general(extract_tables(self.BOX.format(tail="")))
+        self.assertFalse(rp.results_called(gen))
+
+    def test_hold_or_gain_line_calls_it(self):
+        for line in ("Democratic hold", "Democratic gain from Republican"):
+            html = self.BOX.format(tail=f"<tr><td colspan='5'>{line}</td></tr>")
+            self.assertTrue(rp.results_called(rp.general(extract_tables(html))), line)
+
+    def test_majority_rule_races(self):
+        from midterms.journal.score import needs_majority
+        self.assertTrue(needs_majority("senate:GA", "GA"))
+        self.assertTrue(needs_majority("house:LA-02", "LA"))
+        self.assertTrue(needs_majority("senate:ME", "ME"))
+        self.assertFalse(needs_majority("house:GA-02", "GA"))
+        self.assertFalse(needs_majority("senate:TX", "TX"))
