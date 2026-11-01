@@ -1,0 +1,107 @@
+---
+// A daily average with its 80% band, optionally over the polls behind it.
+// y is a D-side-minus-R-side margin. A crosshair reads out the average at
+// any day; a poll dot reads out that poll.
+import { margin as fmtMargin, fmtShortDate } from "../lib/format.js";
+
+interface Dot { date: string; value: number; weight?: number; tipValue: string; tipLabel: string }
+interface Props {
+  series: [string, number, number, number][];
+  dots?: Dot[];
+  height?: number;
+  dLabel?: string;
+  rLabel?: string;
+  /** Always include 0 (a race); otherwise only when the data gets near it. */
+  zero?: boolean;
+  dParty?: string;
+  rParty?: string;
+  label: string;
+}
+const { series, dots = [], height = 220, dLabel = "D", rLabel = "R", zero = true, dParty = "D", rParty = "R", label } = Astro.props;
+
+const W = 1000, H = height, padTop = 18, padBottom = 6;
+const day = (d: string) => Date.parse(d + "T00:00:00Z") / 86400000;
+const t0 = day(series[0][0]);
+const t1 = day(series[series.length - 1][0]);
+const span = Math.max(t1 - t0, 1);
+const inRange = dots.filter((d) => day(d.date) >= t0 - 0.5 && day(d.date) <= t1 + 0.5);
+
+let lo = Math.min(...series.map((s) => s[2]), ...inRange.map((d) => d.value));
+let hi = Math.max(...series.map((s) => s[3]), ...inRange.map((d) => d.value));
+if (zero || lo < 4) { lo = Math.min(lo, 0); hi = Math.max(hi, 0); }
+const rawStep = (hi - lo) / 4;
+const step = rawStep > 7 ? 10 : rawStep > 3.5 ? 5 : rawStep > 1.5 ? 2 : 1;
+lo = Math.floor(lo / step) * step;
+hi = Math.ceil(hi / step) * step;
+if (hi - lo < step * 2) hi += step;
+const ticks: number[] = [];
+for (let v = lo; v <= hi + 1e-9; v += step) ticks.push(Math.round(v * 100) / 100);
+
+const X = (d: string) => ((day(d) - t0) / span) * W;
+const Y = (v: number) => padTop + ((hi - v) / (hi - lo)) * (H - padTop - padBottom);
+const line = series.map((s, i) => `${i ? "L" : "M"}${X(s[0]).toFixed(1)},${Y(s[1]).toFixed(1)}`).join("");
+const band =
+  series.map((s, i) => `${i ? "L" : "M"}${X(s[0]).toFixed(1)},${Y(s[3]).toFixed(1)}`).join("") +
+  [...series].reverse().map((s) => `L${X(s[0]).toFixed(1)},${Y(s[2]).toFixed(1)}`).join("") + "Z";
+const last = series[series.length - 1];
+const sideOf = (v: number, party: string) => (party === "D" ? "d" : party === "R" ? "r" : "i");
+const lineSide = last[1] >= 0 ? sideOf(1, dParty) : sideOf(-1, rParty);
+const tickLabel = (v: number) => (v === 0 ? "Even" : fmtMargin(v, dLabel, rLabel, 0));
+
+// month ticks on x
+const months: { x: number; label: string }[] = [];
+{
+  const start = new Date(series[0][0] + "T00:00:00Z");
+  const d = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, 1));
+  while (day(d.toISOString().slice(0, 10)) <= t1) {
+    const iso = d.toISOString().slice(0, 10);
+    months.push({ x: (X(iso) / W) * 100, label: d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }) });
+    d.setUTCMonth(d.getUTCMonth() + 1);
+  }
+}
+const xh = JSON.stringify({
+  d: series.map((s) => s[0]),
+  v: series.map((s) => [s[1], s[2], s[3]]),
+  dl: dLabel,
+  rl: rLabel,
+});
+const wMax = Math.max(...inRange.map((d) => d.weight ?? 0), 0.0001);
+---
+
+<figure class="viz trend" style={`--h:${H}px`}>
+  <div class="plot" data-crosshair={xh} role="img" aria-label={label}>
+    <svg class="marks" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
+      <g class="nss">
+        {ticks.map((v) => <line x1="0" x2={W} y1={Y(v)} y2={Y(v)} stroke={v === 0 ? "var(--axis)" : "var(--grid)"} stroke-width="1" />)}
+      </g>
+      <path class={`w-${lineSide}`} d={band} />
+      {
+        inRange.map((d) => {
+          const w = d.weight ?? 0;
+          const size = 5 + Math.sqrt(w / wMax) * 9;
+          const side = d.value >= 0 ? sideOf(1, dParty) : sideOf(-1, rParty);
+          return (
+            <g class="dot" data-tip-value={d.tipValue} data-tip-label={d.tipLabel}>
+              <path class="nss" d={`M${X(d.date).toFixed(1)},${Y(d.value).toFixed(1)}h0`} stroke="var(--surface)" stroke-width={size + 3} stroke-linecap="round" />
+              <path class={`nss mark s-${side}`} d={`M${X(d.date).toFixed(1)},${Y(d.value).toFixed(1)}h0`} stroke-width={size} stroke-linecap="round" opacity="0.55" />
+            </g>
+          );
+        })
+      }
+      <path class={`nss s-${lineSide}`} d={line} fill="none" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round" />
+      <path class="nss" d={`M${X(last[0]).toFixed(1)},${Y(last[1]).toFixed(1)}h0`} stroke="var(--surface)" stroke-width="12" stroke-linecap="round" />
+      <path class={`nss s-${lineSide}`} d={`M${X(last[0]).toFixed(1)},${Y(last[1]).toFixed(1)}h0`} stroke-width="8" stroke-linecap="round" />
+    </svg>
+    {ticks.map((v) => <span class="ylab" style={`top:${(Y(v) / H) * 100}%`}>{tickLabel(v)}</span>)}
+    <span class="note end" style={`left:100%;top:${(Y(last[1]) / H) * 100}%;transform:translate(-100%,-150%)`}>{tickLabel(last[1]).replace(/\.0$/, "")}</span>
+    <div class="xhair" />
+  </div>
+  <div class="xaxis" aria-hidden="true">
+    {months.map((m) => <span style={`left:${m.x}%`}>{m.label}</span>)}
+  </div>
+  <slot />
+</figure>
+
+<script>
+  import "../scripts/crosshair.js";
+</script>

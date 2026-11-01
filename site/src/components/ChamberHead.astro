@@ -1,0 +1,29 @@
+---
+// Page head for a chamber page: the headline sentence per version.
+import { summary } from "../lib/data.js";
+import { VERSIONS } from "../lib/model.js";
+import { favoured, fmtStamp } from "../lib/format.js";
+
+interface Props { chamber: "house" | "senate" | "governor"; eyebrow: string }
+const { chamber, eyebrow } = Astro.props;
+const s = summary();
+const c = s.chambers[chamber];
+function line(v: string) {
+  const p = c.versions[v].p_control;
+  const dFav = p.D >= p.R;
+  const f = favoured(dFav ? p.D : p.R);
+  const party = dFav ? "Democrats" : "Republicans";
+  if (chamber === "governor") {
+    return f ? `${party} ${f} hold a majority of governorships` : "The governorships are a toss-up";
+  }
+  const name = chamber === "house" ? "House" : "Senate";
+  return f ? `${party} ${f} ${dFav ? "win" : "keep"} the ${name}` : `The ${name} is a toss-up`;
+}
+---
+
+<section class="page-head">
+  <p class="eyebrow">{eyebrow}</p>
+  {VERSIONS.map((v) => <h1 class={`v v-${v}`}>{line(v)}</h1>)}
+  <slot />
+  <p class="updated">Updated {fmtStamp(s.generated)}</p>
+</section>

@@ -1,0 +1,121 @@
+---
+import Base from "../layouts/Base.astro";
+import Calibration from "../components/Calibration.astro";
+import { Content as Method } from "../../../docs/method.md";
+import { backtest, summary } from "../lib/data.js";
+import { margin } from "../lib/format.js";
+
+const b = backtest();
+const hf = b?.house_fundamentals;
+const sp = b?.senate_polls;
+const adj = summary().adjustments;
+const he = [...(adj.house_effects ?? [])].filter((x: any) => x.polls >= 5).sort((a: any, z: any) => Math.abs(z.points) - Math.abs(a.points)).slice(0, 20);
+const name = (p: string) => p.replace(/\b\w/g, (c) => c.toUpperCase());
+---
+
+<Base title="Methods" description="How the MIDTERMS2026 forecast works — polls, fundamentals, expert ratings, the correlated simulation — and how its House fundamentals did out of sample in 2018 and 2022.">
+  <section class="page-head">
+    <p class="eyebrow">Methods</p>
+    <h1>How the forecast works</h1>
+    <p class="lede">The full method from the repository, followed by how the fundamentals did when tested on a midterm they never saw, and the adjustments the polls get.</p>
+  </section>
+
+  {hf && (
+    <section class="section" id="backtest" style="margin-top:0">
+      <h2>The backtest</h2>
+      <p class="section-note">{hf.what}. Fit on one year's {hf.out_of_sample.map((o: any) => o.n).join(" or ")} contested districts, scored on the other's.</p>
+      <div class="bt">
+        <Calibration
+          series={hf.out_of_sample.map((o: any, i: number) => ({ name: `Trained on ${o.train}, tested on ${o.test}`, key: i ? "c2" : "c1", bins: o.calibration }))}
+        />
+        <div>
+          <div class="table-scroll">
+            <table class="data">
+              <thead><tr><th>Out of sample</th><th class="num">Districts</th><th class="num">Brier</th><th class="num">Log loss</th><th class="num">RMSE</th><th class="num">Mean error</th></tr></thead>
+              <tbody>
+                {hf.out_of_sample.map((o: any) => (
+                  <tr>
+                    <td>{o.train} → {o.test}</td>
+                    <td class="num">{o.n}</td>
+                    <td class="num">{o.brier.toFixed(3)}</td>
+                    <td class="num">{o.log_loss.toFixed(3)}</td>
+                    <td class="num">{o.rmse.toFixed(1)} pts</td>
+                    <td class="num">{margin(o.mean_error)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="small ink-2" style="margin-top:12px">
+            Brier score is the mean squared error of the probabilities (0 is perfect, 0.25 is a coin flip); log loss punishes
+            confident misses harder. Mean error is the average miss on the margin: positive means Democrats beat the
+            model. The middle bins are thin (5 to 16 districts each), so their dots wander; the 2022 test ran
+            Democratic, the 2018 test Republican, and that symmetric miss is what the national-error term in the
+            simulation is there to absorb.
+          </p>
+          <details class="tableview">
+            <summary>Table view of the calibration</summary>
+            <div class="table-scroll">
+              <table class="data">
+                <thead><tr><th>Test</th><th>Bin</th><th class="num">Districts</th><th class="num">Forecast</th><th class="num">Happened</th></tr></thead>
+                <tbody>
+                  {hf.out_of_sample.flatMap((o: any) => o.calibration.map((c: any) => (
+                    <tr><td>{o.test}</td><td>{c.bin}</td><td class="num">{c.n}</td><td class="num">{Math.round(c.forecast * 100)}%</td><td class="num">{Math.round(c.observed * 100)}%</td></tr>
+                  )))}
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </div>
+      {sp && (
+        <p class="small muted">A Senate polling backtest is also in <a href="https://github.com/KaraZajac/MIDTERMS2026/blob/main/data/site/backtest.json">backtest.json</a>.</p>
+      )}
+    </section>
+  )}
+
+  <section class="section">
+    <h2>Poll adjustments, measured this cycle</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Who sponsored it</h3>
+        <p class="small">Polls paid for by a party-aligned group lean that party's way, so the model moves them back.</p>
+        <p>Democratic sponsors: <strong>{margin(adj.sponsor_lean.D)}</strong> ({adj.sponsor_polls?.D} polls)<br />Republican sponsors: <strong>{margin(adj.sponsor_lean.R)}</strong> ({adj.sponsor_polls?.R} polls)</p>
+        <h3 style="margin-top:14px">Who was asked</h3>
+        <p class="small">The same poll's registered-voter version against its likely-voter version.</p>
+        <p>Registered voters: <strong>{margin(-adj.population_shift.RV)}</strong> more Democratic ({adj.population_pairs?.RV} pairs)</p>
+      </div>
+      <div class="card">
+        <h3>House effects</h3>
+        <p class="small">How far each pollster runs from the average of everyone else, among pollsters with at least five polls. Biggest first.</p>
+        <div class="table-scroll" style="max-height:320px;overflow:auto">
+          <table class="data">
+            <thead><tr><th>Pollster</th><th class="num">Leans</th><th class="num">Polls</th></tr></thead>
+            <tbody>
+              {he.map((x: any) => <tr><td>{name(x.pollster)}</td><td class="num">{margin(x.points)}</td><td class="num">{x.polls}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>The method, in full</h2>
+    <p class="section-note">Rendered from <a href="https://github.com/KaraZajac/MIDTERMS2026/blob/main/docs/method.md">docs/method.md</a> at build time, so it always matches the code that made the forecast.</p>
+    <article class="prose method card">
+      <Method />
+    </article>
+  </section>
+</Base>
+
+<style>
+  .bt { display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 28px; align-items: start; }
+  @media (max-width: 860px) { .bt { grid-template-columns: minmax(0, 1fr); } }
+  .method { padding: 8px 28px 24px; max-width: none; }
+  @media (max-width: 600px) { .method { padding: 4px 16px 16px; } }
+  .method :global(h1:first-child) { display: none; }
+  .method :global(h2) { font-size: 1.3rem; }
+  .method :global(p), .method :global(li) { max-width: 46em; }
+  .method :global(code) { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+</style>

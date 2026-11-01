@@ -1,0 +1,103 @@
+---
+import Base from "../layouts/Base.astro";
+import { scorecard, summary, history, meta } from "../lib/data.js";
+import { raceById } from "../lib/model.js";
+import { pct, fmtStamp, url } from "../lib/format.js";
+
+const sc = scorecard();
+const s = summary();
+const h = history();
+const m = meta();
+const exAnte = (h?.snapshots ?? []).filter((x: any) => x.ex_ante !== false);
+const lastSnap = exAnte[exAnte.length - 1];
+const NAMES: Record<string, string> = {
+  lite: "Lite", classic: "Classic", deluxe: "Deluxe", ratings: "Raters' consensus", "lean-only": "Partisan lean only", "coin-flip": "Coin flip",
+};
+const board = sc ? Object.entries(sc.scoreboard ?? {}).sort((a: any, b: any) => a[1].brier - b[1].brier) : [];
+const resolved = sc?.resolved ?? [];
+---
+
+<Base title="Scorecard" description="How MIDTERMS2026 will be graded: the frozen pre-election forecast against the results, race by race, next to the raters, a lean-only baseline and a coin flip.">
+  <section class="page-head">
+    <p class="eyebrow">Scorecard</p>
+    <h1>{sc ? "How the forecast did" : "How the forecast will be graded"}</h1>
+    <p class="lede">
+      The forecast is frozen when the polls open, at {fmtStamp(s.deadline)}. Git timestamps the frozen snapshot, so nothing made later can
+      sneak into the record. After the polls close, each race is scored against its result.
+    </p>
+  </section>
+
+  {sc ? (
+    <>
+      <p class="callout">
+        Grading the forecast made {fmtStamp(sc.forecast_generated)}. {resolved.length} race{resolved.length === 1 ? "" : "s"} resolved,
+        {" "}{sc.open_count} still open. Lower is better for both scores.
+      </p>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th>Forecaster</th><th class="num">Races</th><th class="num">Brier score</th><th class="num">Log loss</th><th class="num">Right calls</th></tr></thead>
+          <tbody>
+            {board.map(([k, v]: any) => (
+              <tr>
+                <td>{NAMES[k] ?? k}</td>
+                <td class="num">{v.n}</td>
+                <td class="num">{v.brier?.toFixed(3) ?? "—"}</td>
+                <td class="num">{v.log_loss?.toFixed(3) ?? "—"}</td>
+                <td class="num">{v.calls != null ? (typeof v.calls === "number" && v.calls <= 1 ? pct(v.calls) : v.calls) : "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {resolved.length > 0 && Array.isArray(resolved) && typeof resolved[0] === "object" && (
+        <section class="section">
+          <h2>Resolved races</h2>
+          <div class="table-scroll" style="max-height:640px;overflow:auto">
+            <table class="data">
+              <thead><tr><th>Race</th><th>Winner</th><th class="num">Forecast for the winner</th></tr></thead>
+              <tbody>
+                {resolved.map((x: any) => {
+                  const r = raceById(x.id);
+                  return (
+                    <tr>
+                      <td>{r ? <a href={url(`/${r.slug}/`)}>{r.short}</a> : x.id}</td>
+                      <td>{x.winner ?? x.result ?? "—"}</td>
+                      <td class="num">{x.p_winner != null ? pct(x.p_winner) : x.p != null ? pct(x.p) : "—"}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+    </>
+  ) : (
+    <>
+      <div class="grid-2">
+        <div class="card">
+          <h2 style="font-size:1.15rem">What gets scored</h2>
+          <p class="small">The last snapshot made before {fmtStamp(s.deadline)}. Every race where both parties' candidates are on the ballot counts once the result is clear; races decided before Election Day don't.</p>
+          <p class="small">{lastSnap ? <>The latest snapshot so far: <code>{lastSnap.snapshot}</code>, made {fmtStamp(lastSnap.generated)}.</> : null} Snapshots live in <a href="https://github.com/KaraZajac/MIDTERMS2026/tree/main/data/forecast/snapshots">data/forecast/snapshots</a>.</p>
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.15rem">Against whom</h2>
+          <p class="small">The three model versions, each against the same resolved races as:</p>
+          <ul class="small">
+            <li><strong>The raters' consensus</strong>, the Cook / Sabato / Inside Elections average mapped to probabilities</li>
+            <li><strong>Partisan lean only</strong>, a baseline that ignores polls and candidates</li>
+            <li><strong>A coin flip</strong>, 50% everywhere</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.15rem">How</h2>
+          <p class="small"><strong>Brier score</strong>: the mean squared gap between the probability and what happened (0 is perfect; a coin flip scores 0.25). <strong>Log loss</strong>: like Brier, but a confident miss costs far more. <strong>Calls</strong>: how many favorites won.</p>
+        </div>
+        <div class="card">
+          <h2 style="font-size:1.15rem">When</h2>
+          <p class="small">This page fills in on its own as results land: the repository rescores every few hours after the polls close, and the site rebuilds within ten minutes of each update.</p>
+        </div>
+      </div>
+    </>
+  )}
+</Base>

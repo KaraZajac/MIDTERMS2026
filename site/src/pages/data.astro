@@ -1,0 +1,84 @@
+---
+import Base from "../layouts/Base.astro";
+import { meta, summary } from "../lib/data.js";
+import { fmtStamp } from "../lib/format.js";
+
+const m = meta();
+const s = summary();
+const REPO = "https://github.com/KaraZajac/MIDTERMS2026";
+const raw = (p: string) => `${REPO}/blob/main/${p}`;
+const files = [
+  ["data/site/summary.json", "Chamber odds, seat distributions, tipping points, the national environment"],
+  ["data/site/races.json", "All 506 races: candidates, inputs, ratings and each version's forecast"],
+  ["data/site/polls.json", "The polls in each race's average, with adjustments and weights"],
+  ["data/site/generic.json", "The generic-ballot average and its polls"],
+  ["data/site/sim.json", "Parameters for the simulator (sim/simulator.mjs)"],
+  ["data/forecast/latest.json", "The model's full output"],
+  ["data/polls/races.csv", "Every race poll, with its source page and revision"],
+  ["data/polls/generic.csv", "Every generic-ballot poll since December 2024"],
+  ["data/ratings.csv", "Every handicapper rating, dated"],
+];
+---
+
+<Base title="Data and sources" description="Where every number in MIDTERMS2026 comes from, how it is licensed, and how to download it.">
+  <section class="page-head">
+    <p class="eyebrow">Data</p>
+    <h1>Data and sources</h1>
+    <p class="lede">Everything on this site is built from files in the <a href={REPO}>MIDTERMS2026 repository</a>. Each input is pinned: Wikipedia pages by revision id, other files by sha256.</p>
+    <p class="updated">Export made {fmtStamp(m.exported ?? m.generated)} · sources digest <code>{m.sources_digest}</code></p>
+  </section>
+
+  <div class="grid-2">
+    <div class="card">
+      <h2 style="font-size:1.15rem">Download</h2>
+      <ul class="files">
+        {files.map(([p, d]) => <li><a href={raw(p)}><code>{p}</code></a><span class="small muted">{d}</span></li>)}
+      </ul>
+    </div>
+    <div class="card">
+      <h2 style="font-size:1.15rem">License</h2>
+      <p class="small">Code: <strong>{m.license?.code ?? "MIT"}</strong>. Data: <strong>{m.license?.data ?? "CC BY-SA 4.0"}</strong>, because much of it derives from Wikipedia. Reuse it with attribution and share alike.</p>
+      <h2 style="font-size:1.15rem;margin-top:18px">Attribution</h2>
+      <ul class="small">
+        {(m.attribution ?? []).map((a: string) => <li>{a}</li>)}
+      </ul>
+      <h2 style="font-size:1.15rem;margin-top:18px">Cite</h2>
+      <p class="small">Zajac, Kara. <em>MIDTERMS2026: an open forecast of the 2026 U.S. midterm elections</em>. 2026. <a href={REPO}>{REPO.replace("https://", "")}</a>. See <a href={raw("CITATION.cff")}>CITATION.cff</a>.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>Counts</h2>
+    <div class="counts">
+      {[
+        ["Races", s.counts.house_races + s.counts.senate_races + s.counts.governor_races],
+        ["Race polls", s.counts.race_polls],
+        ["Generic-ballot polls", s.counts.generic_polls],
+        ["Pollsters", s.counts.pollsters],
+        ["Handicapper ratings", s.counts.ratings],
+        ["Nominees matched to FEC filings", `${s.counts.finance_matched} / ${s.counts.finance_rows}`],
+      ].map(([k, v]) => <div class="card"><div class="cnum">{typeof v === "number" ? v.toLocaleString("en-US") : v}</div><div class="small muted">{k}</div></div>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Wikipedia revisions</h2>
+    <p class="section-note">The {m.wikipedia?.length ?? 0} pages read for this forecast, each pinned to the revision used. Rebuilding from these revisions reproduces the data exactly.</p>
+    <details class="tableview">
+      <summary>Show all {m.wikipedia?.length ?? 0}</summary>
+      <ul class="wiki small">
+        {(m.wikipedia ?? []).map((w: any) => <li><a href={w.url} rel="nofollow noopener">{w.title}</a> <span class="muted">rev. {w.revid}</span></li>)}
+      </ul>
+    </details>
+  </section>
+</Base>
+
+<style>
+  .files { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .files li { display: grid; gap: 2px; }
+  .files code { font-size: 13px; }
+  .counts { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+  .cnum { font-size: 1.6rem; font-weight: 750; color: var(--ink-strong); letter-spacing: -0.02em; }
+  .wiki { columns: 2 320px; padding-left: 18px; }
+  .wiki li { break-inside: avoid; margin-bottom: 3px; }
+</style>

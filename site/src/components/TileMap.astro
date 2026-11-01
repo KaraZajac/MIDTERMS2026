@@ -1,0 +1,99 @@
+---
+// Tile map for the Senate or the governorships: one square per state at its
+// standard tile-grid position, coloured by the forecast for that state's race.
+// Built as a CSS grid of links, so it scales to any width and every state is
+// a real link with its numbers in a tooltip (and in the race list below it).
+import { states, chamberRaces, pD, raceRating, VERSIONS, candShort } from "../lib/model.js";
+import { pct, url } from "../lib/format.js";
+
+interface Props { chamber: "senate" | "governor" }
+const { chamber } = Astro.props;
+const st = states();
+const byState = new Map(chamberRaces(chamber).map((r) => [r.state, r]));
+const tiles = Object.entries(st).map(([ab, s]: [string, any]) => ({ ab, name: s.name, col: s.tile[0], row: s.tile[1], race: byState.get(ab) }));
+const cols = Math.max(...tiles.map((t) => t.col)) + 1;
+const rows = Math.max(...tiles.map((t) => t.row)) + 1;
+const office = chamber === "senate" ? "Senate" : "governor's";
+---
+
+<figure class="tilemap-fig">
+  {
+    VERSIONS.map((v) => (
+      <div class={`tilemap v v-${v}`} style={`--cols:${cols};--rows:${rows}`}>
+        {tiles.map((t) => {
+          const style = `grid-column:${t.col + 1};grid-row:${t.row + 1}`;
+          if (!t.race) {
+            return (
+              <div class="tile na" style={style} data-tip-value={t.name} data-tip-label={`No ${office} race this year`}>
+                <span class="ab">{t.ab}</span>
+              </div>
+            );
+          }
+          const r = t.race;
+          const p = pD(r, v);
+          const rt = raceRating(r, v);
+          const fav = p >= 0.5 ? r.d : r.r;
+          const pf = p >= 0.5 ? p : 1 - p;
+          return (
+            <a
+              class={`tile ${rt.key}`}
+              style={style}
+              href={url(`/${r.slug}/`)}
+              tabindex="-1"
+              data-tip-value={`${candShort(fav)} ${pct(pf)}`}
+              data-tip-label={`${r.title}: ${candShort(r.d)} vs. ${candShort(r.r)} · ${rt.label}`}
+            >
+              <span class="ab">{t.ab}{r.special ? "*" : ""}</span>
+              <span class="pp">{pct(pf)}</span>
+            </a>
+          );
+        })}
+      </div>
+    ))
+  }
+  <ul class="legend">
+    <li><span class="key d" />Solid D</li>
+    <li><span class="key" style="background:var(--d2)" />Likely D</li>
+    <li><span class="key" style="background:var(--d1)" />Lean D</li>
+    <li><span class="key tu" />Toss-up</li>
+    <li><span class="key" style="background:var(--r1)" />Lean R</li>
+    <li><span class="key" style="background:var(--r2)" />Likely R</li>
+    <li><span class="key r" />Solid R</li>
+    <li><span class="key i" />Independent</li>
+  </ul>
+  <figcaption>Each square is a state; the number is the favorite's chance. {chamber === "senate" ? "* special election. " : ""}Grey squares have no {office} race this year. Solid ≥95%, Likely ≥75%, Lean ≥60%.</figcaption>
+</figure>
+
+<style>
+  .tilemap {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--rows), auto);
+    gap: 3px;
+    container-type: inline-size;
+    max-width: 760px;
+  }
+  .tile {
+    aspect-ratio: 1;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    line-height: 1.05;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .tile .ab { font-weight: 750; font-size: clamp(8px, 2.6cqw, 15px); letter-spacing: 0.02em; }
+  .tile .pp { font-size: clamp(7px, 1.9cqw, 12px); font-weight: 600; opacity: 0.92; font-variant-numeric: tabular-nums; }
+  @container (max-width: 420px) { .tile .pp { display: none; } }
+  .tile.na { background: var(--na); color: var(--muted); }
+  a.tile:hover { filter: brightness(1.1); outline: 2px solid var(--ink-strong); outline-offset: -1px; }
+  .tile.d3 { background: var(--d3); color: var(--on-d3); } .tile.d2 { background: var(--d2); color: var(--on-d2); } .tile.d1 { background: var(--d1); color: var(--on-d1); }
+  .tile.r3 { background: var(--r3); color: var(--on-r3); } .tile.r2 { background: var(--r2); color: var(--on-r2); } .tile.r1 { background: var(--r1); color: var(--on-r1); }
+  .tile.i3 { background: var(--i3); color: var(--on-i3); } .tile.i2 { background: var(--i2); color: var(--on-i2); } .tile.i1 { background: var(--i1); color: var(--on-i1); }
+  .tile.tu { background: var(--tu); color: var(--on-tu); }
+  .tilemap-fig { margin: 0; }
+  .tilemap-fig figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; }
+</style>

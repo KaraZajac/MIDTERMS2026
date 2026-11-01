@@ -1,0 +1,13 @@
+---
+import Base from "../layouts/Base.astro";
+import { url } from "../lib/format.js";
+---
+
+<Base title="Page not found" description="This page isn't part of the forecast.">
+  <section class="page-head" style="padding:40px 0 20px">
+    <p class="eyebrow">404</p>
+    <h1>This race isn't on the ballot</h1>
+    <p class="lede">The page you asked for doesn't exist. Race pages live at addresses like <a href={url("/senate/me/")}><code>/senate/me/</code></a>, <a href={url("/house/pa-07/")}><code>/house/pa-07/</code></a> and <a href={url("/governor/oh/")}><code>/governor/oh/</code></a>.</p>
+    <p><a class="btn primary" href={url("/")}>Back to the forecast</a> <a class="btn" href={url("/house/")}>Find a House district</a></p>
+  </section>
+</Base>

@@ -1,0 +1,109 @@
+---
+// The Senate and governor pages share a shape: the odds, the seat
+// distribution, a tile map, and every race from closest to safest.
+import Base from "../layouts/Base.astro";
+import VersionBar from "./VersionBar.astro";
+import ChamberHead from "./ChamberHead.astro";
+import ChamberCard from "./ChamberCard.astro";
+import SeatHist from "./SeatHist.astro";
+import TileMap from "./TileMap.astro";
+import RaceList from "./RaceList.astro";
+import { summary } from "../lib/data.js";
+import { VERSIONS, histRange, chamberRaces, closeness, raceById, raceRating } from "../lib/model.js";
+import { pct, url } from "../lib/format.js";
+
+interface Props { chamber: "senate" | "governor" }
+const { chamber } = Astro.props;
+const c = summary().chambers[chamber];
+let lo = Infinity, hi = -Infinity;
+for (const v of VERSIONS) {
+  const [a, b] = histRange(c.versions[v].hist, 0.0005);
+  lo = Math.min(lo, a); hi = Math.max(hi, b);
+}
+const list = [...chamberRaces(chamber)].sort((a, b) => closeness(b) - closeness(a) || a.short.localeCompare(b.short));
+const competitive = list.filter((r) => closeness(r) > 0.1);
+const safe = list.filter((r) => closeness(r) <= 0.1);
+const isSenate = chamber === "senate";
+const title = isSenate ? "Senate forecast" : "Governor forecast";
+const eyebrow = isSenate ? `Senate forecast · ${c.n_races} races · 51 for Democratic control` : `Governor forecast · ${c.n_races} races`;
+const desc = isSenate
+  ? "The 2026 Senate forecast: all 35 races, including the Ohio and Florida specials, with each candidate's chance and the distribution of Senate seats."
+  : "The 2026 governor forecast: all 36 races, with each candidate's chance and the distribution of governorships.";
+---
+
+<Base title={title} description={desc}>
+  <ChamberHead chamber={chamber} eyebrow={eyebrow}>
+    <p class="lede">
+      {isSenate
+        ? `${c.n_races} seats are up, two of them special elections. Republicans hold 53 seats now; Democrats need 51 for control because Vice President Vance breaks ties.`
+        : `${c.n_races} governorships are up. A majority of the 50 takes 26.`}
+    </p>
+  </ChamberHead>
+  <VersionBar />
+
+  <div class="sw-top">
+    <ChamberCard chamber={chamber} link={false} histHeight={0} />
+    <div class="card">
+      <h2 style="font-size:1.1rem">{isSenate ? "How many Senate seats Democrats hold" : "How many governorships Democrats hold"}</h2>
+      <p class="small muted">After the election, counting seats not up this year{isSenate ? " and the two independents who caucus with Democrats" : ""}.</p>
+      {VERSIONS.map((v) => (
+        <div class={`v v-${v}`}>
+          <SeatHist hist={c.versions[v].hist} majority={c.majority} chamber={chamber} height={200} range={[lo, hi]} />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>The map</h2>
+    <TileMap chamber={chamber} />
+  </section>
+
+  <section class="section">
+    <h2>Competitive races</h2>
+    <p class="section-note">Closest first, by the chance of the trailing candidate.</p>
+    <RaceList races={competitive} />
+  </section>
+
+  {safe.length > 0 && (
+    <section class="section">
+      <h2>The rest</h2>
+      <p class="section-note">Races where the favorite wins in at least 95% of simulations.</p>
+      <RaceList races={safe} />
+    </section>
+  )}
+
+  <section class="section">
+    <h2>Tipping points</h2>
+    <p class="section-note">How often each race was the one that decided {isSenate ? "control of the Senate" : "the majority of governorships"}.</p>
+    <div class="tp-list">
+      {c.tipping.slice(0, 12).map((t: any) => {
+        const r = raceById(t.id);
+        return (
+          <a class="tp" href={url(`/${t.slug}/`)}>
+            <strong>{t.label}</strong>
+            <span class="tnum">{pct(t.p, 1)}</span>
+            {VERSIONS.map((v) => {
+              const rt = raceRating(r, v);
+              return <span class={`v v-${v} chip ${rt.key}`}>{rt.label}</span>;
+            })}
+          </a>
+        );
+      })}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sw-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .sw-top { grid-template-columns: minmax(0, 1fr); } }
+  .tp-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+  .tp {
+    display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center;
+    padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface);
+    text-decoration: none; color: var(--ink);
+  }
+  .tp:hover { border-color: var(--accent); }
+  .tp strong { color: var(--ink-strong); }
+  .tp .chip { grid-column: 1 / -1; justify-self: start; }
+</style>

@@ -1,0 +1,95 @@
+---
+import Base from "../layouts/Base.astro";
+import TrendChart from "../components/TrendChart.astro";
+import { generic, summary } from "../lib/data.js";
+import { margin, fmtShortDate, fmtDate, fmtStamp, pct } from "../lib/format.js";
+
+const g = generic();
+const s = summary();
+const last = g.average[g.average.length - 1];
+const first = g.average[0];
+const polls = [...g.polls].sort((a: any, b: any) => (b.end ?? "").localeCompare(a.end ?? "") || b.weight - a.weight);
+const twoParty = (d: number, r: number) => (100 * (d - r)) / (d + r);
+const change = last[1] - first[1];
+---
+
+<Base title="Generic ballot" description={`The 2026 generic congressional ballot: Democrats ${margin(last[1])} in the MIDTERMS2026 average of ${g.polls.length} polls, with every poll, its adjustment and its weight.`}>
+  <section class="page-head">
+    <p class="eyebrow">Generic congressional ballot</p>
+    <h1>{last[1] >= 0 ? "Democrats" : "Republicans"} lead the generic ballot by {Math.abs(last[1]).toFixed(1)} points</h1>
+    <p class="lede">
+      Which party would you vote for in your district? The answer, averaged across polls, sets the national environment
+      every race in the model starts from. Two-party margin; 80% band shaded.
+    </p>
+    <p class="updated">Updated {fmtStamp(g.generated)} · {change >= 0 ? "up" : "down"} {Math.abs(change).toFixed(1)} points for Democrats since {fmtDate(first[0])}</p>
+  </section>
+
+  <div class="card">
+    <TrendChart
+      series={g.average}
+      dots={polls.map((p: any) => ({
+        date: p.end,
+        value: p.adjusted,
+        weight: p.weight,
+        tipValue: `${p.pollster}: ${margin(p.adjusted)} adjusted`,
+        tipLabel: `${fmtShortDate(p.start)}–${fmtShortDate(p.end)} · ${p.n ? p.n.toLocaleString("en-US") + " " : ""}${p.population ?? ""} · raw ${margin(p.margin)} · ${(p.weight * 100).toFixed(1)}% of the average`,
+      }))}
+      height={300}
+      zero={false}
+      label="Generic-ballot average with polls"
+    />
+    <p class="small muted" style="margin:10px 0 0">Dots are polls after adjustment, sized by weight in today's average. Hover the line for any day's average.</p>
+  </div>
+
+  <section class="section">
+    <h2>Other averages</h2>
+    <p class="section-note">For comparison only; none is an input. Converted to two-party so they line up with ours ({margin(last[1])}).</p>
+    <div class="table-scroll" style="max-width:640px">
+      <table class="data">
+        <thead><tr><th>Average</th><th class="num">D</th><th class="num">R</th><th class="num">Raw</th><th class="num">Two-party</th><th class="num">Updated</th></tr></thead>
+        <tbody>
+          {(g.outside_averages ?? s.national.outside_averages).map((o: any) => (
+            <tr>
+              <td>{o.url ? <a href={o.url} rel="nofollow noopener">{o.source}</a> : o.source}</td>
+              <td class="num">{o.d}%</td>
+              <td class="num">{o.r}%</td>
+              <td class="num">{margin(o.margin_raw)}</td>
+              <td class="num"><strong>{margin(twoParty(o.d, o.r))}</strong></td>
+              <td class="num">{fmtShortDate(o.updated)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Every poll in the average</h2>
+    <p class="section-note">{polls.length} polls from the last {g.average.length} days. The full ledger, back to December 2024, is <a href="https://github.com/KaraZajac/MIDTERMS2026/blob/main/data/polls/generic.csv">in the repository</a>.</p>
+    <div class="table-scroll" style="max-height:640px;overflow:auto">
+      <table class="data">
+        <thead>
+          <tr><th>Pollster</th><th>Dates</th><th class="num">Sample</th><th class="num">D</th><th class="num">R</th><th class="num">Margin</th><th class="num">Adjusted</th><th class="num">Weight</th></tr>
+        </thead>
+        <tbody>
+          {polls.map((p: any) => (
+            <tr>
+              <td>{p.url ? <a href={p.url} rel="nofollow noopener">{p.pollster}</a> : p.pollster}{p.sponsor && <span class="spons">{p.sponsor}</span>}</td>
+              <td class="nowrap">{fmtShortDate(p.start)}–{fmtShortDate(p.end)}</td>
+              <td class="num">{p.n ? p.n.toLocaleString("en-US") : "—"} {p.population ?? ""}</td>
+              <td class="num">{p.d != null ? `${p.d}%` : "—"}</td>
+              <td class="num">{p.r != null ? `${p.r}%` : "—"}</td>
+              <td class="num">{margin(p.margin)}</td>
+              <td class="num"><strong>{margin(p.adjusted)}</strong></td>
+              <td class="num">{(p.weight * 100).toFixed(1)}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .spons { font-size: 10.5px; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 4px; padding: 0 4px; margin-left: 6px; vertical-align: 1px; }
+</style>

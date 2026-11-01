@@ -1,0 +1,26 @@
+---
+// One whole split into parts: the tall segmented bar. Shares print inside a
+// block only when the block is wide enough to hold them.
+import { pct } from "../lib/format.js";
+
+interface Seg { key: "d" | "r" | "i" | "x"; p: number; name: string }
+interface Props { segs: Seg[]; label?: string }
+const { segs, label } = Astro.props;
+const shown = segs.filter((s) => s.p > 0.0005);
+const aria = (label ? label + ": " : "") + shown.map((s) => `${s.name} ${pct(s.p)}`).join(", ");
+---
+
+<div class="odds-bar" role="img" aria-label={aria}>
+  {
+    shown.map((s) => (
+      <span
+        class={`${s.key}${s.p < 0.12 ? " tight" : ""}`}
+        style={`flex:${s.p} 1 0`}
+        data-tip-value={pct(s.p, 1)}
+        data-tip-label={s.name}
+      >
+        {s.p >= 0.12 ? pct(s.p) : ""}
+      </span>
+    ))
+  }
+</div>

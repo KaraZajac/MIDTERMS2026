@@ -1,0 +1,129 @@
+---
+// How the race could end: the distribution of the two-party margin across
+// the simulations, split at zero into the two candidates' colours.
+import { densityFromQuantiles } from "../lib/density.js";
+import { margin as fmtMargin } from "../lib/format.js";
+
+interface Props {
+  m: Record<string, number>;
+  dLabel: string; rLabel: string;
+  dKey: string; rKey: string; // colour keys: d | r | i
+  dName: string; rName: string;
+  height?: number;
+}
+const { m, dLabel, rLabel, dKey, rKey, dName, rName, height = 170 } = Astro.props;
+const { x, f, F } = densityFromQuantiles(m, 180);
+const W = 1000, H = height, top = 26, base = H - 8;
+
+let lo = x[0], hi = x[x.length - 1];
+// keep zero on the axis unless it is hopelessly far away
+const spread = hi - lo;
+if (lo > 0 && lo < spread * 0.6) lo = 0 - spread * 0.05;
+if (hi < 0 && -hi < spread * 0.6) hi = spread * 0.05;
+const showZero = lo < 0 && hi > 0;
+const X = (v: number) => ((v - lo) / (hi - lo)) * W;
+const fMax = Math.max(...f);
+const Y = (v: number) => base - (v / fMax) * (base - top);
+
+function area(pred: (v: number) => boolean) {
+  const pts = x.map((xv, i) => [xv, f[i]]).filter(([xv]) => pred(xv));
+  if (pts.length < 2) return "";
+  // close exactly at zero so the two halves meet
+  if (showZero) {
+    const z = 0;
+    const i = x.findIndex((xv) => xv >= z);
+    if (i > 0) {
+      const t = (z - x[i - 1]) / (x[i] - x[i - 1]);
+      const fz = f[i - 1] + t * (f[i] - f[i - 1]);
+      if (pred(-1)) pts.push([z, fz]);
+      else pts.unshift([z, fz]);
+    }
+  }
+  return (
+    `M${X(pts[0][0]).toFixed(1)},${base}` +
+    pts.map(([xv, fv]) => `L${X(xv).toFixed(1)},${Y(fv).toFixed(1)}`).join("") +
+    `L${X(pts[pts.length - 1][0]).toFixed(1)},${base}Z`
+  );
+}
+function curve(pred: (v: number) => boolean) {
+  const pts = x.map((xv, i) => [xv, f[i]]).filter(([xv]) => pred(xv));
+  return pts.map(([xv, fv], i) => `${i ? "L" : "M"}${X(xv).toFixed(1)},${Y(fv).toFixed(1)}`).join("");
+}
+const rArea = area((v) => v <= 0), dArea = area((v) => v >= 0);
+const rCurve = curve((v) => v <= 0), dCurve = curve((v) => v >= 0);
+
+const rawStep = (hi - lo) / 6;
+const step = rawStep > 15 ? 20 : rawStep > 7 ? 10 : rawStep > 3 ? 5 : 2;
+const ticks: number[] = [];
+for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) ticks.push(v);
+const lab = (v: number) => (Math.abs(v) < 1e-9 ? "Even" : fmtMargin(v, dLabel, rLabel, 0));
+const med = m.q50;
+const cdf = JSON.stringify({ x: x.map((v) => +v.toFixed(2)), F: F.map((v) => +v.toFixed(4)), dl: dLabel, rl: rLabel, dn: dName, rn: rName });
+---
+
+<figure class="viz density" style={`--h:${H}px`}>
+  <div class="plot" data-cdf={cdf} data-lo={lo} data-hi={hi} role="img" aria-label={`Distribution of the margin: median ${fmtMargin(med, dLabel, rLabel)}, 80% of simulations between ${fmtMargin(m.q10, dLabel, rLabel)} and ${fmtMargin(m.q90, dLabel, rLabel)}`}>
+    <svg class="marks" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
+      {rArea && <path d={rArea} style={`fill:var(--${rKey});fill-opacity:.22`} />}
+      {dArea && <path d={dArea} style={`fill:var(--${dKey});fill-opacity:.22`} />}
+      {rCurve && <path class="nss" d={rCurve} fill="none" style={`stroke:var(--${rKey})`} stroke-width="2" />}
+      {dCurve && <path class="nss" d={dCurve} fill="none" style={`stroke:var(--${dKey})`} stroke-width="2" />}
+      <line class="nss" x1="0" x2={W} y1={base + 0.5} y2={base + 0.5} stroke="var(--axis)" />
+      {showZero && <line class="nss" x1={X(0)} x2={X(0)} y1={top - 14} y2={base} stroke="var(--ink-2)" />}
+      <line class="nss" x1={X(med)} x2={X(med)} y1={top} y2={base} stroke="var(--ink-strong)" stroke-dasharray="0" stroke-width="1.5" opacity="0.7" />
+      <line class="nss" x1={X(m.q10)} x2={X(m.q90)} y1={base + 0.5} y2={base + 0.5} stroke="var(--ink-strong)" stroke-width="4" stroke-linecap="round" opacity="0.55" />
+    </svg>
+    <span class="note center" style={`left:${(X(med) / W) * 100}%;top:2px`}>Median {fmtMargin(med, dLabel, rLabel)}</span>
+    {showZero && Math.abs(X(med) - X(0)) > 120 && <span class="note center" style={`left:${(X(0) / W) * 100}%;top:2px;font-weight:500`}>Even</span>}
+    <div class="xhair" />
+  </div>
+  <div class="xaxis" aria-hidden="true">
+    {ticks.map((v) => <span style={`left:${(X(v) / W) * 100}%`}>{lab(v)}</span>)}
+  </div>
+  <figcaption>
+    The bar under the curve spans the middle 80% of simulated outcomes, {fmtMargin(m.q10, dLabel, rLabel)} to {fmtMargin(m.q90, dLabel, rLabel)}.
+    Hover the chart to read off any margin.
+  </figcaption>
+  <details class="tableview">
+    <summary>Table view</summary>
+    <div class="table-scroll">
+      <table class="data">
+        <thead><tr><th>Percentile</th><th class="num">Margin</th></tr></thead>
+        <tbody>
+          {[["1st", m.q01], ["5th", m.q05], ["10th", m.q10], ["25th", m.q25], ["50th (median)", m.q50], ["75th", m.q75], ["90th", m.q90], ["95th", m.q95], ["99th", m.q99]].map(([k, v]) => (
+            <tr><td>{k}</td><td class="num">{fmtMargin(v as number, dLabel, rLabel)}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </details>
+</figure>
+
+<script>
+  import { showTip, hideTip } from "../scripts/tooltip.js";
+  for (const plot of document.querySelectorAll<HTMLElement>("[data-cdf]")) {
+    if (plot.dataset.wired) continue;
+    plot.dataset.wired = "1";
+    const d = JSON.parse(plot.dataset.cdf!);
+    const line = plot.querySelector<HTMLElement>(".xhair")!;
+    const lo = d.x[0], hi = d.x[d.x.length - 1];
+    const fmt = (v: number) => (Math.abs(v) < 0.05 ? "Even" : `${v > 0 ? d.dl : d.rl}+${Math.abs(v).toFixed(1)}`);
+    plot.addEventListener("pointermove", (e) => {
+      const r = plot.getBoundingClientRect();
+      const fx = Math.min(Math.max((e.clientX - r.left) / r.width, 0), 1);
+      // the plot's x range is the svg's, which may extend past the density's
+      const svgLo = Number(plot.dataset.lo ?? lo), svgHi = Number(plot.dataset.hi ?? hi);
+      const v = svgLo + fx * (svgHi - svgLo);
+      let i = d.x.findIndex((xv: number) => xv >= v);
+      if (i < 0) i = d.x.length - 1;
+      const F = d.F[Math.max(i, 0)];
+      line.style.left = fx * 100 + "%";
+      line.classList.add("on");
+      const better = v >= 0 ? 1 - F : F;
+      const who = v >= 0 ? d.dn : d.rn;
+      showTip(`${(better * 100).toFixed(0)}% of simulations`, `${who} by ${fmt(v).replace(/^.*\+/, "")} points or more`, e.clientX, e.clientY);
+      if (Math.abs(v) < 0.05) showTip(`${((1 - F) * 100).toFixed(0)}% ${d.dn} · ${(F * 100).toFixed(0)}% ${d.rn}`, "Win either way", e.clientX, e.clientY);
+    });
+    plot.addEventListener("pointerleave", () => { line.classList.remove("on"); hideTip(); });
+  }
+</script>

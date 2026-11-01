@@ -1,0 +1,231 @@
+---
+import "../styles/global.css";
+import { meta, buildCommit } from "../lib/data.js";
+import { fmtStamp, url } from "../lib/format.js";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Leave the "· MIDTERMS2026" suffix off the <title> (the home page). */
+  bare?: boolean;
+}
+const { title, description, bare = false } = Astro.props;
+
+const m = meta();
+const commit = buildCommit();
+const ONION = "t5hc3z3rleowhbxftz7vjokj37utu6vrqgvz3ldllvdzqwx5ked63jad.onion";
+const REPO_URL = "https://github.com/KaraZajac/MIDTERMS2026";
+
+const site = Astro.site ?? new URL("https://midterms.karazajac.io");
+const path = Astro.url.pathname;
+const canonical = new URL(path, site).href;
+const ogImage = new URL(url("/og.png"), site).href;
+const fullTitle = bare ? title : `${title} · MIDTERMS2026`;
+const desc =
+  description ||
+  "An open, FiveThirtyEight-style forecast of the 2026 U.S. midterms: every House, Senate and governor race, simulated 50,000 times with correlated error, frozen before Election Day and scored after.";
+
+const nav = [
+  ["/", "Forecast"],
+  ["/house/", "House"],
+  ["/senate/", "Senate"],
+  ["/governor/", "Governors"],
+  ["/simulator/", "Simulator"],
+  ["/generic-ballot/", "Generic ballot"],
+  ["/methods/", "Methods"],
+  ["/scorecard/", "Scorecard"],
+];
+const isCurrent = (href: string) =>
+  href === "/" ? path === url("/") : path === url(href) || path.startsWith(url(href));
+const phase = m.phase ?? "forecast";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#eff1f5" />
+    <link rel="icon" href={url("/favicon.svg")} type="image/svg+xml" />
+    <link rel="icon" href={url("/favicon-32.png")} sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href={url("/apple-touch-icon.png")} />
+    <link rel="preload" href={url("/fonts/inter-latin.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="sitemap" href={url("/sitemap-index.xml")} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MIDTERMS2026" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MIDTERMS2026 — an open forecast of the 2026 midterm elections" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline>
+      // Before first paint: the reader's theme (Latte unless they chose Mocha,
+      // like karazajac.io) and model version (deluxe unless they chose another).
+      (function () {
+        var d = document.documentElement;
+        d.classList.add("js");
+        try {
+          var t = localStorage.getItem("midterms-theme");
+          if (t === "mocha" || t === "latte") d.dataset.theme = t;
+          var v = localStorage.getItem("midterms-version");
+          if (v === "lite" || v === "classic" || v === "deluxe") d.dataset.version = v;
+        } catch (e) {}
+      })();
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="sr-only" href="#main">Skip to content</a>
+    <header class="site-head">
+      <div class="wrap">
+        <a class="brand" href={url("/")} aria-label="MIDTERMS2026 home">
+          <svg width="27" height="15" viewBox="0 0 22 12" aria-hidden="true">
+            <path class="f-d" d="M1,11 A10,10 0 0 1 10.477,1.014 L10.738,6.007 A5,5 0 0 0 6,11 Z" />
+            <path class="f-r" d="M11.523,1.014 A10,10 0 0 1 21,11 L16,11 A5,5 0 0 0 11.262,6.007 Z" />
+          </svg>
+          <span>MIDTERMS<span class="yr">2026</span></span>
+        </a>
+        <nav class="site-nav" id="site-nav" aria-label="Site">
+          {
+            nav.map(([href, label]) => (
+              <a href={url(href)} aria-current={isCurrent(href) ? "page" : undefined}>
+                {label}
+              </a>
+            ))
+          }
+        </nav>
+        <div class="head-tools">
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme">Theme</button>
+          <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        </div>
+      </div>
+    </header>
+    {
+      phase === "frozen" && (
+        <div class="phase-banner">
+          <div class="wrap">
+            <strong>The forecast is frozen.</strong> This is the final forecast, made {fmtStamp(m.frozen_at ?? m.generated)}. It
+            will be scored against the results as they come in — <a href={url("/scorecard/")}>see the scorecard</a>.
+          </div>
+        </div>
+      )
+    }
+    {
+      phase === "results" && (
+        <div class="phase-banner">
+          <div class="wrap">
+            <strong>Results are coming in.</strong> The frozen forecast is being graded race by race —{" "}
+            <a href={url("/scorecard/")}>see the scorecard</a>.
+          </div>
+        </div>
+      )
+    }
+
+    <main class="wrap" id="main">
+      <slot />
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap cols">
+        <div>
+          <h4>MIDTERMS2026</h4>
+          <p>
+            An open forecast of the 2026 U.S. midterm elections by <a href="https://karazajac.io">Kara Zajac</a>: polls,
+            fundamentals and expert ratings combined in {Number(m.n_sims ?? 50000).toLocaleString("en-US")} correlated
+            simulations, frozen before the polls open on November 3 and scored after they close.
+          </p>
+          <p>
+            Forecast updated {fmtStamp(m.generated)} · model {m.model ?? "midterms2026"} · built from{" "}
+            <a href={`${REPO_URL}/commit/${commit}`}><code>{commit.slice(0, 7)}</code></a>
+          </p>
+          <div class="onion-line">
+            <span class="onion-label">Also on Tor</span>
+            <a href={`http://${ONION}`}>{ONION}</a>
+          </div>
+        </div>
+        <div>
+          <h4>Forecast</h4>
+          <ul>
+            {nav.map(([href, label]) => <li><a href={url(href)}>{label}</a></li>)}
+            <li><a href={url("/data/")}>Data &amp; sources</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Open</h4>
+          <ul>
+            <li><a href={REPO_URL}>Code and data on GitHub</a></li>
+            <li><a href={`${REPO_URL}/blob/main/docs/method.md`}>The method, in full</a></li>
+            <li><a href={`${REPO_URL}/tree/main/data`}>Every input, in git</a></li>
+            <li>Code MIT · data CC BY-SA 4.0</li>
+            <li><a href="https://karazajac.io/projects/">More from Kara Zajac</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+        // theme
+        var tb = document.getElementById("theme-toggle");
+        function theme() { return d.dataset.theme === "mocha" ? "mocha" : "latte"; }
+        function paintTheme() {
+          tb.innerHTML = theme() === "mocha"
+            ? '<span aria-hidden="true">☾</span><span class="tt-word"> Mocha</span>'
+            : '<span aria-hidden="true">☼</span><span class="tt-word"> Latte</span>';
+          var tc = document.querySelector('meta[name="theme-color"]');
+          if (tc) tc.setAttribute("content", theme() === "mocha" ? "#1e1e2e" : "#eff1f5");
+        }
+        tb.addEventListener("click", function () {
+          d.dataset.theme = theme() === "mocha" ? "latte" : "mocha";
+          store("midterms-theme", d.dataset.theme);
+          paintTheme();
+        });
+        paintTheme();
+
+        // phone menu
+        var mb = document.getElementById("menu-toggle");
+        var nav = document.getElementById("site-nav");
+        mb.addEventListener("click", function () {
+          var open = nav.classList.toggle("open");
+          mb.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+
+        // model version: any [data-set-version] button, anywhere on the page
+        function version() { return d.dataset.version || "deluxe"; }
+        function paintVersion() {
+          var v = version();
+          document.querySelectorAll("[data-set-version]").forEach(function (b) {
+            b.setAttribute("aria-pressed", b.dataset.setVersion === v ? "true" : "false");
+          });
+          document.dispatchEvent(new CustomEvent("midterms:version", { detail: v }));
+        }
+        document.addEventListener("click", function (e) {
+          var b = e.target.closest && e.target.closest("[data-set-version]");
+          if (!b) return;
+          d.dataset.version = b.dataset.setVersion;
+          store("midterms-version", d.dataset.version);
+          paintVersion();
+        });
+        paintVersion();
+      })();
+    </script>
+    <script>
+      import "../scripts/tooltip.js";
+    </script>
+  </body>
+</html>

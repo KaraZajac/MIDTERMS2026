@@ -1,0 +1,334 @@
+---
+import Base from "../layouts/Base.astro";
+import VersionBar from "../components/VersionBar.astro";
+import { summary, simParams } from "../lib/data.js";
+import { chamberRaces, closeness, pD, raceRating, sideKey, candShort } from "../lib/model.js";
+import { pct, margin, surname, url } from "../lib/format.js";
+
+const s = summary();
+const sim = simParams();
+const pick = (ch: string, n?: number) => {
+  const list = chamberRaces(ch).filter((r) => !r.fixed).sort((a, b) => closeness(b) - closeness(a));
+  return n ? list.slice(0, n) : list;
+};
+const groups = [
+  { ch: "senate", name: "Senate", races: pick("senate") },
+  { ch: "governor", name: "Governors", races: pick("governor") },
+  { ch: "house", name: "House (most competitive 60)", races: pick("house", 60) },
+];
+const nat = sim.national_mu;
+---
+
+<Base title="What-if simulator" description="Run the MIDTERMS2026 model yourself: shift the national environment, call races for either party, and watch the odds of control move.">
+  <section class="page-head">
+    <p class="eyebrow">Simulator</p>
+    <h1>Make your own forecast</h1>
+    <p class="lede">
+      Move the national environment, or call races yourself, and the model reruns in your browser. Because every race
+      shares the same national and regional error, calling one changes the odds in the others.
+    </p>
+  </section>
+
+  <noscript><p class="callout">The simulator runs in your browser and needs JavaScript. The forecast itself is on every other page.</p></noscript>
+
+  <div class="js-only">
+    <VersionBar note={false} />
+
+    <div class="sim-controls card">
+      <div class="ctl">
+        <label for="shift">National shift</label>
+        <input type="range" id="shift" min="-10" max="10" step="0.5" value="0" />
+        <div class="ctl-read"><strong id="shift-out">No shift</strong> <span class="muted" id="shift-env">Generic ballot {margin(nat)}</span></div>
+      </div>
+      <div class="ctl">
+        <label for="natscale">National polling error</label>
+        <input type="range" id="natscale" min="0" max="2" step="0.25" value="1" />
+        <div class="ctl-read"><strong id="natscale-out">As modeled (±{sim.shared.sd_national} pts)</strong></div>
+      </div>
+      <div class="ctl ctl-btns">
+        <button class="btn" type="button" id="reset">Reset</button>
+        <button class="btn" type="button" id="share">Copy link to this scenario</button>
+        <span class="small muted" id="status" aria-live="polite">Loading the model…</span>
+      </div>
+    </div>
+
+    <div class="grid-3 sim-results" id="results">
+      {["house", "senate", "governor"].map((ch) => (
+        <div class="card sim-ch" data-ch={ch}>
+          <h2 class="cc-title">{ch === "house" ? "House" : ch === "senate" ? "Senate" : "Governorships"}</h2>
+          <div class="sim-odds">
+            <div><div class="small ink-2"><span class="key d" />Democrats</div><div class="hero-fig" data-out="pd">—</div></div>
+            <div class="right"><div class="small ink-2">Republicans<span class="key r" style="margin:0 0 0 6px" /></div><div class="hero-fig lesser" data-out="pr">—</div></div>
+          </div>
+          <div class="odds-bar" data-out="bar"><span class="d" style="flex:1 1 0" /><span class="x tight" style="flex:0 1 0" title={ch === "governor" ? "25–25 split" : "An uncommitted independent decides"} /><span class="r" style="flex:1 1 0" /></div>
+          <p class="small ink-2" data-out="seats" style="margin:10px 0 6px">&nbsp;</p>
+          <div class="viz" style="--h:90px">
+            <div class="plot"><svg class="marks" viewBox="0 0 1000 90" preserveAspectRatio="none" data-out="hist" aria-hidden="true" /></div>
+            <div class="xaxis" data-out="axis" aria-hidden="true" />
+          </div>
+          <p class="small muted" data-out="delta" style="margin:8px 0 0">&nbsp;</p>
+        </div>
+      ))}
+    </div>
+
+    <section class="section">
+      <h2>Call races</h2>
+      <p class="section-note">Pick a winner, or leave it to the model. Percentages are each race's chance given everything you've set. Calls that rarely happen together leave fewer matching simulations, shown above.</p>
+      <div class="sim-search">
+        <input type="search" id="race-q" placeholder="Filter races" aria-label="Filter races" />
+      </div>
+      {groups.map((g) => (
+        <details class="sim-group" open={g.ch !== "house"}>
+          <summary><h3>{g.name}</h3></summary>
+          <ul class="sim-races">
+            {g.races.map((r) => {
+              const dn = r.d.name ? surname(r.d.name) : "D";
+              const rn = r.r.name ? surname(r.r.name) : "R";
+              return (
+                <li class="sim-race" data-id={r.id} data-q={`${r.short} ${r.title} ${r.d.name} ${r.r.name}`.toLowerCase()} data-p0={pD(r)}>
+                  <a class="sr-name" href={url(`/${r.slug}/`)}>{r.short}</a>
+                  <div class="sr-call" role="group" aria-label={`Call ${r.title}`}>
+                    <button type="button" data-call="D" class={`call ${sideKey(r.d.party)}`} aria-pressed="false">{dn}</button>
+                    <button type="button" data-call="" class="call auto" aria-pressed="true">Model</button>
+                    <button type="button" data-call="R" class={`call ${sideKey(r.r.party)}`} aria-pressed="false">{rn}</button>
+                  </div>
+                  <div class="sr-p">
+                    <span class="minibar" aria-hidden="true"><span class={sideKey(r.d.party)} style={`width:${(pD(r) * 100).toFixed(1)}%`} /><span class={sideKey(r.r.party)} /></span>
+                    <span class="sr-num tnum">{dn} <strong>{pct(pD(r))}</strong></span>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </details>
+      ))}
+    </section>
+    <p class="small muted">
+      The simulator draws 10,000 correlated scenarios with the same structure as the published forecast (which uses 50,000), so its
+      numbers can differ from the headline by a point or so. Shifts are applied in full to Senate and House races and at 0.6× to
+      governors, whose races follow the national environment less closely.
+    </p>
+  </div>
+</Base>
+
+<script>
+  import { createEngine } from "../../../sim/simulator.mjs";
+
+  type Out = any;
+  const $ = (sel: string, el: ParentNode = document) => el.querySelector(sel) as HTMLElement;
+  const shift = $("#shift") as HTMLInputElement;
+  const natscale = $("#natscale") as HTMLInputElement;
+  const status = $("#status");
+  const N = 10000;
+  let engine: any = null;
+  let sim: any = null;
+  let base: Out = null;
+  const forced: Record<string, "D" | "R"> = {};
+  const ver = () => document.documentElement.dataset.version || "deluxe";
+  const fmtM = (v: number) => (Math.abs(v) < 0.05 ? "Even" : `${v > 0 ? "D" : "R"}+${Math.abs(v).toFixed(1)}`);
+  const pctS = (p: number) => (p > 0 && p < 0.005 ? "<1%" : p < 1 && p > 0.995 ? ">99%" : `${Math.round(p * 100)}%`);
+  const pct1 = (p: number) => (p > 0 && p < 0.001 ? "<0.1%" : p < 1 && p > 0.999 ? ">99.9%" : `${(p * 100).toFixed(1)}%`);
+
+  function readHash() {
+    const h = new URLSearchParams(location.hash.slice(1));
+    if (h.get("shift")) shift.value = h.get("shift")!;
+    if (h.get("err")) natscale.value = h.get("err")!;
+    for (const kv of (h.get("f") || "").split(",").filter(Boolean)) {
+      const i = kv.lastIndexOf("-");
+      const id = kv.slice(0, i), side = kv.slice(i + 1);
+      if (side === "D" || side === "R") forced[id] = side;
+    }
+  }
+  function writeHash() {
+    const h = new URLSearchParams();
+    if (+shift.value) h.set("shift", shift.value);
+    if (+natscale.value !== 1) h.set("err", natscale.value);
+    const f = Object.entries(forced).map(([k, v]) => `${k}-${v}`).join(",");
+    if (f) h.set("f", f);
+    const str = h.toString();
+    history.replaceState(null, "", str ? `#${str}` : location.pathname);
+  }
+
+  function drawHist(svg: SVGElement, axis: HTMLElement, hist: [number, number][], majority: number, ch: string) {
+    if (!hist.length) { svg.innerHTML = ""; axis.innerHTML = ""; return; }
+    // trim tails holding < 0.1% each side
+    let lo = 0, hi = hist.length - 1, acc = 0;
+    for (let i = 0; i < hist.length; i++) { acc += hist[i][1]; if (acc > 0.001) { lo = i; break; } }
+    acc = 0;
+    for (let i = hist.length - 1; i >= 0; i--) { acc += hist[i][1]; if (acc > 0.001) { hi = i; break; } }
+    const s0 = Math.min(hist[lo][0], majority - 2), s1 = Math.max(hist[hi][0], majority + 1);
+    const n = s1 - s0 + 1, band = 1000 / n, gap = Math.min(Math.max(band * 0.14, 0.9), 6);
+    const map = new Map(hist);
+    let max = 0;
+    for (let x = s0; x <= s1; x++) max = Math.max(max, map.get(x) || 0);
+    let html = "";
+    for (let x = s0; x <= s1; x++) {
+      const p = map.get(x) || 0;
+      if (!p) continue;
+      const h = (p / max) * 84;
+      const cls = x >= majority ? "f-d" : ch === "governor" && x === majority - 1 ? "f-tu" : "f-r";
+      html += `<rect class="${cls}" x="${((x - s0) * band + gap / 2).toFixed(1)}" y="${(90 - h).toFixed(1)}" width="${(band - gap).toFixed(1)}" height="${h.toFixed(1)}"><title>${x}: ${(p * 100).toFixed(1)}%</title></rect>`;
+    }
+    const xl = (majority - s0) * band;
+    html += `<line class="nss" x1="${xl}" x2="${xl}" y1="0" y2="90" stroke="var(--ink-2)" />`;
+    svg.innerHTML = html;
+    const step = [1, 2, 4, 5, 10, 20, 25, 50].find((k) => n / k <= 6) ?? 50;
+    let ax = "";
+    for (let x = Math.ceil(s0 / step) * step; x <= s1; x += step) ax += `<span style="left:${(((x - s0) * band + band / 2) / 10).toFixed(2)}%">${x}</span>`;
+    axis.innerHTML = ax;
+  }
+
+  function render(out: Out) {
+    for (const card of document.querySelectorAll<HTMLElement>(".sim-ch")) {
+      const ch = card.dataset.ch!;
+      const c = out.chambers[ch];
+      if (!c) continue;
+      const maj = sim.chambers[ch].majority;
+      $('[data-out="pd"]', card).textContent = pct1(c.p.D);
+      $('[data-out="pr"]', card).textContent = pct1(c.p.R);
+      const bar = $('[data-out="bar"]', card);
+      const [bd, bx, br] = bar.children as any;
+      bd.style.flex = `${c.p.D} 1 0`;
+      bx.style.flex = `${c.p.unclear || 0} 1 0`;
+      bx.style.display = (c.p.unclear || 0) > 0.002 ? "" : "none";
+      br.style.flex = `${c.p.R} 1 0`;
+      const noun = ch === "governor" ? "governorships" : "seats";
+      $('[data-out="seats"]', card).innerHTML = `Democrats' median: <strong>${c.seats.p50} ${noun}</strong> · 80% range ${c.seats.p10}–${c.seats.p90}`;
+      drawHist($('[data-out="hist"]', card) as unknown as SVGElement, $('[data-out="axis"]', card), c.hist, maj, ch);
+      const b = base?.chambers[ch];
+      const d = b ? c.p.D - b.p.D : 0;
+      $('[data-out="delta"]', card).textContent = Math.abs(d) >= 0.0005 ? `${d > 0 ? "+" : "−"}${Math.abs(d * 100).toFixed(1)} points for Democrats vs. no changes` : "Same as with no changes";
+    }
+    for (const li of document.querySelectorAll<HTMLElement>(".sim-race")) {
+      const p = out.races[li.dataset.id!];
+      if (p == null) continue;
+      (li.querySelector(".minibar > span") as HTMLElement).style.width = `${(p * 100).toFixed(1)}%`;
+      (li.querySelector(".sr-num strong") as HTMLElement).textContent = pctS(p);
+    }
+    const share = out.accepted / out.nSims;
+    status.textContent =
+      out.accepted === 0
+        ? "No simulation matches every call you've made. Undo one."
+        : `${out.accepted.toLocaleString("en-US")} of ${out.nSims.toLocaleString("en-US")} simulations match your scenario${share < 0.05 ? " — few enough that the numbers get noisy" : ""}.`;
+  }
+
+  let queued = false;
+  function rerun() {
+    if (!engine || queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      const sh = +shift.value, ns = +natscale.value;
+      $("#shift-out").textContent = sh === 0 ? "No shift" : `${Math.abs(sh).toFixed(1)} pts toward ${sh > 0 ? "Democrats" : "Republicans"}`;
+      $("#shift-env").textContent = `Generic ballot ${fmtM(sim.national_mu + sh)}`;
+      $("#natscale-out").textContent = ns === 1 ? `As modeled (±${sim.shared.sd_national} pts)` : ns === 0 ? "None: the polls are exactly right nationally" : `${ns}× as modeled (±${(sim.shared.sd_national * ns).toFixed(1)} pts)`;
+      const out = engine.run({ version: ver(), shift: sh, natScale: ns, forced });
+      render(out);
+      writeHash();
+    });
+  }
+
+  function paintCalls() {
+    for (const li of document.querySelectorAll<HTMLElement>(".sim-race")) {
+      const f = forced[li.dataset.id!] || "";
+      for (const b of li.querySelectorAll<HTMLButtonElement>("button[data-call]")) b.setAttribute("aria-pressed", b.dataset.call === f ? "true" : "false");
+      li.classList.toggle("called", !!f);
+    }
+  }
+
+  document.addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest?.("button[data-call]") as HTMLButtonElement | null;
+    if (!b) return;
+    const id = (b.closest(".sim-race") as HTMLElement).dataset.id!;
+    if (b.dataset.call) forced[id] = b.dataset.call as "D" | "R";
+    else delete forced[id];
+    paintCalls();
+    rerun();
+  });
+  shift.addEventListener("input", rerun);
+  natscale.addEventListener("input", rerun);
+  document.addEventListener("midterms:version", () => {
+    if (!engine) return;
+    base = engine.run({ version: ver() });
+    rerun();
+  });
+  $("#reset").addEventListener("click", () => {
+    shift.value = "0";
+    natscale.value = "1";
+    for (const k of Object.keys(forced)) delete forced[k];
+    paintCalls();
+    rerun();
+  });
+  $("#share").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(location.href);
+      status.textContent = "Link copied.";
+    } catch {
+      status.textContent = location.href;
+    }
+  });
+  ($("#race-q") as HTMLInputElement).addEventListener("input", (e) => {
+    const q = (e.target as HTMLInputElement).value.trim().toLowerCase();
+    for (const li of document.querySelectorAll<HTMLElement>(".sim-race")) li.hidden = !!q && !li.dataset.q!.includes(q);
+    if (q) for (const d of document.querySelectorAll("details.sim-group")) (d as HTMLDetailsElement).open = true;
+  });
+
+  (async () => {
+    try {
+      const res = await fetch("/sim.json");
+      sim = await res.json();
+      readHash();
+      paintCalls();
+      status.textContent = "Drawing 10,000 simulations…";
+      await new Promise((r) => setTimeout(r, 30));
+      engine = createEngine(sim, { nSims: N, seed: 20261103 });
+      base = engine.run({ version: ver() });
+      rerun();
+    } catch (err) {
+      status.textContent = "The simulator could not load. Try reloading the page.";
+      console.error(err);
+    }
+  })();
+</script>
+
+<style>
+  .sim-controls { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px 28px; align-items: end; margin-bottom: 18px; }
+  @media (max-width: 860px) { .sim-controls { grid-template-columns: minmax(0, 1fr); } }
+  .ctl { display: grid; gap: 6px; }
+  .ctl label { font-size: 13px; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.05em; }
+  .ctl input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .ctl-read { font-size: 14px; }
+  .ctl-btns { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .sim-ch .cc-title { font-size: 1.2rem; margin: 0 0 6px; }
+  .sim-odds { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
+  .sim-odds .right { text-align: right; }
+  .hero-fig.lesser { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.1rem); color: var(--ink-2); }
+  .sim-search { margin: 0 0 10px; }
+  .sim-search input { width: min(100%, 360px); }
+  .sim-group { margin: 10px 0; }
+  .sim-group > summary { cursor: pointer; list-style: revert; }
+  .sim-group > summary h3 { display: inline; font-size: 1.05rem; }
+  .sim-races { list-style: none; padding: 0; margin: 10px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 8px; }
+  @media (max-width: 420px) { .sim-races { grid-template-columns: minmax(0, 1fr); } }
+  .sim-race {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 10px; align-items: center;
+    padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface);
+  }
+  .sim-race.called { border-color: var(--accent); }
+  .sr-name { font-weight: 700; color: var(--ink-strong); text-decoration: none; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sr-call { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .call { border: 0; background: var(--surface-2); color: var(--ink-2); font: inherit; font-size: 12.5px; font-weight: 650; padding: 4px 8px; cursor: pointer; max-width: 92px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .call + .call { border-left: 1px solid var(--border); }
+  .call[aria-pressed="true"].d { background: var(--d); color: var(--on-d3); }
+  .call[aria-pressed="true"].r { background: var(--r); color: var(--on-r3); }
+  .call[aria-pressed="true"].i { background: var(--i); color: var(--on-i3); }
+  .call[aria-pressed="true"].auto { background: var(--ink-2); color: var(--surface); }
+  .sr-p { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+  .sr-num { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+  .sr-num strong { color: var(--ink-strong); }
+  .minibar { display: flex; height: 8px; gap: 2px; border-radius: 4px; overflow: hidden; }
+  .minibar > span:first-child { transition: width 0.15s ease; }
+  .minibar > span:last-child { flex: 1; }
+  .minibar .d { background: var(--d); } .minibar .r { background: var(--r); } .minibar .i { background: var(--i); }
+  @media (prefers-reduced-motion: reduce) { .minibar > span:first-child { transition: none; } }
+</style>

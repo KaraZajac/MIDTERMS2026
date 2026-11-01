@@ -1,0 +1,81 @@
+---
+// Races as rows: who's running, the forecast, the chance each side wins.
+// Sorted by the caller; everything version-dependent renders three ways.
+import { VERSIONS, pD, raceRating, sideKey, sideLabel, partyTag } from "../lib/model.js";
+import { pct, margin, surname, url } from "../lib/format.js";
+
+interface Props { races: any[] }
+const { races } = Astro.props;
+const inc = (r: any, c: any) => r.incumbent?.running && r.incumbent?.name && c?.name === r.incumbent.name;
+---
+
+<ol class="race-list">
+  {
+    races.map((r) => (
+      <li>
+        <a class="race-row" href={url(`/${r.slug}/`)}>
+          <span class="rl-name">
+            {r.short}
+            {r.rules && <span class="rl-rule" title={r.rules}>{/runoff/i.test(r.rules) ? "runoff rules" : /ranked/i.test(r.rules) ? "RCV" : "special rules"}</span>}
+          </span>
+          <span class="rl-cands">
+            <span class="rl-c"><span class={`key ${sideKey(r.d.party)}`} />{r.d.name ? surname(r.d.name) : "—"} <span class="muted">{partyTag(r.d.party)}{inc(r, r.d) ? ", inc." : ""}</span></span>
+            <span class="rl-c"><span class={`key ${sideKey(r.r.party)}`} />{r.r.name ? surname(r.r.name) : "—"} <span class="muted">{partyTag(r.r.party)}{inc(r, r.r) ? ", inc." : ""}</span></span>
+          </span>
+          {VERSIONS.map((v) => {
+            const p = pD(r, v);
+            const rt = raceRating(r, v);
+            const m = r.forecast[v].margin;
+            return (
+              <span class={`rl-fc v v-${v}`}>
+                <span class="minibar" aria-hidden="true">
+                  <span class={sideKey(r.d.party)} style={`width:${(p * 100).toFixed(1)}%`} />
+                  <span class={sideKey(r.r.party)} />
+                </span>
+                <span class="rl-pp">
+                  <span>{pct(p)}</span>
+                  <span class="muted">{m ? margin(m.q50, sideLabel(r, "d"), sideLabel(r, "r")) : "Uncontested"}</span>
+                  <span>{pct(1 - p)}</span>
+                </span>
+                <span class={`chip ${rt.key}`}>{rt.label}</span>
+              </span>
+            );
+          })}
+        </a>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .race-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .race-row {
+    display: grid;
+    grid-template-columns: minmax(130px, 1.1fr) minmax(170px, 1.4fr) minmax(220px, 2fr);
+    gap: 6px 18px;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .race-row:hover { border-color: var(--accent); color: var(--ink); }
+  .rl-name { font-weight: 700; color: var(--ink-strong); display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+  .rl-rule { font-size: 11px; font-weight: 600; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 0 7px; }
+  .rl-cands { display: grid; gap: 2px; font-size: 14px; }
+  .rl-c { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rl-fc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; }
+  .rl-fc .minibar { grid-column: 1; }
+  .rl-fc .rl-pp { grid-column: 1; display: flex; justify-content: space-between; font-size: 13px; font-variant-numeric: tabular-nums; font-weight: 650; color: var(--ink-strong); }
+  .rl-fc .rl-pp .muted { font-weight: 500; }
+  .rl-fc .chip { grid-column: 2; grid-row: 1 / span 2; }
+  .minibar { display: flex; height: 8px; gap: 2px; border-radius: 4px; overflow: hidden; }
+  .minibar > span:last-child { flex: 1; }
+  .minibar .d { background: var(--d); } .minibar .r { background: var(--r); } .minibar .i { background: var(--i); }
+  @media (max-width: 760px) {
+    .race-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .rl-fc { grid-column: 1 / -1; }
+  }
+</style>

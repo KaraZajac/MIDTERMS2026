@@ -1,0 +1,89 @@
+---
+// Headline card for one chamber: who controls it, by how many seats, and the
+// shape of the distribution, for each model version.
+import OddsBar from "./OddsBar.astro";
+import SeatHist from "./SeatHist.astro";
+import { chamberInfo, VERSIONS, histRange } from "../lib/model.js";
+import { pct1, url } from "../lib/format.js";
+
+interface Props { chamber: "house" | "senate" | "governor"; link?: boolean; histHeight?: number }
+const { chamber, link = true, histHeight = 96 } = Astro.props;
+const c = chamberInfo(chamber);
+const noun = chamber === "governor" ? "governorships" : "seats";
+const title = chamber === "house" ? "House" : chamber === "senate" ? "Senate" : "Governorships";
+const what = chamber === "governor" ? "a majority of governorships" : `the ${title}`;
+
+// one x range across versions so toggling doesn't rescale the axis
+let lo = Infinity, hi = -Infinity;
+for (const v of VERSIONS) {
+  const [a, b] = histRange(c.versions[v].hist, 0.002);
+  lo = Math.min(lo, a);
+  hi = Math.max(hi, b);
+}
+const nu = c.seats_not_up ?? {};
+const nuTotal = Object.values(nu).reduce((a: number, b) => a + (b as number), 0);
+const nuParts = [["D", "D"], ["R", "R"], ["I", "independents who caucus with Democrats"]]
+  .filter(([k]) => nu[k])
+  .map(([k, w]) => `${nu[k]} ${w}`);
+const notUp = nuTotal
+  ? `Counts the ${nuTotal} ${chamber === "governor" ? "governors" : "seats"} not up this year: ${nuParts.join(", ")}.`
+  : null;
+const unclearName = chamber === "governor" ? "25–25 split" : "Neither party (an uncommitted independent decides)";
+---
+
+<article class="card chamber-card">
+  <header class="cc-head">
+    <h2 class="cc-title">{link ? <a href={url(`/${chamber}/`)}>{title}</a> : title}</h2>
+    <span class="cc-sub">{chamber === "house" ? `${c.majority} seats for control` : chamber === "senate" ? "51 for Democrats; 50 + Vance for Republicans" : `${c.majority} of 50 for a majority`}</span>
+  </header>
+  {
+    VERSIONS.map((v) => {
+      const x = c.versions[v];
+      const pd = x.p_control.D, pr = x.p_control.R, pu = x.p_control.unclear ?? 0;
+      return (
+        <div class={`v v-${v}`}>
+          <div class="cc-odds">
+            <div>
+              <div class="cc-party"><span class="key d" />Democrats</div>
+              <div class="hero-fig">{pct1(pd).replace("%", "")}<span class="unit">%</span></div>
+            </div>
+            <div class="right">
+              <div class="cc-party">Republicans<span class="key r" style="margin:0 0 0 6px" /></div>
+              <div class="hero-fig r-fig">{pct1(pr).replace("%", "")}<span class="unit">%</span></div>
+            </div>
+          </div>
+          <OddsBar
+            label={`Chance of winning ${what}`}
+            segs={[
+              { key: "d", p: pd, name: "Democrats" },
+              { key: "x", p: pu, name: unclearName },
+              { key: "r", p: pr, name: "Republicans" },
+            ]}
+          />
+          <p class="cc-seats">
+            Democrats' median: <strong>{x.seats.p50} {noun}</strong> · 80% range {x.seats.p10}–{x.seats.p90}
+          </p>
+          {histHeight > 0 && <SeatHist hist={x.hist} majority={c.majority} chamber={chamber} height={histHeight} range={[lo, hi]} compact table={false} />}
+        </div>
+      );
+    })
+  }
+  {notUp && <p class="cc-foot">{notUp}</p>}
+</article>
+
+<style>
+  .chamber-card { display: flex; flex-direction: column; gap: 10px; }
+  .cc-head { display: flex; flex-direction: column; gap: 2px; }
+  .cc-title { margin: 0; font-size: 1.25rem; }
+  .cc-title a { text-decoration: none; color: var(--ink-strong); }
+  .cc-title a:hover { color: var(--accent); }
+  .cc-sub { font-size: 13px; color: var(--muted); }
+  .cc-odds { display: flex; justify-content: space-between; align-items: flex-end; margin: 4px 0 8px; }
+  .cc-odds .right { text-align: right; }
+  .cc-party { font-size: 13px; font-weight: 650; color: var(--ink-2); display: flex; align-items: center; }
+  .cc-odds .right .cc-party { justify-content: flex-end; }
+  .r-fig { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.1rem); color: var(--ink-2); }
+  .cc-seats { font-size: 14px; margin: 10px 0 6px; color: var(--ink-2); }
+  .cc-seats strong { color: var(--ink-strong); }
+  .cc-foot { font-size: 12.5px; color: var(--muted); margin: 4px 0 0; }
+</style>

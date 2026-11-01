@@ -1,0 +1,20 @@
+---
+// The model-version switch. Every number on the site is rendered for all
+// three versions; this flips which one shows, site-wide, and remembers it.
+import { VERSIONS, VERSION_NAMES, VERSION_BLURB } from "../lib/model.js";
+const { note = true } = Astro.props;
+---
+
+<div class="version-bar js-only">
+  <span class="label" id="vb-label">Model version</span>
+  <div class="seg" role="group" aria-labelledby="vb-label">
+    {
+      VERSIONS.map((v) => (
+        <button type="button" data-set-version={v} aria-pressed={v === "deluxe" ? "true" : "false"} title={VERSION_BLURB[v]}>
+          {VERSION_NAMES[v]}
+        </button>
+      ))
+    }
+  </div>
+  {note && VERSIONS.map((v) => <span class={`help v v-${v}`}>{VERSION_BLURB[v]}</span>)}
+</div>

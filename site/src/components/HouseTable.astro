@@ -1,0 +1,186 @@
+---
+// Every House district: sortable, filterable, searchable. The table is
+// complete without JavaScript; the script only hides, shows and reorders rows.
+import { chamberRaces, pD, raceRating, VERSIONS, sideKey, sideLabel, partyTag, flips, pollsFor } from "../lib/model.js";
+import { pct, margin, surname, url, STATES } from "../lib/format.js";
+
+const house = chamberRaces("house").sort((a, b) => a.id.localeCompare(b.id, "en", { numeric: true }));
+const flipSets = Object.fromEntries(
+  VERSIONS.map((v) => {
+    const f = flips("house", v);
+    return [v, new Set([...f.D, ...f.R, ...f.IND].map((r) => r.id))];
+  }),
+);
+const statesWithHouse = [...new Set(house.map((r) => r.state))].sort((a, b) => STATES[a].localeCompare(STATES[b]));
+const cand = (c: any) => (c?.name ? c.name : "—");
+---
+
+<div class="ht-controls js-only">
+  <input type="search" id="ht-q" placeholder="Search a district, state or candidate" aria-label="Search districts" />
+  <select id="ht-cat" aria-label="Filter by forecast">
+    <option value="all">All forecasts</option>
+    <option value="comp">Competitive (toss-up or lean)</option>
+    <option value="tu">Toss-up</option>
+    <option value="1">Lean</option>
+    <option value="2">Likely</option>
+    <option value="3">Solid</option>
+    <option value="flip">Favored to flip</option>
+  </select>
+  <select id="ht-st" aria-label="Filter by state">
+    <option value="">All states</option>
+    {statesWithHouse.map((s) => <option value={s}>{STATES[s]}</option>)}
+  </select>
+  <span class="ht-count small muted" id="ht-count" aria-live="polite"></span>
+</div>
+
+<div class="table-scroll ht-scroll">
+  <table class="data house-table" id="house-table">
+    <thead>
+      <tr>
+        <th aria-sort="none" data-sort="order"><button type="button">District</button></th>
+        <th aria-sort="none" data-sort="inc"><button type="button">Incumbent</button></th>
+        <th>Democrat</th>
+        <th>Republican</th>
+        <th aria-sort="none" data-sort="p" class="num"><button type="button">D-side chance</button></th>
+        <th aria-sort="none" data-sort="m" class="num"><button type="button">Median margin</button></th>
+        <th>Forecast</th>
+        <th aria-sort="none" data-sort="lean" class="num"><button type="button">Lean</button></th>
+        <th aria-sort="none" data-sort="polls" class="num"><button type="button">Polls</button></th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        house.map((r, i) => {
+          const pl = pollsFor(r.id)?.polls?.length ?? 0;
+          const attrs: Record<string, string | number> = {
+            "data-order": i,
+            "data-st": r.state,
+            "data-q": `${r.label} ${r.state_name} ${r.d.name ?? ""} ${r.r.name ?? ""} ${r.incumbent?.name ?? ""}`.toLowerCase(),
+            "data-inc": (r.incumbent?.name ? surname(r.incumbent.name) : "zzz").toLowerCase(),
+            "data-lean": r.lean ?? 0,
+            "data-polls": pl,
+          };
+          for (const v of VERSIONS) {
+            attrs[`data-p-${v}`] = pD(r, v);
+            attrs[`data-m-${v}`] = r.forecast[v].margin?.q50 ?? (r.fixed ? (r.fixed === r.d.party ? 99 : -99) : 0);
+            attrs[`data-k-${v}`] = raceRating(r, v).key;
+            attrs[`data-f-${v}`] = flipSets[v].has(r.id) ? 1 : 0;
+          }
+          return (
+            <tr {...attrs}>
+              <th scope="row"><a href={url(`/${r.slug}/`)}>{r.label}</a></th>
+              <td class="nowrap">{r.incumbent?.name ? <>{r.incumbent.name} <span class="muted">{partyTag(r.incumbent.party)}{r.incumbent.running ? "" : ", retiring"}</span></> : <span class="muted">Open</span>}</td>
+              <td class="nowrap"><span class={`key ${sideKey(r.d.party)}`} />{cand(r.d)}{r.d.party !== "D" && <span class="muted"> {partyTag(r.d.party)}</span>}</td>
+              <td class="nowrap"><span class={`key ${sideKey(r.r.party)}`} />{cand(r.r)}{r.r.party !== "R" && <span class="muted"> {partyTag(r.r.party)}</span>}</td>
+              <td class="num">{VERSIONS.map((v) => <span class={`v v-${v}`}>{pct(pD(r, v))}</span>)}</td>
+              <td class="num">
+                {VERSIONS.map((v) => {
+                  const m = r.forecast[v].margin;
+                  return <span class={`v v-${v}`}>{m ? margin(m.q50, sideLabel(r, "d"), sideLabel(r, "r")) : "Uncontested"}</span>;
+                })}
+              </td>
+              <td>
+                {VERSIONS.map((v) => {
+                  const rt = raceRating(r, v);
+                  return <span class={`v v-${v} chip ${rt.key}`}>{rt.label}</span>;
+                })}
+              </td>
+              <td class="num">{r.lean == null ? "—" : margin(r.lean, "D", "R", 0)}</td>
+              <td class="num">{pl || ""}</td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+</div>
+<p class="small muted" style="margin-top:8px">
+  D-side chance is the Democrat's chance of winning, or the independent's where one stands in the Democrat's place.
+  Median margin is two-party, from the simulations. Lean is the district's partisan lean against the nation.
+</p>
+
+<script>
+  const table = document.getElementById("house-table") as HTMLTableElement;
+  const tbody = table.tBodies[0];
+  const rows = [...tbody.rows];
+  const q = document.getElementById("ht-q") as HTMLInputElement;
+  const cat = document.getElementById("ht-cat") as HTMLSelectElement;
+  const st = document.getElementById("ht-st") as HTMLSelectElement;
+  const count = document.getElementById("ht-count")!;
+  const ver = () => document.documentElement.dataset.version || "deluxe";
+  let sort = { key: "order", dir: 1 };
+
+  function matches(tr: HTMLTableRowElement, v: string) {
+    const d = tr.dataset;
+    if (st.value && d.st !== st.value) return false;
+    const term = q.value.trim().toLowerCase();
+    if (term && !d.q!.includes(term)) return false;
+    const k = d[`k${v[0].toUpperCase()}${v.slice(1)}`] || tr.getAttribute(`data-k-${v}`) || "";
+    switch (cat.value) {
+      case "comp": return k === "tu" || k.endsWith("1");
+      case "tu": return k === "tu";
+      case "1": case "2": case "3": return k.endsWith(cat.value) && k !== "tu";
+      case "flip": return tr.getAttribute(`data-f-${v}`) === "1";
+      default: return true;
+    }
+  }
+  function apply() {
+    const v = ver();
+    let n = 0;
+    for (const tr of rows) {
+      const ok = matches(tr, v);
+      tr.hidden = !ok;
+      if (ok) n++;
+    }
+    count.textContent = `Showing ${n} of ${rows.length} districts`;
+  }
+  function value(tr: HTMLTableRowElement, key: string, v: string): number | string {
+    if (key === "p" || key === "m") return Number(tr.getAttribute(`data-${key}-${v}`));
+    if (key === "inc") return tr.dataset.inc!;
+    return Number(tr.getAttribute(`data-${key}`));
+  }
+  function resort() {
+    const v = ver();
+    const { key, dir } = sort;
+    const sorted = [...rows].sort((a, b) => {
+      const x = value(a, key, v), y = value(b, key, v);
+      const c = typeof x === "string" ? x.localeCompare(y as string) : (x as number) - (y as number);
+      return c * dir || Number(a.dataset.order) - Number(b.dataset.order);
+    });
+    tbody.append(...sorted);
+    for (const th of table.tHead!.querySelectorAll("th[data-sort]")) {
+      th.setAttribute("aria-sort", th.getAttribute("data-sort") === key ? (dir > 0 ? "ascending" : "descending") : "none");
+    }
+  }
+  for (const th of table.tHead!.querySelectorAll<HTMLElement>("th[data-sort]")) {
+    th.querySelector("button")!.addEventListener("click", () => {
+      const key = th.dataset.sort!;
+      // probabilities and margins read best biggest-first
+      const first = key === "p" || key === "m" || key === "polls" ? -1 : 1;
+      sort = { key, dir: sort.key === key ? -sort.dir : first };
+      resort();
+    });
+  }
+  for (const el of [q, cat, st]) el.addEventListener("input", apply);
+  document.addEventListener("midterms:version", () => {
+    apply();
+    if (sort.key === "p" || sort.key === "m") resort();
+  });
+  // deep link: /house/?q=texas or ?cat=comp
+  const params = new URLSearchParams(location.search);
+  if (params.get("q")) q.value = params.get("q")!;
+  if (params.get("cat")) cat.value = params.get("cat")!;
+  if (params.get("state")) st.value = params.get("state")!.toUpperCase();
+  apply();
+</script>
+
+<style>
+  .ht-controls { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; margin: 0 0 12px; }
+  .ht-controls input[type="search"] { flex: 1 1 260px; min-width: 0; }
+  .ht-scroll { max-height: 78vh; overflow: auto; }
+  .house-table th[scope="row"] { position: sticky; left: 0; background: var(--surface); z-index: 1; font-weight: 650; }
+  .house-table thead th:first-child { position: sticky; left: 0; z-index: 3; }
+  .house-table thead th { z-index: 2; }
+  .house-table tbody tr:hover th[scope="row"] { background: var(--surface-2); }
+  .house-table td, .house-table th { font-size: 13.5px; }
+</style>

@@ -1,0 +1,104 @@
+---
+// Seat-count distribution for one chamber and version: a column per seat
+// count, coloured by who controls at that count, the control line marked.
+import { histRange } from "../lib/model.js";
+import { pct } from "../lib/format.js";
+
+interface Props {
+  hist: { min: number; p: number[] };
+  majority: number;
+  chamber: "house" | "senate" | "governor";
+  height?: number;
+  /** Fixed x range, so the three versions share an axis. */
+  range?: [number, number];
+  compact?: boolean;
+  table?: boolean;
+}
+const { hist, majority, chamber, height = 180, range, compact = false, table = true } = Astro.props;
+const [lo, hi] = range ?? histRange(hist, 0.0005);
+const n = hi - lo + 1;
+const at = (s: number) => hist.p[s - hist.min] ?? 0;
+let maxP = 0;
+for (let s = lo; s <= hi; s++) maxP = Math.max(maxP, at(s));
+const W = 1000, H = height, top = compact ? 6 : 22;
+const band = W / n;
+const gap = Math.min(Math.max(band * 0.14, 0.9), 6);
+const bw = band - gap;
+const y = (p: number) => H - (p / (maxP || 1)) * (H - top);
+
+// who controls at a given D-bloc seat count
+const tie = chamber === "governor" ? majority - 1 : null; // 25–25: no majority
+function owner(s: number) {
+  if (s >= majority) return "d";
+  if (tie != null && s === tie && majority * 2 - 2 === s * 2) return "tu";
+  return "r";
+}
+const who = { d: "Democrats", r: "Republicans" };
+const ctrl = (s: number) => {
+  const o = owner(s);
+  if (chamber === "governor") return o === "d" ? "Democrats hold most governorships" : o === "r" ? "Republicans hold most governorships" : "A 25–25 split";
+  return `${who[o as "d" | "r"]} control the ${chamber === "house" ? "House" : "Senate"}`;
+};
+const seatWord = chamber === "governor" ? "governorships" : "seats";
+
+const bars = [];
+for (let s = lo; s <= hi; s++) {
+  const p = at(s);
+  const x = (s - lo) * band + gap / 2;
+  bars.push({ s, p, x, top: y(p), cls: `f-${owner(s)}` });
+}
+const xLine = (majority - lo) * band;
+const step = chamber === "house" ? (n > 120 ? 20 : 10) : n > 24 ? 4 : 2;
+const ticks = [];
+for (let s = Math.ceil(lo / step) * step; s <= hi; s += step) ticks.push(s);
+const xPct = (s: number) => (((s - lo) * band + band / 2) / W) * 100;
+const lineLabel = chamber === "house" ? `${majority} for control` : chamber === "senate" ? `${majority} for D control` : `${majority} for a majority`;
+
+// table view: single seats for small chambers, 5-seat bins for the House
+const rows = [];
+if (chamber === "house") {
+  for (let s = Math.floor(lo / 5) * 5; s <= hi; s += 5) {
+    let p = 0;
+    for (let k = s; k < s + 5; k++) p += at(k);
+    if (p >= 0.0005) rows.push([`${s}–${s + 4}`, p]);
+  }
+} else {
+  for (let s = lo; s <= hi; s++) if (at(s) >= 0.0005) rows.push([String(s), at(s)]);
+}
+---
+
+<figure class="viz seat-hist" style={`--h:${H}px`}>
+  <div class="plot">
+    <svg class="marks" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
+      <line class="nss" x1="0" x2={W} y1={H - 0.5} y2={H - 0.5} stroke="var(--axis)" />
+      {
+        bars.map((b) => (
+          <g data-tip-value={`${b.s} ${seatWord} · ${pct(b.p, b.p < 0.01 ? 1 : 0)}`} data-tip-label={ctrl(b.s)}>
+            <rect class="hit" x={b.x - gap / 2} y="0" width={band} height={H} />
+            {b.p > 0 && <rect class={`mark ${b.cls}`} x={b.x} y={b.top} width={bw} height={Math.max(H - b.top, 0.6)} />}
+          </g>
+        ))
+      }
+      <line class="nss" x1={xLine} x2={xLine} y1={compact ? 0 : 14} y2={H} stroke="var(--ink-2)" stroke-width="1" />
+    </svg>
+    {!compact && <span class="note center" style={`left:${(xLine / W) * 100}%;top:-4px`}>{lineLabel}</span>}
+  </div>
+  <div class="xaxis" aria-hidden="true">
+    {ticks.map((s) => <span style={`left:${xPct(s)}%`}>{s}</span>)}
+  </div>
+  {
+    table && (
+      <details class="tableview">
+        <summary>Table view</summary>
+        <div class="table-scroll" style="max-height:280px;overflow-y:auto">
+          <table class="data">
+            <thead><tr><th>Democratic {seatWord}</th><th class="num">Chance</th></tr></thead>
+            <tbody>
+              {rows.map(([s, p]) => <tr><td class="tnum">{s}</td><td class="num">{pct(p as number, 1)}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+      </details>
+    )
+  }
+</figure>

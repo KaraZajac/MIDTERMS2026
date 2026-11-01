@@ -1,0 +1,367 @@
+---
+// One page per race: 435 House districts, 35 Senate seats, 36 governorships.
+import Base from "../../layouts/Base.astro";
+import VersionBar from "../../components/VersionBar.astro";
+import OddsBar from "../../components/OddsBar.astro";
+import MarginDensity from "../../components/MarginDensity.astro";
+import TrendChart from "../../components/TrendChart.astro";
+import {
+  races, raceById, pollsFor, stateRaces, VERSIONS, VERSION_NAMES, pD, raceRating,
+  sideKey, sideLabel, partyTag, candShort,
+} from "../../lib/model.js";
+import { pct, pct1, margin, fmtDate, fmtShortDate, surname, inWords, url, PARTY_NAMES } from "../../lib/format.js";
+
+export function getStaticPaths() {
+  return races().map((r) => {
+    const [chamber, race] = r.slug.split("/");
+    return { params: { chamber, race }, props: { id: r.id } };
+  });
+}
+
+const { id } = Astro.props;
+const r = raceById(id);
+const P = pollsFor(id);
+const chamberName = r.chamber === "house" ? "House" : r.chamber === "senate" ? "Senate" : "Governor";
+const dKey = sideKey(r.d.party), rKey = sideKey(r.r.party);
+const dL = sideLabel(r, "d"), rL = sideLabel(r, "r");
+const dName = r.d.name ? surname(r.d.name) : "Democrats";
+const rName = r.r.name ? surname(r.r.name) : "Republicans";
+const isInc = (c: any) => r.incumbent?.running && r.incumbent?.name && c?.name === r.incumbent.name;
+const fixed = !!r.fixed;
+
+const inputs = r.inputs ?? {};
+const comps = [
+  { key: "polls", name: "Polling average" },
+  { key: "fundamentals", name: "Fundamentals" },
+  { key: "ratings", name: "Expert ratings" },
+  { key: "lean", name: "Lean plus national environment" },
+].filter((c) => VERSIONS.some((v) => r.forecast[v].estimate?.weights?.[c.key] != null) || inputs[c.key]);
+const raters = Object.entries(r.ratings ?? {}).sort((a: any, b: any) => {
+  const big = ["Cook", "Sabato", "Inside Elections"];
+  const ia = big.indexOf(a[0]), ib = big.indexOf(b[0]);
+  return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib) || a[0].localeCompare(b[0]);
+});
+const polls = [...(P?.polls ?? [])].sort((a: any, b: any) => (b.end ?? "").localeCompare(a.end ?? "") || b.weight - a.weight);
+const others = stateRaces(r.state).filter((x: any) => x.id !== r.id);
+const money = (n: number) => (n >= 1e6 ? `$${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `$${Math.round(n / 1e3)}K` : `$${n}`);
+const sumParts = inputs.fundamentals?.parts ?? null;
+const partNames: Record<string, string> = { lean: "Partisan lean", national: "National environment", incumbency: "Incumbency", fundraising: "Fundraising" };
+const desc = fixed
+  ? `${r.title} in 2026: decided before Election Day.`
+  : `${r.title} forecast for 2026: ${candShort(r.d)} vs. ${candShort(r.r)}. ${dName} ${pct(pD(r))}, ${rName} ${pct(1 - pD(r))} in the deluxe model.`;
+---
+
+<Base title={`${r.title} forecast`} description={desc}>
+  <nav class="crumbs small" aria-label="Breadcrumb">
+    <a href={url(`/${r.chamber}/`)}>{r.chamber === "governor" ? "Governors" : chamberName}</a>
+    <span aria-hidden="true">›</span>
+    <span>{r.short}</span>
+  </nav>
+
+  <header class="race-head">
+    <p class="eyebrow">2026 {chamberName === "Governor" ? "governor" : chamberName} race{r.special ? " · special election" : ""}{r.rules ? ` · ${r.rules}` : ""}</p>
+    <h1>{r.title}</h1>
+
+    <div class="duel">
+      {[["d", r.d, dKey], ["r", r.r, rKey]].map(([side, c, k]: any) => (
+        <div class={`cand ${side === "r" ? "right" : ""}`}>
+          <div class="cand-name">
+            <span class={`key ${k}`} />
+            {c.name ?? "No candidate"}
+          </div>
+          <div class="cand-meta">
+            {PARTY_NAMES[c.party] ?? c.party}{isInc(c) ? " · incumbent" : ""}
+          </div>
+          {VERSIONS.map((v) => {
+            const p = side === "d" ? pD(r, v) : 1 - pD(r, v);
+            return (
+              <div class={`v v-${v} cand-p`}>
+                <span class={side === (pD(r, v) >= 0.5 ? "d" : "r") ? "hero-fig" : "hero-fig lesser"}>
+                  {pct1(p).replace("%", "")}<span class="unit">%</span>
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+    {VERSIONS.map((v) => (
+      <div class={`v v-${v}`}>
+        <OddsBar
+          label="Chance of winning"
+          segs={[
+            { key: dKey as any, p: pD(r, v), name: candShort(r.d) },
+            { key: rKey as any, p: 1 - pD(r, v), name: candShort(r.r) },
+          ]}
+        />
+        {!fixed && (() => {
+          const f = r.forecast[v];
+          const p = f.p_d_side;
+          const favName = p >= 0.5 ? dName : rName;
+          const pf = p >= 0.5 ? p : 1 - p;
+          const rt = raceRating(r, v);
+          return (
+            <p class="race-sum">
+              <span class={`chip ${rt.key}`}>{rt.label}</span>{" "}
+              {favName} wins {inWords(pf)} simulations. Median margin <strong>{margin(f.margin.q50, dL, rL)}</strong>; in 80% of simulations it falls between {margin(f.margin.q10, dL, rL)} and {margin(f.margin.q90, dL, rL)}.
+              {f.tipping > 0.001 && <> This race decides control of the {r.chamber === "governor" ? "governorships" : chamberName} in {pct(f.tipping, 1)} of simulations.</>}
+            </p>
+          );
+        })()}
+      </div>
+    ))}
+    {fixed && (
+      <p class="race-sum">
+        <span class="chip na">Decided</span> This seat has no competitive general election: {r.r.name == null || r.d.name == null
+          ? `no ${r.r.name == null ? "Republican" : "Democrat"} is on the ballot`
+          : "it is not contested between the two parties"}{r.others?.length ? `, so ${candShort(r.fixed === r.d.party ? r.d : r.r)} faces ${r.others.join(", ")}` : ""}. The model counts it as a certain {r.fixed} seat.
+      </p>
+    )}
+  </header>
+
+  {!fixed && (
+    <>
+      <VersionBar />
+
+      <section class="section">
+        <h2>How it could end</h2>
+        <p class="section-note">The two-party margin across 50,000 simulations, {dName} minus {rName}. Shaded by who wins.</p>
+        {VERSIONS.map((v) => (
+          <div class={`v v-${v}`}>
+            <MarginDensity m={r.forecast[v].margin} dLabel={dL} rLabel={rL} dKey={dKey} rKey={rKey} dName={dName} rName={rName} />
+          </div>
+        ))}
+      </section>
+
+      <section class="section">
+        <h2>What goes into the forecast</h2>
+        <p class="section-note">
+          Each component is an independent estimate of the margin with its own uncertainty. The model blends them, more weight to the more precise, then adds the error every race shares (national, regional, state) in simulation.
+        </p>
+        <div class="table-scroll">
+          <table class="data inputs">
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th class="num">Estimate</th>
+                {VERSIONS.map((v) => <th class={`num col-${v}`}>{VERSION_NAMES[v]} weight</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {comps.map((c) => {
+                const inp = inputs[c.key];
+                const est = inp?.mu != null ? `${margin(inp.mu, dL, rL)} ± ${inp.sd.toFixed(1)}` : c.key === "lean" ? margin(r.forecast.lite.estimate.mu, dL, rL) : "—";
+                return (
+                  <tr>
+                    <th scope="row">
+                      {c.name}
+                      <div class="sub">
+                        {c.key === "polls" && inp && <>{inp.n_polls} poll{inp.n_polls === 1 ? "" : "s"} from {inp.pollsters} pollster{inp.pollsters === 1 ? "" : "s"}, latest {fmtShortDate(inp.latest)}{inp.partisan_share > 0 ? `; ${Math.round(inp.partisan_share * 100)}% of the weight from partisan sponsors` : ""}</>}
+                        {c.key === "polls" && !inp && <>No head-to-head polls</>}
+                        {c.key === "fundamentals" && sumParts && Object.entries(sumParts).map(([k, val]: any, i) => <>{i ? " · " : ""}{partNames[k] ?? k} {margin(val, dL, rL)}</>)}
+                        {c.key === "ratings" && inp?.raters && Object.entries(inp.raters).map(([k, val]: any, i) => <>{i ? " · " : ""}{k}: {val}</>)}
+                        {c.key === "ratings" && !inp && <>No ratings</>}
+                        {c.key === "lean" && <>Used by Lite where there are no polls</>}
+                      </div>
+                    </th>
+                    <td class="num">{est}</td>
+                    {VERSIONS.map((v) => {
+                      const w = r.forecast[v].estimate?.weights?.[c.key];
+                      return <td class={`num col-${v}`}>{w == null ? "—" : `${Math.round(w * 100)}%`}</td>;
+                    })}
+                  </tr>
+                );
+              })}
+              <tr class="blend">
+                <th scope="row">Blended estimate<div class="sub">Before shared error</div></th>
+                <td class="num"></td>
+                {VERSIONS.map((v) => {
+                  const e = r.forecast[v].estimate;
+                  return <td class={`num col-${v}`}>{e?.mu == null ? "—" : `${margin(e.mu, dL, rL)} ± ${e.sd.toFixed(1)}`}</td>;
+                })}
+              </tr>
+              <tr class="blend">
+                <th scope="row">Chance {dName} wins<div class="sub">After 50,000 correlated simulations</div></th>
+                <td class="num"></td>
+                {VERSIONS.map((v) => <td class={`num col-${v}`}><strong>{pct(pD(r, v))}</strong></td>)}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </>
+  )}
+
+  <section class="section">
+    <h2>Polls</h2>
+    {P && P.trend?.length > 1 ? (
+      <>
+        <p class="section-note">
+          Each dot is a poll, after the model's adjustments, sized by its weight in today's average. The line is the average with its 80% band.
+        </p>
+        <TrendChart
+          series={P.trend}
+          dots={polls.map((p: any) => ({
+            date: p.end,
+            value: p.adjusted,
+            weight: p.weight,
+            tipValue: `${p.pollster}: ${margin(p.adjusted, dL, rL)} adjusted`,
+            tipLabel: `${fmtShortDate(p.start)}–${fmtShortDate(p.end)} · ${p.n ? p.n.toLocaleString("en-US") + " " : ""}${p.population ?? ""} · raw ${margin(p.margin, dL, rL)} · ${(p.weight * 100).toFixed(1)}% of the average`,
+          }))}
+          height={230}
+          dLabel={dL}
+          rLabel={rL}
+          dParty={r.d.party}
+          rParty={r.r.party}
+          label={`Polling average for ${r.title}`}
+        />
+      </>
+    ) : (
+      <p class="section-note">No head-to-head polls inside the averaging window. {fixed ? "" : "The forecast rests on fundamentals" + " (and, in Deluxe, the experts)."}</p>
+    )}
+    {polls.length > 0 && (
+      <div class="table-scroll" style="margin-top:14px;max-height:520px;overflow:auto">
+        <table class="data polls">
+          <thead>
+            <tr>
+              <th>Pollster</th>
+              <th>Dates</th>
+              <th class="num">Sample</th>
+              <th class="num">{dName}</th>
+              <th class="num">{rName}</th>
+              <th class="num">Margin</th>
+              <th class="num">Adjusted</th>
+              <th class="num">Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            {polls.map((p: any) => (
+              <tr>
+                <td>
+                  {p.url ? <a href={p.url} rel="nofollow noopener">{p.pollster}</a> : p.pollster}
+                  {p.sponsor && <span class="spons" title={`Sponsored by a ${p.sponsor === "D" ? "Democratic" : "Republican"}-aligned group`}>{p.sponsor}</span>}
+                </td>
+                <td class="nowrap">{fmtShortDate(p.start)}–{fmtShortDate(p.end)}</td>
+                <td class="num">{p.n ? p.n.toLocaleString("en-US") : "—"} {p.population ?? ""}</td>
+                <td class="num">{p.d != null ? `${p.d}%` : "—"}</td>
+                <td class="num">{p.r != null ? `${p.r}%` : "—"}</td>
+                <td class="num">{margin(p.margin, dL, rL)}</td>
+                <td class="num"><strong>{margin(p.adjusted, dL, rL)}</strong></td>
+                <td class="num">{(p.weight * 100).toFixed(1)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+    {polls.length > 0 && <p class="small muted" style="margin-top:8px">Margins are two-party. Adjusted = after house effect, likely-voter, sponsor and trend-line adjustments. Weight = share of the current average. A letter after a pollster marks a partisan sponsor.</p>}
+  </section>
+
+  {raters.length > 0 && (
+    <section class="section">
+      <h2>What the forecasters say</h2>
+      <div class="grid-2">
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th>Rater</th><th>Rating</th><th class="num">As of</th></tr></thead>
+            <tbody>
+              {raters.map(([name, x]: any) => (
+                <tr>
+                  <td>{x.url ? <a href={x.url} rel="nofollow noopener">{name}</a> : name}</td>
+                  <td>{x.rating}</td>
+                  <td class="num">{fmtShortDate(x.asof)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {r.outside_averages?.length > 0 ? (
+          <div class="table-scroll">
+            <table class="data">
+              <thead><tr><th>Polling average</th><th class="num">{dName}</th><th class="num">{rName}</th><th class="num">Margin</th></tr></thead>
+              <tbody>
+                {r.outside_averages.map((o: any) => (
+                  <tr>
+                    <td>{o.url ? <a href={o.url} rel="nofollow noopener">{o.source}</a> : o.source}<div class="sub">{o.updated ? `updated ${fmtShortDate(o.updated)}` : ""}</div></td>
+                    <td class="num">{o.d != null ? `${o.d}%` : "—"}</td>
+                    <td class="num">{o.r != null ? `${o.r}%` : "—"}</td>
+                    <td class="num">{margin(o.margin_raw, dL, rL)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p class="small muted" style="padding:0 12px">Others' averages are challengers to this one, never inputs. Their margins are raw, not two-party.</p>
+          </div>
+        ) : <div />}
+      </div>
+    </section>
+  )}
+
+  {r.finance && (r.finance.D || r.finance.R || r.finance.IND) && (
+    <section class="section">
+      <h2>Money</h2>
+      <p class="section-note">Individual contributions reported to the FEC; the fundamentals use the ratio between the two.</p>
+      <div class="money">
+        {Object.entries(r.finance).map(([party, f]: any) => f && (
+          <div class="card">
+            <div class="small muted"><span class={`key ${sideKey(party)}`} />{f.name ?? party}</div>
+            <div class="money-fig">{f.receipts != null ? money(f.receipts) : "—"}</div>
+            {f.url && <a class="small" href={f.url} rel="nofollow noopener">FEC filing →</a>}
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {others.length > 0 && (
+    <section class="section">
+      <h2>Also on the ballot in {r.state_name}</h2>
+      <ul class="also">
+        {others.map((o: any) => {
+          const rt = raceRating(o);
+          return (
+            <li>
+              <a href={url(`/${o.slug}/`)}>{o.chamber === "house" ? o.label : o.title}</a>
+              <span class={`chip ${rt.key}`}>{rt.label}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  )}
+
+  <p class="small muted source">
+    {r.others?.length > 0 && <>Also on the ballot: {r.others.join("; ")}. </>}
+    Candidates, polls and ratings from <a href={r.source?.url}>{r.source?.title ?? "Wikipedia"}</a>, revision {r.source?.revid}. Lean {r.lean == null ? "—" : margin(r.lean, "D", "R")} against the nation.
+  </p>
+</Base>
+
+<style>
+  .crumbs { display: flex; gap: 8px; color: var(--muted); margin: 0 0 10px; }
+  .crumbs a { color: var(--ink-2); }
+  .race-head h1 { margin-bottom: 18px; }
+  .duel { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+  .cand { min-width: 0; }
+  .cand.right { text-align: right; }
+  .cand-name { font-size: 1.15rem; font-weight: 700; color: var(--ink-strong); display: flex; align-items: center; }
+  .cand.right .cand-name { justify-content: flex-end; flex-direction: row-reverse; }
+  .cand.right .cand-name .key { margin: 0 0 0 8px; }
+  .cand-meta { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .hero-fig.lesser { font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.4rem); color: var(--ink-2); }
+  .race-sum { margin: 12px 0 0; max-width: 52em; color: var(--ink-2); }
+  .race-sum strong { color: var(--ink-strong); }
+  table.inputs th[scope="row"] { font-weight: 650; color: var(--ink-strong); }
+  table .sub { font-weight: 400; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  table.inputs tr.blend th, table.inputs tr.blend td { background: var(--surface-2); }
+  html:not([data-version]) .col-deluxe, html[data-version="deluxe"] .col-deluxe,
+  html[data-version="classic"] .col-classic, html[data-version="lite"] .col-lite {
+    background: var(--accent-wash);
+  }
+  table.polls td, table.polls th { font-size: 13.5px; }
+  .spons { font-size: 10.5px; font-weight: 700; color: var(--muted); border: 1px solid var(--border); border-radius: 4px; padding: 0 4px; margin-left: 6px; vertical-align: 1px; }
+  .money { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .money-fig { font-size: 1.6rem; font-weight: 750; color: var(--ink-strong); letter-spacing: -0.02em; }
+  .also { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+  .also li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+  .source { margin-top: 40px; max-width: 60em; }
+</style>

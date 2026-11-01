@@ -1,0 +1,49 @@
+---
+// Calibration: forecast probability (x) against how often it happened (y),
+// one series per test year. Square on purpose: the diagonal is the target.
+interface Bin { bin: string; n: number; forecast: number; observed: number }
+interface Props { series: { name: string; key: "c1" | "c2"; bins: Bin[] }[] }
+const { series } = Astro.props;
+const S = 320, pad = 34, inner = S - pad - 12;
+const X = (p: number) => pad + p * inner;
+const Y = (p: number) => 12 + (1 - p) * inner;
+const maxN = Math.max(...series.flatMap((s) => s.bins.map((b) => b.n)));
+const r = (n: number) => 3.5 + Math.sqrt(n / maxN) * 9;
+const ticks = [0, 0.25, 0.5, 0.75, 1];
+---
+
+<figure class="calib">
+  <svg viewBox={`0 0 ${S} ${S + 16}`} role="img" aria-label="Calibration plot: forecast probability against observed frequency">
+    {ticks.map((t) => (
+      <g>
+        <line x1={X(0)} x2={X(1)} y1={Y(t)} y2={Y(t)} stroke="var(--grid)" />
+        <line x1={X(t)} x2={X(t)} y1={Y(0)} y2={Y(1)} stroke="var(--grid)" />
+        <text x={X(0) - 6} y={Y(t) + 4} text-anchor="end" class="tl">{Math.round(t * 100)}%</text>
+        <text x={X(t)} y={Y(0) + 16} text-anchor="middle" class="tl">{Math.round(t * 100)}%</text>
+      </g>
+    ))}
+    <line x1={X(0)} y1={Y(0)} x2={X(1)} y2={Y(1)} stroke="var(--ink-2)" stroke-width="1" />
+    <text x={X(0.62)} y={Y(0.62) - 8} class="tl" transform={`rotate(-45 ${X(0.62)} ${Y(0.62) - 8})`} text-anchor="middle">perfectly calibrated</text>
+    {series.map((s) => (
+      <g>
+        {s.bins.filter((b) => b.n > 0).map((b) => (
+          <g data-tip-value={`${s.name}: forecast ${Math.round(b.forecast * 100)}%, happened ${Math.round(b.observed * 100)}%`} data-tip-label={`${b.n} districts in the ${b.bin.replace("-", "–")} bin`}>
+            <circle cx={X(b.forecast)} cy={Y(b.observed)} r={r(b.n) + 2} fill="var(--surface)" />
+            <circle class="mark" cx={X(b.forecast)} cy={Y(b.observed)} r={r(b.n)} style={`fill:var(--${s.key});fill-opacity:.85`} />
+          </g>
+        ))}
+      </g>
+    ))}
+  </svg>
+  <ul class="legend">
+    {series.map((s) => <li><span class="key" style={`background:var(--${s.key});border-radius:50%`} />{s.name}</li>)}
+  </ul>
+  <figcaption>x: the model's chance that the Democrat wins, binned. y: how often the Democrat did. Dot size: districts in the bin.</figcaption>
+</figure>
+
+<style>
+  .calib { margin: 0; max-width: 380px; }
+  .calib svg { width: 100%; height: auto; display: block; }
+  .calib .tl { font-size: 10.5px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .calib figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; }
+</style>

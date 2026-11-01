@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://midterms.karazajac.io/sitemap-index.xml

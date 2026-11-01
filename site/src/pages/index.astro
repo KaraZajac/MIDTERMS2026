@@ -1,0 +1,232 @@
+---
+import Base from "../layouts/Base.astro";
+import VersionBar from "../components/VersionBar.astro";
+import ChamberCard from "../components/ChamberCard.astro";
+import TrendChart from "../components/TrendChart.astro";
+import { summary, generic, meta, history } from "../lib/data.js";
+import { VERSIONS, raceById, pD, raceRating, flips, candShort } from "../lib/model.js";
+import { pct, pct1, margin, favoured, fmtStamp, fmtDate, url, inWords } from "../lib/format.js";
+
+const s = summary();
+const g = generic();
+const m = meta();
+const h = history();
+
+// "Democrats are clearly favored to win the House and favored to win the Senate"
+function headline(v: string) {
+  const hp = s.chambers.house.versions[v].p_control;
+  const sp = s.chambers.senate.versions[v].p_control;
+  const part = (p: { D: number; R: number }, chamber: string) => {
+    const dFav = p.D >= p.R;
+    const prob = dFav ? p.D : p.R;
+    const f = favoured(prob);
+    return { party: dFav ? "Democrats" : "Republicans", f, verb: dFav ? "win" : "keep", chamber, prob };
+  };
+  const a = part(hp, "House");
+  const b = part(sp, "Senate");
+  const clause = (x: typeof a, withParty: boolean) =>
+    x.f
+      ? `${withParty ? x.party + " " : ""}${withParty ? x.f : x.f.replace(/^are /, "")} ${x.verb} the ${x.chamber}`
+      : `the ${x.chamber} is a toss-up`;
+  if (a.f && b.f && a.party === b.party) return `${clause(a, true)} and ${clause(b, false)}`;
+  const first = clause(a, true);
+  const second = clause(b, true);
+  return `${first[0].toUpperCase()}${first.slice(1)}; ${second}`;
+}
+
+const daysLeft = Math.round((Date.parse(s.election_day + "T12:00:00Z") - Date.parse(s.asof + "T12:00:00Z")) / 86400000);
+const when =
+  daysLeft > 1 ? `${daysLeft} days before Election Day` : daysLeft === 1 ? "the day before Election Day" : daysLeft === 0 ? "Election Day" : "after Election Day";
+
+const nat = s.national;
+const twoParty = (d: number, r: number) => (100 * (d - r)) / (d + r);
+const recent = g.average.slice(-150);
+
+const joint = s.joint.grid;
+const tipping = (["house", "senate", "governor"] as const).map((ch) => ({
+  ch,
+  name: ch === "house" ? "House" : ch === "senate" ? "Senate" : "Governors",
+  rows: s.chambers[ch].tipping.slice(0, 6).map((t: any) => ({ ...t, race: raceById(t.id) })),
+}));
+const snapshots = (h?.snapshots ?? []).filter((x: any) => x.ex_ante !== false);
+const distinctDays = new Set(snapshots.map((x: any) => x.asof)).size;
+---
+
+<Base title="MIDTERMS2026 — a forecast of the 2026 midterm elections" bare>
+  <section class="page-head">
+    <p class="eyebrow">2026 midterm forecast · {when}</p>
+    {VERSIONS.map((v) => <h1 class={`v v-${v}`}>{headline(v)}</h1>)}
+    <p class="lede">
+      Every House district, Senate seat and governorship on the ballot on November 3, simulated{" "}
+      {Number(s.n_sims).toLocaleString("en-US")} times with correlated polling error. The forecast is frozen when the
+      polls open and graded in public once they close.
+    </p>
+    <p class="updated">Updated {fmtStamp(s.generated)} · next refresh within six hours</p>
+  </section>
+
+  <VersionBar />
+
+  <div class="grid-3">
+    <ChamberCard chamber="house" />
+    <ChamberCard chamber="senate" />
+    <ChamberCard chamber="governor" />
+  </div>
+
+  <section class="section">
+    <h2>Both chambers</h2>
+    <p class="section-note">How the House and Senate land together, across all 50,000 simulations (deluxe). Divided outcomes are rare because the same national swing moves every race.</p>
+    <div class="joint">
+      <div class="joint-cell dd"><span class="jp">{pct(joint.house_D.senate_D)}</span><span class="jl">Democrats win both</span></div>
+      <div class="joint-cell dr"><span class="jp">{pct(joint.house_D.senate_R)}</span><span class="jl">Democratic House, Republican Senate</span></div>
+      <div class="joint-cell rd"><span class="jp">{pct(joint.house_R.senate_D)}</span><span class="jl">Republican House, Democratic Senate</span></div>
+      <div class="joint-cell rr"><span class="jp">{pct(joint.house_R.senate_R)}</span><span class="jl">Republicans keep both</span></div>
+    </div>
+    {s.joint.unclear > 0.0005 && <p class="small muted">In the other {pct(s.joint.unclear, 1)} an uncommitted independent holds the Senate balance.</p>}
+  </section>
+
+  <section class="section">
+    <h2>The national environment</h2>
+    <div class="nat-grid">
+      <div class="card">
+        <p class="eyebrow">Generic ballot</p>
+        <div class="nat-fig">{margin(nat.generic.margin)}</div>
+        <p class="small ink-2">
+          Our average of {nat.generic.n_polls} polls from {nat.generic.pollsters} pollsters, two-party margin, through{" "}
+          {fmtDate(nat.generic.latest)}.
+        </p>
+        <p class="eyebrow" style="margin-top:14px">House popular vote, forecast</p>
+        <div class="nat-fig small-fig">{margin(nat.popular_vote.mu)}</div>
+        <p class="small ink-2">80% range {margin(nat.popular_vote.p10)} to {margin(nat.popular_vote.p90)}.</p>
+        <a class="small" href={url("/generic-ballot/")}>Every generic-ballot poll →</a>
+      </div>
+      <div class="card">
+        <TrendChart series={recent} height={190} zero={false} label={`Generic-ballot average over the last ${recent.length} days`} />
+        <p class="small muted" style="margin:10px 0 0">Daily average with its 80% band. Others' averages, converted to two-party:
+          {nat.outside_averages.map((o: any, i: number) => (
+            <>{i ? " · " : " "}<span class="nowrap">{o.source} {margin(twoParty(o.d, o.r))}</span></>
+          ))}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Tipping-point races</h2>
+    <p class="section-note">The race most likely to hand a party control: line up every seat from most to least Democratic in each simulation, and find the one that crosses the majority. These are where a few points decide the chamber.</p>
+    <div class="grid-3">
+      {
+        tipping.map((t) => (
+          <div class="card">
+            <h3 style="margin-bottom:10px"><a href={url(`/${t.ch}/`)}>{t.name}</a></h3>
+            <table class="data compact">
+              <thead><tr><th>Race</th><th class="num">Tipping chance</th><th class="num">Forecast</th></tr></thead>
+              <tbody>
+                {t.rows.map((r: any) => {
+                  const rr = r.race;
+                  return (
+                    <tr>
+                      <td><a href={url(`/${r.slug}/`)}>{r.label}</a></td>
+                      <td class="num">{pct(r.p, 1)}</td>
+                      <td class="num">
+                        {VERSIONS.map((v) => {
+                          const rt = raceRating(rr, v);
+                          return <span class={`v v-${v} chip ${rt.key}`}>{rt.label}</span>;
+                        })}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Seats likely to change hands</h2>
+    <p class="section-note">Races where the favorite is not the incumbent's party.</p>
+    <div class="grid-3">
+      {
+        (["house", "senate", "governor"] as const).map((ch) => (
+          <div class="card">
+            <h3 style="margin-bottom:6px">{ch === "house" ? "House" : ch === "senate" ? "Senate" : "Governors"}</h3>
+            {VERSIONS.map((v) => {
+              const f = flips(ch, v);
+              const list = [...f.D, ...f.IND, ...f.R].sort((a, b) => Math.abs(pD(b, v) - 0.5) - Math.abs(pD(a, v) - 0.5));
+              return (
+                <div class={`v v-${v}`}>
+                  <p class="small ink-2" style="margin:0 0 8px">
+                    Democrats favored to gain <strong>{f.D.length}</strong>, Republicans <strong>{f.R.length}</strong>
+                    {f.IND.length ? <>, independents <strong>{f.IND.length}</strong></> : null}.
+                  </p>
+                  <ul class="flip-list">
+                    {list.slice(0, 10).map((r) => {
+                      const rt = raceRating(r, v);
+                      return (
+                        <li>
+                          <a href={url(`/${r.slug}/`)}>{r.short}</a>
+                          <span class="small muted">{r.incumbent?.party ?? "?"} → {pD(r, v) >= 0.5 ? candShort(r.d) : candShort(r.r)}</span>
+                          <span class={`chip ${rt.key}`}>{rt.label}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  {list.length > 10 && <a class="small" href={url(`/${ch}/`)}>All {list.length} →</a>}
+                </div>
+              );
+            })}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>How it works</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Polls</h3>
+        <p class="small">{s.counts.race_polls.toLocaleString("en-US")} head-to-head polls in {s.counts.polled_races} races, weighted by recency, sample size and pollster rating, and adjusted for house effects, likely-voter gaps and partisan sponsors.</p>
+      </div>
+      <div class="card">
+        <h3>Fundamentals</h3>
+        <p class="small">Partisan lean, incumbency and fundraising, with coefficients fit on 739 contested districts from the 2018 and 2022 midterms and moved by the national environment.</p>
+      </div>
+      <div class="card">
+        <h3>Experts</h3>
+        <p class="small">{s.counts.ratings.toLocaleString("en-US")} ratings from Cook, Sabato, Inside Elections and others, mapped to margins. Deluxe blends them in; Lite and Classic leave them out.</p>
+      </div>
+    </div>
+    <p style="margin-top:16px"><a class="btn" href={url("/methods/")}>Read the method</a> <a class="btn" href={url("/simulator/")}>Run your own scenarios</a></p>
+  </section>
+</Base>
+
+<style>
+  .joint { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 760px) { .joint { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .joint-cell {
+    border-radius: 12px; padding: 14px 16px; border: 1px solid var(--border);
+    background: var(--surface); display: flex; flex-direction: column; gap: 4px;
+    border-top: 4px solid var(--tu);
+  }
+  .joint-cell.dd { border-top-color: var(--d); }
+  .joint-cell.rr { border-top-color: var(--r); }
+  .joint-cell.dr { border-top-color: var(--d2); }
+  .joint-cell.rd { border-top-color: var(--r2); }
+  .jp { font-size: 1.8rem; font-weight: 750; color: var(--ink-strong); letter-spacing: -0.02em; }
+  .jl { font-size: 13px; color: var(--ink-2); }
+  .nat-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 16px; }
+  @media (max-width: 860px) { .nat-grid { grid-template-columns: minmax(0, 1fr); } }
+  .nat-fig { font-size: 2.4rem; font-weight: 750; color: var(--ink-strong); letter-spacing: -0.03em; line-height: 1.1; }
+  .nat-fig.small-fig { font-size: 1.6rem; }
+  table.compact th, table.compact td { padding: 6px 6px; }
+  table.compact td:first-child, table.compact th:first-child { padding-left: 0; }
+  table.compact td:last-child, table.compact th:last-child { padding-right: 0; }
+  table.compact thead th { background: none; position: static; white-space: normal; }
+  .flip-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .flip-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 8px; align-items: center; font-size: 14px; }
+  .flip-list li .muted { grid-column: 1; font-size: 12.5px; }
+  .flip-list li .chip { grid-column: 2; grid-row: 1 / span 2; }
+</style>
