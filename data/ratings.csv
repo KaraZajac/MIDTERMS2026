@@ -1996,7 +1996,7 @@ senate:AL,Split Ticket,Split Ticket,Safe R,-3.0,2026-11-01
 senate:AK,ABC News,ABC News,Tossup,0.0,2026-10-26
 senate:AK,CBS News,CBS News,Tossup,0.0,2026-10-30
 senate:AK,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
-senate:AK,DDHQ,Decision Desk HQ,Tossup,0.0,2026-11-01
+senate:AK,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-11-01
 senate:AK,The Economist,The Economist,Tossup,0.0,2026-11-01
 senate:AK,FiftyPlusOne,FiftyPlusOne,Lean D (flip),1.0,2026-11-01
 senate:AK,Fox News,Fox News,Tossup,0.0,2026-11-01
@@ -2109,7 +2109,7 @@ senate:KS,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-29
 senate:KS,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-11-01
 senate:KS,Split Ticket,Split Ticket,Tossup,0.0,2026-11-01
 senate:KY,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
-senate:KY,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-11-01
+senate:KY,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-11-01
 senate:KY,The Economist,The Economist,Safe R,-3.0,2026-11-01
 senate:KY,FiftyPlusOne,FiftyPlusOne,Safe R,-3.0,2026-11-01
 senate:KY,Fox News,Fox News,Solid R,-3.0,2026-11-01
@@ -2161,7 +2161,7 @@ senate:MA,Split Ticket,Split Ticket,Safe D,3.0,2026-11-01
 senate:MI,ABC News,ABC News,Lean D,1.0,2026-10-26
 senate:MI,CBS News,CBS News,Tossup,0.0,2026-10-30
 senate:MI,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
-senate:MI,DDHQ,Decision Desk HQ,Lean D,1.0,2026-11-01
+senate:MI,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-01
 senate:MI,The Economist,The Economist,Lean D,1.0,2026-11-01
 senate:MI,FiftyPlusOne,FiftyPlusOne,Likely D,2.0,2026-11-01
 senate:MI,Fox News,Fox News,Tossup,0.0,2026-11-01
@@ -2346,7 +2346,7 @@ senate:TN,Split Ticket,Split Ticket,Safe R,-3.0,2026-11-01
 senate:TX,ABC News,ABC News,Tossup,0.0,2026-10-26
 senate:TX,CBS News,CBS News,Tossup,0.0,2026-10-30
 senate:TX,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
-senate:TX,DDHQ,Decision Desk HQ,Tossup,0.0,2026-11-01
+senate:TX,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-11-01
 senate:TX,The Economist,The Economist,Tossup,0.0,2026-11-01
 senate:TX,FiftyPlusOne,FiftyPlusOne,Lean D (flip),1.0,2026-11-01
 senate:TX,Fox News,Fox News,Tossup,0.0,2026-11-01

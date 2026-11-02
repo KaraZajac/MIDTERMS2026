@@ -22,10 +22,10 @@ senate:KS,FiftyPlusOne,2026-10-29,2026-11-01,49.2,46.2
 senate:KS,RealClearPolitics,2026-10-29,2026-11-01,48.6,46.3
 senate:KS,Silver Bulletin,2026-10-29,2026-11-01,49.2,46.5
 senate:ME,270toWin,2026-10-29,2026-11-01,49.7,45.8
-senate:ME,Decision Desk HQ,2026-10-29,2026-11-01,50.5,46.2
-senate:ME,FiftyPlusOne,2026-10-29,2026-11-01,50.1,46.2
-senate:ME,RealClearPolitics,2026-10-29,2026-11-01,49.1,47.0
-senate:ME,Silver Bulletin,2026-10-29,2026-11-01,49.7,46.8
+senate:ME,Decision Desk HQ,2026-11-01,2026-11-01,50.3,45.4
+senate:ME,FiftyPlusOne,2026-11-01,2026-11-01,50.8,45.8
+senate:ME,RealClearPolitics,2026-11-01,2026-11-01,49.9,46.6
+senate:ME,Silver Bulletin,2026-11-01,2026-11-01,50.0,46.4
 senate:MA,270toWin,2026-10-18,2026-10-20,55.8,29.8
 senate:MA,RealClearPolitics,2026-10-18,2026-10-20,55.8,29.8
 senate:MA,Silver Bulletin,2026-10-12,2026-10-19,56.5,29.9
@@ -69,11 +69,11 @@ senate:SD,Decision Desk HQ,2026-10-26,2026-10-30,39.5,49.7
 senate:SD,FiftyPlusOne,2026-10-26,2026-10-30,41.3,51.5
 senate:SD,Silver Bulletin,2026-10-26,2026-10-30,41.4,52.1
 senate:TX,270toWin,2026-10-30,2026-11-01,49.6,46.2
-senate:TX,Decision Desk HQ,2026-10-30,2026-11-01,49.3,45.8
-senate:TX,FiftyPlusOne,2026-10-30,2026-11-01,49.3,45.9
-senate:TX,RealClearPolitics,2026-11-01,2026-11-01,49.1,46.3
+senate:TX,Decision Desk HQ,2026-11-01,2026-11-01,49.2,45.1
+senate:TX,FiftyPlusOne,2026-11-01,2026-11-01,49.4,45.6
+senate:TX,RealClearPolitics,2026-11-01,2026-11-01,49.0,46.5
 senate:TX,The Texas Tribune,2026-10-28,2026-10-31,49.1,46.4
-senate:TX,Silver Bulletin,2026-10-30,2026-11-01,49.1,46.2
+senate:TX,Silver Bulletin,2026-11-01,2026-11-01,49.2,45.9
 senate:OH-special,270toWin,2026-10-31,2026-11-01,48.2,46.6
 senate:OH-special,Decision Desk HQ,2026-10-31,2026-11-01,48.9,46.7
 senate:OH-special,FiftyPlusOne,2026-10-31,2026-11-01,48.6,46.1
@@ -162,10 +162,10 @@ governor:PA,FiftyPlusOne,2026-10-21,2026-10-22,57.4,34.5
 governor:PA,RealClearPolitics,2026-10-18,2026-10-22,57.2,33.4
 governor:PA,Silver Bulletin,2026-10-18,2026-10-22,57.0,34.6
 governor:TX,270toWin,2026-10-30,2026-11-01,47.0,49.6
-governor:TX,Decision Desk HQ,2026-10-30,2026-11-01,47.1,49.4
-governor:TX,FiftyPlusOne,2026-10-30,2026-11-01,47.1,49.3
-governor:TX,RealClearPolitics,2026-10-29,2026-11-01,46.9,50.2
-governor:TX,Silver Bulletin,2026-10-30,2026-11-01,47.1,49.5
+governor:TX,Decision Desk HQ,2026-11-01,2026-11-01,47.4,49.1
+governor:TX,FiftyPlusOne,2026-11-01,2026-11-01,47.4,48.9
+governor:TX,RealClearPolitics,2026-11-01,2026-11-01,47.3,49.8
+governor:TX,Silver Bulletin,2026-11-01,2026-11-01,47.1,49.2
 governor:WI,270toWin,2026-10-22,2026-10-28,48.7,43.3
 governor:WI,Decision Desk HQ,2026-10-23,2026-10-28,47.4,43.7
 governor:WI,FiftyPlusOne,2026-10-23,2026-10-28,48.9,44.4
