@@ -1,8 +1,8 @@
-generated: '2026-11-02T10:10:03Z'
+generated: '2026-11-02T10:39:59Z'
 generator: python3 -m midterms build
 asof: '2026-11-02'
 election_day: '2026-11-03'
-sources_digest: 4fbe4ff0e2428643
+sources_digest: 146747c790e7356b
 counts:
   house_races: 435
   senate_races: 35
@@ -38,14 +38,14 @@ sources:
     2026 Hawaii gubernatorial election: 1383317657
     2026 Idaho gubernatorial election: 1383317818
     2026 Illinois gubernatorial election: 1383317871
-    2026 Iowa gubernatorial election: 1383317956
+    2026 Iowa gubernatorial election: 1383373909
     2026 Kansas gubernatorial election: 1383318009
     2026 Maine gubernatorial election: 1383338272
     2026 Maryland gubernatorial election: 1383318137
     2026 Massachusetts gubernatorial election: 1383331954
     2026 Michigan gubernatorial election: 1383336335
     2026 Minnesota gubernatorial election: 1383336095
-    2026 Nebraska gubernatorial election: 1383319115
+    2026 Nebraska gubernatorial election: 1383373716
     2026 Nevada gubernatorial election: 1383319177
     2026 New Hampshire gubernatorial election: 1383330972
     2026 New Mexico gubernatorial election: 1383319274
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-02T10:09:37Z'
+      fetched: '2026-11-02T10:39:35Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-02T10:09:45Z'
+      fetched: '2026-11-02T10:39:42Z'
       sha256: fd716705a44a772abe975eb3994d9ebe5dc705d2ca4d03f2e56ffb191c9012b5
   votehub_supplement:
     basis: api
