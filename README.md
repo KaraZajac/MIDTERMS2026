@@ -29,7 +29,7 @@ an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
 | Senate (51; VP breaks ties) | **76.9%** | 53 | 49–55 |
 | Governorships (26 of 50) | 82.3% | 28 | 24–31 |
 
-House tipping points: PA-07, NC-11, WA-03. Senate: Ohio (special), Texas, Kansas.
+House tipping points: PA-07, NC-11, CO-08. Senate: Ohio (special), Texas, Kansas.
 <!-- forecast:end -->
 
 ## What's here

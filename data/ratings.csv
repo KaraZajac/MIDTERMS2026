@@ -372,7 +372,7 @@ house:CO-02,The Economist,The Economist,Safe D,3.0,2026-05-06
 house:CO-03,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-27
 house:CO-03,Cook,The Cook Political Report,Likely R,-2.0,2026-08-13
 house:CO-03,Inside Elections,Inside Elections,Likely R,-2.0,2026-03-12
-house:CO-03,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2025-04-10
+house:CO-03,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 house:CO-03,The Economist,The Economist,Lean R,-1.0,2026-05-06
 house:CO-04,Cook,The Cook Political Report,Lean R,-1.0,2026-10-23
 house:CO-04,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
@@ -382,7 +382,7 @@ house:CO-04,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-20
 house:CO-05,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
 house:CO-05,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
 house:CO-05,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
-house:CO-05,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
+house:CO-05,Sabato,Sabato's Crystal Ball,Lean D,1.0,2026-11-02
 house:CO-05,The Economist,The Economist,Likely R,-2.0,2026-05-06
 house:CO-06,DDHQ,Decision Desk HQ,Safe D,3.0,2026-07-14
 house:CO-06,Cook,The Cook Political Report,Solid D,3.0,2025-02-06
