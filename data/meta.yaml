@@ -1,8 +1,8 @@
-generated: '2026-11-02T11:10:19Z'
+generated: '2026-11-02T11:40:16Z'
 generator: python3 -m midterms build
 asof: '2026-11-02'
 election_day: '2026-11-03'
-sources_digest: 6df5b465eef9151c
+sources_digest: a2b60b12a90eca57
 counts:
   house_races: 435
   senate_races: 35
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1382679515
-    2026 United States House of Representatives elections: 1383351447
+    2026 United States House of Representatives elections: 1383381627
     2026 United States House of Representatives elections in Alabama: 1383248140
     2026 United States House of Representatives elections in Arizona: 1383342716
     2026 United States House of Representatives elections in Arkansas: 1383342040
@@ -74,7 +74,7 @@ sources:
     2026 United States House of Representatives elections in Colorado: 1382934300
     2026 United States House of Representatives elections in Connecticut: 1382470623
     2026 United States House of Representatives elections in Florida: 1383323881
-    2026 United States House of Representatives elections in Georgia: 1383071588
+    2026 United States House of Representatives elections in Georgia: 1383380539
     2026 United States House of Representatives elections in Hawaii: 1381768843
     2026 United States House of Representatives elections in Idaho: 1382490588
     2026 United States House of Representatives elections in Illinois: 1382916418
@@ -92,7 +92,7 @@ sources:
     2026 United States House of Representatives elections in Missouri: 1382933578
     2026 United States House of Representatives elections in Montana: 1383096747
     2026 United States House of Representatives elections in Nebraska: 1383096209
-    2026 United States House of Representatives elections in Nevada: 1383337763
+    2026 United States House of Representatives elections in Nevada: 1383381164
     2026 United States House of Representatives elections in New Hampshire: 1383319157
     2026 United States House of Representatives elections in New Jersey: 1383331082
     2026 United States House of Representatives elections in New Mexico: 1383076003
@@ -120,10 +120,10 @@ sources:
     2026 United States Senate election in Idaho: 1383324782
     2026 United States Senate election in Illinois: 1383324854
     2026 United States Senate election in Iowa: 1383368709
-    2026 United States Senate election in Kansas: 1383335492
+    2026 United States Senate election in Kansas: 1383381539
     2026 United States Senate election in Kentucky: 1383333481
     2026 United States Senate election in Louisiana: 1383326645
-    2026 United States Senate election in Maine: 1383335717
+    2026 United States Senate election in Maine: 1383381375
     2026 United States Senate election in Massachusetts: 1383331964
     2026 United States Senate election in Michigan: 1383379052
     2026 United States Senate election in Minnesota: 1383336130
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-02T11:09:36Z'
+      fetched: '2026-11-02T11:39:32Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-02T11:09:43Z'
+      fetched: '2026-11-02T11:39:39Z'
       sha256: fd716705a44a772abe975eb3994d9ebe5dc705d2ca4d03f2e56ffb191c9012b5
   votehub_supplement:
     basis: api
