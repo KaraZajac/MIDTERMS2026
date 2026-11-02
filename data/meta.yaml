@@ -1,8 +1,8 @@
-generated: '2026-11-02T13:40:11Z'
+generated: '2026-11-02T14:10:13Z'
 generator: python3 -m midterms build
 asof: '2026-11-02'
 election_day: '2026-11-03'
-sources_digest: ac1ab59e06ad4ffa
+sources_digest: 97615d3a47f43442
 counts:
   house_races: 435
   senate_races: 35
@@ -46,7 +46,7 @@ sources:
     2026 Michigan gubernatorial election: 1383336335
     2026 Minnesota gubernatorial election: 1383336095
     2026 Nebraska gubernatorial election: 1383373716
-    2026 Nevada gubernatorial election: 1383379482
+    2026 Nevada gubernatorial election: 1383397061
     2026 New Hampshire gubernatorial election: 1383330972
     2026 New Mexico gubernatorial election: 1383319274
     2026 New York gubernatorial election: 1383335467
@@ -122,7 +122,7 @@ sources:
     2026 United States Senate election in Iowa: 1383368709
     2026 United States Senate election in Kansas: 1383381539
     2026 United States Senate election in Kentucky: 1383333481
-    2026 United States Senate election in Louisiana: 1383326645
+    2026 United States Senate election in Louisiana: 1383399206
     2026 United States Senate election in Maine: 1383388504
     2026 United States Senate election in Massachusetts: 1383331964
     2026 United States Senate election in Michigan: 1383391628
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-02T13:39:28Z'
+      fetched: '2026-11-02T14:09:31Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,12 +167,12 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-02T13:39:35Z'
-      sha256: fd716705a44a772abe975eb3994d9ebe5dc705d2ca4d03f2e56ffb191c9012b5
+      fetched: '2026-11-02T14:09:37Z'
+      sha256: 46930b5183dbe89e73a6fbe245cb1e91451e077dc4f77f1452231c7130851c04
   votehub_supplement:
     basis: api
-    candidates: 900
-    already_on_wikipedia: 864
+    candidates: 901
+    already_on_wikipedia: 865
     added: 36
     excluded_fabricated: 11
   lean: data/lean/sources.yaml
