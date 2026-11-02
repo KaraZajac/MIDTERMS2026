@@ -64,7 +64,7 @@ senate:SC,270toWin,2026-10-26,2026-10-29,45.2,47.6
 senate:SC,Decision Desk HQ,2026-10-29,2026-10-30,45.6,45.7
 senate:SC,FiftyPlusOne,2026-10-29,2026-10-30,45.6,46.0
 senate:SC,RealClearPolitics,2026-10-26,2026-10-29,45.0,47.7
-senate:SC,Silver Bulletin,2026-10-26,2026-10-30,45.1,46.6
+senate:SC,Silver Bulletin,2026-10-29,2026-11-01,45.6,47.0
 senate:SD,Decision Desk HQ,2026-10-26,2026-10-30,39.5,49.7
 senate:SD,FiftyPlusOne,2026-10-26,2026-10-30,41.3,51.5
 senate:SD,Silver Bulletin,2026-10-26,2026-10-30,41.4,52.1
@@ -118,7 +118,7 @@ governor:ME,270toWin,2026-10-27,2026-10-31,48.4,39.2
 governor:ME,Decision Desk HQ,2026-10-29,2026-11-01,50.7,40.3
 governor:ME,FiftyPlusOne,2026-10-29,2026-11-01,50.5,39.9
 governor:ME,RealClearPolitics,2026-10-26,2026-10-30,49.7,39.7
-governor:ME,Silver Bulletin,2026-10-27,2026-11-01,49.4,39.4
+governor:ME,Silver Bulletin,2026-10-29,2026-11-01,49.6,40.0
 governor:MA,270toWin,2026-10-18,2026-10-20,56.0,34.5
 governor:MA,RealClearPolitics,2026-10-18,2026-10-20,56.0,34.5
 governor:MA,Silver Bulletin,2026-10-12,2026-10-19,57.2,33.8
