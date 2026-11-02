@@ -2091,7 +2091,7 @@ senate:IA,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
 senate:IA,MS NOW,MS NOW,Lean R,-1.0,2026-10-29
 senate:IA,NBC News,NBC News,Tossup,0.0,2026-11-01
 senate:IA,RCP,RealClearPolitics,Tossup,0.0,2026-10-31
-senate:IA,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-29
+senate:IA,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 senate:IA,Silver Bulletin,Silver Bulletin,Tossup,0.0,2026-11-01
 senate:IA,Split Ticket,Split Ticket,Tossup,0.0,2026-11-01
 senate:KS,ABC News,ABC News,Tossup,0.0,2026-10-26
@@ -2105,7 +2105,7 @@ senate:KS,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
 senate:KS,MS NOW,MS NOW,Lean R,-1.0,2026-10-29
 senate:KS,NBC News,NBC News,Tossup,0.0,2026-11-01
 senate:KS,RCP,RealClearPolitics,Tossup,0.0,2026-10-31
-senate:KS,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-29
+senate:KS,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 senate:KS,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-11-01
 senate:KS,Split Ticket,Split Ticket,Tossup,0.0,2026-11-01
 senate:KY,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
@@ -2129,7 +2129,7 @@ senate:LA,Inside Elections,Inside Elections,Likely R,-2.0,2026-10-29
 senate:LA,MS NOW,MS NOW,Safe R,-3.0,2026-10-29
 senate:LA,NBC News,NBC News,Solid R,-3.0,2026-11-01
 senate:LA,RCP,RealClearPolitics,Solid R,-3.0,2026-10-31
-senate:LA,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2026-10-29
+senate:LA,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 senate:LA,Silver Bulletin,Silver Bulletin,Likely R,-2.0,2026-11-01
 senate:LA,Split Ticket,Split Ticket,Likely R,-2.0,2026-11-01
 senate:ME,ABC News,ABC News,Tossup,0.0,2026-10-26
@@ -2143,7 +2143,7 @@ senate:ME,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
 senate:ME,MS NOW,MS NOW,Tossup,0.0,2026-10-29
 senate:ME,NBC News,NBC News,Lean D (flip),1.0,2026-11-01
 senate:ME,RCP,RealClearPolitics,Tossup,0.0,2026-10-31
-senate:ME,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-29
+senate:ME,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 senate:ME,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-11-01
 senate:ME,Split Ticket,Split Ticket,Lean D (flip),1.0,2026-11-01
 senate:MA,Cook,The Cook Political Report,Solid D,3.0,2026-10-30
@@ -2354,7 +2354,7 @@ senate:TX,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
 senate:TX,MS NOW,MS NOW,Tossup,0.0,2026-10-29
 senate:TX,NBC News,NBC News,Tossup,0.0,2026-11-01
 senate:TX,RCP,RealClearPolitics,Tossup,0.0,2026-10-31
-senate:TX,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-29
+senate:TX,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 senate:TX,Silver Bulletin,Silver Bulletin,Likely D (flip),2.0,2026-11-01
 senate:TX,Split Ticket,Split Ticket,Likely D (flip),2.0,2026-11-01
 senate:VA,Cook,The Cook Political Report,Solid D,3.0,2026-10-30
@@ -2404,7 +2404,7 @@ senate:OH-special,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
 senate:OH-special,MS NOW,MS NOW,Tossup,0.0,2026-10-29
 senate:OH-special,NBC News,NBC News,Tossup,0.0,2026-11-01
 senate:OH-special,RCP,RealClearPolitics,Tossup,0.0,2026-10-31
-senate:OH-special,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-29
+senate:OH-special,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 senate:OH-special,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-11-01
 senate:OH-special,Split Ticket,Split Ticket,Lean D (flip),1.0,2026-11-01
 senate:FL-special,Cook,The Cook Political Report,Likely R,-2.0,2026-10-30
@@ -2433,7 +2433,7 @@ governor:AK,Fox News,Fox News,Tossup,0.0,2026-11-01
 governor:AK,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
 governor:AK,RCP,RealClearPolitics,Lean D (flip),1.0,2026-11-01
 governor:AK,NBC News,NBC News,Lean D (flip),1.0,2026-10-30
-governor:AK,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-10-27
+governor:AK,Sabato,Sabato's Crystal Ball,Likely D (flip),2.0,2026-11-02
 governor:AK,Silver Bulletin,Silver Bulletin,Solid D (flip),3.0,2026-11-01
 governor:AZ,Cook,The Cook Political Report,Likely D,2.0,2026-10-29
 governor:AZ,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-01
@@ -2489,7 +2489,7 @@ governor:GA,Fox News,Fox News,Tossup,0.0,2026-11-01
 governor:GA,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
 governor:GA,NBC News,NBC News,Tossup,0.0,2026-11-01
 governor:GA,RCP,RealClearPolitics,Tossup,0.0,2026-10-30
-governor:GA,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
+governor:GA,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 governor:GA,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-11-01
 governor:HI,Cook,The Cook Political Report,Solid D,3.0,2026-10-29
 governor:HI,DDHQ,Decision Desk HQ,Safe D,3.0,2026-11-01
@@ -2585,7 +2585,7 @@ governor:NV,Fox News,Fox News,Tossup,0.0,2026-11-01
 governor:NV,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
 governor:NV,NBC News,NBC News,Tossup,0.0,2026-11-01
 governor:NV,RCP,RealClearPolitics,Tossup,0.0,2026-10-30
-governor:NV,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
+governor:NV,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 governor:NV,Silver Bulletin,Silver Bulletin,Tossup,0.0,2026-11-01
 governor:NH,Cook,The Cook Political Report,Likely R,-2.0,2026-10-29
 governor:NH,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-11-01
@@ -2593,7 +2593,7 @@ governor:NH,Fox News,Fox News,Likely R,-2.0,2026-11-01
 governor:NH,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
 governor:NH,NBC News,NBC News,Likely R,-2.0,2026-11-01
 governor:NH,RCP,RealClearPolitics,Lean R,-1.0,2026-10-30
-governor:NH,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2026-10-27
+governor:NH,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 governor:NH,Silver Bulletin,Silver Bulletin,Likely R,-2.0,2026-11-01
 governor:NM,Cook,The Cook Political Report,Solid D,3.0,2026-10-29
 governor:NM,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-01
