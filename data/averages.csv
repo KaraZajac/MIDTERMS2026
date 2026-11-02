@@ -74,11 +74,11 @@ senate:TX,FiftyPlusOne,2026-11-01,2026-11-02,49.5,45.7
 senate:TX,RealClearPolitics,2026-11-01,2026-11-01,49.0,46.5
 senate:TX,The Texas Tribune,2026-11-01,2026-11-02,49.4,46.1
 senate:TX,Silver Bulletin,2026-11-01,2026-11-02,49.8,46.3
-senate:OH-special,270toWin,2026-11-01,2026-11-02,49.0,47.3
-senate:OH-special,Decision Desk HQ,2026-11-01,2026-11-01,48.3,45.6
-senate:OH-special,FiftyPlusOne,2026-11-01,2026-11-01,48.2,45.3
+senate:OH-special,270toWin,2026-11-01,2026-11-02,48.7,47.0
+senate:OH-special,Decision Desk HQ,2026-11-01,2026-11-02,48.3,46.0
+senate:OH-special,FiftyPlusOne,2026-11-01,2026-11-02,48.2,45.3
 senate:OH-special,RealClearPolitics,2026-11-01,2026-11-01,48.9,46.1
-senate:OH-special,Silver Bulletin,2026-11-01,2026-11-01,48.4,45.3
+senate:OH-special,Silver Bulletin,2026-11-01,2026-11-02,48.3,45.3
 senate:FL-special,270toWin,2026-10-29,2026-10-31,44.4,50.4
 senate:FL-special,Decision Desk HQ,2026-10-30,2026-10-31,42.5,48.2
 senate:FL-special,FiftyPlusOne,2026-10-30,2026-10-31,43.6,49.6
@@ -150,11 +150,11 @@ governor:NY,Decision Desk HQ,2026-10-19,2026-10-21,53.3,41.0
 governor:NY,FiftyPlusOne,2026-10-19,2026-10-21,52.9,40.7
 governor:NY,RealClearPolitics,2026-10-19,2026-10-21,52.5,41.0
 governor:NY,Silver Bulletin,2026-10-14,2026-10-21,53.2,40.9
-governor:OH,270toWin,2026-10-31,2026-11-01,48.4,46.2
-governor:OH,Decision Desk HQ,2026-10-31,2026-11-01,49.3,46.4
-governor:OH,FiftyPlusOne,2026-10-31,2026-11-01,49.1,45.8
-governor:OH,RealClearPolitics,2026-10-29,2026-11-01,49.0,44.5
-governor:OH,Silver Bulletin,2026-10-26,2026-10-31,48.2,45.1
+governor:OH,270toWin,2026-11-01,2026-11-02,49.6,45.9
+governor:OH,Decision Desk HQ,2026-11-01,2026-11-02,49.2,45.2
+governor:OH,FiftyPlusOne,2026-11-01,2026-11-02,48.9,44.7
+governor:OH,RealClearPolitics,2026-11-01,2026-11-01,49.6,44.9
+governor:OH,Silver Bulletin,2026-11-01,2026-11-02,48.7,44.6
 governor:OR,Silver Bulletin,2026-10-01,2026-10-08,45.9,43.9
 governor:PA,270toWin,2026-10-21,2026-10-22,56.8,33.6
 governor:PA,Decision Desk HQ,2026-10-21,2026-10-22,57.1,33.0
