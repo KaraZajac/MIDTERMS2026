@@ -25746,7 +25746,7 @@
    }
   }
  },
- "generated": "2026-11-02T14:10:23Z",
+ "generated": "2026-11-02T14:40:37Z",
  "headline": "deluxe",
  "model": "midterms2026-0.1",
  "n_sims": 50000,
@@ -32555,7 +32555,7 @@
   }
  },
  "seed": 20261103,
- "sources": "97615d3a47f43442",
+ "sources": "b6b2085f3ab7e352",
  "versions": {
   "classic": {
    "chambers": {
