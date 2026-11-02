@@ -1,8 +1,8 @@
-generated: '2026-11-02T07:39:59Z'
+generated: '2026-11-02T08:10:14Z'
 generator: python3 -m midterms build
 asof: '2026-11-02'
 election_day: '2026-11-03'
-sources_digest: 827a62fcfb05cf5d
+sources_digest: 9f50272a68744212
 counts:
   house_races: 435
   senate_races: 35
@@ -125,9 +125,9 @@ sources:
     2026 United States Senate election in Louisiana: 1383326645
     2026 United States Senate election in Maine: 1383335717
     2026 United States Senate election in Massachusetts: 1383331964
-    2026 United States Senate election in Michigan: 1383336346
+    2026 United States Senate election in Michigan: 1383358984
     2026 United States Senate election in Minnesota: 1383336130
-    2026 United States Senate election in Mississippi: 1383336911
+    2026 United States Senate election in Mississippi: 1383357497
     2026 United States Senate election in Montana: 1383325639
     2026 United States Senate election in Nebraska: 1383325708
     2026 United States Senate election in New Hampshire: 1383342233
@@ -137,14 +137,14 @@ sources:
     2026 United States Senate election in Oklahoma: 1383326096
     2026 United States Senate election in Oregon: 1383326154
     2026 United States Senate election in Rhode Island: 1383332562
-    2026 United States Senate election in South Carolina: 1383326258
+    2026 United States Senate election in South Carolina: 1383358923
     2026 United States Senate election in South Dakota: 1383326312
     2026 United States Senate election in Tennessee: 1383326354
     2026 United States Senate election in Texas: 1383334614
     2026 United States Senate election in Virginia: 1383326455
     2026 United States Senate election in West Virginia: 1383326503
     2026 United States Senate election in Wyoming: 1383326535
-    2026 United States Senate elections: 1383343195
+    2026 United States Senate elections: 1383358332
     2026 United States Senate special election in Florida: 1383334286
     2026 United States Senate special election in Ohio: 1383337028
     2026 United States gubernatorial elections: 1383347849
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-02T07:39:25Z'
+      fetched: '2026-11-02T08:09:30Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-02T07:39:32Z'
+      fetched: '2026-11-02T08:09:37Z'
       sha256: fd716705a44a772abe975eb3994d9ebe5dc705d2ca4d03f2e56ffb191c9012b5
   votehub_supplement:
     basis: api
