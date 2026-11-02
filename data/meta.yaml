@@ -1,8 +1,8 @@
-generated: '2026-11-02T02:40:11Z'
+generated: '2026-11-02T03:10:04Z'
 generator: python3 -m midterms build
 asof: '2026-11-02'
 election_day: '2026-11-03'
-sources_digest: 682d61a821915e76
+sources_digest: 457960de73cbc343
 counts:
   house_races: 435
   senate_races: 35
@@ -10,7 +10,7 @@ counts:
   fixed:
     house:D: 16
     house:R: 1
-  race_polls: 1719
+  race_polls: 1720
   votehub_polls: 31
   generic_polls: 724
   fabricated_polls_excluded:
@@ -40,7 +40,7 @@ sources:
     2026 Illinois gubernatorial election: 1383317871
     2026 Iowa gubernatorial election: 1383317956
     2026 Kansas gubernatorial election: 1383318009
-    2026 Maine gubernatorial election: 1383318080
+    2026 Maine gubernatorial election: 1383321937
     2026 Maryland gubernatorial election: 1383318137
     2026 Massachusetts gubernatorial election: 1383318199
     2026 Michigan gubernatorial election: 1383318282
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1382679515
-    2026 United States House of Representatives elections: 1383296328
+    2026 United States House of Representatives elections: 1383324076
     2026 United States House of Representatives elections in Alabama: 1383248140
     2026 United States House of Representatives elections in Arizona: 1383300075
     2026 United States House of Representatives elections in Arkansas: 1382855440
@@ -73,7 +73,7 @@ sources:
     2026 United States House of Representatives elections in California (districts 27–52): 1383235975
     2026 United States House of Representatives elections in Colorado: 1382934300
     2026 United States House of Representatives elections in Connecticut: 1382470623
-    2026 United States House of Representatives elections in Florida: 1383317783
+    2026 United States House of Representatives elections in Florida: 1383323881
     2026 United States House of Representatives elections in Georgia: 1383071588
     2026 United States House of Representatives elections in Hawaii: 1381768843
     2026 United States House of Representatives elections in Idaho: 1382490588
@@ -111,25 +111,25 @@ sources:
     2026 United States House of Representatives elections in Washington: 1383008130
     2026 United States House of Representatives elections in West Virginia: 1382858408
     2026 United States House of Representatives elections in Wisconsin: 1382935814
-    2026 United States Senate election in Alabama: 1383206771
-    2026 United States Senate election in Alaska: 1383320276
-    2026 United States Senate election in Arkansas: 1383207582
-    2026 United States Senate election in Colorado: 1383270787
-    2026 United States Senate election in Delaware: 1383208566
-    2026 United States Senate election in Georgia: 1383209295
-    2026 United States Senate election in Idaho: 1383209517
-    2026 United States Senate election in Illinois: 1383209614
-    2026 United States Senate election in Iowa: 1383313023
-    2026 United States Senate election in Kansas: 1383317593
-    2026 United States Senate election in Kentucky: 1383238103
-    2026 United States Senate election in Louisiana: 1383210923
-    2026 United States Senate election in Maine: 1383317098
+    2026 United States Senate election in Alabama: 1383324365
+    2026 United States Senate election in Alaska: 1383324428
+    2026 United States Senate election in Arkansas: 1383324481
+    2026 United States Senate election in Colorado: 1383324529
+    2026 United States Senate election in Delaware: 1383324572
+    2026 United States Senate election in Georgia: 1383324704
+    2026 United States Senate election in Idaho: 1383324782
+    2026 United States Senate election in Illinois: 1383324854
+    2026 United States Senate election in Iowa: 1383324903
+    2026 United States Senate election in Kansas: 1383324962
+    2026 United States Senate election in Kentucky: 1383325029
+    2026 United States Senate election in Louisiana: 1383325099
+    2026 United States Senate election in Maine: 1383325169
     2026 United States Senate election in Massachusetts: 1383211162
-    2026 United States Senate election in Michigan: 1383320352
+    2026 United States Senate election in Michigan: 1383323203
     2026 United States Senate election in Minnesota: 1383316208
     2026 United States Senate election in Mississippi: 1383251446
     2026 United States Senate election in Montana: 1383215042
-    2026 United States Senate election in Nebraska: 1383297902
+    2026 United States Senate election in Nebraska: 1383322650
     2026 United States Senate election in New Hampshire: 1383251556
     2026 United States Senate election in New Jersey: 1383215577
     2026 United States Senate election in New Mexico: 1383215693
@@ -144,18 +144,18 @@ sources:
     2026 United States Senate election in Virginia: 1383216623
     2026 United States Senate election in West Virginia: 1383216712
     2026 United States Senate election in Wyoming: 1383216800
-    2026 United States Senate elections: 1383235527
-    2026 United States Senate special election in Florida: 1383318882
-    2026 United States Senate special election in Ohio: 1383318263
+    2026 United States Senate elections: 1383323795
+    2026 United States Senate special election in Florida: 1383324634
+    2026 United States Senate special election in Ohio: 1383320895
     2026 United States gubernatorial elections: 1383315541
-    2026 Vermont gubernatorial election: 1382650552
-    2026 Wisconsin gubernatorial election: 1382860705
-    2026 Wyoming gubernatorial election: 1382903554
+    2026 Vermont gubernatorial election: 1383320773
+    2026 Wisconsin gubernatorial election: 1383320840
+    2026 Wyoming gubernatorial election: 1383320983
     Template:2026 United States elections/polling: 1383110234
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-02T02:39:27Z'
+      fetched: '2026-11-02T03:09:32Z'
       sha256: d00e654b157cc8110c983b385b109884f289f4d2f18876f643e48aad4a9fc842
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-02T02:39:34Z'
+      fetched: '2026-11-02T03:09:39Z'
       sha256: cf0bdc0e3918a728fb7e527516828b33a615d3d480b2400244fcbe3f8f2ab47f
   votehub_supplement:
     basis: api

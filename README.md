@@ -26,7 +26,7 @@ an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
 | | Democrats win | Median D seats | 80% interval |
 |---|---:|---:|---:|
 | House (218 for control) | **94.8%** | 237 | 222–250 |
-| Senate (51; VP breaks ties) | **76.1%** | 52 | 49–55 |
+| Senate (51; VP breaks ties) | **76.4%** | 53 | 49–55 |
 | Governorships (26 of 50) | 80.0% | 28 | 24–31 |
 
 House tipping points: PA-07, CO-08, WA-03. Senate: Ohio (special), Texas, Kansas.
@@ -38,7 +38,7 @@ House tipping points: PA-07, CO-08, WA-03. Senate: Ohio (special), Texas, Kansas
 | | |
 |---|---:|
 | Races modeled (435 House, 35 Senate, 36 governor) | **506** |
-| General-election head-to-head polls, in 178 races (31 of them from VoteHub) | **1,719** |
+| General-election head-to-head polls, in 178 races (31 of them from VoteHub) | **1,720** |
 | Generic-ballot polls (Dec 2024 – latest) | **724** |
 | Handicapper ratings (Cook, Sabato, Inside Elections and more) | **2,708** |
 | Nominees matched to FEC filings | **871 / 906** |
