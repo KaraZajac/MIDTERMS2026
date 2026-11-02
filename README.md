@@ -38,7 +38,7 @@ House tipping points: PA-07, NC-11, CO-08. Senate: Ohio (special), Texas, Kansas
 | | |
 |---|---:|
 | Races modeled (435 House, 35 Senate, 36 governor) | **506** |
-| General-election head-to-head polls, in 179 races (41 of them from VoteHub) | **1,761** |
+| General-election head-to-head polls, in 179 races (39 of them from VoteHub) | **1,761** |
 | Generic-ballot polls (Dec 2024 – latest) | **725** |
 | Handicapper ratings (Cook, Sabato, Inside Elections and more) | **2,708** |
 | Nominees matched to FEC filings | **871 / 906** |

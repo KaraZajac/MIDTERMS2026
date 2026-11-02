@@ -2099,7 +2099,7 @@ senate:KS,CBS News,CBS News,Lean R,-1.0,2026-10-30
 senate:KS,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
 senate:KS,DDHQ,Decision Desk HQ,Tossup,0.0,2026-11-01
 senate:KS,The Economist,The Economist,Tossup,0.0,2026-11-01
-senate:KS,FiftyPlusOne,FiftyPlusOne,Tossup,0.0,2026-11-01
+senate:KS,FiftyPlusOne,FiftyPlusOne,Lean D (flip),1.0,2026-11-02
 senate:KS,Fox News,Fox News,Tossup,0.0,2026-11-01
 senate:KS,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
 senate:KS,MS NOW,MS NOW,Lean R,-1.0,2026-10-29
@@ -2216,7 +2216,7 @@ senate:NE,Fox News,Fox News,Lean R,-1.0,2026-11-01
 senate:NE,Inside Elections,Inside Elections,Tilt R,-0.5,2026-10-29
 senate:NE,MS NOW,MS NOW,Likely R,-2.0,2026-10-29
 senate:NE,NBC News,NBC News,Lean R,-1.0,2026-11-01
-senate:NE,RCP,RealClearPolitics,Lean R,-1.0,2026-10-31
+senate:NE,RCP,RealClearPolitics,Tossup,0.0,2026-11-02
 senate:NE,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-29
 senate:NE,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-11-01
 senate:NE,Split Ticket,Split Ticket,Lean R,-1.0,2026-11-01
