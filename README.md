@@ -21,13 +21,13 @@ an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
 (shift the national environment, call races, watch control move).
 
 <!-- forecast:start -->
-**Forecast as of 2026-11-02** (deluxe version, 50,000 simulations) · generic ballot D+9.0 (two-party)
+**Forecast as of 2026-11-02** (deluxe version, 50,000 simulations) · generic ballot D+8.9 (two-party)
 
 | | Democrats win | Median D seats | 80% interval |
 |---|---:|---:|---:|
-| House (218 for control) | **94.8%** | 237 | 222–250 |
-| Senate (51; VP breaks ties) | **76.4%** | 53 | 49–55 |
-| Governorships (26 of 50) | 80.0% | 28 | 24–31 |
+| House (218 for control) | **94.6%** | 236 | 221–250 |
+| Senate (51; VP breaks ties) | **75.9%** | 52 | 49–55 |
+| Governorships (26 of 50) | 79.8% | 28 | 24–31 |
 
 House tipping points: PA-07, CO-08, WA-03. Senate: Ohio (special), Texas, Kansas.
 <!-- forecast:end -->
@@ -38,8 +38,8 @@ House tipping points: PA-07, CO-08, WA-03. Senate: Ohio (special), Texas, Kansas
 | | |
 |---|---:|
 | Races modeled (435 House, 35 Senate, 36 governor) | **506** |
-| General-election head-to-head polls, in 178 races (31 of them from VoteHub) | **1,720** |
-| Generic-ballot polls (Dec 2024 – latest) | **724** |
+| General-election head-to-head polls, in 178 races (34 of them from VoteHub) | **1,724** |
+| Generic-ballot polls (Dec 2024 – latest) | **725** |
 | Handicapper ratings (Cook, Sabato, Inside Elections and more) | **2,708** |
 | Nominees matched to FEC filings | **871 / 906** |
 | Contested House districts in the fundamentals backtest (2018 + 2022) | **739** |
