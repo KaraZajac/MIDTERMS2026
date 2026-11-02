@@ -48,7 +48,7 @@ senate:MT,Silver Bulletin,2026-10-23,2026-10-30,32.6,41.0
 senate:NE,270toWin,2026-10-29,2026-11-01,43.8,46.6
 senate:NE,Decision Desk HQ,2026-10-29,2026-11-01,46.2,47.4
 senate:NE,FiftyPlusOne,2026-10-29,2026-11-01,46.2,47.7
-senate:NE,Silver Bulletin,2026-10-29,2026-11-01,46.2,47.2
+senate:NE,Silver Bulletin,2026-10-29,2026-11-02,46.4,47.3
 senate:NH,270toWin,2026-10-20,2026-10-22,49.7,42.8
 senate:NH,Decision Desk HQ,2026-10-20,2026-10-22,51.1,43.8
 senate:NH,FiftyPlusOne,2026-10-20,2026-10-22,50.0,43.1
@@ -128,9 +128,11 @@ governor:MI,Decision Desk HQ,2026-11-01,2026-11-02,51.4,42.5
 governor:MI,FiftyPlusOne,2026-11-01,2026-11-02,51.6,42.2
 governor:MI,RealClearPolitics,2026-11-01,2026-11-01,51.4,42.6
 governor:MI,Silver Bulletin,2026-11-01,2026-11-02,51.8,42.4
-governor:MN,270toWin,2026-10-26,2026-10-28,50.5,39.8
-governor:MN,RealClearPolitics,2026-10-26,2026-10-28,50.5,39.8
-governor:MN,Silver Bulletin,2026-10-26,2026-10-28,51.9,40.0
+governor:MN,270toWin,2026-11-01,2026-11-02,52.4,41.0
+governor:MN,Decision Desk HQ,2026-11-01,2026-11-02,52.7,40.3
+governor:MN,FiftyPlusOne,2026-11-01,2026-11-02,52.3,40.6
+governor:MN,RealClearPolitics,2026-10-28,2026-10-30,51.3,39.3
+governor:MN,Silver Bulletin,2026-11-01,2026-11-02,52.4,40.2
 governor:NE,270toWin,2026-10-29,2026-11-01,41.0,47.4
 governor:NE,Decision Desk HQ,2026-10-29,2026-11-01,42.3,47.7
 governor:NE,FiftyPlusOne,2026-10-29,2026-11-01,42.1,48.2
