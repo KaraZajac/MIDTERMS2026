@@ -1838,7 +1838,7 @@ house:UT-04,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-08-20
 house:VA-01,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-01
 house:VA-01,Cook,The Cook Political Report,Tossup,0.0,2026-10-23
 house:VA-01,Inside Elections,Inside Elections,Tilt R,-0.5,2026-10-29
-house:VA-01,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-09-29
+house:VA-01,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:VA-02,DDHQ,Decision Desk HQ,Likely D (flip),2.0,2026-09-08
 house:VA-02,Cook,The Cook Political Report,Lean D (flip),1.0,2026-10-23
 house:VA-02,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
@@ -1854,7 +1854,7 @@ house:VA-04,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-04-21
 house:VA-05,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-20
 house:VA-05,Cook,The Cook Political Report,Likely R,-2.0,2026-09-25
 house:VA-05,Inside Elections,Inside Elections,Lean R,-1.0,2026-10-29
-house:VA-05,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
+house:VA-05,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:VA-06,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:VA-06,Cook,The Cook Political Report,Solid R,-3.0,2026-05-08
 house:VA-06,Inside Elections,Inside Elections,Solid R,-3.0,2026-05-08
