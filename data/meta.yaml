@@ -1,8 +1,8 @@
-generated: '2026-11-02T10:39:59Z'
+generated: '2026-11-02T11:10:19Z'
 generator: python3 -m midterms build
 asof: '2026-11-02'
 election_day: '2026-11-03'
-sources_digest: 146747c790e7356b
+sources_digest: 6df5b465eef9151c
 counts:
   house_races: 435
   senate_races: 35
@@ -46,11 +46,11 @@ sources:
     2026 Michigan gubernatorial election: 1383336335
     2026 Minnesota gubernatorial election: 1383336095
     2026 Nebraska gubernatorial election: 1383373716
-    2026 Nevada gubernatorial election: 1383319177
+    2026 Nevada gubernatorial election: 1383379482
     2026 New Hampshire gubernatorial election: 1383330972
     2026 New Mexico gubernatorial election: 1383319274
     2026 New York gubernatorial election: 1383335467
-    2026 Ohio gubernatorial election: 1383341856
+    2026 Ohio gubernatorial election: 1383377886
     2026 Oklahoma gubernatorial election: 1383319757
     2026 Oregon gubernatorial election: 1383319812
     2026 Pennsylvania gubernatorial election: 1383335425
@@ -125,7 +125,7 @@ sources:
     2026 United States Senate election in Louisiana: 1383326645
     2026 United States Senate election in Maine: 1383335717
     2026 United States Senate election in Massachusetts: 1383331964
-    2026 United States Senate election in Michigan: 1383358984
+    2026 United States Senate election in Michigan: 1383379052
     2026 United States Senate election in Minnesota: 1383336130
     2026 United States Senate election in Mississippi: 1383357497
     2026 United States Senate election in Montana: 1383325639
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-02T10:39:35Z'
+      fetched: '2026-11-02T11:09:36Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-02T10:39:42Z'
+      fetched: '2026-11-02T11:09:43Z'
       sha256: fd716705a44a772abe975eb3994d9ebe5dc705d2ca4d03f2e56ffb191c9012b5
   votehub_supplement:
     basis: api
