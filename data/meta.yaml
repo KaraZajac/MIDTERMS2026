@@ -1,8 +1,8 @@
-generated: '2026-11-02T06:10:12Z'
+generated: '2026-11-02T06:40:02Z'
 generator: python3 -m midterms build
 asof: '2026-11-02'
 election_day: '2026-11-03'
-sources_digest: 181c2ae604ef2626
+sources_digest: 23d6165ba3d70069
 counts:
   house_races: 435
   senate_races: 35
@@ -147,7 +147,7 @@ sources:
     2026 United States Senate elections: 1383343195
     2026 United States Senate special election in Florida: 1383334286
     2026 United States Senate special election in Ohio: 1383337028
-    2026 United States gubernatorial elections: 1383328787
+    2026 United States gubernatorial elections: 1383347849
     2026 Vermont gubernatorial election: 1383334255
     2026 Wisconsin gubernatorial election: 1383335243
     2026 Wyoming gubernatorial election: 1383320983
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-02T06:09:28Z'
+      fetched: '2026-11-02T06:39:30Z'
       sha256: d00e654b157cc8110c983b385b109884f289f4d2f18876f643e48aad4a9fc842
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-02T06:09:35Z'
+      fetched: '2026-11-02T06:39:37Z'
       sha256: fd716705a44a772abe975eb3994d9ebe5dc705d2ca4d03f2e56ffb191c9012b5
   votehub_supplement:
     basis: api
