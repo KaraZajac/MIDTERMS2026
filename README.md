@@ -21,7 +21,7 @@ an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
 (shift the national environment, call races, watch control move).
 
 <!-- forecast:start -->
-**Forecast as of 2026-11-01** (deluxe version, 50,000 simulations) · generic ballot D+9.1 (two-party)
+**Forecast as of 2026-11-02** (deluxe version, 50,000 simulations) · generic ballot D+9.1 (two-party)
 
 | | Democrats win | Median D seats | 80% interval |
 |---|---:|---:|---:|
