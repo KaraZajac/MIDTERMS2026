@@ -2431,16 +2431,16 @@ governor:AK,Cook,The Cook Political Report,Lean D (flip),1.0,2026-10-29
 governor:AK,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-11-01
 governor:AK,Fox News,Fox News,Tossup,0.0,2026-11-01
 governor:AK,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
-governor:AK,RCP,RealClearPolitics,Lean D (flip),1.0,2026-11-01
-governor:AK,NBC News,NBC News,Lean D (flip),1.0,2026-10-30
+governor:AK,NBC News,NBC News,Lean D (flip),1.0,2026-11-01
+governor:AK,RCP,RealClearPolitics,Lean D (flip),1.0,2026-10-30
 governor:AK,Sabato,Sabato's Crystal Ball,Likely D (flip),2.0,2026-11-02
-governor:AK,Silver Bulletin,Silver Bulletin,Solid D (flip),3.0,2026-11-01
+governor:AK,Silver Bulletin,Silver Bulletin,Likely D (flip),2.0,2026-11-02
 governor:AZ,Cook,The Cook Political Report,Likely D,2.0,2026-10-29
 governor:AZ,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-01
 governor:AZ,Fox News,Fox News,Lean D,1.0,2026-11-01
 governor:AZ,Inside Elections,Inside Elections,Tilt D,0.5,2026-10-29
+governor:AZ,NBC News,NBC News,Likely D,2.0,2026-11-02
 governor:AZ,RCP,RealClearPolitics,Lean D,1.0,2026-11-01
-governor:AZ,NBC News,NBC News,Lean D,1.0,2026-10-30
 governor:AZ,Sabato,Sabato's Crystal Ball,Likely D,2.0,2026-10-27
 governor:AZ,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-01
 governor:AR,Cook,The Cook Political Report,Solid R,-3.0,2026-10-29
@@ -2690,7 +2690,7 @@ governor:VT,Inside Elections,Inside Elections,Likely R,-2.0,2026-10-29
 governor:VT,NBC News,NBC News,Likely R,-2.0,2026-11-01
 governor:VT,RCP,RealClearPolitics,Tossup,0.0,2026-11-01
 governor:VT,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-27
-governor:VT,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-11-01
+governor:VT,Silver Bulletin,Silver Bulletin,Tossup,0.0,2026-11-02
 governor:WI,Cook,The Cook Political Report,Lean D,1.0,2026-10-29
 governor:WI,DDHQ,Decision Desk HQ,Lean D,1.0,2026-11-01
 governor:WI,Fox News,Fox News,Tossup,0.0,2026-11-01
