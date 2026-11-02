@@ -1,8 +1,8 @@
-generated: '2026-11-02T22:39:47Z'
+generated: '2026-11-02T23:10:08Z'
 generator: python3 -m midterms build
 asof: '2026-11-02'
 election_day: '2026-11-03'
-sources_digest: effe9db641956d27
+sources_digest: d56f3e90f162bc47
 counts:
   house_races: 435
   senate_races: 35
@@ -10,9 +10,9 @@ counts:
   fixed:
     house:D: 16
     house:R: 1
-  race_polls: 1785
+  race_polls: 1797
   votehub_polls: 39
-  generic_polls: 725
+  generic_polls: 727
   fabricated_polls_excluded:
     wikipedia: 0
     votehub: 11
@@ -31,13 +31,13 @@ sources:
     2026 Arizona gubernatorial election: 1383477657
     2026 Arkansas gubernatorial election: 1383316468
     2026 California gubernatorial election: 1383455161
-    2026 Colorado gubernatorial election: 1383440439
+    2026 Colorado gubernatorial election: 1383484216
     2026 Connecticut gubernatorial election: 1383475097
-    2026 Florida gubernatorial election: 1383316733
-    2026 Georgia gubernatorial election: 1383459703
+    2026 Florida gubernatorial election: 1383484211
+    2026 Georgia gubernatorial election: 1383484198
     2026 Hawaii gubernatorial election: 1383317657
     2026 Idaho gubernatorial election: 1383317818
-    2026 Illinois gubernatorial election: 1383317871
+    2026 Illinois gubernatorial election: 1383484192
     2026 Iowa gubernatorial election: 1383373909
     2026 Kansas gubernatorial election: 1383473945
     2026 Maine gubernatorial election: 1383429490
@@ -48,7 +48,7 @@ sources:
     2026 Nebraska gubernatorial election: 1383471005
     2026 Nevada gubernatorial election: 1383431629
     2026 New Hampshire gubernatorial election: 1383481022
-    2026 New Mexico gubernatorial election: 1383319274
+    2026 New Mexico gubernatorial election: 1383484178
     2026 New York gubernatorial election: 1383478312
     2026 Ohio gubernatorial election: 1383454752
     2026 Oklahoma gubernatorial election: 1383319757
@@ -58,7 +58,7 @@ sources:
     2026 South Carolina gubernatorial election: 1383320100
     2026 South Dakota gubernatorial election: 1383320151
     2026 Tennessee gubernatorial election: 1383425772
-    2026 Texas gubernatorial election: 1383427190
+    2026 Texas gubernatorial election: 1383484167
     2026 United States House of Representatives election in Alaska: 1383402619
     2026 United States House of Representatives election in Delaware: 1383069669
     2026 United States House of Representatives election in North Dakota: 1382592840
@@ -71,7 +71,7 @@ sources:
     2026 United States House of Representatives elections in Arkansas: 1383342040
     2026 United States House of Representatives elections in California (districts 1–26): 1383469381
     2026 United States House of Representatives elections in California (districts 27–52): 1383235975
-    2026 United States House of Representatives elections in Colorado: 1383446839
+    2026 United States House of Representatives elections in Colorado: 1383485183
     2026 United States House of Representatives elections in Connecticut: 1382470623
     2026 United States House of Representatives elections in Florida: 1383437207
     2026 United States House of Representatives elections in Georgia: 1383380539
@@ -114,11 +114,11 @@ sources:
     2026 United States Senate election in Alabama: 1383324365
     2026 United States Senate election in Alaska: 1383472499
     2026 United States Senate election in Arkansas: 1383324481
-    2026 United States Senate election in Colorado: 1383440430
+    2026 United States Senate election in Colorado: 1383484213
     2026 United States Senate election in Delaware: 1383324572
-    2026 United States Senate election in Georgia: 1383459837
+    2026 United States Senate election in Georgia: 1383484202
     2026 United States Senate election in Idaho: 1383324782
-    2026 United States Senate election in Illinois: 1383324854
+    2026 United States Senate election in Illinois: 1383484188
     2026 United States Senate election in Iowa: 1383464948
     2026 United States Senate election in Kansas: 1383474214
     2026 United States Senate election in Kentucky: 1383333481
@@ -132,7 +132,7 @@ sources:
     2026 United States Senate election in Nebraska: 1383470265
     2026 United States Senate election in New Hampshire: 1383456859
     2026 United States Senate election in New Jersey: 1383325842
-    2026 United States Senate election in New Mexico: 1383325917
+    2026 United States Senate election in New Mexico: 1383484182
     2026 United States Senate election in North Carolina: 1383454134
     2026 United States Senate election in Oklahoma: 1383326096
     2026 United States Senate election in Oregon: 1383326154
@@ -140,22 +140,22 @@ sources:
     2026 United States Senate election in South Carolina: 1383423512
     2026 United States Senate election in South Dakota: 1383326312
     2026 United States Senate election in Tennessee: 1383326354
-    2026 United States Senate election in Texas: 1383476180
+    2026 United States Senate election in Texas: 1383484179
     2026 United States Senate election in Virginia: 1383326455
     2026 United States Senate election in West Virginia: 1383326503
     2026 United States Senate election in Wyoming: 1383326535
-    2026 United States Senate elections: 1383478713
-    2026 United States Senate special election in Florida: 1383334286
+    2026 United States Senate elections: 1383484260
+    2026 United States Senate special election in Florida: 1383484207
     2026 United States Senate special election in Ohio: 1383454261
     2026 United States gubernatorial elections: 1383465495
     2026 Vermont gubernatorial election: 1383479965
     2026 Wisconsin gubernatorial election: 1383335243
     2026 Wyoming gubernatorial election: 1383387798
-    Template:2026 United States elections/polling: 1383326103
+    Template:2026 United States elections/polling: 1383484428
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-02T22:39:23Z'
+      fetched: '2026-11-02T23:09:35Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-02T22:39:30Z'
+      fetched: '2026-11-02T23:09:43Z'
       sha256: 3bf616852e4f6885098d5eb080f0e957853757c55a19d3a4c30cea8c2ea41736
   votehub_supplement:
     basis: api
