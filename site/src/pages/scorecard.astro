@@ -23,7 +23,7 @@ const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1)
     <p class="eyebrow">Scorecard</p>
     <h1>{sc ? "How the forecast did" : "How the forecast will be graded"}</h1>
     <p class="lede">
-      The forecast is frozen when the polls open, at {fmtStamp(s.deadline)}. Git timestamps the frozen snapshot, so nothing made later can
+      The forecast is frozen before the polls open ({fmtStamp(s.deadline)}). Git timestamps the frozen snapshot, so nothing made later can
       sneak into the record. After the polls close, each race is scored against its result.
     </p>
   </section>
