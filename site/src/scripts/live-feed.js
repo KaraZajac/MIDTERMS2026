@@ -7,7 +7,7 @@
 // down. New calls get a short highlight, and if the reader has scrolled the
 // list, it keeps their place as calls arrive above them.
 import { pct } from "../lib/format.js";
-import { h, ID, clock, tag, raceLink, winnerName, gainText, schedule, closeClock } from "./live-util.js";
+import { h, ID, clock, tag, raceLink, winnerName, gainText, schedule, closeClock, now } from "./live-util.js";
 
 const CH = { house: "House", senate: "Senate", governor: "Governor" };
 const FILTERS = [
@@ -101,17 +101,18 @@ function row(c, data, N, fresh) {
   );
 }
 
+// "No calls yet. The first polls close at 6 p.m. ET." (then "the next", from the schedule)
 function empty(filter, data) {
-  const first = schedule(data)[0]?.t;
   const label = FILTERS.find(([k]) => k === filter)?.[1];
-  const text =
-    filter === "flips"
-      ? "No seat has changed hands yet."
-      : filter !== "all"
-        ? `No ${filter === "governor" ? "governor" : label} calls yet.`
-        : data.status === "awaiting" && first
-          ? `No races called yet. The first polls close at ${closeClock(first)} ET.`
-          : "No races called yet.";
+  let text;
+  if (filter === "flips") text = "No seat has changed hands yet.";
+  else if (filter !== "all") text = `No ${filter === "governor" ? "governor" : label} calls yet.`;
+  else {
+    const t = now(), sch = schedule(data);
+    const next = sch.find((s) => Date.parse(s.t) > t);
+    const closed = sch.some((s) => Date.parse(s.t) <= t);
+    text = next ? `No calls yet. The ${closed ? "next" : "first"} polls close at ${closeClock(next.t)} ET.` : "No calls yet.";
+  }
   return h("li", { class: "fe-empty" }, text);
 }
 
