@@ -6,14 +6,15 @@
 import { pct, margin, STATES } from "../lib/format.js";
 import {
   h, ID, tag, clock, reporting, raceLink, sideName, sideLabel, winnerName, winnerParty, partyKey,
-  gainText, decided, windowOf, closingText, stateOf, expectations, n,
+  gainText, decided, windowOf, closingText, stateOf, expectations, n, SEGS, segOf, wonSeg, segLabel,
 } from "./live-util.js";
 
 const VIEWS = { senate: "Senate", governor: "Governors", house: "House" };
 const SHOWS = ["all", "called", "counting", "awaiting", "flips", "upsets"];
 const has = (o, k) => typeof k === "string" && Object.hasOwn(o, k);
 
-const ui = { chamber: "senate", show: "all", q: "" };
+// seg: one segment of a seat bar ("d1": Lean Democratic), picked on the bar.
+const ui = { chamber: "senate", show: "all", q: "", seg: "" };
 let wired = null;
 let args = null;
 
@@ -22,12 +23,14 @@ function readURL() {
   if (has(VIEWS, p.get("chamber"))) ui.chamber = p.get("chamber");
   if (SHOWS.includes(p.get("show"))) ui.show = p.get("show");
   ui.q = (p.get("q") ?? "").slice(0, 60);
+  ui.seg = SEGS.includes(p.get("seg")) ? p.get("seg") : "";
 }
 function writeURL() {
   const p = new URLSearchParams();
   if (ui.chamber !== "senate") p.set("chamber", ui.chamber);
   if (ui.show !== "all") p.set("show", ui.show);
   if (ui.q.trim()) p.set("q", ui.q.trim());
+  if (ui.seg) p.set("seg", ui.seg);
   const qs = p.toString();
   history.replaceState(history.state, "", `${location.pathname}${qs ? `?${qs}` : ""}${location.hash}`);
 }
@@ -49,7 +52,12 @@ function wire(box) {
   box.addEventListener("click", (e) => {
     const v = e.target.closest?.("button[data-view]");
     if (v && box.contains(v) && has(VIEWS, v.dataset.view)) {
+      if (ui.chamber !== v.dataset.view) ui.seg = "";
       ui.chamber = v.dataset.view;
+      return changed(box);
+    }
+    if (e.target.closest?.("[data-seg-clear]") && box.contains(e.target)) {
+      ui.seg = "";
       return changed(box);
     }
     const s = e.target.closest?.("button[data-show]");
@@ -70,6 +78,15 @@ function wire(box) {
       }, 150);
     });
   }
+  // A seat bar's segment was picked: list those races here.
+  document.addEventListener("midterms:board", (e) => {
+    const { chamber, seg } = e.detail ?? {};
+    if (!has(VIEWS, chamber) || !SEGS.includes(seg)) return;
+    Object.assign(ui, { chamber, seg, show: "all", q: "" });
+    if (q) q.value = "";
+    changed(box);
+    box.scrollIntoView({ block: "start" });
+  });
   paintControls(box);
 }
 
@@ -172,7 +189,7 @@ function row(id, r, data, N) {
   const nm = N?.[id];
   return h(
     "li",
-    { class: cls.join(" ") },
+    { class: cls.join(" "), "data-anchor": id },
     h(
       "div",
       { class: "brow-race" },
@@ -205,9 +222,19 @@ function draw(box, data, N) {
   const out = box.querySelector("[data-board-list]");
   if (!out) return;
   const match = matcher(ui.q, N);
+  const usePre = data.chambers?.[ui.chamber]?.live?.reliable === false;
+  const inSeg = (id, r) => !ui.seg || (decided(r) ? wonSeg(id, r, N) : segOf(id, r, N, usePre)) === ui.seg;
   const all = Object.entries(data.races ?? {}).filter(
-    ([id, r]) => ID.test(id) && id.startsWith(`${ui.chamber}:`) && r && typeof r === "object" && match(id),
+    ([id, r]) => ID.test(id) && id.startsWith(`${ui.chamber}:`) && r && typeof r === "object" && match(id) && inSeg(id, r),
   );
+  const pill = box.querySelector("[data-board-seg]");
+  if (pill) {
+    pill.hidden = !ui.seg;
+    if (ui.seg) {
+      const runoffs = all.filter(([, r]) => r.status === "runoff").length;
+      pill.querySelector("[data-board-seg-name]").textContent = `${segLabel(ui.seg, runoffs)} (${all.length} race${all.length === 1 ? "" : "s"})`;
+    }
+  }
   const g = Object.fromEntries(GROUPS.map(([k]) => [k, []]));
   for (const e of all) (g[e[1].status] ?? g.awaiting).push(e);
   g.counting.sort(byClose);
@@ -228,7 +255,7 @@ function draw(box, data, N) {
   let body;
   if (ui.show === "all") {
     const parts = GROUPS.filter(([k]) => g[k].length).map(([k, title, note]) =>
-      h("section", { class: "bgroup" }, h("h3", {}, `${title} `, h("span", { class: "bgroup-n" }, String(g[k].length))), note ? h("p", { class: "live-small" }, note) : null, list(g[k])),
+      h("section", { class: "bgroup" }, h("h3", { "data-anchor": `group:${k}` }, `${title} `, h("span", { class: "bgroup-n" }, String(g[k].length))), note ? h("p", { class: "live-small" }, note) : null, list(g[k])),
     );
     body = parts.length ? parts : [h("p", { class: "board-empty" }, EMPTY.all)];
   } else {

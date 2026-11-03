@@ -31,7 +31,7 @@ const SHOWS = [
     <p class="small muted">The page updates itself, so there's no need to reload. Until then, the <a href={url("/house/")}>House</a>, <a href={url("/senate/")}>Senate</a> and <a href={url("/governor/")}>governor</a> pages have the forecasts.</p>
   </div>
   <div class="board-main" data-board-main hidden>
-    <div class="board-controls">
+    <div class="board-controls" data-anchor="board-controls">
       <div class="seg" role="group" aria-label="Chamber">
         {VIEWS.map(([k, label], i) => <button type="button" data-view={k} aria-pressed={i === 0 ? "true" : "false"}>{label}</button>)}
       </div>
@@ -47,7 +47,11 @@ const SHOWS = [
         <input type="search" data-board-q placeholder="Find a state, district or candidate" autocomplete="off" spellcheck="false" maxlength="60" />
       </label>
     </div>
-    <div class="board-maps">
+    <p class="board-seg" data-board-seg hidden>
+      Showing <strong data-board-seg-name></strong>
+      <button type="button" class="btn" data-seg-clear>Show every race</button>
+    </p>
+    <div class="board-maps" data-anchor="board-maps">
       <div data-map-for="senate"><TileMap chamber="senate" /></div>
       <div data-map-for="governor" hidden><TileMap chamber="governor" /></div>
       <div data-map-for="house" hidden><SeatStrip /></div>

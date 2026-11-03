@@ -1,8 +1,8 @@
 ---
-// Election night: the chambers so far, then every race. Both parts are filled
-// by scripts/live.js from /live.json and /live-build.json.
+// Election night: the seat bars and the feed of calls, then every race. Both
+// parts are filled by scripts/live.js from /live.json and /live-build.json.
 import Base from "../layouts/Base.astro";
-import LiveChambers from "../components/LiveChambers.astro";
+import ResultsHero from "../components/ResultsHero.astro";
 import ResultsBoard from "../components/ResultsBoard.astro";
 ---
 
@@ -20,7 +20,7 @@ import ResultsBoard from "../components/ResultsBoard.astro";
     <p><a class="btn" href="#board">Every race ↓</a></p>
   </section>
 
-  <LiveChambers chambers={["house", "senate", "governor"]} ticker={false} boardLink={false} />
+  <ResultsHero />
 
   <ResultsBoard />
 </Base>

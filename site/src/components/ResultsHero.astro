@@ -1,0 +1,13 @@
+---
+// The top of /results/ on election night: a seat bar for the House and one for
+// the Senate (a smaller one for governors), each with its chamber's chance of
+// control, and the feed of calls beside them. Empty and hidden until a live
+// file exists; scripts/live-hero.js fills it and keeps it current.
+import { meta } from "../lib/data.js";
+---
+
+<section class="live results-hero" data-live="hero" data-from={meta().deadline} hidden></section>
+
+<script>
+  import "../scripts/live.js";
+</script>

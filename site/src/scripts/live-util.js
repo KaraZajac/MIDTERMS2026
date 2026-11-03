@@ -4,12 +4,13 @@
 // Everything in live.json is third-party text. It only ever enters the page as
 // text nodes or setAttribute values, never as HTML, and links are built from
 // race ids that match ID, never from URLs in the data.
-import { url, PARTY_SHORT, STATES } from "../lib/format.js";
+import { url, bucket, PARTY_SHORT, STATES } from "../lib/format.js";
 
 export const ID = /^(house|senate|governor):[A-Za-z0-9-]+$/;
 export const TITLE = { house: "House", senate: "Senate", governor: "Governorships" };
 export const NOUN = { house: "seats", senate: "seats", governor: "governorships" };
 export const CIVICAPI = "https://civicapi.org";
+export const BOARD = url("/results/");
 const ABBR = { D: "Dem.", R: "Rep.", IND: "Ind.", I: "Ind." };
 export const PLURAL = { D: "Democrats", R: "Republicans", IND: "Independents", I: "Independents" };
 
@@ -231,4 +232,134 @@ export function stale(data) {
   const t = now();
   const limit = (t < MINUTELY ? 12 : 5) * 60000;
   return t - Date.parse(data.generated) > limit;
+}
+
+// --- what each chamber still needs, and what changed hands ----------------------
+
+/** "For a majority: Democrats need 71 more, Republicans 40." from the seats won or held so far. */
+export function majorityLine(key, c) {
+  const b = c.bloc;
+  if (!b || typeof b !== "object" || !n(c.majority)) return null;
+  // The Senate: 51 for Democrats; 50 for Republicans, with Vance's tie-breaking vote.
+  const need = { D: n(c.majority), R: key === "senate" ? n(c.majority) - 1 : n(c.majority) };
+  const left = (p) => Math.max(0, need[p] - n(b[p]));
+  const what = key === "governor" ? "governorships" : "seats";
+  const reached = (p) =>
+    key === "senate" && p === "R"
+      ? `Republicans have reached 50 seats: control, with Vice President Vance's tie-breaking vote.`
+      : key === "senate"
+        ? `Democrats have reached 51 seats: control.`
+        : `${PLURAL[p]} have reached ${need[p]} ${what}, a majority.`;
+  if (!left("D")) return h("p", { class: "live-need" }, reached("D"));
+  if (!left("R")) return h("p", { class: "live-need" }, reached("R"));
+  return h(
+    "p",
+    { class: "live-need" },
+    `For ${key === "senate" ? "control" : "a majority"}: Democrats need `,
+    h("strong", {}, `${left("D")} more`),
+    key === "senate" ? " (51)" : "",
+    ", Republicans ",
+    h("strong", {}, `${left("R")} more`),
+    key === "senate" ? " (50 + Vance)" : "",
+    ".",
+  );
+}
+
+/** "Changed hands: Republicans +5, Democrats +2 · net Rep. +3" */
+export function changedLine(key, c) {
+  const g = c.gains;
+  if (!g || typeof g !== "object") return null;
+  const gained = Object.entries(g).filter(([, x]) => n(x) > 0).sort((a, b) => n(b[1]) - n(a[1]) || a[0].localeCompare(b[0]));
+  const href = `${BOARD}?chamber=${key}&show=flips`;
+  if (!gained.length) return n(sum(c.called)) ? h("p", { class: "live-small" }, "No seats have changed hands yet.") : null;
+  const lost = c.losses && typeof c.losses === "object" ? c.losses : {};
+  const net = (p) => n(g[p]) - n(lost[p]);
+  const nd = net("D"), nr = net("R");
+  const netText = gained.length > 1 ? (nd > 0 ? `net ${abbr("D")} +${nd}` : nr > 0 ? `net ${abbr("R")} +${nr}` : nd === 0 && nr === 0 ? "no net change" : "") : "";
+  return h(
+    "p",
+    { class: "live-changed" },
+    h("span", { class: "live-changed-k" }, "Changed hands"),
+    gained.map(([p, x], i) => [i ? ", " : "", `${PLURAL[p] ?? p} +${fmtInt(x)}`]),
+    netText ? ` · ${netText}` : "",
+    " ",
+    h("a", { href }, "see them"),
+  );
+}
+
+// --- the seat bars (live-seats.js) and the board's segment filter -----------------
+
+/** Seat-bar segments, left to right: Democrats' seats won or held (dw); races
+ *  not yet called that lean their way, Solid, Likely, Lean (d3, d2, d1); seats
+ *  won by independents and others (ow) and races they're favored in (o), in the
+ *  middle because the model counts them as uncommitted; toss-ups and runoffs
+ *  (tu); then the Republican mirror (r1, r2, r3, rw). */
+export const SEGS = ["dw", "d3", "d2", "d1", "ow", "o", "tu", "r1", "r2", "r3", "rw"];
+const STRENGTH = { 3: "Solid", 2: "Likely", 1: "Lean" };
+
+/** "Lean Republican", "Toss-up or runoff", "Democrats: won or held" */
+export function segLabel(seg, runoffs = 0) {
+  if (seg === "dw") return "Democrats: won or held";
+  if (seg === "rw") return "Republicans: won or held";
+  if (seg === "ow") return "Others: won or held";
+  if (seg === "o") return "Others favored";
+  if (seg === "tu") return runoffs ? "Toss-up or runoff" : "Toss-up";
+  const m = /^([dr])([123])$/.exec(seg);
+  return m ? `${STRENGTH[m[2]]} ${m[1] === "d" ? "Democratic" : "Republican"}` : "";
+}
+
+const prob = (x) => (typeof x === "number" && Number.isFinite(x) ? x : null);
+
+/** Where a race not yet decided sits on the bar. By P(D-side wins) given the
+ *  calls so far (or before results, when too few simulations fit the calls),
+ *  bucketed with format.js bucket(), the forecast maps' thresholds; the
+ *  favored side's party comes from the race index, and anything but D or R is
+ *  "o". Runoffs are grey. */
+export function segOf(id, r, N, usePre = false) {
+  if (r?.status === "runoff") return "tu";
+  const p = usePre ? (prob(r?.p_pre) ?? prob(r?.p_live)) : (prob(r?.p_live) ?? prob(r?.p_pre));
+  if (p == null) return "tu";
+  const fav = p >= 0.5 ? "D" : "R";
+  const b = bucket(fav === "D" ? p : 1 - p);
+  if (!b) return "tu";
+  const party = fav === "D" ? (N?.[id]?.[3] ?? "D") : (N?.[id]?.[5] ?? "R");
+  return party === "D" ? `d${b}` : party === "R" ? `r${b}` : "o";
+}
+/** The won segment a decided race belongs to. */
+export function wonSeg(id, r, N) {
+  const p = winnerParty(r, N, id);
+  return p === "D" ? "dw" : p === "R" ? "rw" : "ow";
+}
+
+/** Independents folded into a party's seats: King and Sanders, not up this
+ *  year, caucus with Democrats. bloc = not_up + fixed + called, under the caucus rule. */
+export function caucusing(c, p) {
+  return Math.max(0, n(c?.bloc?.[p]) - n(c?.not_up?.[p]) - n(c?.fixed?.[p]) - n(c?.called?.[p]));
+}
+
+/** One chamber's bar: seats per segment and the races behind each. */
+export function seatBuckets(key, data, N) {
+  const c = data?.chambers?.[key];
+  if (!c || typeof c !== "object") return null;
+  const usePre = c.live?.reliable === false;
+  const count = Object.fromEntries(SEGS.map((s) => [s, 0]));
+  const races = Object.fromEntries(SEGS.map((s) => [s, []]));
+  const b = c.bloc ?? {};
+  count.dw = n(b.D);
+  count.rw = n(b.R);
+  count.ow = n(b.other);
+  let runoffs = 0;
+  for (const [id, r] of Object.entries(data.races ?? {})) {
+    if (!ID.test(id) || !id.startsWith(`${key}:`) || !r || typeof r !== "object") continue;
+    if (decided(r)) {
+      races[wonSeg(id, r, N)].push(id);
+      continue;
+    }
+    const s = segOf(id, r, N, usePre);
+    count[s] += 1;
+    races[s].push(id);
+    if (r.status === "runoff") runoffs += 1;
+  }
+  const filled = SEGS.reduce((a, s) => a + count[s], 0);
+  return { key, c, count, races, total: filled || n(c.seats), usePre, runoffs };
 }

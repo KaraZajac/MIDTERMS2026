@@ -14,10 +14,12 @@
 // optional here: without them the page shows what it can.
 import { pct, pct1, margin, url } from "../lib/format.js";
 import {
-  h, ID, TITLE, NOUN, PLURAL, clock, stamp, n, sum, fmtInt, reporting, tag, credit, expectations,
-  raceLink, winnerName, gainText, abbr, setSkew, schedule, closeClock, nextClosing, closedCount, stale,
+  h, ID, TITLE, NOUN, BOARD, clock, stamp, n, sum, fmtInt, reporting, tag, credit, expectations,
+  raceLink, winnerName, gainText, setSkew, schedule, closeClock, nextClosing, closedCount, stale,
+  majorityLine, changedLine,
 } from "./live-util.js";
 import { renderBoard } from "./live-board.js";
+import { renderHero } from "./live-hero.js";
 import { paintMaps } from "./live-maps.js";
 
 const SOURCES = [url("/live.json"), url("/live-build.json")];
@@ -25,7 +27,6 @@ const SOURCES = [url("/live.json"), url("/live-build.json")];
 const LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
 const EVERY = 30 * 1000;
 const FIRST = 8; // calls listed before "earlier calls"
-const BOARD = url("/results/");
 
 // --- data --------------------------------------------------------------------
 
@@ -84,57 +85,6 @@ function oddsBar(segs, label) {
 }
 // The likelier party's chance is the big figure; the other is set smaller.
 const fig = (p, other) => h("div", { class: n(p) < n(other) ? "hero-fig lesser" : "hero-fig" }, pct1(p).replace("%", ""), h("span", { class: "unit" }, "%"));
-
-/** "For a majority: Democrats need 71 more, Republicans 40." from the seats won or held so far. */
-function majorityLine(key, c) {
-  const b = c.bloc;
-  if (!b || typeof b !== "object" || !n(c.majority)) return null;
-  // The Senate: 51 for Democrats; 50 for Republicans, with Vance's tie-breaking vote.
-  const need = { D: n(c.majority), R: key === "senate" ? n(c.majority) - 1 : n(c.majority) };
-  const left = (p) => Math.max(0, need[p] - n(b[p]));
-  const what = key === "governor" ? "governorships" : "seats";
-  const reached = (p) =>
-    key === "senate" && p === "R"
-      ? `Republicans have reached 50 seats: control, with Vice President Vance's tie-breaking vote.`
-      : key === "senate"
-        ? `Democrats have reached 51 seats: control.`
-        : `${PLURAL[p]} have reached ${need[p]} ${what}, a majority.`;
-  if (!left("D")) return h("p", { class: "live-need" }, reached("D"));
-  if (!left("R")) return h("p", { class: "live-need" }, reached("R"));
-  return h(
-    "p",
-    { class: "live-need" },
-    `For ${key === "senate" ? "control" : "a majority"}: Democrats need `,
-    h("strong", {}, `${left("D")} more`),
-    key === "senate" ? " (51)" : "",
-    ", Republicans ",
-    h("strong", {}, `${left("R")} more`),
-    key === "senate" ? " (50 + Vance)" : "",
-    ".",
-  );
-}
-
-/** "Changed hands: Republicans +5, Democrats +2 · net Rep. +3" */
-function changedLine(key, c) {
-  const g = c.gains;
-  if (!g || typeof g !== "object") return null;
-  const gained = Object.entries(g).filter(([, x]) => n(x) > 0).sort((a, b) => n(b[1]) - n(a[1]) || a[0].localeCompare(b[0]));
-  const href = `${BOARD}?chamber=${key}&show=flips`;
-  if (!gained.length) return n(sum(c.called)) ? h("p", { class: "live-small" }, "No seats have changed hands yet.") : null;
-  const lost = c.losses && typeof c.losses === "object" ? c.losses : {};
-  const net = (p) => n(g[p]) - n(lost[p]);
-  const nd = net("D"), nr = net("R");
-  const netText = gained.length > 1 ? (nd > 0 ? `net ${abbr("D")} +${nd}` : nr > 0 ? `net ${abbr("R")} +${nr}` : nd === 0 && nr === 0 ? "no net change" : "") : "";
-  return h(
-    "p",
-    { class: "live-changed" },
-    h("span", { class: "live-changed-k" }, "Changed hands"),
-    gained.map(([p, x], i) => [i ? ", " : "", `${PLURAL[p] ?? p} +${fmtInt(x)}`]),
-    netText ? ` · ${netText}` : "",
-    " ",
-    h("a", { href }, "see them"),
-  );
-}
 
 function seatBar(key, c) {
   const b = c.bloc ?? {};
@@ -435,6 +385,7 @@ const due = () => LOCAL || !Number.isFinite(FROM) || Date.now() >= FROM;
 
 function render(box, data, N) {
   if (box.dataset.live === "board") return renderBoard(box, data, N);
+  if (box.dataset.live === "hero") return renderHero(box, data, N);
   let node = null;
   if (box.dataset.live === "race") node = raceBanner(box, data);
   else {
@@ -452,6 +403,31 @@ function render(box, data, N) {
   box.hidden = false;
 }
 
+// An update can change the height of something above what the reader is
+// looking at (a board row moving between groups, a line appearing under a
+// bar). Note the first marked element still on screen and where it is, and put
+// it back there afterwards. Browsers' own scroll anchoring does this only
+// sometimes, and not at all in Safari.
+function readingPlace() {
+  if (window.scrollY < 1) return null;
+  for (const el of document.querySelectorAll("[data-anchor]")) {
+    const r = el.getBoundingClientRect();
+    if (r.bottom > 0 && r.height > 0) return { key: el.dataset.anchor, top: r.top };
+  }
+  return null;
+}
+function keepPlace(place) {
+  if (!place) return;
+  const el = [...document.querySelectorAll("[data-anchor]")].find((x) => x.dataset.anchor === place.key);
+  if (!el) return;
+  const d = el.getBoundingClientRect().top - place.top;
+  if (Math.abs(d) < 1) return;
+  const html = document.documentElement, was = html.style.scrollBehavior;
+  html.style.scrollBehavior = "auto"; // the page scrolls smoothly; this must not
+  window.scrollBy(0, d);
+  html.style.scrollBehavior = was;
+}
+
 // Things that change with the clock rather than the file.
 function paintDelay() {
   const late = stale(current?.data);
@@ -467,8 +443,10 @@ function paintClock() {
   if (closed !== current.closed) {
     // A closing time has passed: "Polls close 8 p.m." rows now read "closed at".
     current.closed = closed;
-    boxes.filter((b) => b.dataset.live === "board").forEach((b) => render(b, current.data, current.N));
+    const place = readingPlace();
+    boxes.filter((b) => b.dataset.live === "board" || b.dataset.live === "hero").forEach((b) => render(b, current.data, current.N));
     paintMaps(current.data, current.N);
+    keepPlace(place);
   }
 }
 
@@ -476,10 +454,12 @@ async function tick() {
   if (document.hidden || !due()) return;
   const data = await latest();
   if (data && data.generated !== shown) {
-    const needNames = data.status !== "awaiting" || boxes.some((b) => b.dataset.live === "board");
+    const needNames = data.status !== "awaiting" || boxes.some((b) => b.dataset.live === "board" || b.dataset.live === "hero");
     const N = needNames ? await index() : null;
+    const place = readingPlace();
     boxes.forEach((b) => render(b, data, N));
     paintMaps(data, N);
+    keepPlace(place);
     current = { data, N, closed: closedCount(data) };
     if (!needNames || N) shown = data.generated; // retry next time if the names didn't load
     document.dispatchEvent(new Event("midterms:ages"));
