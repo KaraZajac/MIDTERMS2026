@@ -29,7 +29,7 @@ an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
 | Senate (51; VP breaks ties) | **76.3%** | 53 | 49–55 |
 | Governorships (26 of 50) | 82.2% | 28 | 24–31 |
 
-House tipping points: PA-07, PA-01, CO-08. Senate: Ohio (special), Texas, Kansas.
+House tipping points: CO-08, PA-07, PA-01. Senate: Ohio (special), Texas, Kansas.
 <!-- forecast:end -->
 
 ## What's here
@@ -38,7 +38,7 @@ House tipping points: PA-07, PA-01, CO-08. Senate: Ohio (special), Texas, Kansas
 | | |
 |---|---:|
 | Races modeled (435 House, 35 Senate, 36 governor) | **506** |
-| General-election head-to-head polls, in 179 races (38 of them from VoteHub) | **1,850** |
+| General-election head-to-head polls, in 179 races (37 of them from VoteHub) | **1,852** |
 | Generic-ballot polls (Dec 2024 – latest) | **736** |
 | Handicapper ratings (Cook, Sabato, Inside Elections and more) | **2,708** |
 | Nominees matched to FEC filings | **871 / 906** |

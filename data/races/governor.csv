@@ -1,9 +1,9 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
-governor:AL,governor,AL,Alabama,Kay Ivey,R,no,,Doug Jones,D,Tommy Tuberville,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 Alabama gubernatorial election@1383316201
-governor:AK,governor,AK,Alaska,Mike Dunleavy,R,no,,Jonathan Kreiss-Tomkins,D,Bernadette Wilson,R,Dave Bronson (R); Treg Taylor (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 Alaska gubernatorial election@1383514361
-governor:AZ,governor,AZ,Arizona,Katie Hobbs,D,yes,,Katie Hobbs,D,Andy Biggs,R,Risa Lombardo (G); Teri Ann Hourihan (NO LABELS),,-4.12,-5.59,0.31,state,,wikipedia:2026 Arizona gubernatorial election@1383477657
-governor:AR,governor,AR,Arkansas,Sarah Huckabee Sanders,R,yes,,Fredrick Love,D,Sarah Huckabee Sanders,R,Colt Shelby (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 Arkansas gubernatorial election@1383316468
-governor:CA,governor,CA,California,Gavin Newsom,D,no,,Xavier Becerra,D,Steve Hilton,R,,,23.05,20.8,29.82,state,,wikipedia:2026 California gubernatorial election@1383455161
+governor:AL,governor,AL,Alabama,Kay Ivey,R,no,,Doug Jones,D,Tommy Tuberville,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 Alabama gubernatorial election@1383527798
+governor:AK,governor,AK,Alaska,Mike Dunleavy,R,no,,Jonathan Kreiss-Tomkins,D,Bernadette Wilson,R,Dave Bronson (R); Treg Taylor (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 Alaska gubernatorial election@1383527857
+governor:AZ,governor,AZ,Arizona,Katie Hobbs,D,yes,,Katie Hobbs,D,Andy Biggs,R,Risa Lombardo (G); Teri Ann Hourihan (NO LABELS),,-4.12,-5.59,0.31,state,,wikipedia:2026 Arizona gubernatorial election@1383528088
+governor:AR,governor,AR,Arkansas,Sarah Huckabee Sanders,R,yes,,Fredrick Love,D,Sarah Huckabee Sanders,R,Colt Shelby (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 Arkansas gubernatorial election@1383528198
+governor:CA,governor,CA,California,Gavin Newsom,D,no,,Xavier Becerra,D,Steve Hilton,R,,,23.05,20.8,29.82,state,,wikipedia:2026 California gubernatorial election@1383528277
 governor:CO,governor,CO,Colorado,Jared Polis,D,no,,Phil Weiser,D,Victor Marx,R,Stephen T. Hamilton (AMERICAN CON); Greg Lopez (IND); Erik Mulder (L); Jeff Peckman (UNITY); Erik Underwood (APPROVAL VOT),,11.93,11.29,13.88,state,,wikipedia:2026 Colorado gubernatorial election@1383484216
 governor:CT,governor,CT,Connecticut,Ned Lamont,D,yes,,Ned Lamont,D,Ryan Fazio,R,,,16.14,14.76,20.34,state,,wikipedia:2026 Connecticut gubernatorial election@1383475097
 governor:FL,governor,FL,Florida,Ron DeSantis,R,no,,David Jolly,D,Byron Donalds,R,Scott Eckhard Jewett (L); Charles Burkett (IND); Frank J. Russo (IND); Moliere Dimanche (IND); Dean Ocean Abrams (IND); Jeffrey Peter Datto (IND),,-10.77,-13.22,-3.39,state,,wikipedia:2026 Florida gubernatorial election@1383484211
@@ -13,7 +13,7 @@ governor:ID,governor,ID,Idaho,Brad Little,R,yes,,Terri Pickens,D,Brad Little,R,J
 governor:IL,governor,IL,Illinois,JB Pritzker,D,yes,,JB Pritzker,D,Darren Bailey,R,Collin Corbett (IND),,12.67,11.14,17.32,state,,wikipedia:2026 Illinois gubernatorial election@1383484192
 governor:IA,governor,IA,Iowa,Kim Reynolds,R,no,,Rob Sand,D,Zach Lahn,R,,,-12.19,-13.45,-8.37,state,,wikipedia:2026 Iowa gubernatorial election@1383513184
 governor:KS,governor,KS,Kansas,Laura Kelly,D,no,,Cindy Holscher,D,Ty Masterson,R,,,-16.07,-16.41,-14.99,state,,wikipedia:2026 Kansas gubernatorial election@1383512802
-governor:ME,governor,ME,Maine,Janet Mills,D,no,,Hannah Pingree,D,Bobby Charles,R,Rick Bennett (IND),,7.64,7.09,9.34,state,,wikipedia:2026 Maine gubernatorial election@1383511495
+governor:ME,governor,ME,Maine,Janet Mills,D,no,,Hannah Pingree,D,Bobby Charles,R,Rick Bennett (IND),,7.64,7.09,9.34,state,,wikipedia:2026 Maine gubernatorial election@1383526797
 governor:MD,governor,MD,Maryland,Wes Moore,D,yes,,Wes Moore,D,Dan Cox,R,Cathy White (WORKING CLAS); Andy Ellis (G),,30.64,29.51,34.06,state,,wikipedia:2026 Maryland gubernatorial election@1383318137
 governor:MA,governor,MA,Massachusetts,Maura Healey,D,yes,,Maura Healey,D,Michael Minogue,R,Andrea C. James (IND),,27.98,25.91,34.23,state,,wikipedia:2026 Massachusetts gubernatorial election@1383516160
 governor:MI,governor,MI,Michigan,Gretchen Whitmer,D,no,,Jocelyn Benson,D,John James,R,Anthony Hudson (L); Donna Brandenburg (U.S. TAXPAYE); Douglas Campbell (G),,-0.39,-1.44,2.79,state,,wikipedia:2026 Michigan gubernatorial election@1383512419
@@ -28,7 +28,7 @@ governor:OK,governor,OK,Oklahoma,Kevin Stitt,R,no,,Cyndi Munson,D,Mike Mazzei,R,
 governor:OR,governor,OR,Oregon,Tina Kotek,D,yes,,Tina Kotek,D,Christine Drazan,R,Brett Smith (PACIFIC GREE),,15.29,14.87,16.61,state,,wikipedia:2026 Oregon gubernatorial election@1383512062
 governor:PA,governor,PA,Pennsylvania,Josh Shapiro,D,yes,,Josh Shapiro,D,Stacy Garrity,R,Ken Krawchuk (L),,-1.0,-1.73,1.2,state,,wikipedia:2026 Pennsylvania gubernatorial election@1383335425
 governor:RI,governor,RI,Rhode Island,Dan McKee,D,no,,Helena Buonanno Foulkes,D,Aaron C. Guckian,R,Kenneth Block (IND); Jasjit S. Gotra (IND); C.D. Reynolds (IND),,15.91,14.16,21.2,state,,wikipedia:2026 Rhode Island gubernatorial election@1383465953
-governor:SC,governor,SC,South Carolina,Henry McMaster,R,no,,Jermaine Johnson,D,Alan Wilson,R,Walid Hakim (G); Michael Addison (UNITED CITIZ),,-16.57,-18.12,-11.85,state,,wikipedia:2026 South Carolina gubernatorial election@1383502080
+governor:SC,governor,SC,South Carolina,Henry McMaster,R,no,,Jermaine Johnson,D,Alan Wilson,R,Walid Hakim (G); Michael Addison (UNITED CITIZ),,-16.57,-18.12,-11.85,state,,wikipedia:2026 South Carolina gubernatorial election@1383526765
 governor:SD,governor,SD,South Dakota,Larry Rhoden,R,yes,,Dan Ahlers,D,Larry Rhoden,R,,,-29.14,-29.89,-26.87,state,,wikipedia:2026 South Dakota gubernatorial election@1383320151
 governor:TN,governor,TN,Tennessee,Bill Lee,R,no,,Jerri Green,D,Marsha Blackburn,R,,,-28.51,-30.12,-23.66,state,,wikipedia:2026 Tennessee gubernatorial election@1383425772
 governor:TX,governor,TX,Texas,Greg Abbott,R,yes,,Gina Hinojosa,D,Greg Abbott,R,Pat Dixon (L),,-11.83,-13.88,-5.66,state,,wikipedia:2026 Texas gubernatorial election@1383510971
