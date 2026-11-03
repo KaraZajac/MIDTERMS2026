@@ -1,68 +1,39 @@
-// Election night: live results on the home, chamber and race pages.
+// Election night: live results on the home, chamber, race and results pages.
 //
 // Two copies of one file (contract: docs/site-data.md, "live.json (election
 // night)"): /live.json, which the server rewrites every minute from civicAPI
 // (midterms-live.service), and /live-build.json, the copy the refresh commits
 // to data/site/live.json, as of this build. While the page is visible it asks
-// for both every minute and shows whichever is newer, so if the server's job
-// stops, the committed copy takes over.
+// for both every 30 seconds and shows whichever is newer, so if the server's
+// job stops, the committed copy takes over.
 //
 // Everything in the file is third-party text. It only ever goes into the page
 // as text (never as HTML), and links are built from race ids that match the
-// id pattern, never from URLs in the data.
-import { pct, pct1, margin, url, PARTY_SHORT } from "../lib/format.js";
+// id pattern, never from URLs in the data. Fields added on election night
+// (held, party, flip, gains, losses, flips, polls_close, held_note) are all
+// optional here: without them the page shows what it can.
+import { pct, pct1, margin, url } from "../lib/format.js";
+import {
+  h, ID, TITLE, NOUN, PLURAL, clock, stamp, n, sum, fmtInt, reporting, tag, credit, expectations,
+  raceLink, winnerName, gainText, abbr, setSkew, schedule, closeClock, nextClosing, closedCount, stale,
+} from "./live-util.js";
+import { renderBoard } from "./live-board.js";
+import { paintMaps } from "./live-maps.js";
 
 const SOURCES = [url("/live.json"), url("/live-build.json")];
 // Simulated nights (tests/fixtures/live/, fixture: true) render only on a local preview.
 const LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
-const EVERY = 60 * 1000;
-const ID = /^(house|senate|governor):[A-Za-z0-9-]+$/;
-const TITLE = { house: "House", senate: "Senate", governor: "Governorships" };
-const NOUN = { house: "seats", senate: "seats", governor: "governorships" };
+const EVERY = 30 * 1000;
 const FIRST = 8; // calls listed before "earlier calls"
-const CIVICAPI = "https://civicapi.org";
-
-// h("p", {class: "x"}, "text", child, [more]): attribute values are mine or
-// numbers; children that are not nodes become text nodes.
-function h(tag, attrs, ...kids) {
-  const el = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs ?? {})) {
-    if (v != null && v !== false) el.setAttribute(k, v === true ? "" : String(v));
-  }
-  for (const k of kids.flat(Infinity)) {
-    if (k != null && k !== false && k !== "") el.append(k instanceof Node ? k : String(k));
-  }
-  return el;
-}
-
-function clock(iso) {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d
-    .toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" })
-    .replace("AM", "a.m.")
-    .replace("PM", "p.m.");
-}
-// Base.astro turns <time data-ago> into "2 min ago (9:31 p.m. ET)" and keeps it current.
-const stamp = (iso) => h("time", { datetime: iso, "data-ago": true }, `${clock(iso)} ET`);
-const n = (x) => (typeof x === "number" && Number.isFinite(x) ? x : 0);
-const sum = (o) => Object.values(o ?? {}).reduce((a, b) => a + n(b), 0);
-const fmtInt = (x) => Math.round(n(x)).toLocaleString("en-US");
-function reporting(x) {
-  if (typeof x !== "number") return null;
-  if (x >= 100) return "100%";
-  if (x > 99) return ">99%";
-  if (x > 0 && x < 1) return "<1%";
-  return `${Math.round(x)}%`;
-}
-const tag = (text, cls = "") => h("span", { class: `live-tag ${cls}`.trim() }, text);
-const credit = () => ["Results and race calls: ", h("a", { href: CIVICAPI }, "civicAPI"), " (civicapi.org)"];
+const BOARD = url("/results/");
 
 // --- data --------------------------------------------------------------------
 
 async function get(u) {
   try {
     const r = await fetch(u, { cache: "no-cache" });
+    const date = Date.parse(r.headers.get("Date") ?? "");
+    if (!Number.isNaN(date)) setSkew(date - Date.now());
     if (!r.ok) return null;
     const d = await r.json();
     const ok =
@@ -89,21 +60,11 @@ async function index() {
   return names;
 }
 
-// --- names and links ---------------------------------------------------------
+// --- shared pieces -----------------------------------------------------------
 
-// race id -> [title, short, D-side surname, party, R-side surname, party]
-function raceLink(N, id, which = 0) {
-  const row = N?.[id];
-  const label = row?.[which] ?? id.split(":")[1];
-  return row && ID.test(id) ? h("a", { href: url(`/${id.replace(":", "/").toLowerCase()}/`) }, label) : label;
-}
-function winnerName(N, id, side, race) {
-  const row = N?.[id];
-  if (side === "D" && row?.[2]) return `${row[2]} (${PARTY_SHORT[row[3]] ?? row[3]})`;
-  if (side === "R" && row?.[4]) return `${row[4]} (${PARTY_SHORT[row[5]] ?? row[5]})`;
-  if (race?.winner_name) return String(race.winner_name);
-  return "A candidate";
-}
+/** "Results feed delayed — last update 9:31 p.m. ET": kept current by paintDelay(). */
+const delayNote = () => h("p", { class: "live-delay", role: "status", "data-live-delay": true, hidden: true });
+const boardLink = (text) => h("a", { class: "btn primary live-board-link", href: BOARD }, text);
 
 // --- chambers (home and chamber pages) ---------------------------------------
 
@@ -123,6 +84,57 @@ function oddsBar(segs, label) {
 }
 // The likelier party's chance is the big figure; the other is set smaller.
 const fig = (p, other) => h("div", { class: n(p) < n(other) ? "hero-fig lesser" : "hero-fig" }, pct1(p).replace("%", ""), h("span", { class: "unit" }, "%"));
+
+/** "For a majority: Democrats need 71 more, Republicans 40." from the seats won or held so far. */
+function majorityLine(key, c) {
+  const b = c.bloc;
+  if (!b || typeof b !== "object" || !n(c.majority)) return null;
+  // The Senate: 51 for Democrats; 50 for Republicans, with Vance's tie-breaking vote.
+  const need = { D: n(c.majority), R: key === "senate" ? n(c.majority) - 1 : n(c.majority) };
+  const left = (p) => Math.max(0, need[p] - n(b[p]));
+  const what = key === "governor" ? "governorships" : "seats";
+  const reached = (p) =>
+    key === "senate" && p === "R"
+      ? `Republicans have reached 50 seats: control, with Vice President Vance's tie-breaking vote.`
+      : key === "senate"
+        ? `Democrats have reached 51 seats: control.`
+        : `${PLURAL[p]} have reached ${need[p]} ${what}, a majority.`;
+  if (!left("D")) return h("p", { class: "live-need" }, reached("D"));
+  if (!left("R")) return h("p", { class: "live-need" }, reached("R"));
+  return h(
+    "p",
+    { class: "live-need" },
+    `For ${key === "senate" ? "control" : "a majority"}: Democrats need `,
+    h("strong", {}, `${left("D")} more`),
+    key === "senate" ? " (51)" : "",
+    ", Republicans ",
+    h("strong", {}, `${left("R")} more`),
+    key === "senate" ? " (50 + Vance)" : "",
+    ".",
+  );
+}
+
+/** "Changed hands: Republicans +5, Democrats +2 · net Rep. +3" */
+function changedLine(key, c) {
+  const g = c.gains;
+  if (!g || typeof g !== "object") return null;
+  const gained = Object.entries(g).filter(([, x]) => n(x) > 0).sort((a, b) => n(b[1]) - n(a[1]) || a[0].localeCompare(b[0]));
+  const href = `${BOARD}?chamber=${key}&show=flips`;
+  if (!gained.length) return n(sum(c.called)) ? h("p", { class: "live-small" }, "No seats have changed hands yet.") : null;
+  const lost = c.losses && typeof c.losses === "object" ? c.losses : {};
+  const net = (p) => n(g[p]) - n(lost[p]);
+  const nd = net("D"), nr = net("R");
+  const netText = gained.length > 1 ? (nd > 0 ? `net ${abbr("D")} +${nd}` : nr > 0 ? `net ${abbr("R")} +${nr}` : nd === 0 && nr === 0 ? "no net change" : "") : "";
+  return h(
+    "p",
+    { class: "live-changed" },
+    h("span", { class: "live-changed-k" }, "Changed hands"),
+    gained.map(([p, x], i) => [i ? ", " : "", `${PLURAL[p] ?? p} +${fmtInt(x)}`]),
+    netText ? ` · ${netText}` : "",
+    " ",
+    h("a", { href }, "see them"),
+  );
+}
 
 function seatBar(key, c) {
   const b = c.bloc ?? {};
@@ -149,6 +161,8 @@ function seatBar(key, c) {
       h("span", {}, `${maj} for a majority`),
     ),
     incl.length ? h("p", { class: "live-small" }, `Won or held so far, including ${incl.join(" and ")}.`) : null,
+    majorityLine(key, c),
+    changedLine(key, c),
   ];
 }
 
@@ -210,14 +224,21 @@ function ticker(data, N, chambers) {
     const gone = e.type === "retracted";
     const lead = gone ? "Call withdrawn" : e.type === "changed" ? `Call changed: ${who} wins` : `${who} wins`;
     const after = e.after?.[ch];
+    const flip = e.flip === true && !gone;
     return h(
       "li",
-      { class: e.upset && !gone ? "is-upset" : null },
+      { class: [e.upset && !gone ? "is-upset" : "", flip ? "is-flip" : ""].filter(Boolean).join(" ") || null },
       h("time", { class: "live-t", datetime: e.t }, clock(e.t)),
       h(
         "div",
         {},
-        h("div", { class: "live-ev-race" }, raceLink(N, e.race, 0), e.upset && !gone ? tag("Upset", "upset") : null),
+        h(
+          "div",
+          { class: "live-ev-race" },
+          raceLink(N, e.race, 0),
+          flip ? tag(gainText(e.party, data.races[e.race]?.held), "gain") : null,
+          e.upset && !gone ? tag("Upset", "upset") : null,
+        ),
         h(
           "div",
           { class: "live-ev-what" },
@@ -233,17 +254,21 @@ function ticker(data, N, chambers) {
     "div",
     { class: "live-ticker" },
     h("h3", {}, chambers.length > 1 ? "Latest calls" : `Latest ${TITLE[chambers[0]]} calls`, h("span", { class: "live-small" }, " · Eastern time")),
+    expectations(),
     h("ol", { class: "live-events" }, first.map(row)),
     rest.length ? h("details", { class: "live-more" }, h("summary", {}, `${rest.length} earlier`), h("ol", { class: "live-events" }, rest.map(row))) : null,
+    h("p", { class: "live-small live-more-link" }, h("a", { href: BOARD }, "Every call, race by race, on the results board →")),
   );
 }
 
-function chambersView(data, N, chambers, withTicker) {
+function chambersView(box, data, N, chambers) {
   const c = data.counts ?? {};
   const contested = n(c.awaiting) + n(c.counting) + n(c.called) + n(c.runoff);
   const done = data.status === "complete";
   const fromWiki = Object.values(data.races).some((r) => r && r.called_by === "wikipedia");
   const f = data.forecast ?? {};
+  const withTicker = box.dataset.ticker === "1";
+  const withLink = box.dataset.boardLink !== "0";
   return h(
     "div",
     {},
@@ -252,7 +277,12 @@ function chambersView(data, N, chambers, withTicker) {
       { class: "live-head" },
       h("p", { class: "eyebrow live-eyebrow" }, h("span", { class: "live-dot", "aria-hidden": "true" }), done ? "Election results" : "Live · election night"),
       data.fixture ? h("p", { class: "live-fixture" }, "Simulated night: test data, not real results") : null,
-      h("h2", {}, done ? "The results" : "Results so far"),
+      h(
+        "div",
+        { class: "live-head-row" },
+        h("h2", {}, done ? "The results" : "Results so far"),
+        withLink ? boardLink(done ? "Every race →" : "Every race, live →") : null,
+      ),
       h(
         "p",
         { class: "live-status" },
@@ -263,6 +293,8 @@ function chambersView(data, N, chambers, withTicker) {
         stamp(data.generated),
         ".",
       ),
+      delayNote(),
+      done ? null : h("div", { "data-live-next": true }, nextClosing(data)),
     ),
     h("div", { class: "live-grid" }, chambers.map((k) => chamberCard(k, data.chambers[k], N))),
     withTicker ? ticker(data, N, chambers) : null,
@@ -279,12 +311,28 @@ function chambersView(data, N, chambers, withTicker) {
   );
 }
 
-function awaiting() {
+function awaiting(box, data) {
+  const sch = schedule(data);
+  const withLink = box.dataset.boardLink !== "0";
   return h(
     "div",
     { class: "card live-await" },
     h("p", { class: "eyebrow live-eyebrow" }, h("span", { class: "live-dot", "aria-hidden": "true" }), "Election night"),
-    h("p", {}, "Polls close from 6 p.m. ET. Results and race calls will appear here as they come in, and the page updates itself every minute."),
+    h("p", {}, "Polls close from 6 p.m. ET. Results and race calls will appear here as they come in, and the page updates itself every 30 seconds."),
+    delayNote(),
+    h("div", { "data-live-next": true }, nextClosing(data)),
+    sch.length
+      ? h(
+          "details",
+          { class: "live-sched" },
+          h("summary", {}, "When the polls close, state by state"),
+          h("ol", {}, sch.map((s) => h("li", {}, h("strong", {}, `${closeClock(s.t)} ET`), h("span", {}, s.text)))),
+          typeof data.polls_close?.source?.name === "string"
+            ? h("p", { class: "live-small" }, `Times from ${data.polls_close.source.name}`, typeof data.polls_close.source.note === "string" ? `: ${data.polls_close.source.note}` : "", ".")
+            : null,
+        )
+      : null,
+    withLink ? h("p", {}, boardLink("The results board →")) : null,
     h("p", { class: "live-small" }, credit(), "."),
   );
 }
@@ -308,6 +356,7 @@ function raceBanner(box, data) {
       h("strong", {}, `${who(r.winner)} wins`),
       r.called_at ? ` · called ${clock(r.called_at)} ET` : "",
       r.called_by === "wikipedia" ? " per Wikipedia's results" : "",
+      r.flip === true ? tag(gainText(r.party, r.held), "gain") : null,
       r.upset ? tag("Upset", "upset") : null,
     ];
   } else if (r.status === "runoff") {
@@ -365,11 +414,12 @@ function raceBanner(box, data) {
       h("span", { class: "live-asof" }, " · ", stamp(data.generated)),
     ),
     data.fixture ? h("p", { class: "live-fixture" }, "Simulated night: test data, not real results") : null,
+    delayNote(),
     h("p", { class: "live-race-status" }, status),
     rows.length ? h("div", { class: "live-votes" }, rows) : null,
     typeof r.margin === "number" ? h("p", { class: "live-small" }, `Two-party margin: ${margin(r.margin, side.D.label || "D", side.R.label || "R")}`) : null,
     chance ? h("p", { class: "live-chance" }, chance) : null,
-    h("p", { class: "live-small" }, credit(), r.called_by === "wikipedia" ? "; this call: Wikipedia's results table" : "", "."),
+    h("p", { class: "live-small" }, credit(), r.called_by === "wikipedia" ? "; this call: Wikipedia's results table" : "", ". ", h("a", { href: BOARD }, "All results →")),
   );
 }
 
@@ -377,38 +427,66 @@ function raceBanner(box, data) {
 
 const boxes = [...document.querySelectorAll("[data-live]")];
 let shown = "";
+let current = null; // {data, N, closed}: what the page shows now
 // No live file can exist before the forecast freezes (data-from = the deadline),
 // so until then there is nothing to ask for. A local preview always asks.
 const FROM = Math.min(...boxes.map((b) => Date.parse(b.dataset.from ?? "")).filter((t) => !Number.isNaN(t)));
 const due = () => LOCAL || !Number.isFinite(FROM) || Date.now() >= FROM;
 
 function render(box, data, N) {
+  if (box.dataset.live === "board") return renderBoard(box, data, N);
   let node = null;
   if (box.dataset.live === "race") node = raceBanner(box, data);
   else {
     const chambers = (box.dataset.chambers ?? "").split(",").filter((k) => k in TITLE && data.chambers[k]);
-    if (chambers.length) node = data.status === "awaiting" ? awaiting() : chambersView(data, N, chambers, box.dataset.ticker === "1");
+    if (chambers.length) node = data.status === "awaiting" ? awaiting(box, data) : chambersView(box, data, N, chambers);
   }
   if (!node) {
     box.hidden = true;
     box.replaceChildren();
     return;
   }
-  const open = box.querySelector(".live-more")?.open;
+  const open = [...box.querySelectorAll("details")].map((d) => d.open);
   box.replaceChildren(node);
-  if (open) box.querySelector(".live-more")?.setAttribute("open", "");
+  box.querySelectorAll("details").forEach((d, i) => open[i] && d.setAttribute("open", ""));
   box.hidden = false;
+}
+
+// Things that change with the clock rather than the file.
+function paintDelay() {
+  const late = stale(current?.data);
+  document.querySelectorAll("[data-live-delay]").forEach((el) => {
+    el.hidden = !late;
+    el.textContent = late ? `Results feed delayed — last update ${clock(current.data.generated)} ET` : "";
+  });
+}
+function paintClock() {
+  if (!current) return;
+  document.querySelectorAll("[data-live-next]").forEach((el) => el.replaceChildren(nextClosing(current.data) ?? ""));
+  const closed = closedCount(current.data);
+  if (closed !== current.closed) {
+    // A closing time has passed: "Polls close 8 p.m." rows now read "closed at".
+    current.closed = closed;
+    boxes.filter((b) => b.dataset.live === "board").forEach((b) => render(b, current.data, current.N));
+    paintMaps(current.data, current.N);
+  }
 }
 
 async function tick() {
   if (document.hidden || !due()) return;
   const data = await latest();
-  if (!data || data.generated === shown) return; // nothing yet, or nothing new: leave what's shown
-  const needNames = data.status !== "awaiting" && boxes.some((b) => b.dataset.live === "chambers");
-  const N = needNames ? await index() : null;
-  boxes.forEach((b) => render(b, data, N));
-  if (!needNames || N) shown = data.generated; // retry next minute if the names didn't load
-  document.dispatchEvent(new Event("midterms:ages"));
+  if (data && data.generated !== shown) {
+    const needNames = data.status !== "awaiting" || boxes.some((b) => b.dataset.live === "board");
+    const N = needNames ? await index() : null;
+    boxes.forEach((b) => render(b, data, N));
+    paintMaps(data, N);
+    current = { data, N, closed: closedCount(data) };
+    if (!needNames || N) shown = data.generated; // retry next time if the names didn't load
+    document.dispatchEvent(new Event("midterms:ages"));
+  } else {
+    paintClock();
+  }
+  paintDelay();
 }
 
 if (boxes.length) {

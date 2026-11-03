@@ -16,7 +16,7 @@ const rows = Math.max(...tiles.map((t) => t.row)) + 1;
 const office = chamber === "senate" ? "Senate" : "governor's";
 ---
 
-<figure class="tilemap-fig">
+<figure class="tilemap-fig" data-live-map>
   {
     VERSIONS.map((v) => (
       <div class={`tilemap v v-${v}`} style={`--cols:${cols};--rows:${rows}`}>
@@ -39,6 +39,7 @@ const office = chamber === "senate" ? "Senate" : "governor's";
               class={`tile ${rt.key}`}
               style={style}
               href={url(`/${r.slug}/`)}
+              data-res-id={r.id}
               tabindex="-1"
               data-tip-value={`${candShort(fav)} ${pct(pf)}`}
               data-tip-label={`${r.title}: ${candShort(r.d)} vs. ${candShort(r.r)} · ${rt.label}`}
@@ -51,7 +52,7 @@ const office = chamber === "senate" ? "Senate" : "governor's";
       </div>
     ))
   }
-  <ul class="legend">
+  <ul class="legend legend-forecast">
     <li><span class="key d" />Solid D</li>
     <li><span class="key" style="background:var(--d2)" />Likely D</li>
     <li><span class="key" style="background:var(--d1)" />Lean D</li>
@@ -61,7 +62,16 @@ const office = chamber === "senate" ? "Senate" : "governor's";
     <li><span class="key r" />Solid R</li>
     <li><span class="key i" />Independent</li>
   </ul>
-  <figcaption>Each square is a state; the number is the favorite's chance. {chamber === "senate" ? "* special election. " : ""}Grey squares have no {office} race this year. Solid ≥95%, Likely ≥75%, Lean ≥60%.</figcaption>
+  <ul class="legend legend-live">
+    <li><span class="key d" />Won by a Democrat</li>
+    <li><span class="key r" />Won by a Republican</li>
+    <li><span class="key i" />Won by an independent</li>
+    <li><span class="key res-u" />Not called yet</li>
+    <li><span class="key res-count" />Counting</li>
+    <li><span class="key res-flip" />Changed hands</li>
+  </ul>
+  <figcaption class="cap-live">Each square is a state, coloured by the winner once its race is called; outlined squares changed hands. Grey squares with no outline have no {office} race this year.</figcaption>
+  <figcaption class="cap-forecast">Each square is a state; the number is the favorite's chance. {chamber === "senate" ? "* special election. " : ""}Grey squares have no {office} race this year. Solid ≥95%, Likely ≥75%, Lean ≥60%.</figcaption>
 </figure>
 
 <style>

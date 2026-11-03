@@ -15,7 +15,7 @@ const sorted = (v: string) => [...house].sort((a, b) => pD(b, v) - pD(a, v) || a
 const order = sorted("deluxe");
 ---
 
-<figure class="strip-fig">
+<figure class="strip-fig" data-live-map>
   <div class="strip" id="seat-strip" aria-hidden="true">
     {
       order.map((r, i) => {
@@ -45,7 +45,7 @@ const order = sorted("deluxe");
       const pivot = s[MAJ - 1];
       const dFav = s.filter((r) => pD(r, v) >= 0.5).length;
       return (
-        <figcaption class={`v v-${v}`}>
+        <figcaption class={`v v-${v} cap-forecast`}>
           Democrats are favored in <strong>{dFav}</strong> seats. The 218th-most-Democratic seat, the one that decides the
           majority if every favorite wins, is <a href={url(`/${pivot.slug}/`)}>{pivot.label}</a>, where Democrats have{" "}
           {aPct(pD(pivot, v))} chance. It is outlined above.
@@ -53,6 +53,15 @@ const order = sorted("deluxe");
       );
     })
   }
+  <ul class="legend legend-live">
+    <li><span class="key d" />Won by a Democrat</li>
+    <li><span class="key r" />Won by a Republican</li>
+    <li><span class="key i" />Won by an independent</li>
+    <li><span class="key res-u" />Not called yet</li>
+    <li><span class="key res-count" />Counting</li>
+    <li><span class="key res-flip" />Changed hands</li>
+  </ul>
+  <figcaption class="cap-live">Each square is a district, in the forecast's order from the safest Democratic seat to the safest Republican one, coloured by the winner once it's called. Outlined squares changed hands.</figcaption>
 </figure>
 
 <script>

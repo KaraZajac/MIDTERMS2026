@@ -1,0 +1,61 @@
+---
+// /results/: every race on election night. The markup is the frame (the view
+// and filter buttons, the search box, the three maps); scripts/live-board.js
+// fills the list from live.json's `races` and keeps it current, and
+// scripts/live-maps.js colours the maps. Until a live file exists the frame
+// stays hidden and the card below says when it fills in.
+import TileMap from "./TileMap.astro";
+import SeatStrip from "./SeatStrip.astro";
+import { meta } from "../lib/data.js";
+import { url } from "../lib/format.js";
+
+const VIEWS = [
+  ["senate", "Senate"],
+  ["governor", "Governors"],
+  ["house", "House"],
+];
+const SHOWS = [
+  ["all", "All"],
+  ["called", "Called"],
+  ["counting", "Counting"],
+  ["awaiting", "Not yet"],
+  ["flips", "Changed hands"],
+  ["upsets", "Upsets"],
+];
+---
+
+<section class="section board" id="board" data-live="board" data-from={meta().deadline}>
+  <h2>Every race</h2>
+  <div class="card board-wait" data-board-wait>
+    <p><strong>This board fills in on Election Day.</strong> From the morning of November 3 it lists every House, Senate and governor race with the time its polls close; from 6 p.m. ET, as the first polls close, it adds the counts and the calls as they come in.</p>
+    <p class="small muted">The page updates itself, so there's no need to reload. Until then, the <a href={url("/house/")}>House</a>, <a href={url("/senate/")}>Senate</a> and <a href={url("/governor/")}>governor</a> pages have the forecasts.</p>
+  </div>
+  <div class="board-main" data-board-main hidden>
+    <div class="board-controls">
+      <div class="seg" role="group" aria-label="Chamber">
+        {VIEWS.map(([k, label], i) => <button type="button" data-view={k} aria-pressed={i === 0 ? "true" : "false"}>{label}</button>)}
+      </div>
+      <div class="seg" role="group" aria-label="Which races">
+        {SHOWS.map(([k, label], i) => (
+          <button type="button" data-show={k} aria-pressed={i === 0 ? "true" : "false"}>
+            {label}<span class="ct" data-ct={k} />
+          </button>
+        ))}
+      </div>
+      <label class="board-q">
+        <span class="sr-only">Find a state, district or candidate</span>
+        <input type="search" data-board-q placeholder="Find a state, district or candidate" autocomplete="off" spellcheck="false" maxlength="60" />
+      </label>
+    </div>
+    <div class="board-maps">
+      <div data-map-for="senate"><TileMap chamber="senate" /></div>
+      <div data-map-for="governor" hidden><TileMap chamber="governor" /></div>
+      <div data-map-for="house" hidden><SeatStrip /></div>
+    </div>
+    <div class="board-list" data-board-list></div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/live.js";
+</script>
