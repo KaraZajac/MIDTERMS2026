@@ -199,12 +199,25 @@ def check_live(g: Gate) -> None:
             g.check(isinstance(r.get(k), (int, float)) and 0 <= r[k] <= 1, f"live {rid}: {k}={r.get(k)}")
         if r.get("status") in ("called", "uncontested"):
             g.check(r.get("winner") in ("D", "R", "other"), f"live {rid}: winner {r.get('winner')!r}")
+        if r.get("flip"):
+            g.check(r.get("status") in ("called", "uncontested") and r.get("held")
+                    and r.get("party") not in (None, r.get("held")), f"live {rid}: flip without a change of party")
     for c in ("house", "senate", "governor"):
         ch = (doc.get("chambers") or {}).get(c)
         g.check(ch is not None, f"live.json lacks {c}")
         if ch:
             tot = sum(ch["live"]["p_control"].values())
             g.check(abs(tot - 1) < 1e-3, f"live {c}: p_control sums to {tot}")
+            if "flips" in ch:
+                n = len(ch["flips"])
+                g.check(sum(ch["gains"].values()) == n == sum(ch["losses"].values()),
+                        f"live {c}: {n} flips vs gains {ch['gains']} / losses {ch['losses']}")
+    pc = doc.get("polls_close")
+    if pc is not None:
+        states = pc.get("states") or {}
+        g.check(len(states) == 50, f"live.json polls_close has {len(states)} states")
+        g.check(all(v["first"] <= v["last"] for v in [*states.values(), *(pc.get("races") or {}).values()]),
+                "live.json polls_close: a first closing after the last")
 
 
 def main() -> int:

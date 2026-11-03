@@ -15,8 +15,8 @@
 #                           count is committed, and git-timestamped, in time)
 #   Nov 3 10:00–23:00       hourly: score (seals the forecast of record)
 #   from Nov 3 23:00        results: every 10 min overnight (live results
-#                           each run; Wikipedia + scoring every 30 min), then
-#                           every 30 min, then hourly; the chain ends Nov 10
+#                           and Wikipedia's results boxes + scoring each run),
+#                           then every 30 min, then hourly; the chain ends Nov 10
 #                           and the six-hourly cron keeps scoring (runoffs)
 #
 # Partisan lean is rebuilt from the committed data/lean/ tables (its raw

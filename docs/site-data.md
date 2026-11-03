@@ -203,6 +203,18 @@ the newer `generated`. Every string is plain text.
                               // the forecast conditioned: after the deadline, the
                               // forecast of record (of_record true)
   method,                     // one sentence for the page
+  held_note,                  // one sentence: what "changes hands" means (below)
+  polls_close: {              // when the polls close (curated/poll_closing.yaml)
+    source: {name, url, fetched, note},
+    states: {ST: {first, last, note?}},
+                              // UTC; first and last differ in states split across
+                              // time zones (and New Hampshire's towns), with a
+                              // one-line note; a statewide race is called only
+                              // after `last`
+    races: {race id: {first, last}}
+                              // districts that differ from their state's window
+                              // (FL-01, FL-02); every other race: its state's
+  },
   counts: {awaiting, counting, called, runoff, uncontested},
   chambers: {house|senate|governor: {
     seats, majority,
@@ -220,7 +232,10 @@ the newer `generated`. Every string is plain text.
                               // `reliable` is false (ess < 400) say so instead
                               // of showing a noisy number
     favorites: {called, won}, // called contested races the forecast favored
-    upsets: [race id]         // called against the forecast, biggest first
+    upsets: [race id],        // called against the forecast, biggest first
+    gains: {party: n},        // seats won from another party, by the winner's party
+    losses: {party: n},       // ... by the party that held them
+    flips: [race id]          // the seats that changed hands, newest call first
   }},
   races: {race id: {          // every race in races.json, same ids
     status,                   // awaiting | counting | called | runoff | uncontested
@@ -230,6 +245,9 @@ the newer `generated`. Every string is plain text.
     upset?,                   // the winner had under 50% in the forecast
     called_by?,               // "wikipedia" when only Wikipedia's results box
                               // has settled it (civicAPI otherwise)
+    held?,                    // the party holding the seat now ("D", "R", "IND")
+    party?,                   // the winner's party, when the winner is a nominee
+    flip?,                    // true: the seat changes hands (party != held)
     disputed?,                // civicAPI and Wikipedia call it differently:
                               // shown as counting, not used
     pct_reporting?, votes?: {D, R, other}, margin?,
@@ -239,7 +257,7 @@ the newer `generated`. Every string is plain text.
     p_live                    // P(D-side wins | calls so far); 1 or 0 once called
   }},
   events: [{t, race, type: "call"|"changed"|"retracted", winner,
-            p_winner_pre?, upset?, after: {house, senate, governor}}]
+            p_winner_pre?, upset?, party?, flip?, after: {house, senate, governor}}]
                               // newest first (120 kept); `after` is
                               // P(D control) once that call was in
 }
@@ -248,3 +266,14 @@ the newer `generated`. Every string is plain text.
 Before any contested race is called, `live` equals `pre` exactly. The
 counts are display only: the live probabilities use calls, never partial
 counts (method §10).
+
+Every call is in `races` (status, winner, called_at); `events` keeps only
+the newest 120, so a full list of calls is built from `races`.
+
+**Changing hands.** `held` is the party holding each seat now: House seats
+by district number from the Clerk of the House's member list (a vacant seat
+counts for its last member's party), Senate seats and governorships by
+incumbent (data/holders/). That is the convention AP and Wikipedia use for
+gains, so a redrawn district can change hands. `flip` marks a called (or
+uncontested) race whose winner's party differs; a winner who is neither
+nominee (`winner: "other"`) has no `party` and is never marked.

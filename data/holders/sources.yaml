@@ -1,0 +1,6 @@
+clerk:
+  url: https://clerk.house.gov/xml/lists/MemberData.xml
+  published: October 1, 2026
+  fetched: '2026-11-03T05:06:40Z'
+  sha256: 01833c6c646873b2247950e8ab9c7ecc2c57fd2bf019d1014bd64a58b496ed3d
+  note: House seats by district number; Senate and governors from data/races (incumbents)

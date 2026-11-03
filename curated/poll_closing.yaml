@@ -1,0 +1,72 @@
+# When the polls close on Election Day, Nov 3, 2026, in Eastern time (EST,
+# UTC-5): hours after midnight Nov 3, so 19.5 is 7:30 p.m. ET and 24 is
+# midnight. `first` is when the first polls in the state close and `last`
+# when the last do: a state split across time zones closes in two steps, and
+# New Hampshire's towns close at 7 or 8. Networks and decision desks call a
+# statewide race only after `last`. `races` lists districts whose polls all
+# close at a different time from the state's window.
+#
+# Exported in live.json (polls_close) as UTC timestamps for the site's
+# "polls close" lines and the night's schedule.
+
+source:
+  name: 270toWin, "Poll Closing Times"
+  url: https://www.270towin.com/poll-closing-times
+  fetched: "2026-11-03"
+  note: latest closing time in each state and time zone; individual polling places may close earlier
+
+states:
+  AL: {first: 20, last: 20}
+  AK: {first: 24, last: 25, note: "Midnight ET; 1 a.m. ET in the western Aleutians (Hawaii–Aleutian time)"}
+  AZ: {first: 21, last: 21}
+  AR: {first: 20.5, last: 20.5}
+  CA: {first: 23, last: 23}
+  CO: {first: 21, last: 21}
+  CT: {first: 20, last: 20}
+  DE: {first: 20, last: 20}
+  FL: {first: 19, last: 20, note: "7 p.m. ET; 8 p.m. ET in the western Panhandle (Central time), including the 1st and 2nd districts"}
+  GA: {first: 19, last: 19}
+  HI: {first: 24, last: 24}
+  ID: {first: 22, last: 23, note: "10 p.m. ET; 11 p.m. ET in the northern Panhandle (Pacific time)"}
+  IL: {first: 20, last: 20}
+  IN: {first: 18, last: 19, note: "6 p.m. ET; 7 p.m. ET in the northwest and southwest corners (Central time)"}
+  IA: {first: 21, last: 21}
+  KS: {first: 20, last: 21, note: "8 p.m. ET; 9 p.m. ET in the westernmost counties (Mountain time)"}
+  KY: {first: 18, last: 19, note: "6 p.m. ET; 7 p.m. ET in the western half (Central time)"}
+  LA: {first: 21, last: 21}
+  ME: {first: 20, last: 20}
+  MD: {first: 20, last: 20}
+  MA: {first: 20, last: 20}
+  MI: {first: 20, last: 21, note: "8 p.m. ET; 9 p.m. ET in four Upper Peninsula counties (Central time)"}
+  MN: {first: 21, last: 21}
+  MS: {first: 20, last: 20}
+  MO: {first: 20, last: 20}
+  MT: {first: 22, last: 22}
+  NE: {first: 21, last: 21}
+  NV: {first: 22, last: 22}
+  NH: {first: 19, last: 20, note: "7 p.m. ET in many towns, 8 p.m. ET in the rest"}
+  NJ: {first: 20, last: 20}
+  NM: {first: 21, last: 21}
+  NY: {first: 21, last: 21}
+  NC: {first: 19.5, last: 19.5}
+  ND: {first: 20, last: 21, note: "8 p.m. ET; 9 p.m. ET in the southwest (Mountain time)"}
+  OH: {first: 19.5, last: 19.5}
+  OK: {first: 20, last: 20}
+  OR: {first: 22, last: 23, note: "11 p.m. ET; 10 p.m. ET in most of Malheur County (Mountain time)"}
+  PA: {first: 20, last: 20}
+  RI: {first: 20, last: 20}
+  SC: {first: 19, last: 19}
+  SD: {first: 20, last: 21, note: "8 p.m. ET; 9 p.m. ET in the west (Mountain time)"}
+  TN: {first: 20, last: 20}
+  TX: {first: 20, last: 21, note: "8 p.m. ET; 9 p.m. ET in El Paso and Hudspeth counties (Mountain time)"}
+  UT: {first: 22, last: 22}
+  VT: {first: 19, last: 19}
+  VA: {first: 19, last: 19}
+  WA: {first: 23, last: 23}
+  WV: {first: 19.5, last: 19.5}
+  WI: {first: 21, last: 21}
+  WY: {first: 21, last: 21}
+
+races:
+  house:FL-01: {first: 20, last: 20}
+  house:FL-02: {first: 20, last: 20}

@@ -150,5 +150,70 @@ class TestSafetyNets(unittest.TestCase):
         self.assertEqual((out["house:PA-07"]["status"], out["house:PA-07"]["called_by"]), ("called", "wikipedia"))
 
 
+class TestSeatsAndClosings(unittest.TestCase):
+    """What a viewer watching the night needs beside the calls: which seats
+    changed hands, and when each state's polls close."""
+
+    def test_clerk_list(self):
+        from midterms.pipeline import holders
+        xml = """<MemberData publish-date="October 1, 2026"><members>
+          <member><statedistrict>AK00</statedistrict><member-info><official-name>Ann Bee</official-name>
+            <party>R</party></member-info></member>
+          <member><statedistrict>CA03</statedistrict><member-info><official-name>Cal Dee</official-name>
+            <party>I</party></member-info></member>
+          <member><statedistrict>TX23</statedistrict><member-info><official-name /><party /></member-info>
+            <predecessor-info><pred-official-name>Eve Eff</pred-official-name><pred-party>R</pred-party>
+            <pred-footnote>Vacancy due to the resignation of Eve Eff.</pred-footnote></predecessor-info></member>
+        </members></MemberData>"""
+        out, published = holders.from_clerk(xml)
+        self.assertEqual(published, "October 1, 2026")
+        self.assertEqual(out["house:AK-AL"]["held"], "R")                   # at-large: 00 -> AL
+        self.assertEqual(out["house:CA-03"]["held"], "IND")                 # the Clerk's I
+        self.assertEqual((out["house:TX-23"]["held"], out["house:TX-23"]["holder"]), ("R", "Eve Eff"))
+
+    def test_every_race_has_a_holder(self):
+        from midterms.paths import FORECAST
+        from midterms.pipeline import holders
+        held = holders.load()
+        fc = json.loads((FORECAST / "latest.json").read_text())
+        self.assertEqual(sorted(set(fc["races"]) - set(held)), [])
+        self.assertTrue(set(held.values()) <= {"D", "R", "IND"})
+
+    def test_flips(self):
+        from midterms.paths import FORECAST
+        from midterms.pipeline import livefeed as F
+        fc = json.loads((FORECAST / "latest.json").read_text())
+        res = {"senate:ME": {"status": "called", "winner": "D"},           # a pickup
+               "senate:GA": {"status": "called", "winner": "D"},           # a hold
+               "governor:AZ": {"status": "counting", "votes": {"D": 10, "R": 9, "other": 0},
+                               "pct_reporting": 3.0, "margin": 5.3}}
+        doc = F.assemble(fc, "latest.json", False, F.race_rows(), res, None, None, "2026-11-04T01:30:00Z",
+                         draws=2000, held={"senate:ME": "R", "senate:GA": "D", "governor:AZ": "D"})
+        me, ga, az = (doc["races"][k] for k in ("senate:ME", "senate:GA", "governor:AZ"))
+        self.assertEqual((me["held"], me["party"], me.get("flip")), ("R", "D", True))
+        self.assertEqual((ga["held"], ga["party"], ga.get("flip")), ("D", "D", None))
+        self.assertEqual((az["held"], az.get("party"), az.get("flip")), ("D", None, None))   # not called
+        s = doc["chambers"]["senate"]
+        self.assertEqual((s["gains"], s["losses"], s["flips"]), ({"D": 1}, {"R": 1}, ["senate:ME"]))
+        self.assertEqual(doc["chambers"]["governor"]["flips"], [])
+        ev = {e["race"]: e for e in doc["events"]}
+        self.assertTrue(ev["senate:ME"]["flip"])
+        self.assertFalse(ev["senate:GA"]["flip"])
+        self.assertIn("held_note", doc)
+
+    def test_poll_closings(self):
+        from midterms.pipeline import livefeed as F
+        pc = F.poll_closings()
+        self.assertEqual(len(pc["states"]), 50)
+        self.assertEqual(pc["states"]["IN"]["first"], "2026-11-03T23:00:00Z")   # 6 p.m. ET
+        self.assertEqual(pc["states"]["NC"]["last"], "2026-11-04T00:30:00Z")    # 7:30 p.m. ET
+        self.assertEqual(pc["states"]["AK"]["last"], "2026-11-04T06:00:00Z")    # 1 a.m. ET
+        self.assertEqual(pc["races"]["house:FL-01"], {"first": "2026-11-04T01:00:00Z",
+                                                      "last": "2026-11-04T01:00:00Z"})
+        for st, v in pc["states"].items():
+            self.assertLessEqual(v["first"], v["last"], st)
+            self.assertEqual("note" in v, v["first"] != v["last"], st)
+
+
 if __name__ == "__main__":
     unittest.main()

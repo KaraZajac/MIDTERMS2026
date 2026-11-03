@@ -7,6 +7,22 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-03 — election night for viewers: seats changing hands, poll closings (no model change)
+- `live.json` marks the seats that change hands: `held` (the party holding
+  each seat now), the winner's `party`, `flip`, and per chamber `gains`,
+  `losses` and the list of `flips`. House seats count by district number
+  from the Clerk of the House's member list (published Oct 1, 2026; a
+  vacant seat counts for its last member's party), as AP and Wikipedia
+  count gains; Senate seats and governorships by incumbent.
+  `data/holders/` pins the table.
+- `live.json` carries every state's poll closing times (`polls_close`,
+  from `curated/poll_closing.yaml`, after 270toWin's table): first and
+  last closing, with a note for states split across time zones. The
+  simulated nights in `tests/fixtures/live/` (regenerated) call races by
+  these times.
+- Overnight the refresh re-reads Wikipedia's results boxes, the
+  cross-check on civicAPI's calls, every 10 minutes instead of every 30.
+
 ### 2026-11-01 — election night: live results and the forecast given the calls (no model change)
 - `midterms live` fetches every race's count and call from civicAPI
   (civicapi.org; counts from secretaries of state, calls by its decision

@@ -13,8 +13,9 @@ entries are only a watchdog that restarts the chain if it ever breaks.
                                             before polls open
     score      Nov 3 10:00          60 min  pull, build, score (no results
                                             yet; seals the forecast of record)
-    results    Nov 3 23:00          10 min  live results and calls (civicAPI);
-                                            pull + build + score every 30 min
+    results    Nov 3 23:00          10 min  live results and calls (civicAPI),
+                                            and Wikipedia's results boxes (pull,
+                                            build, score): the cross-check
     counting   Nov 4 14:00          30 min  the same, slower
     late       Nov 6 00:00          60 min
     done       Nov 10 00:00         —       the chain stops; the six-hourly
@@ -49,7 +50,7 @@ PHASES = [
     (_t("2026-11-10T00:00:00Z"), "done", None, None),
 ]
 LIVE = {"results", "counting", "late"}      # civicAPI results are pulled every run
-FULL_EVERY = 30                             # ... and Wikipedia + scoring this often
+FULL_EVERY = 10                             # ... and Wikipedia + scoring this often
 
 
 def _row(now: dt.datetime):
@@ -84,7 +85,8 @@ def next_run(now: dt.datetime) -> dt.datetime | None:
 
 def full(now: dt.datetime) -> bool:
     """In the live phases: is this one of the runs that also re-pulls
-    Wikipedia and rescores (every 30 min), not only the live results?"""
+    Wikipedia and rescores (every FULL_EVERY minutes; at 10, every run), not
+    only the live results?"""
     if phase(now) not in LIVE:
         return True
     step, off = _row(now)[2], _row(now)[3]

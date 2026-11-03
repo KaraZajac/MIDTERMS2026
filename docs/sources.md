@@ -90,7 +90,25 @@ please either link to civicapi.org or list our name somewhere."* Used
 only on election night, by `midterms live` (method §10); never a model
 input, and not the scorecard's source of results.
 
-### 8. Backtest inputs (`midterms pull --only history`)
+### 8. Who holds each seat now, and when the polls close (election night)
+- **The Clerk of the House's member list** (`clerk.house.gov/xml/lists/MemberData.xml`,
+  published October 1, 2026; public domain): the party of the member now
+  holding each district, a vacant seat counting for its last member's party
+  (FL-20, TX-23). With the Senate and governor incumbents in `data/races/`,
+  it is the baseline for `held` and `flip` in live.json: a seat changes
+  hands when its winner's party differs, by district number as AP and
+  Wikipedia count gains. Pinned in `data/holders/` (file URL, publish date,
+  fetch time and sha256 in `sources.yaml`); rebuilt by
+  `python -m midterms.pipeline.holders`.
+- **Poll closing times**, `curated/poll_closing.yaml`: each state's first
+  and last closing in Eastern time, from 270toWin's table
+  (`270towin.com/poll-closing-times`, fetched Nov 3), with a one-line note
+  for the twelve states split across time zones (and New Hampshire's
+  towns), and the two Florida districts that close an hour after the rest
+  of the state. Facts, entered by hand; used only for the site's
+  "polls close" lines and the simulated nights in `tests/fixtures/live/`.
+
+### 9. Backtest inputs (`midterms pull --only history`)
 - Wikipedia's 2014–2024 Senate and governor race pages and the 2025 NJ/VA
   governorships (353 pages; fetched by `midterms backtest`, pinned by
   revision in `data/backtest_statewide.yaml`) — the same layout the 2026

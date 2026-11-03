@@ -33,9 +33,13 @@ import yaml
 
 from midterms.model import live as L
 from midterms.paths import CURATED, DATA, FORECAST, RACES, SITE
-from midterms.pipeline import civic
+from midterms.pipeline import civic, holders
 
 DEADLINE = "2026-11-03T10:00:00Z"
+MIDNIGHT_ET = dt.datetime(2026, 11, 3, 5, tzinfo=dt.timezone.utc)   # Nov 3, 00:00 EST (UTC-5)
+HELD_NOTE = ("A seat changes hands when its winner's party differs from the party holding it now: "
+             "House seats by district number (the Clerk of the House's member list; a vacant seat "
+             "counts for its last member's party), Senate seats and governorships by incumbent.")
 DRAWS = 40000            # ~7 s on one core; ±0.2 pts of simulation noise on control
 SEED = 20261103
 EVENTS_KEPT = 120
@@ -109,6 +113,18 @@ def _r(x, k=4):
     return None if x is None else round(float(x), k)
 
 
+def poll_closings() -> dict:
+    """curated/poll_closing.yaml for live.json: each state's first and last
+    poll closing (and districts that differ from their state) in UTC."""
+    doc = yaml.safe_load((CURATED / "poll_closing.yaml").read_text())
+    iso = lambda h: (MIDNIGHT_ET + dt.timedelta(hours=float(h))).strftime("%Y-%m-%dT%H:%M:%SZ")
+    span = lambda v: {"first": iso(v["first"]), "last": iso(v["last"]),
+                      **({"note": v["note"]} if v.get("note") else {})}
+    return {"source": doc["source"],
+            "states": {st: span(v) for st, v in doc["states"].items()},
+            "races": {rid: span(v) for rid, v in (doc.get("races") or {}).items()}}
+
+
 def reconcile(res: dict[str, dict], wiki: dict[str, str]) -> dict[str, dict]:
     """civicAPI's calls against Wikipedia's settled results: a race the two
     call differently is disputed (shown, not used); a race only Wikipedia
@@ -126,8 +142,10 @@ def reconcile(res: dict[str, dict], wiki: dict[str, str]) -> dict[str, dict]:
 
 def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str, dict],
              fetched: str | None, previous: dict | None, generated: str, *,
-             draws: int = DRAWS, fixture: bool = False, wiki: dict | None = None) -> dict:
+             draws: int = DRAWS, fixture: bool = False, wiki: dict | None = None,
+             held: dict[str, str] | None = None) -> dict:
     head = fc["headline"]
+    held = holders.load() if held is None else held
     res = reconcile(res, wiki or {})
     sim = _sim(fc, rows)
     eng = L.Engine(sim, version=head)
@@ -147,6 +165,12 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
     prev_races = (previous or {}).get("races", {})
     events = list((previous or {}).get("events", []))
     pre = fc["versions"][head]
+
+    def party(rid: str, w: str) -> str:
+        """The party code of a race's winning side ('other': not a nominee)."""
+        return (fc["races"][rid]["d_side"] if w == "D" else
+                (rows.get(rid, {}).get("r_side") or "R") if w == "R" else "other")
+
     races = {}
     for rid, m in fc["races"].items():
         r = res.get(rid, {})
@@ -168,6 +192,12 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
                 row["upset"] = p_w < 0.5
             if r.get("called_by"):
                 row["called_by"] = r["called_by"]
+        if held.get(rid):
+            row["held"] = held[rid]
+        if row.get("winner") in ("D", "R"):
+            row["party"] = party(rid, row["winner"])
+            if held.get(rid) and row["party"] != held[rid]:
+                row["flip"] = True                                  # the seat changes hands
         if r.get("disputed"):
             row["disputed"] = True
         if r.get("votes") and sum(r["votes"].values()):
@@ -190,7 +220,9 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
                                "winner": row["winner"],
                                "p_winner_pre": _r(p_pre if row["winner"] == "D" else 1 - p_pre)
                                if row["winner"] in ("D", "R") else None,
-                               "upset": row.get("upset", False), "after": after})
+                               "upset": row.get("upset", False),
+                               "party": row.get("party"), "flip": row.get("flip", False),
+                               "after": after})
         elif was.get("status") == "called" and row["status"] != "called":
             new_events.append({"t": generated, "race": rid, "type": "retracted",
                                "winner": was.get("winner"), "after": after})
@@ -199,12 +231,15 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
     chambers = {}
     for c, ch in sim["chambers"].items():
         ids = [rid for rid, m in fc["races"].items() if m["chamber"] == c]
-        party = lambda rid, w: (fc["races"][rid]["d_side"] if w == "D" else
-                                (rows.get(rid, {}).get("r_side") or "R") if w == "R" else "other")
         fixed, called, upsets = {}, {}, []
+        gains, losses, flips = {}, {}, []
         n_called = won = 0
         for rid in ids:
             row = races[rid]
+            if row.get("flip"):
+                gains[row["party"]] = gains.get(row["party"], 0) + 1
+                losses[row["held"]] = losses.get(row["held"], 0) + 1
+                flips.append(rid)
             if row["status"] == "uncontested":
                 p = party(rid, row["winner"])
                 fixed[p] = fixed.get(p, 0) + 1
@@ -218,6 +253,7 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
                         upsets.append(rid)
         upsets.sort(key=lambda rid: races[rid]["p_pre"] if races[rid]["winner"] == "D"
                     else 1 - races[rid]["p_pre"])
+        flips.sort(key=lambda rid: races[rid].get("called_at") or "", reverse=True)   # newest first
         not_up = dict(ch.get("seats_not_up") or {})
         caucus = ch.get("caucus") or {}
         bloc = {"D": 0, "R": 0, "other": 0}
@@ -243,6 +279,7 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
                      "ess": out["ess"], "draws": out["draws"], "reliable": out["ess"] >= RELIABLE_ESS},
             "favorites": {"called": n_called, "won": won},
             "upsets": upsets,
+            "gains": gains, "losses": losses, "flips": flips,
         }
     statuses = [r["status"] for r in races.values()]
     counts = {s: statuses.count(s) for s in ("awaiting", "counting", "called", "runoff", "uncontested")}
@@ -256,6 +293,8 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
         "forecast": {"snapshot": snapshot, "generated": fc["generated"], "of_record": of_record,
                      "version": head},
         "method": METHOD,
+        "held_note": HELD_NOTE,
+        "polls_close": poll_closings(),
         "counts": counts,
         "chambers": chambers,
         "races": races,
@@ -271,6 +310,8 @@ def fixture_results(fc: dict, rows: dict, hour_et: float, seed: int = FIXTURE_SE
     the self-check's stylized decision desk does. For building the site."""
     sim = _sim(fc, rows)
     eng = L.Engine(sim, version=fc["headline"])
+    close = {st: v["last"] for st, v in
+             yaml.safe_load((CURATED / "poll_closing.yaml").read_text())["states"].items()}
     rng = np.random.default_rng(seed)
     th = np.zeros(eng.D)
     th[0] = eng.c_nat * rng.standard_t(eng.nu_nat)
@@ -280,7 +321,7 @@ def fixture_results(fc: dict, rows: dict, hour_et: float, seed: int = FIXTURE_SE
     out = {}
     for i, rid in enumerate(eng.ids):
         m = fc["races"][rid]
-        h = hour_et - L._CLOSE.get(m["state"], 21.0)
+        h = hour_et - close.get(m["state"], 21.0)
         if m.get("fixed") or h < 0:
             out[rid] = {"status": "awaiting", "votes": {"D": 0, "R": 0, "other": 0}, "pct_reporting": 0.0}
             continue

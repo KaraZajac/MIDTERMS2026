@@ -33,7 +33,7 @@ class TestSlots(unittest.TestCase):
 
     def test_full_runs(self):
         self.assertTrue(C.full(t("2026-11-03T23:02:00Z")))
-        self.assertFalse(C.full(t("2026-11-03T23:12:00Z")))       # live results only
+        self.assertTrue(C.full(t("2026-11-03T23:12:00Z")))        # Wikipedia every run overnight
         self.assertTrue(C.full(t("2026-11-03T23:33:00Z")))        # :32, a minute late
         self.assertTrue(C.full(t("2026-11-04T15:07:00Z")))        # counting: always full
         self.assertTrue(C.full(t("2026-11-02T12:07:00Z")))

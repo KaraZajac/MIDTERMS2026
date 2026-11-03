@@ -20,6 +20,8 @@ with `midterms pull`) and are not redistributed here.
 | Pollster quality | `data/pollster_quality.csv` (derived weights); `data/pollster_ratings/ratings.csv` (the ratings those weights come from: pollster, grade, plus-minus, ban — pinned because Silver Bulletin's file now needs a login) | Silver Bulletin pollster ratings, January 2026; FiveThirtyEight pollster ratings (final, 2024) for pollsters SB doesn't rate | Silver Bulletin: "You are welcome to use this data free of charge for any purpose, but please attribute it to Silver Bulletin." FiveThirtyEight: **CC BY 4.0** |
 | VoteHub polls | rows of `data/polls/races.csv` whose `source` is `votehub:<id>` (polls Wikipedia's tables lack) | VoteHub public polls API (`api.votehub.com/polls`) | **CC BY 4.0**. Attribution: "Poll data from VoteHub (votehub.com)", with each poll's own source URL in the `url` column |
 | Election-night results | `data/site/live.json` (each race's count, share reported and call, with the forecast conditioned on the calls) | civicAPI (`civicapi.org/api/v2/race/search`): counts from secretaries of state; race calls by civicAPI's decision desk | Free for personal, non-commercial and commercial use, including publishing live results; **attribution required**: "Results and race calls: civicAPI (civicapi.org)" |
+| Seat holders | `data/holders/holders.csv` (the party holding each seat now: the baseline for seats changing hands) | Clerk of the U.S. House of Representatives, member list (`clerk.house.gov/xml/lists/MemberData.xml`, published October 1, 2026); Senate and governor incumbents from the Wikipedia pages above | Clerk: **public domain** (U.S. government); Wikipedia: CC BY-SA 4.0 |
+| Poll closing times | `curated/poll_closing.yaml` | 270toWin, "Poll Closing Times" (`270towin.com/poll-closing-times`) | Facts (closing hours set by state law), entered by hand with the source cited; nothing copied beyond the times |
 | Original contributions | the pipeline, model and journal code; adjustments, averages, forecasts, the backtest and scorecard | this project | code MIT; data outputs CC BY-SA 4.0 (attribution chains to the sources above) |
 
 ## Deliberately not used
@@ -49,3 +51,5 @@ with `midterms pull`) and are not redistributed here.
 - Silver Bulletin, pollster ratings (January 2026); FiveThirtyEight,
   pollster ratings (CC BY 4.0).
 - civicAPI (civicapi.org), election-night results and race calls.
+- Clerk of the U.S. House of Representatives, member data; 270toWin,
+  poll closing times.
