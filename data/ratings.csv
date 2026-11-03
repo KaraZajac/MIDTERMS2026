@@ -2460,61 +2460,61 @@ governor:CA,RCP,RealClearPolitics,Solid D,3.0,2026-11-01
 governor:CA,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-11-02
 governor:CA,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-02
 governor:CO,Cook,The Cook Political Report,Solid D,3.0,2026-10-29
-governor:CO,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-01
+governor:CO,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-02
 governor:CO,Fox News,Fox News,Solid D,3.0,2026-11-01
 governor:CO,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
-governor:CO,NBC News,NBC News,Solid D,3.0,2026-11-01
-governor:CO,RCP,RealClearPolitics,Solid D,3.0,2026-10-30
-governor:CO,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-27
-governor:CO,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-01
+governor:CO,NBC News,NBC News,Solid D,3.0,2026-11-02
+governor:CO,RCP,RealClearPolitics,Solid D,3.0,2026-11-01
+governor:CO,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-11-02
+governor:CO,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-02
 governor:CT,Cook,The Cook Political Report,Solid D,3.0,2026-10-29
-governor:CT,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-01
+governor:CT,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-02
 governor:CT,Fox News,Fox News,Solid D,3.0,2026-11-01
 governor:CT,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
-governor:CT,NBC News,NBC News,Solid D,3.0,2026-11-01
-governor:CT,RCP,RealClearPolitics,Solid D,3.0,2026-10-30
-governor:CT,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-27
-governor:CT,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-01
+governor:CT,NBC News,NBC News,Solid D,3.0,2026-11-02
+governor:CT,RCP,RealClearPolitics,Solid D,3.0,2026-11-01
+governor:CT,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-11-02
+governor:CT,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-02
 governor:FL,Cook,The Cook Political Report,Lean R,-1.0,2026-10-29
-governor:FL,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-11-01
+governor:FL,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-11-02
 governor:FL,Fox News,Fox News,Lean R,-1.0,2026-11-01
 governor:FL,Inside Elections,Inside Elections,Lean R,-1.0,2026-10-29
-governor:FL,NBC News,NBC News,Lean R,-1.0,2026-11-01
-governor:FL,RCP,RealClearPolitics,Tossup,0.0,2026-10-30
-governor:FL,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-27
-governor:FL,Silver Bulletin,Silver Bulletin,Likely R,-2.0,2026-11-01
+governor:FL,NBC News,NBC News,Lean R,-1.0,2026-11-02
+governor:FL,RCP,RealClearPolitics,Tossup,0.0,2026-11-01
+governor:FL,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
+governor:FL,Silver Bulletin,Silver Bulletin,Likely R,-2.0,2026-11-02
 governor:GA,Cook,The Cook Political Report,Tossup,0.0,2026-10-29
-governor:GA,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-11-01
+governor:GA,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-11-02
 governor:GA,Fox News,Fox News,Tossup,0.0,2026-11-01
 governor:GA,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
-governor:GA,NBC News,NBC News,Tossup,0.0,2026-11-01
-governor:GA,RCP,RealClearPolitics,Tossup,0.0,2026-10-30
+governor:GA,NBC News,NBC News,Tossup,0.0,2026-11-02
+governor:GA,RCP,RealClearPolitics,Tossup,0.0,2026-11-01
 governor:GA,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
-governor:GA,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-11-01
+governor:GA,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-11-02
 governor:HI,Cook,The Cook Political Report,Solid D,3.0,2026-10-29
-governor:HI,DDHQ,Decision Desk HQ,Safe D,3.0,2026-11-01
+governor:HI,DDHQ,Decision Desk HQ,Safe D,3.0,2026-11-02
 governor:HI,Fox News,Fox News,Solid D,3.0,2026-11-01
 governor:HI,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
-governor:HI,NBC News,NBC News,Solid D,3.0,2026-11-01
-governor:HI,RCP,RealClearPolitics,Solid D,3.0,2026-10-30
-governor:HI,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-27
-governor:HI,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-01
+governor:HI,NBC News,NBC News,Solid D,3.0,2026-11-02
+governor:HI,RCP,RealClearPolitics,Solid D,3.0,2026-11-01
+governor:HI,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-11-02
+governor:HI,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-02
 governor:ID,Cook,The Cook Political Report,Solid R,-3.0,2026-10-29
-governor:ID,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-11-01
+governor:ID,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-11-02
 governor:ID,Fox News,Fox News,Solid R,-3.0,2026-11-01
 governor:ID,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
-governor:ID,NBC News,NBC News,Solid R,-3.0,2026-11-01
-governor:ID,RCP,RealClearPolitics,Solid R,-3.0,2026-10-30
-governor:ID,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-governor:ID,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-01
+governor:ID,NBC News,NBC News,Solid R,-3.0,2026-11-02
+governor:ID,RCP,RealClearPolitics,Solid R,-3.0,2026-11-01
+governor:ID,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-11-02
+governor:ID,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-02
 governor:IL,Cook,The Cook Political Report,Solid D,3.0,2026-10-29
-governor:IL,DDHQ,Decision Desk HQ,Safe D,3.0,2026-11-01
+governor:IL,DDHQ,Decision Desk HQ,Safe D,3.0,2026-11-02
 governor:IL,Fox News,Fox News,Solid D,3.0,2026-11-01
 governor:IL,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
-governor:IL,NBC News,NBC News,Solid D,3.0,2026-11-01
-governor:IL,RCP,RealClearPolitics,Solid D,3.0,2026-10-30
-governor:IL,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-10-27
-governor:IL,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-01
+governor:IL,NBC News,NBC News,Solid D,3.0,2026-11-02
+governor:IL,RCP,RealClearPolitics,Solid D,3.0,2026-11-01
+governor:IL,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-11-02
+governor:IL,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-02
 governor:IA,Cook,The Cook Political Report,Lean D (flip),1.0,2026-10-29
 governor:IA,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-11-01
 governor:IA,Fox News,Fox News,Lean D (flip),1.0,2026-11-01
