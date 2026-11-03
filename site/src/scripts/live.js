@@ -16,10 +16,11 @@ import { pct, pct1, margin, url } from "../lib/format.js";
 import {
   h, ID, TITLE, NOUN, BOARD, clock, stamp, n, sum, fmtInt, reporting, tag, credit, expectations,
   raceLink, winnerName, gainText, setSkew, schedule, closeClock, nextClosing, closedCount, stale,
-  majorityLine, changedLine,
+  majorityLine, changedLine, seatBuckets,
 } from "./live-util.js";
 import { renderBoard } from "./live-board.js";
 import { renderHero } from "./live-hero.js";
+import { seatBlock, paintSeats } from "./live-seats.js";
 import { paintMaps } from "./live-maps.js";
 
 const SOURCES = [url("/live.json"), url("/live-build.json")];
@@ -86,37 +87,15 @@ function oddsBar(segs, label) {
 // The likelier party's chance is the big figure; the other is set smaller.
 const fig = (p, other) => h("div", { class: n(p) < n(other) ? "hero-fig lesser" : "hero-fig" }, pct1(p).replace("%", ""), h("span", { class: "unit" }, "%"));
 
-function seatBar(key, c) {
-  const b = c.bloc ?? {};
-  const D = n(b.D), R = n(b.R), O = n(b.other), U = n(c.uncalled);
-  const total = n(c.seats) || D + R + O + U;
-  const maj = n(c.majority);
-  const parts = [["d", D, "Democrats"], ["i", O, "Others"], ["u", U, "Not yet called"], ["r", R, "Republicans"]].filter(([, x]) => x > 0);
-  const held = sum(c.not_up), fixed = sum(c.fixed);
-  const incl = [held ? `${held} ${key === "governor" ? "governorships" : "seats"} not up this year` : "", fixed ? `${fixed} uncontested` : ""].filter(Boolean);
-  return [
-    h(
-      "div",
-      { class: "live-seatbar", role: "img", "aria-label": `${TITLE[key]} so far: Democrats ${D}, Republicans ${R}${O ? `, others ${O}` : ""}, not yet called ${U}; ${maj} for a majority` },
-      h("div", { class: "live-seatfill" }, parts.map(([k, x, name]) => h("span", { class: k, style: `flex:${x} 1 0`, "data-tip-value": fmtInt(x), "data-tip-label": name }))),
-      maj && total ? h("span", { class: "live-maj", style: `left:${((100 * maj) / total).toFixed(2)}%` }) : null,
-    ),
-    h(
-      "p",
-      { class: "live-seatkey" },
-      h("span", {}, h("span", { class: "key d" }), `Democrats ${D}`),
-      O ? h("span", {}, h("span", { class: "key i" }), `Others ${O}`) : null,
-      h("span", {}, h("span", { class: "key u" }), `Not called ${U}`),
-      h("span", {}, h("span", { class: "key r" }), `Republicans ${R}`),
-      h("span", {}, `${maj} for a majority`),
-    ),
-    incl.length ? h("p", { class: "live-small" }, `Won or held so far, including ${incl.join(" and ")}.`) : null,
-    majorityLine(key, c),
-    changedLine(key, c),
-  ];
+// The same seat bar as /results/, smaller: seats won or held, then the races
+// not yet called by how strongly they lean, with the majority in the middle.
+function cardSeats(key, c, data, N) {
+  const el = seatBlock(key, { compact: true });
+  paintSeats(el, seatBuckets(key, data, N), data, N);
+  return [el, majorityLine(key, c), changedLine(key, c)];
 }
 
-function chamberCard(key, c, N) {
+function chamberCard(key, c, N, data) {
   const L = c.live ?? {}, P = c.pre ?? {};
   const pc = L.p_control ?? {}, pp = P.p_control ?? {};
   const what = key === "governor" ? "a majority of governorships" : `the ${TITLE[key]}`;
@@ -152,7 +131,7 @@ function chamberCard(key, c, N) {
           ),
           h("p", { class: "live-small" }, `Chance of control given the races called so far. Before results: Democrats ${pct1(pp.D)}, Republicans ${pct1(pp.R)}.`),
         ],
-    seatBar(key, c),
+    cardSeats(key, c, data, N),
     L.seats ? h("p", { class: "live-seats" }, "Democrats' median now: ", h("strong", {}, `${L.seats.p50} ${NOUN[key]}`), ` · 80% range ${L.seats.p10}–${L.seats.p90}`) : null,
     fav.called
       ? h(
@@ -246,7 +225,7 @@ function chambersView(box, data, N, chambers) {
       delayNote(),
       done ? null : h("div", { "data-live-next": true }, nextClosing(data)),
     ),
-    h("div", { class: "live-grid" }, chambers.map((k) => chamberCard(k, data.chambers[k], N))),
+    h("div", { class: "live-grid" }, chambers.map((k) => chamberCard(k, data.chambers[k], N, data))),
     withTicker ? ticker(data, N, chambers) : null,
     h(
       "p",
