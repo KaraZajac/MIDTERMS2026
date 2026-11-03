@@ -1,8 +1,8 @@
-generated: '2026-11-03T06:09:48Z'
+generated: '2026-11-03T06:40:06Z'
 generator: python3 -m midterms build
 asof: '2026-11-03'
 election_day: '2026-11-03'
-sources_digest: 1f05c93eb7f322b1
+sources_digest: 931cb3b8691e95a4
 counts:
   house_races: 435
   senate_races: 35
@@ -110,7 +110,7 @@ sources:
     2026 United States House of Representatives elections in Virginia: 1383502783
     2026 United States House of Representatives elections in Washington: 1383367633
     2026 United States House of Representatives elections in West Virginia: 1382858408
-    2026 United States House of Representatives elections in Wisconsin: 1383534591
+    2026 United States House of Representatives elections in Wisconsin: 1383540475
     2026 United States Senate election in Alabama: 1383532303
     2026 United States Senate election in Alaska: 1383535038
     2026 United States Senate election in Arkansas: 1383532979
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-03T06:09:22Z'
+      fetched: '2026-11-03T06:39:33Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-03T06:09:30Z'
+      fetched: '2026-11-03T06:39:41Z'
       sha256: 49764f9dc59de28b5d60d4ff9c14d6e2ec3b3a8c5c96bb010920ebf836aaf71c
   votehub_supplement:
     basis: api
