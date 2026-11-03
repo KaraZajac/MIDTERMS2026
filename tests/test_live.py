@@ -93,6 +93,37 @@ RACES = {"senate:ME": {"id": "senate:ME", "state": "ME", "d_cand": "Troy Jackson
 
 
 class TestCivic(unittest.TestCase):
+    def test_fetch_all(self):
+        # both searches side by side, each paged, in a fixed order; gzip, and a patient timeout
+        from unittest import mock
+        from urllib.parse import parse_qs, urlparse
+        seen = []
+
+        def fake_get(u, **kw):
+            q = parse_qs(urlparse(u).query)
+            seen.append((kw.get("gzip"), kw.get("timeout"), kw.get("retries")))
+            off = int(q["offset"][0])
+            if q.get("query") == ["Governor"]:
+                return json.dumps({"count": 1, "races": [{"id": "g0"}]}).encode()
+            return json.dumps({"count": 3, "races": [{"id": f"f{off}"}] if off < 3 else []}).encode()
+
+        with mock.patch.object(civic.fetch, "get", fake_get):
+            races, _ = civic.fetch_all()
+        self.assertEqual([r["id"] for r in races], ["f0", "f1", "f2", "g0"])
+        self.assertTrue(all(g and t >= 20 and r >= 2 for g, t, r in seen))
+
+    def test_fetch_all_is_all_or_nothing(self):
+        from unittest import mock
+
+        def fake_get(u, **kw):
+            if "Governor" in u:
+                raise SystemExit("download failed: (The read operation timed out)")
+            return json.dumps({"count": 1, "races": [{"id": "f0"}]}).encode()
+
+        with mock.patch.object(civic.fetch, "get", fake_get):
+            with self.assertRaises(SystemExit):
+                civic.fetch_all()
+
     def test_race_ids(self):
         ids = set(RACES)
         self.assertEqual(civic.race_id(civic_race(), ids), "senate:ME")

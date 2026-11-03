@@ -52,24 +52,38 @@ def url(name: str, offset: int = 0) -> str:
     return f"{SEARCH}?{urlencode(q)}"
 
 
-def fetch_all(*, timeout: int = 12, retries: int = 1) -> tuple[list[dict], str]:
-    """Every race of both searches (paged), and when they were fetched.
-    Raises SystemExit on any failure: a partial picture is never used."""
-    races, fetched = [], fetch.now_utc()
-    for name in QUERIES:
-        offset = 0
-        while True:
-            raw = fetch.get(url(name, offset), timeout=timeout, retries=retries,
-                            headers={"User-Agent": UA, "Accept": "application/json"})
-            try:
-                page = json.loads(raw)
-                batch, count = page["races"], int(page["count"])
-            except (ValueError, KeyError, TypeError) as e:
-                raise SystemExit(f"civicapi: unreadable {name} page at offset {offset}: {e}")
-            races += batch
-            offset += len(batch)
-            if not batch or offset >= count:
-                break
+# civicAPI's searches take 6–10 s to a first byte when its own cache is cold
+# (measured Nov 3), which a once-a-minute poll always meets; election-night
+# load can make that longer. A read may wait TIMEOUT seconds, twice.
+TIMEOUT = 25
+ATTEMPTS = 2
+
+
+def _search(name: str, timeout: int, retries: int) -> list[dict]:
+    races, offset = [], 0
+    while True:
+        raw = fetch.get(url(name, offset), timeout=timeout, retries=retries, gzip=True,
+                        headers={"User-Agent": UA, "Accept": "application/json"})
+        try:
+            page = json.loads(raw)
+            batch, count = page["races"], int(page["count"])
+        except (ValueError, KeyError, TypeError) as e:
+            raise SystemExit(f"civicapi: unreadable {name} page at offset {offset}: {e}")
+        races += batch
+        offset += len(batch)
+        if not batch or offset >= count:
+            return races
+
+
+def fetch_all(*, timeout: int = TIMEOUT, retries: int = ATTEMPTS) -> tuple[list[dict], str]:
+    """Every race of both searches (paged; the two run side by side), and
+    when they were fetched. Raises SystemExit on any failure: a partial
+    picture is never used."""
+    from concurrent.futures import ThreadPoolExecutor
+    fetched = fetch.now_utc()
+    with ThreadPoolExecutor(max_workers=len(QUERIES)) as pool:
+        jobs = [pool.submit(_search, name, timeout, retries) for name in QUERIES]
+        races = [r for job in jobs for r in job.result()]      # re-raises either search's failure
     return races, fetched
 
 

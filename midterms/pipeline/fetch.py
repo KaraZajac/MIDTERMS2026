@@ -40,17 +40,23 @@ def now_utc() -> str:
 
 
 def get(url: str, *, params: dict | None = None, timeout: int = 120, retries: int = 4,
-        headers: dict | None = None) -> bytes:
-    """GET with a descriptive UA and exponential backoff on 429/5xx."""
+        headers: dict | None = None, gzip: bool = False) -> bytes:
+    """GET with a descriptive UA and exponential backoff on 429/5xx.
+    `retries` is the number of attempts; `gzip` asks for a compressed body
+    (decompressed here)."""
     if params:
         url = f"{url}{'&' if '?' in url else '?'}{urlencode(params)}"
-    hdrs = {"User-Agent": UA, "Accept-Encoding": "identity"}
+    hdrs = {"User-Agent": UA, "Accept-Encoding": "gzip" if gzip else "identity"}
     hdrs.update(headers or {})
     delay = 2.0
     for attempt in range(retries):
         try:
             with urlopen(Request(url, headers=hdrs), timeout=timeout) as resp:
-                return resp.read()
+                body = resp.read()
+                if gzip and (resp.headers.get("Content-Encoding") or "").lower() == "gzip":
+                    import gzip as _gzip
+                    body = _gzip.decompress(body)
+                return body
         except HTTPError as e:
             if e.code in (429, 500, 502, 503, 504) and attempt < retries - 1:
                 wait = float(e.headers.get("Retry-After") or delay)

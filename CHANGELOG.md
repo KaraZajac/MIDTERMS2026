@@ -22,6 +22,11 @@ model and pipeline that produced it. Automated six-hourly refreshes
   these times.
 - Overnight the refresh re-reads Wikipedia's results boxes, the
   cross-check on civicAPI's calls, every 10 minutes instead of every 30.
+- civicAPI's searches take 6–10 s to a first byte when its cache is cold,
+  as a once-a-minute poll always finds it, and the web server's first real
+  run (05:25 UTC) failed on the 12-second read timeout with no retry. Now
+  each read may wait 25 s, twice; the two searches run side by side; and
+  the response comes gzipped (47 KB instead of 414).
 
 ### 2026-11-01 — election night: live results and the forecast given the calls (no model change)
 - `midterms live` fetches every race's count and call from civicAPI
