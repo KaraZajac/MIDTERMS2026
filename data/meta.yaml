@@ -1,8 +1,8 @@
-generated: '2026-11-02T23:40:18Z'
+generated: '2026-11-03T00:10:27Z'
 generator: python3 -m midterms build
-asof: '2026-11-02'
+asof: '2026-11-03'
 election_day: '2026-11-03'
-sources_digest: 2f60dc3edcd29fdd
+sources_digest: 823a95d3ad26bbc2
 counts:
   house_races: 435
   senate_races: 35
@@ -12,7 +12,7 @@ counts:
     house:R: 1
   race_polls: 1810
   votehub_polls: 39
-  generic_polls: 728
+  generic_polls: 733
   fabricated_polls_excluded:
     wikipedia: 0
     votehub: 11
@@ -72,7 +72,7 @@ sources:
     2026 United States House of Representatives elections in California (districts 1–26): 1383488089
     2026 United States House of Representatives elections in California (districts 27–52): 1383235975
     2026 United States House of Representatives elections in Colorado: 1383485183
-    2026 United States House of Representatives elections in Connecticut: 1382470623
+    2026 United States House of Representatives elections in Connecticut: 1383491979
     2026 United States House of Representatives elections in Florida: 1383437207
     2026 United States House of Representatives elections in Georgia: 1383380539
     2026 United States House of Representatives elections in Hawaii: 1381768843
@@ -120,12 +120,12 @@ sources:
     2026 United States Senate election in Idaho: 1383324782
     2026 United States Senate election in Illinois: 1383484188
     2026 United States Senate election in Iowa: 1383464948
-    2026 United States Senate election in Kansas: 1383474214
+    2026 United States Senate election in Kansas: 1383492377
     2026 United States Senate election in Kentucky: 1383333481
     2026 United States Senate election in Louisiana: 1383469074
-    2026 United States Senate election in Maine: 1383486281
+    2026 United States Senate election in Maine: 1383489123
     2026 United States Senate election in Massachusetts: 1383331964
-    2026 United States Senate election in Michigan: 1383488390
+    2026 United States Senate election in Michigan: 1383492212
     2026 United States Senate election in Minnesota: 1383472794
     2026 United States Senate election in Mississippi: 1383357497
     2026 United States Senate election in Montana: 1383488371
@@ -137,7 +137,7 @@ sources:
     2026 United States Senate election in Oklahoma: 1383326096
     2026 United States Senate election in Oregon: 1383326154
     2026 United States Senate election in Rhode Island: 1383332562
-    2026 United States Senate election in South Carolina: 1383487467
+    2026 United States Senate election in South Carolina: 1383491050
     2026 United States Senate election in South Dakota: 1383326312
     2026 United States Senate election in Tennessee: 1383326354
     2026 United States Senate election in Texas: 1383484179
@@ -151,11 +151,11 @@ sources:
     2026 Vermont gubernatorial election: 1383479965
     2026 Wisconsin gubernatorial election: 1383335243
     2026 Wyoming gubernatorial election: 1383387798
-    Template:2026 United States elections/polling: 1383485574
+    Template:2026 United States elections/polling: 1383491030
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-02T23:39:34Z'
+      fetched: '2026-11-03T00:09:43Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,12 +167,12 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-02T23:39:41Z'
-      sha256: 3f83315f07cecab6cb509a9b0de74c697048d7b7a315fb2bb8f20366e7ad597a
+      fetched: '2026-11-03T00:09:51Z'
+      sha256: 4962589509fe2234639558e6d155d937ea7e54a15e6725dab527b0fe7cc71827
   votehub_supplement:
     basis: api
-    candidates: 910
-    already_on_wikipedia: 871
+    candidates: 917
+    already_on_wikipedia: 878
     added: 39
     excluded_fabricated: 11
   lean: data/lean/sources.yaml
