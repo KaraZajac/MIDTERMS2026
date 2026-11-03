@@ -1077,7 +1077,7 @@ house:MS-04,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-07-15
 house:MT-01,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-30
 house:MT-01,Cook,The Cook Political Report,Tossup,0.0,2026-10-16
 house:MT-01,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
-house:MT-01,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
+house:MT-01,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:MT-02,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:MT-02,Cook,The Cook Political Report,Solid R,-3.0,2025-06-13
 house:MT-02,Inside Elections,Inside Elections,Solid R,-3.0,2025-06-13
@@ -1385,7 +1385,7 @@ house:OH-06,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:OH-07,Cook,The Cook Political Report,Tossup,0.0,2026-08-10
 house:OH-07,DDHQ,Decision Desk HQ,Tossup,0.0,2026-07-14
 house:OH-07,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
-house:OH-07,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-08-08
+house:OH-07,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:OH-08,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
 house:OH-08,Cook,The Cook Political Report,Solid R,-3.0,2025-11-02
 house:OH-08,Inside Elections,Inside Elections,Solid R,-3.0,2025-10-31
@@ -1393,7 +1393,7 @@ house:OH-08,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:OH-09,DDHQ,Decision Desk HQ,Lean D,1.0,2026-07-14
 house:OH-09,Cook,The Cook Political Report,Lean D,1.0,2026-10-30
 house:OH-09,Inside Elections,Inside Elections,Tilt D,0.5,2026-10-29
-house:OH-09,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-05-06
+house:OH-09,Sabato,Sabato's Crystal Ball,Lean D,1.0,2026-11-02
 house:OH-10,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
 house:OH-10,Cook,The Cook Political Report,Lean R,-1.0,2026-10-16
 house:OH-10,Inside Elections,Inside Elections,Lean R,-1.0,2026-10-29
@@ -1466,7 +1466,7 @@ house:OR-06,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-03-26
 house:PA-01,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-30
 house:PA-01,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
 house:PA-01,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
-house:PA-01,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-01
+house:PA-01,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:PA-01,Silver Bulletin,Silver Bulletin,Tossup,0.0,2026-08-20
 house:PA-02,DDHQ,Decision Desk HQ,Safe D,3.0,2026-07-14
 house:PA-02,Cook,The Cook Political Report,Solid D,3.0,2025-09-11

@@ -1,8 +1,8 @@
-generated: '2026-11-03T23:15:06Z'
+generated: '2026-11-03T23:24:50Z'
 generator: python3 -m midterms build
 asof: '2026-11-03'
 election_day: '2026-11-03'
-sources_digest: ae68d572aa7143ab
+sources_digest: 315942cf54d9ecd2
 counts:
   house_races: 435
   senate_races: 35
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383477010
-    2026 United States House of Representatives elections: 1383646437
+    2026 United States House of Representatives elections: 1383650631
     2026 United States House of Representatives elections in Alabama: 1383623376
     2026 United States House of Representatives elections in Arizona: 1383633129
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -90,7 +90,7 @@ sources:
     2026 United States House of Representatives elections in Minnesota: 1383641158
     2026 United States House of Representatives elections in Mississippi: 1383638087
     2026 United States House of Representatives elections in Missouri: 1383528802
-    2026 United States House of Representatives elections in Montana: 1383638471
+    2026 United States House of Representatives elections in Montana: 1383649813
     2026 United States House of Representatives elections in Nebraska: 1383096209
     2026 United States House of Representatives elections in Nevada: 1383381164
     2026 United States House of Representatives elections in New Hampshire: 1383319157
@@ -98,10 +98,10 @@ sources:
     2026 United States House of Representatives elections in New Mexico: 1383076003
     2026 United States House of Representatives elections in New York: 1383647761
     2026 United States House of Representatives elections in North Carolina: 1383647425
-    2026 United States House of Representatives elections in Ohio: 1383454532
+    2026 United States House of Representatives elections in Ohio: 1383650381
     2026 United States House of Representatives elections in Oklahoma: 1383630519
     2026 United States House of Representatives elections in Oregon: 1383633248
-    2026 United States House of Representatives elections in Pennsylvania: 1383632327
+    2026 United States House of Representatives elections in Pennsylvania: 1383650601
     2026 United States House of Representatives elections in Rhode Island: 1382619674
     2026 United States House of Representatives elections in South Carolina: 1383287201
     2026 United States House of Representatives elections in Tennessee: 1383647557
