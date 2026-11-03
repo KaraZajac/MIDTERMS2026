@@ -1,8 +1,8 @@
-generated: '2026-11-03T23:44:41Z'
+generated: '2026-11-03T23:54:59Z'
 generator: python3 -m midterms build
 asof: '2026-11-03'
 election_day: '2026-11-03'
-sources_digest: e08aa76a94353b07
+sources_digest: edd0827b0c184e8b
 counts:
   house_races: 435
   senate_races: 35
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383477010
-    2026 United States House of Representatives elections: 1383650631
+    2026 United States House of Representatives elections: 1383653910
     2026 United States House of Representatives elections in Alabama: 1383623376
     2026 United States House of Representatives elections in Arizona: 1383633129
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -85,7 +85,7 @@ sources:
     2026 United States House of Representatives elections in Louisiana: 1383637083
     2026 United States House of Representatives elections in Maine: 1383610296
     2026 United States House of Representatives elections in Maryland: 1383579055
-    2026 United States House of Representatives elections in Massachusetts: 1383652683
+    2026 United States House of Representatives elections in Massachusetts: 1383653492
     2026 United States House of Representatives elections in Michigan: 1383652928
     2026 United States House of Representatives elections in Minnesota: 1383641158
     2026 United States House of Representatives elections in Mississippi: 1383638087
@@ -97,14 +97,14 @@ sources:
     2026 United States House of Representatives elections in New Jersey: 1383652537
     2026 United States House of Representatives elections in New Mexico: 1383076003
     2026 United States House of Representatives elections in New York: 1383647761
-    2026 United States House of Representatives elections in North Carolina: 1383647425
+    2026 United States House of Representatives elections in North Carolina: 1383653422
     2026 United States House of Representatives elections in Ohio: 1383650381
     2026 United States House of Representatives elections in Oklahoma: 1383630519
     2026 United States House of Representatives elections in Oregon: 1383633248
     2026 United States House of Representatives elections in Pennsylvania: 1383650601
     2026 United States House of Representatives elections in Rhode Island: 1382619674
     2026 United States House of Representatives elections in South Carolina: 1383287201
-    2026 United States House of Representatives elections in Tennessee: 1383647557
+    2026 United States House of Representatives elections in Tennessee: 1383653738
     2026 United States House of Representatives elections in Texas: 1383650925
     2026 United States House of Representatives elections in Utah: 1383631574
     2026 United States House of Representatives elections in Virginia: 1383639645
@@ -121,7 +121,7 @@ sources:
     2026 United States Senate election in Illinois: 1383633398
     2026 United States Senate election in Iowa: 1383632173
     2026 United States Senate election in Kansas: 1383638419
-    2026 United States Senate election in Kentucky: 1383652599
+    2026 United States Senate election in Kentucky: 1383652984
     2026 United States Senate election in Louisiana: 1383636791
     2026 United States Senate election in Maine: 1383617888
     2026 United States Senate election in Massachusetts: 1383641433
@@ -138,7 +138,7 @@ sources:
     2026 United States Senate election in Oregon: 1383574513
     2026 United States Senate election in Rhode Island: 1383641408
     2026 United States Senate election in South Carolina: 1383616035
-    2026 United States Senate election in South Dakota: 1383573104
+    2026 United States Senate election in South Dakota: 1383653298
     2026 United States Senate election in Tennessee: 1383573493
     2026 United States Senate election in Texas: 1383651720
     2026 United States Senate election in Virginia: 1383642188
