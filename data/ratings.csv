@@ -461,7 +461,7 @@ house:FL-06,The Economist,The Economist,Safe R,-3.0,2026-05-06
 house:FL-07,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-29
 house:FL-07,Cook,The Cook Political Report,Lean R,-1.0,2026-10-30
 house:FL-07,Inside Elections,Inside Elections,Likely R,-2.0,2026-10-29
-house:FL-07,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2026-10-27
+house:FL-07,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 house:FL-07,The Economist,The Economist,Tossup,0.0,2026-10-29
 house:FL-08,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-10-29
 house:FL-08,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
@@ -814,7 +814,7 @@ house:KY-05,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-06-03
 house:KY-06,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-20
 house:KY-06,Cook,The Cook Political Report,Tossup,0.0,2026-10-23
 house:KY-06,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
-house:KY-06,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
+house:KY-06,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 house:LA-01,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:LA-01,Cook,The Cook Political Report,Solid R,-3.0,2025-03-13
 house:LA-01,Inside Elections,Inside Elections,Solid R,-3.0,2025-03-07
@@ -929,7 +929,7 @@ house:ME-02,Silver Bulletin,Silver Bulletin,Tossup,0.0,2026-10-22
 house:MI-01,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-09-25
 house:MI-01,Cook,The Cook Political Report,Solid R,-3.0,2026-05-13
 house:MI-01,Inside Elections,Inside Elections,Solid R,-3.0,2026-05-21
-house:MI-01,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-05-26
+house:MI-01,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2026-11-02
 house:MI-01,The Economist,The Economist,Likely R,-2.0,2026-07-30
 house:MI-02,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:MI-02,Cook,The Cook Political Report,Solid R,-3.0,2026-05-13
@@ -1033,7 +1033,7 @@ house:MO-01,Sabato,Sabato's Crystal Ball,Safe D,3.0,2025-07-15
 house:MO-02,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-26
 house:MO-02,Cook,The Cook Political Report,Likely R,-2.0,2026-09-11
 house:MO-02,Inside Elections,Inside Elections,Solid R,-3.0,2025-03-07
-house:MO-02,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
+house:MO-02,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 house:MO-03,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-10-01
 house:MO-03,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
 house:MO-03,Inside Elections,Inside Elections,Solid R,-3.0,2025-03-07
@@ -1170,7 +1170,7 @@ house:NJ-01,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-08-23
 house:NJ-02,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-30
 house:NJ-02,Cook,The Cook Political Report,Likely R,-2.0,2026-10-30
 house:NJ-02,Inside Elections,Inside Elections,Likely R,-2.0,2026-10-29
-house:NJ-02,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2026-10-20
+house:NJ-02,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 house:NJ-02,Silver Bulletin,Silver Bulletin,Likely R,-2.0,2026-08-23
 house:NJ-03,DDHQ,Decision Desk HQ,Safe D,3.0,2026-07-14
 house:NJ-03,Cook,The Cook Political Report,Solid D,3.0,2025-08-13
@@ -1996,7 +1996,7 @@ senate:AL,Split Ticket,Split Ticket,Safe R,-3.0,2026-11-02
 senate:AK,ABC News,ABC News,Tossup,0.0,2026-10-26
 senate:AK,CBS News,CBS News,Tossup,0.0,2026-10-30
 senate:AK,Cook,The Cook Political Report,Tossup,0.0,2026-11-02
-senate:AK,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-11-02
+senate:AK,DDHQ,Decision Desk HQ,Tossup,0.0,2026-11-03
 senate:AK,The Economist,The Economist,Tossup,0.0,2026-11-02
 senate:AK,FiftyPlusOne,FiftyPlusOne,Lean D (flip),1.0,2026-11-02
 senate:AK,Fox News,Fox News,Tossup,0.0,2026-11-01
