@@ -2131,7 +2131,7 @@ senate:LA,NBC News,NBC News,Solid R,-3.0,2026-11-01
 senate:LA,RCP,RealClearPolitics,Solid R,-3.0,2026-10-31
 senate:LA,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 senate:LA,Silver Bulletin,Silver Bulletin,Likely R,-2.0,2026-11-01
-senate:LA,Split Ticket,Split Ticket,Safe R,-3.0,2026-11-02
+senate:LA,Split Ticket,Split Ticket,Likely R,-2.0,2026-11-02
 senate:ME,ABC News,ABC News,Tossup,0.0,2026-10-26
 senate:ME,CBS News,CBS News,Tossup,0.0,2026-10-30
 senate:ME,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
@@ -2224,7 +2224,7 @@ senate:NH,CBS News,CBS News,Lean D,1.0,2026-10-30
 senate:NH,Cook,The Cook Political Report,Lean D,1.0,2026-10-30
 senate:NH,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-01
 senate:NH,The Economist,The Economist,Likely D,2.0,2026-11-01
-senate:NH,FiftyPlusOne,FiftyPlusOne,Safe D,3.0,2026-11-02
+senate:NH,FiftyPlusOne,FiftyPlusOne,Likely D,2.0,2026-11-02
 senate:NH,Fox News,Fox News,Lean D,1.0,2026-11-01
 senate:NH,Inside Elections,Inside Elections,Tilt D,0.5,2026-10-29
 senate:NH,MS NOW,MS NOW,Lean D,1.0,2026-10-29
@@ -2261,7 +2261,7 @@ senate:NC,CBS News,CBS News,Lean D (flip),1.0,2026-10-30
 senate:NC,Cook,The Cook Political Report,Likely D (flip),2.0,2026-10-30
 senate:NC,DDHQ,Decision Desk HQ,Likely D (flip),2.0,2026-11-01
 senate:NC,The Economist,The Economist,Likely D (flip),2.0,2026-11-01
-senate:NC,FiftyPlusOne,FiftyPlusOne,Likely D (flip),2.0,2026-11-01
+senate:NC,FiftyPlusOne,FiftyPlusOne,Safe D (flip),3.0,2026-11-02
 senate:NC,Fox News,Fox News,Likely D (flip),2.0,2026-11-01
 senate:NC,Inside Elections,Inside Elections,Lean D (flip),1.0,2026-10-29
 senate:NC,MS NOW,MS NOW,Lean D (flip),1.0,2026-10-29
