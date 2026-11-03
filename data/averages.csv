@@ -14,12 +14,13 @@ senate:GA,Decision Desk HQ,2026-11-02,2026-11-02,53.1,43.3
 senate:GA,FiftyPlusOne,2026-11-02,2026-11-03,52.5,42.9
 senate:GA,RealClearPolitics,2026-11-02,2026-11-02,51.9,43.3
 senate:GA,Silver Bulletin,2026-11-02,2026-11-03,52.8,43.4
-senate:ID,Silver Bulletin,2026-08-13,2026-10-26,34.6,50.6
-senate:IA,270toWin,2026-11-01,2026-11-02,47.7,46.8
+senate:ID,Silver Bulletin,2026-10-22,2026-11-03,35.1,51.1
+senate:IL,270toWin,2026-11-02,2026-11-02,53.7,41.0
+senate:IA,270toWin,2026-11-01,2026-11-03,47.7,46.8
 senate:IA,Decision Desk HQ,2026-11-01,2026-11-03,47.0,47.3
 senate:IA,FiftyPlusOne,2026-11-01,2026-11-03,47.8,47.2
-senate:IA,RealClearPolitics,2026-11-01,2026-11-03,47.1,47.1
-senate:IA,Silver Bulletin,2026-11-01,2026-11-02,47.7,46.7
+senate:IA,RealClearPolitics,2026-11-01,2026-11-02,47.1,47.1
+senate:IA,Silver Bulletin,2026-11-01,2026-11-03,47.7,46.7
 senate:KS,270toWin,2026-11-01,2026-11-02,49.8,45.2
 senate:KS,Decision Desk HQ,2026-11-01,2026-11-01,48.7,45.3
 senate:KS,FiftyPlusOne,2026-11-01,2026-11-02,49.1,45.7
@@ -178,8 +179,8 @@ governor:WI,Decision Desk HQ,2026-10-23,2026-10-28,47.4,43.7
 governor:WI,FiftyPlusOne,2026-10-23,2026-10-28,48.9,44.4
 governor:WI,RealClearPolitics,2026-10-22,2026-10-28,48.7,43.7
 governor:WI,Silver Bulletin,2026-10-09,2026-10-28,48.9,44.5
-generic,Decision Desk HQ,2026-10-30,2026-11-01,51.2,42.3
-generic,FiftyPlusOne,2026-10-30,2026-11-01,52.3,43.7
-generic,NBC News,2026-10-30,2026-11-01,52.0,44.0
-generic,RealClearPolitics,2026-10-30,2026-11-01,52.0,43.1
-generic,Silver Bulletin,2026-10-30,2026-11-01,51.4,42.6
+generic,Decision Desk HQ,2026-11-01,2026-11-03,51.4,42.8
+generic,FiftyPlusOne,2026-11-01,2026-11-03,52.8,44.1
+generic,NBC News,2026-11-01,2026-11-03,52.0,44.0
+generic,RealClearPolitics,2026-11-01,2026-11-03,52.1,43.3
+generic,Silver Bulletin,2026-11-01,2026-11-03,51.8,43.0
