@@ -445,7 +445,7 @@ house:FL-03,Inside Elections,Inside Elections,Solid R,-3.0,2026-05-05
 house:FL-03,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:FL-03,The Economist,The Economist,Safe R,-3.0,2026-05-06
 house:FL-04,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-30
-house:FL-04,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
+house:FL-04,Cook,The Cook Political Report,Likely R,-2.0,2026-11-02
 house:FL-04,Inside Elections,Inside Elections,Solid R,-3.0,2026-05-05
 house:FL-04,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:FL-04,The Economist,The Economist,Likely R,-2.0,2026-05-06
@@ -1107,7 +1107,7 @@ house:NC-06,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
 house:NC-06,Inside Elections,Inside Elections,Solid R,-3.0,2025-03-07
 house:NC-06,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:NC-07,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
-house:NC-07,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
+house:NC-07,Cook,The Cook Political Report,Likely R,-2.0,2026-11-02
 house:NC-07,Inside Elections,Inside Elections,Solid R,-3.0,2025-03-07
 house:NC-07,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:NC-08,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
@@ -1135,7 +1135,7 @@ house:NC-13,Cook,The Cook Political Report,Likely R,-2.0,2026-10-23
 house:NC-13,Inside Elections,Inside Elections,Likely R,-2.0,2026-10-29
 house:NC-13,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:NC-14,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
-house:NC-14,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
+house:NC-14,Cook,The Cook Political Report,Likely R,-2.0,2026-11-02
 house:NC-14,Inside Elections,Inside Elections,Solid R,-3.0,2025-03-07
 house:NC-14,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:ND-AL,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
@@ -1622,7 +1622,7 @@ house:TN-08,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
 house:TN-08,Inside Elections,Inside Elections,Solid R,-3.0,2025-03-07
 house:TN-08,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-08-14
 house:TN-09,DDHQ,Decision Desk HQ,Likely R (flip),-2.0,2026-09-08
-house:TN-09,Cook,The Cook Political Report,Solid R (flip),-3.0,2026-05-08
+house:TN-09,Cook,The Cook Political Report,Likely R (flip),-2.0,2026-11-02
 house:TN-09,Inside Elections,Inside Elections,Likely R (flip),-2.0,2026-10-29
 house:TN-09,Sabato,Sabato's Crystal Ball,Safe R (flip),-3.0,2026-05-07
 house:TX-01,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
