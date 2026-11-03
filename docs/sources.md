@@ -104,8 +104,8 @@ input, and not the scorecard's source of results.
   and last closing in Eastern time, from 270toWin's table
   (`270towin.com/poll-closing-times`, fetched Nov 3), with a one-line note
   for the twelve states split across time zones (and New Hampshire's
-  towns), and the two Florida districts that close an hour after the rest
-  of the state. Facts, entered by hand; used only for the site's
+  towns), and Florida's districts (the 1st and 2nd, in the Central-time
+  Panhandle, close at 8 p.m. ET; the other 26 at 7). Facts, entered by hand; used only for the site's
   "polls close" lines and the simulated nights in `tests/fixtures/live/`.
 
 ### 9. Backtest inputs (`midterms pull --only history`)

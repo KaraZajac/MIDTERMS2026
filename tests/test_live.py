@@ -241,6 +241,8 @@ class TestSeatsAndClosings(unittest.TestCase):
         self.assertEqual(pc["states"]["AK"]["last"], "2026-11-04T06:00:00Z")    # 1 a.m. ET
         self.assertEqual(pc["races"]["house:FL-01"], {"first": "2026-11-04T01:00:00Z",
                                                       "last": "2026-11-04T01:00:00Z"})
+        self.assertEqual(pc["races"]["house:FL-07"]["last"], "2026-11-04T00:00:00Z")   # all Eastern: 7 p.m.
+        self.assertEqual(sum(k.startswith("house:FL-") for k in pc["races"]), 28)
         for st, v in pc["states"].items():
             self.assertLessEqual(v["first"], v["last"], st)
             self.assertEqual("note" in v, v["first"] != v["last"], st)

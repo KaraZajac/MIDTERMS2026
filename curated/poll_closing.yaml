@@ -68,5 +68,34 @@ states:
   WY: {first: 21, last: 21}
 
 races:
+  # Florida: the western Panhandle (Central time) is in the 1st and 2nd
+  # districts, which close at 8 p.m. ET (270toWin); the other 26 are wholly
+  # in Eastern time and close at 7.
   house:FL-01: {first: 20, last: 20}
   house:FL-02: {first: 20, last: 20}
+  house:FL-03: {first: 19, last: 19}
+  house:FL-04: {first: 19, last: 19}
+  house:FL-05: {first: 19, last: 19}
+  house:FL-06: {first: 19, last: 19}
+  house:FL-07: {first: 19, last: 19}
+  house:FL-08: {first: 19, last: 19}
+  house:FL-09: {first: 19, last: 19}
+  house:FL-10: {first: 19, last: 19}
+  house:FL-11: {first: 19, last: 19}
+  house:FL-12: {first: 19, last: 19}
+  house:FL-13: {first: 19, last: 19}
+  house:FL-14: {first: 19, last: 19}
+  house:FL-15: {first: 19, last: 19}
+  house:FL-16: {first: 19, last: 19}
+  house:FL-17: {first: 19, last: 19}
+  house:FL-18: {first: 19, last: 19}
+  house:FL-19: {first: 19, last: 19}
+  house:FL-20: {first: 19, last: 19}
+  house:FL-21: {first: 19, last: 19}
+  house:FL-22: {first: 19, last: 19}
+  house:FL-23: {first: 19, last: 19}
+  house:FL-24: {first: 19, last: 19}
+  house:FL-25: {first: 19, last: 19}
+  house:FL-26: {first: 19, last: 19}
+  house:FL-27: {first: 19, last: 19}
+  house:FL-28: {first: 19, last: 19}

@@ -212,8 +212,9 @@ the newer `generated`. Every string is plain text.
                               // one-line note; a statewide race is called only
                               // after `last`
     races: {race id: {first, last}}
-                              // districts that differ from their state's window
-                              // (FL-01, FL-02); every other race: its state's
+                              // districts with their own window (Florida's: the
+                              // 1st and 2nd close at 8 p.m. ET, the rest at 7);
+                              // every other race: its state's
   },
   counts: {awaiting, counting, called, runoff, uncontested},
   chambers: {house|senate|governor: {
