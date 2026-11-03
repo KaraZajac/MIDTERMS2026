@@ -155,7 +155,7 @@ export function windowOf(data, id) {
 export function closingText(w, t = now()) {
   if (!w) return "No votes counted yet";
   const f = Date.parse(w.first), l = Date.parse(w.last);
-  if (t < f) return w.first === w.last ? `Polls close ${closeClock(w.first)} ET` : `Polls close ${closeRange(w.first, w.last)} ET`;
+  if (t < f) return w.first === w.last ? `Polls close at ${closeClock(w.first)} ET` : `Polls close ${closeRange(w.first, w.last)} ET`;
   if (t < l) return `Polls closed at ${closeClock(w.first)} ET in part of the state; the rest close at ${closeClock(w.last)} ET`;
   return `Polls closed at ${closeClock(w.last)} ET · no votes counted yet`;
 }
