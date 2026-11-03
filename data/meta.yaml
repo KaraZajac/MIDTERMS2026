@@ -2,7 +2,7 @@ generated: '2026-11-03T10:09:43Z'
 generator: python3 -m midterms build
 asof: '2026-11-03'
 election_day: '2026-11-03'
-sources_digest: 41b09afbcb22c857
+sources_digest: bbd4651819f8506c
 counts:
   house_races: 435
   senate_races: 35
@@ -15,7 +15,7 @@ counts:
   generic_polls: 736
   fabricated_polls_excluded:
     wikipedia: 0
-    votehub: 0
+    votehub: 11
   polled_races: 179
   ratings: 2708
   outside_averages: 181
@@ -153,6 +153,10 @@ sources:
     2026 Wyoming gubernatorial election: 1383535984
     Template:2026 United States elections/polling: 1383518721
   files:
+    fec-webl26:
+      url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
+      fetched: '2026-11-03T09:09:31Z'
+      sha256: d750724533d91ca5665418cb9b1f397966de2e36aa823f4f2a5abf1b83d44ef9
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
       sha256: 75215795f59d6dd9c725c794b2222db140048aff27510847d1c5b145af3c04ef
@@ -161,11 +165,15 @@ sources:
       fetched: '2026-11-01T15:55:59Z'
       sha256: 14f5aeba96e21c3535fca225869595557347d2a1005dbe0303fc082cf6261d61
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
+    votehub-polls:
+      url: https://api.votehub.com/polls
+      fetched: '2026-11-03T09:09:38Z'
+      sha256: 49764f9dc59de28b5d60d4ff9c14d6e2ec3b3a8c5c96bb010920ebf836aaf71c
   votehub_supplement:
     basis: carried over from data/polls/races.csv
     candidates: 37
     already_on_wikipedia: 0
     added: 37
-    excluded_fabricated: 0
+    excluded_fabricated: 11
   lean: data/lean/sources.yaml
   backtest: data/backtest.yaml (sources:)

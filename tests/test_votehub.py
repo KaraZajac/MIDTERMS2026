@@ -165,5 +165,50 @@ class TestCarryOver(unittest.TestCase):
         self.assertTrue(info["basis"].startswith("carried over"))
 
 
+class TestProvenance(unittest.TestCase):
+    """Reused data keeps its provenance in meta.yaml (after the deadline only
+    Wikipedia is pulled; the VoteHub polls and FEC filings carry over)."""
+
+    FEC = {"url": "https://www.fec.gov/files/bulk-downloads/2026/webl26.zip",
+           "fetched": "2026-11-03T09:09:31Z", "sha256": "d7"}
+    VH = {"url": "https://api.votehub.com/polls", "fetched": "2026-11-03T09:09:38Z", "sha256": "49"}
+    PINNED = {"fte-pollster-ratings": {"url": "u", "fetched": "2026-11-01T15:56:00Z", "sha256": "75"}}
+    CARRIED = {"basis": "carried over from data/polls/races.csv", "candidates": 37,
+               "already_on_wikipedia": 0, "added": 37, "excluded_fabricated": 0}
+
+    def setUp(self):
+        from midterms.pipeline import build
+        self.keep = build.keep_provenance
+        self.before = {"sources": {
+            "files": {"fec-webl26": self.FEC, "votehub-polls": self.VH, **self.PINNED},
+            "votehub_supplement": {"basis": "api", "candidates": 921, "already_on_wikipedia": 884,
+                                   "added": 37, "excluded_fabricated": 11}}}
+
+    def test_reused_inputs_keep_their_entries_and_count(self):
+        files, info = self.keep(dict(self.PINNED), dict(self.CARRIED), self.before, fec_reused=True)
+        self.assertEqual(files, {"fec-webl26": self.FEC, "fte-pollster-ratings": self.PINNED["fte-pollster-ratings"],
+                                 "votehub-polls": self.VH})
+        self.assertEqual(list(files), sorted(files))
+        self.assertEqual((info["excluded_fabricated"], info["added"], info["basis"]),
+                         (11, 37, self.CARRIED["basis"]))
+        # the next reuse reads this build's meta.yaml: same count, not double
+        again = {"sources": {"files": files, "votehub_supplement": info}}
+        files2, info2 = self.keep(dict(self.PINNED), dict(self.CARRIED), again, fec_reused=True)
+        self.assertEqual((files2, info2["excluded_fabricated"]), (files, 11))
+        # a pollster excluded since: its reused polls are dropped now, on top
+        _, info3 = self.keep({}, {**self.CARRIED, "excluded_fabricated": 2}, again, fec_reused=True)
+        self.assertEqual(info3["excluded_fabricated"], 13)
+
+    def test_fresh_downloads_describe_themselves(self):
+        new_fec = {**self.FEC, "fetched": "2026-11-03T10:09:31Z", "sha256": "e8"}
+        api = {"basis": "api", "candidates": 925, "already_on_wikipedia": 887, "added": 38,
+               "excluded_fabricated": 12}
+        files, info = self.keep({"fec-webl26": new_fec}, api, self.before, fec_reused=False)
+        self.assertEqual((files, info), ({"fec-webl26": new_fec}, api))
+        # nothing committed to reuse from: unchanged
+        files, info = self.keep({}, dict(self.CARRIED), {}, fec_reused=True)
+        self.assertEqual((files, info), ({}, self.CARRIED))
+
+
 if __name__ == "__main__":
     unittest.main()

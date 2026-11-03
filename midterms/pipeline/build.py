@@ -159,6 +159,30 @@ def pollster_ratings() -> tuple[list[dict], dict]:
     return PQ.read_rating_rows(RATINGS_DIR / "ratings.csv"), prov
 
 
+FIN_COLS = ["race", "side", "candidate", "fec_id", "fec_name", "receipts", "total_receipts",
+            "cash_on_hand", "coverage_end"]
+
+
+def keep_provenance(files: dict, vh_info: dict, before: dict, fec_reused: bool) -> tuple[dict, dict]:
+    """(files, vh_info) for meta.yaml when this build reused committed data
+    instead of a download: after the deadline only Wikipedia is pulled, and
+    before it a failed download carries the committed rows over. The reused
+    FEC filings and VoteHub polls keep the file entries they were built from,
+    and the count of fabricated VoteHub polls already dropped from them, as
+    `before` (the meta.yaml committed by the last build) records them."""
+    src = (before or {}).get("sources") or {}
+    old = src.get("files") or {}
+    vh_reused = str(vh_info.get("basis", "")).startswith("carried over")
+    files = dict(files)
+    for key, reused in (("fec-webl26", fec_reused), ("votehub-polls", vh_reused)):
+        if reused and key in old:
+            files[key] = old[key]
+    if vh_reused:
+        dropped = (src.get("votehub_supplement") or {}).get("excluded_fabricated") or 0
+        vh_info = {**vh_info, "excluded_fabricated": vh_info["excluded_fabricated"] + int(dropped)}
+    return dict(sorted(files.items())), vh_info
+
+
 LEAN_DIR = DATA / "lean"
 # Only the blended lean index is committed for districts: The Downballot asks
 # that its spreadsheets not be reproduced, and the per-year district margins
@@ -250,7 +274,9 @@ def main() -> None:
         for side, name, party in (("D", x["d_cand"], x["d_side"]), ("R", x["r_cand"], x["r_side"])):
             if carried is not None:
                 old = carried.get((x["id"], side, name))
-                fin_rows.append(old or {"race": x["id"], "side": side, "candidate": name})
+                # a candidate whose name changed since (a Wikipedia edit) has no filing
+                fin_rows.append(old or {"race": x["id"], "side": side, "candidate": name,
+                                        **dict.fromkeys(FIN_COLS[3:], "")})
                 continue
             hit = finance.match(fec_idx, office, x["state"], dist, name, party) if name else None
             fin_rows.append({"race": x["id"], "side": side, "candidate": name,
@@ -292,8 +318,7 @@ def main() -> None:
     _write(POLLS / "generic.csv", gen_rows, POLL_COLS)
     _write(DATA / "ratings.csv", rating_rows, ["race", "rater", "source", "rating", "scale", "asof"])
     _write(DATA / "averages.csv", avg_rows, ["race", "source", "end", "updated", "d", "r"])
-    _write(DATA / "finance.csv", fin_rows, ["race", "side", "candidate", "fec_id", "fec_name", "receipts",
-                                            "total_receipts", "cash_on_hand", "coverage_end"])
+    _write(DATA / "finance.csv", fin_rows, FIN_COLS)
     _write(DATA / "pollster_quality.csv", quality,
            ["pollster", "matched", "grade", "ppm", "banned", "weight", "rating_source"])
 
@@ -306,7 +331,8 @@ def main() -> None:
     other = {k: {"url": v["url"], "fetched": v["fetched"], "sha256": v["sha256"]}
              for k, v in files.items() if not k.startswith("wikipedia:") and k not in RAW_RATINGS}
     other.update(ratings_prov)          # the pinned copy, wherever this build ran
-    other = dict(sorted(other.items()))
+    before = yaml.safe_load((DATA / "meta.yaml").read_text()) if (DATA / "meta.yaml").exists() else {}
+    other, vh_info = keep_provenance(other, vh_info, before or {}, fec_reused=carried is not None)
     digest = hashlib.sha256(json.dumps({"w": wiki_revs, "o": {k: v["sha256"] for k, v in other.items()}},
                                        sort_keys=True).encode()).hexdigest()[:16]
     latest_poll = max([p["end"] for p in poll_rows + gen_rows] or [""])

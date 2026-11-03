@@ -7,6 +7,23 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-03, after the seal — reused inputs keep their provenance (no model change)
+- After the deadline the refresh pulls only Wikipedia (for the results),
+  so every build reuses the committed VoteHub polls and FEC filings. The
+  first of these builds (10:10 UTC) wrote `data/meta.yaml` as though they
+  had no source. It dropped the `fec-webl26` and `votehub-polls` file
+  entries and counted 0 fabricated VoteHub polls excluded instead of 11,
+  so the /data/ page lost its "Polls excluded as fabricated" line. Now a
+  build that reuses data keeps those file entries and that count from the
+  meta.yaml committed before it (`build.keep_provenance`). The 10:10
+  entries were restored from the forecast of record's commit (0ab1b66).
+  The data and the forecast of record are unchanged.
+- A build that reuses the FEC filings no longer fails when Wikipedia
+  respells a nominee's name (a Nov 1 page had "Gordan Heslop" for LA-04's
+  "Gordon Heslop"). That nominee's row is left without a filing, as
+  intended, instead of breaking the build, which would have stopped the
+  scoring after the deadline until the names matched again.
+
 ### 2026-11-03 — election night for viewers: seats changing hands, poll closings (no model change)
 - `live.json` marks the seats that change hands: `held` (the party holding
   each seat now), the winner's `party`, `flip`, and per chamber `gains`,
