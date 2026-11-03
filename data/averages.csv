@@ -6,8 +6,9 @@ senate:AK,Decision Desk HQ,2026-11-01,2026-11-02,49.2,47.8
 senate:AK,FiftyPlusOne,2026-11-01,2026-11-03,49.7,47.4
 senate:AK,RealClearPolitics,2026-11-01,2026-11-02,49.2,48.2
 senate:AK,Silver Bulletin,2026-11-01,2026-11-03,48.3,45.9
-senate:AR,270toWin,2026-08-20,2026-10-09,41.0,47.5
-senate:AR,Silver Bulletin,2026-10-29,2026-10-31,39.5,52.7
+senate:AR,Silver Bulletin,2026-10-28,2026-11-03,39.8,52.8
+senate:CO,270toWin,2026-11-02,2026-11-02,59.0,38.0
+senate:CO,Silver Bulletin,2026-11-02,2026-11-03,57.1,37.5
 senate:GA,270toWin,2026-10-20,2026-10-21,52.0,43.6
 senate:GA,Decision Desk HQ,2026-10-20,2026-10-21,51.5,43.7
 senate:GA,FiftyPlusOne,2026-10-20,2026-10-21,51.7,43.1
@@ -64,11 +65,11 @@ senate:NC,Decision Desk HQ,2026-10-29,2026-11-01,52.7,42.6
 senate:NC,FiftyPlusOne,2026-10-29,2026-11-01,52.9,42.3
 senate:NC,RealClearPolitics,2026-10-29,2026-11-01,51.8,40.8
 senate:NC,Silver Bulletin,2026-10-29,2026-11-01,52.6,42.6
-senate:SC,270toWin,2026-10-26,2026-10-29,45.2,47.6
-senate:SC,Decision Desk HQ,2026-10-29,2026-10-30,45.6,45.7
-senate:SC,FiftyPlusOne,2026-10-29,2026-10-30,45.6,46.0
-senate:SC,RealClearPolitics,2026-10-26,2026-10-29,45.0,47.7
-senate:SC,Silver Bulletin,2026-10-29,2026-11-01,45.6,47.0
+senate:SC,270toWin,2026-11-01,2026-11-02,45.2,47.4
+senate:SC,Decision Desk HQ,2026-11-01,2026-11-02,46.0,45.9
+senate:SC,FiftyPlusOne,2026-11-01,2026-11-03,45.8,45.8
+senate:SC,RealClearPolitics,2026-11-01,2026-11-02,45.4,48.0
+senate:SC,Silver Bulletin,2026-11-01,2026-11-03,46.1,47.2
 senate:SD,Decision Desk HQ,2026-10-26,2026-10-30,39.5,49.7
 senate:SD,FiftyPlusOne,2026-10-26,2026-10-30,41.3,51.5
 senate:SD,Silver Bulletin,2026-10-26,2026-10-30,41.4,52.1
