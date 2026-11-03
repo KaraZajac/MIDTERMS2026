@@ -9,8 +9,10 @@ interface Props {
   description?: string;
   /** Leave the "· MIDTERMS2026" suffix off the <title> (the home page). */
   bare?: boolean;
+  /** On a phone, cut the phase banner to one line (/results/, where the bars should be on the first screen). */
+  shortBanner?: boolean;
 }
-const { title, description, bare = false } = Astro.props;
+const { title, description, bare = false, shortBanner = false } = Astro.props;
 
 const m = meta();
 const commit = buildCommit();
@@ -116,20 +118,25 @@ const phase = m.phase ?? "forecast";
     </header>
     {
       phase === "frozen" && (
-        <div class="phase-banner">
+        <div class:list={["phase-banner", { "is-short": shortBanner }]}>
           <div class="wrap">
-            <strong>The forecast is frozen.</strong> This is the final forecast, made {fmtStamp(m.frozen_at ?? m.generated)}. It
-            will be scored against the results as they come in — <a href={url("/scorecard/")}>see the scorecard</a>.
+            <strong>The forecast is frozen.</strong>{" "}
+            <span class="pb-more">
+              This is the final forecast, made {fmtStamp(m.frozen_at ?? m.generated)}. It will be scored against the results as
+              they come in —{" "}
+            </span>
+            <a href={url("/scorecard/")}><span class="pb-more">see</span><span class="pb-short">See</span> the scorecard</a>.
           </div>
         </div>
       )
     }
     {
       phase === "results" && (
-        <div class="phase-banner">
+        <div class:list={["phase-banner", { "is-short": shortBanner }]}>
           <div class="wrap">
-            <strong>Results are coming in.</strong> The frozen forecast is being graded race by race —{" "}
-            <a href={url("/scorecard/")}>see the scorecard</a>.
+            <strong>Results are coming in.</strong>{" "}
+            <span class="pb-more">The frozen forecast is being graded race by race —{" "}</span>
+            <a href={url("/scorecard/")}><span class="pb-more">see</span><span class="pb-short">See</span> the scorecard</a>.
           </div>
         </div>
       )

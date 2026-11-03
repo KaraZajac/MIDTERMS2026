@@ -18,6 +18,9 @@ const FILTERS = [
   ["flips", "Changed hands"],
 ];
 const TYPES = ["call", "changed", "retracted"];
+// On a phone the list sits inline in the page: the newest few, then "Show more".
+const NARROW = typeof matchMedia === "function" ? matchMedia("(max-width: 960px)") : { matches: false };
+const FEW = 8, MORE = 20;
 
 /** Every call, newest first: [{k, t, race, type, winner, party, flip, upset, pw}] */
 function calls(data) {
@@ -160,7 +163,15 @@ function draw(block, st, keepPlace) {
   st.seen = new Set([...(st.seen ?? []), ...all.map((c) => c.k)]);
   const isNew = new Set(fresh);
 
-  list.replaceChildren(...(shown.length ? shown.map((c) => row(c, data, N, isNew.has(c.k))) : [empty(st.filter, data)]));
+  const inline = NARROW.matches;
+  const visible = inline ? shown.slice(0, st.limit) : shown;
+  const rest = shown.length - visible.length;
+  list.replaceChildren(
+    ...(shown.length ? visible.map((c) => row(c, data, N, isNew.has(c.k))) : [empty(st.filter, data)]),
+    ...(rest > 0
+      ? [h("li", { class: "fe-more" }, h("button", { type: "button", class: "btn", "data-feed-more": true }, `Show ${Math.min(MORE, rest)} more (${rest} earlier)`))]
+      : []),
+  );
   if (place) {
     const li = [...list.children].find((x) => x.dataset.k === place.k);
     if (li) list.scrollTop += li.getBoundingClientRect().top - list.getBoundingClientRect().top - place.off;
@@ -177,12 +188,18 @@ export function paintFeed(block, data, N) {
   if (!block) return;
   let st = state.get(block);
   if (!st) {
-    st = { filter: "all", seen: null, last: null };
+    st = { filter: "all", seen: null, last: null, limit: FEW };
     state.set(block, st);
+    NARROW.addEventListener?.("change", () => st.last && draw(block, st, true));
     block.addEventListener("click", (e) => {
+      if (e.target.closest?.("button[data-feed-more]")) {
+        st.limit += MORE;
+        return draw(block, st, true);
+      }
       const b = e.target.closest?.("button[data-feed]");
       if (!b || !block.contains(b) || !FILTERS.some(([k]) => k === b.dataset.feed)) return;
       st.filter = b.dataset.feed;
+      st.limit = FEW;
       block.querySelectorAll("button[data-feed]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
       if (st.last) draw(block, st, false);
     });

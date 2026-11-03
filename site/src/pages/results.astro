@@ -7,17 +7,18 @@ import ResultsBoard from "../components/ResultsBoard.astro";
 ---
 
 <Base
+  shortBanner
   title="Election night results"
   description="Live 2026 midterm results: every House, Senate and governor race as it's called, the seats changing hands, and when the polls close, beside the MIDTERMS2026 forecast."
 >
-  <section class="page-head">
+  <section class="page-head results-head">
     <p class="eyebrow">Election night · November 3, 2026</p>
     <h1>Results</h1>
     <p class="lede">
       Every House, Senate and governor race as it's called, the seats that change hands, and when the polls close. The
       page updates itself every 30 seconds.
     </p>
-    <p><a class="btn" href="#board">Every race ↓</a></p>
+    <p class="results-jump"><a class="btn" href="#board">Every race ↓</a></p>
   </section>
 
   <ResultsHero />

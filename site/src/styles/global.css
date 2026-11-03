@@ -270,6 +270,11 @@ main.wrap { padding-top: 28px; padding-bottom: 24px; min-height: 60vh; }
   color: var(--ink);
 }
 .phase-banner .wrap { padding-top: 8px; padding-bottom: 8px; }
+.pb-short { display: none; }
+@media (max-width: 640px) {
+  .phase-banner.is-short .pb-more { display: none; }
+  .phase-banner.is-short .pb-short { display: inline; }
+}
 
 /* ---------- footer ---------- */
 .site-foot {
@@ -803,11 +808,29 @@ details.tableview[open] > summary { margin-bottom: 8px; }
 .board-seg[hidden] { display: none; }
 .board-seg strong { color: var(--ink-strong); }
 
+/* One column (phones, small tablets): status, House, Senate, the calls, governors,
+   the key, then the poll closings. The calls sit inline, newest 8 first, with
+   "Show more": a scroll box inside the page would trap a thumb. */
 @media (max-width: 960px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr); }
-  .hero-feedwrap { min-height: 0; height: 30rem; }
-  .hero-grid.is-awaiting .hero-feedwrap { height: auto; }
+  .hero { display: flex; flex-direction: column; gap: 14px; }
+  .hero-top, .hero-grid, .hero-bars { display: contents; }
+  .hero-top > .live-fixture { order: 1; align-self: flex-start; }
+  .hero-status { order: 2; }
+  .hero .live-delay { order: 3; align-self: flex-start; }
+  .hero-ch[data-hero-ch="house"] { order: 4; }
+  .hero-ch[data-hero-ch="senate"] { order: 5; }
+  .hero-feedwrap { order: 6; min-height: 0; }
+  .hero-ch[data-hero-ch="governor"] { order: 7; }
+  .hero-key { order: 8; }
+  .hero [data-live-next] { order: 9; }
+  .hero .live-sched { order: 10; }
+  .hero .live-credit { order: 11; margin-top: 0; }
+  .hero-feedwrap > .feed { position: static; }
+  .feed > .feed-list { flex: none; overflow: visible; }
+  .results-head { margin-bottom: 14px; }
 }
+.fe-more { padding: 10px 0 12px; }
+.fe-more .btn { width: 100%; justify-content: center; }
 @media (max-width: 640px) {
   .hero-ch { padding: 14px 14px 12px; }
   .sb-bar { height: 32px; }
@@ -816,11 +839,9 @@ details.tableview[open] > summary { margin-bottom: 8px; }
   .sb-lg-k { flex-basis: 100%; padding: 4px 5px 0; }
   .sb-lg-k:empty { height: 0; padding: 0; }
   .sb-lg-item { gap: 4px; padding: 3px 4px; }
-  .hero-feedwrap { height: 34rem; }
-  /* one row of filters that scrolls sideways, so the list keeps its room */
-  .feed .feed-seg { flex-wrap: nowrap; max-width: calc(100% - 32px); overflow-x: auto; scrollbar-width: none; }
-  .feed .feed-seg::-webkit-scrollbar { display: none; }
-  .feed .feed-seg button { flex: none; }
+  /* the bars on the first screen: no lede or jump button on a phone */
+  .results-head .lede, .results-head .results-jump { display: none; }
+  .results-head h1 { margin-bottom: 0; }
 }
 
 /* ---------- the results board (/results/, scripts/live-board.js) ---------- */
