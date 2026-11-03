@@ -151,6 +151,45 @@ class TestCivic(unittest.TestCase):
         self.assertEqual([r["id"] for r in races], ["f0", "g0"])
         self.assertEqual(clock.slept, [2.0, 7.0, 8.0])        # backoff, Retry-After, backoff
 
+    def _governors_slow(self, clock, takes, asked):
+        """fetch.get where the governors' search answers after `takes`
+        seconds (None: never), timing out like a socket when the read's
+        timeout is shorter; the federal one answers at once."""
+        def fake_get(u, timeout, **kw):
+            if "Governor" not in u:
+                return json.dumps({"count": 1, "races": [{"id": "f0"}]}).encode()
+            asked.append(timeout)
+            if takes is None or timeout < takes:
+                clock.t += timeout
+                raise civic.fetch.DownloadFailed("download failed: … (The read operation timed out)")
+            clock.t += takes
+            return json.dumps({"count": 1, "races": [{"id": "g0"}]}).encode()
+        return fake_get
+
+    def test_a_slow_answer_is_waited_for(self):
+        # 22:58 UTC, Nov 3: three 25-second reads of the governors' search went
+        # unanswered and the run failed; an answer 40 s away now comes on the first read
+        from unittest import mock
+        clock, asked = self.Clock(), []
+        with mock.patch.object(civic.fetch, "get", self._governors_slow(clock, 40, asked)), \
+                mock.patch.object(civic, "time", clock):
+            races, _ = civic.fetch_all()
+        self.assertEqual([r["id"] for r in races], ["f0", "g0"])
+        self.assertEqual((asked, clock.slept), ([civic.TIMEOUT], []))
+
+    def test_a_silent_server_is_given_up_on_in_time(self):
+        # never answering: one long read, a second with what is left, then out
+        from unittest import mock
+        clock, asked = self.Clock(), []
+        start = clock.t
+        with mock.patch.object(civic.fetch, "get", self._governors_slow(clock, None, asked)), \
+                mock.patch.object(civic, "time", clock):
+            with self.assertRaises(SystemExit) as cm:
+                civic.fetch_all()
+        self.assertIn("timed out", str(cm.exception))
+        self.assertEqual(asked, [civic.TIMEOUT, civic.BUDGET - civic.TIMEOUT - 2])
+        self.assertLessEqual(clock.t - start, civic.BUDGET)
+
     def test_fetch_all_is_all_or_nothing(self):
         # still failing when the budget runs out: no file rather than half a picture
         from unittest import mock

@@ -63,8 +63,12 @@ def url(name: str, offset: int = 0) -> str:
 # seconds, and a failed one (429, 5xx, a network error or a timeout) is tried
 # again after 2, 4, 8, then every 10 seconds, or the server's Retry-After, for
 # as long as the whole fetch has time left: BUDGET seconds, well inside the
-# web server's 110-second limit on the job.
-TIMEOUT = 25
+# web server's 110-second limit on the job. TIMEOUT was 25 until 22:58 UTC on
+# Nov 3, when three 25-second reads of the governors' search in a row went
+# unanswered as the first polls closed: giving up on a slow read only asks
+# the same slow search again, so the first read now waits 50 seconds, and a
+# second gets what is left of the budget.
+TIMEOUT = 50
 BUDGET = 80
 RETRY = {429, 500, 502, 503, 504}
 

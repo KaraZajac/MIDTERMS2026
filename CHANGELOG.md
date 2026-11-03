@@ -7,6 +7,15 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-03, evening — a slow civicAPI answer is waited for (no model change)
+- At 22:58 UTC, as the first polls closed, civicAPI left three 25-second
+  reads of the governors' search in a row unanswered, and that run of the
+  web server's live job failed (`/live.json` went 3 minutes without an
+  update before the next runs caught up). Giving up on a slow read only
+  asked the same slow search again. Now the first read waits up to 50
+  seconds; a second gets what is left of the same 80-second budget, so a
+  run still ends well inside the server's 110-second limit.
+
 ### 2026-11-03, morning — civicAPI's searches (no model change)
 - From 14:00 UTC civicAPI answered the governors' text search
   (`query=Governor`) with 503 DATABASE_TIMEOUT ("Public database request
