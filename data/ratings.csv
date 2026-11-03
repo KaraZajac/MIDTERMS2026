@@ -496,7 +496,7 @@ house:FL-13,The Economist,The Economist,Lean R,-1.0,2026-10-29
 house:FL-14,DDHQ,Decision Desk HQ,Lean D,1.0,2026-10-29
 house:FL-14,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
 house:FL-14,Inside Elections,Inside Elections,Tilt D,0.5,2026-10-29
-house:FL-14,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
+house:FL-14,Sabato,Sabato's Crystal Ball,Lean D,1.0,2026-11-02
 house:FL-14,The Economist,The Economist,Lean D,1.0,2026-10-29
 house:FL-15,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
 house:FL-15,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
@@ -536,7 +536,7 @@ house:FL-21,The Economist,The Economist,Likely R,-2.0,2026-05-06
 house:FL-22,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-29
 house:FL-22,Cook,The Cook Political Report,Tossup,0.0,2026-10-30
 house:FL-22,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
-house:FL-22,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-27
+house:FL-22,Sabato,Sabato's Crystal Ball,Lean D,1.0,2026-11-02
 house:FL-22,The Economist,The Economist,Tossup,0.0,2026-10-29
 house:FL-23,DDHQ,Decision Desk HQ,Safe D,3.0,2026-07-14
 house:FL-23,Cook,The Cook Political Report,Solid D,3.0,2026-05-08
@@ -945,7 +945,7 @@ house:MI-03,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-08-14
 house:MI-04,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-30
 house:MI-04,Cook,The Cook Political Report,Tossup,0.0,2026-10-09
 house:MI-04,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
-house:MI-04,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-09-16
+house:MI-04,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:MI-04,The Economist,The Economist,Lean R,-1.0,2026-05-22
 house:MI-04,Silver Bulletin,Silver Bulletin,Tossup,0.0,2026-08-15
 house:MI-05,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
@@ -961,7 +961,7 @@ house:MI-06,The Economist,The Economist,Safe D,3.0,2026-05-22
 house:MI-07,DDHQ,Decision Desk HQ,Likely D (flip),2.0,2026-10-20
 house:MI-07,Cook,The Cook Political Report,Tossup,0.0,2026-05-13
 house:MI-07,Inside Elections,Inside Elections,Tossup,0.0,2026-05-21
-house:MI-07,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-05-26
+house:MI-07,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:MI-07,The Economist,The Economist,Lean D (flip),1.0,2026-05-22
 house:MI-08,DDHQ,Decision Desk HQ,Safe D,3.0,2026-09-25
 house:MI-08,Cook,The Cook Political Report,Likely D,2.0,2026-08-25
@@ -976,7 +976,7 @@ house:MI-09,The Economist,The Economist,Safe R,-3.0,2026-05-22
 house:MI-10,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-10-20
 house:MI-10,Cook,The Cook Political Report,Tossup,0.0,2026-08-25
 house:MI-10,Inside Elections,Inside Elections,Tilt R,-0.5,2026-05-21
-house:MI-10,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-05-26
+house:MI-10,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:MI-10,The Economist,The Economist,Likely D (flip),2.0,2026-05-22
 house:MI-10,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-08-15
 house:MI-11,DDHQ,Decision Desk HQ,Safe D,3.0,2026-07-14
