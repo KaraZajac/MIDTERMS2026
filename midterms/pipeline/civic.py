@@ -11,9 +11,13 @@ name somewhere." Two searches cover every race the model forecasts:
                                                   the 35 Senate races (plus
                                                   state-legislative rows,
                                                   dropped)
-    race/search?…&query=Governor&election_type=Statewide
+    race/search?…&election_type=Statewide&type=Governor
                                                   the 36 governors (plus
                                                   territories, dropped)
+
+(The governors' search used `query=Governor`, a text search, until civicAPI
+began answering it with 503 DATABASE_TIMEOUT on the morning of Nov 3; the
+`type` filter returns the same races and does not time out.)
 
 Each civicAPI race maps to one of ours by office, state and district, and
 each candidate to our D-side or R-side by name (surname, then first name:
@@ -27,6 +31,7 @@ resolves races from Wikipedia's results boxes (journal/score.py).
 from __future__ import annotations
 
 import json
+import time
 from difflib import SequenceMatcher
 from urllib.parse import urlencode
 
@@ -37,7 +42,7 @@ SEARCH = "https://civicapi.org/api/v2/race/search"
 ELECTION = "2026-11-03"
 QUERIES = {
     "federal": {"election_type": "General"},
-    "governors": {"query": "Governor", "election_type": "Statewide"},
+    "governors": {"election_type": "Statewide", "type": "Governor"},
 }
 PAGE = 1000
 UA = "MIDTERMS2026-live/0.1 (+https://midterms.karazajac.io)"
@@ -53,17 +58,38 @@ def url(name: str, offset: int = 0) -> str:
 
 
 # civicAPI's searches take 6–10 s to a first byte when its own cache is cold
-# (measured Nov 3), which a once-a-minute poll always meets; election-night
-# load can make that longer. A read may wait TIMEOUT seconds, twice.
+# (measured Nov 3), which a once-a-minute poll always meets, and at 14:00 UTC
+# on Nov 3 it answered two quick tries with 503. So a read may wait TIMEOUT
+# seconds, and a failed one (429, 5xx, a network error or a timeout) is tried
+# again after 2, 4, 8, then every 10 seconds, or the server's Retry-After, for
+# as long as the whole fetch has time left: BUDGET seconds, well inside the
+# web server's 110-second limit on the job.
 TIMEOUT = 25
-ATTEMPTS = 2
+BUDGET = 80
+RETRY = {429, 500, 502, 503, 504}
 
 
-def _search(name: str, timeout: int, retries: int) -> list[dict]:
+def _get(u: str, deadline: float) -> bytes:
+    delay = 2.0
+    while True:
+        left = deadline - time.monotonic()
+        try:
+            return fetch.get(u, timeout=max(5, min(TIMEOUT, int(left))), retries=1, gzip=True,
+                             headers={"User-Agent": UA, "Accept": "application/json"})
+        except fetch.DownloadFailed as e:
+            if e.status is not None and e.status not in RETRY:
+                raise                                   # a 4xx won't fix itself
+            wait = min(max(delay, e.retry_after or 0.0), 30.0)
+            if deadline - time.monotonic() < wait + 5:
+                raise
+            time.sleep(wait)
+            delay = min(2 * delay, 10.0)
+
+
+def _search(name: str, deadline: float) -> list[dict]:
     races, offset = [], 0
     while True:
-        raw = fetch.get(url(name, offset), timeout=timeout, retries=retries, gzip=True,
-                        headers={"User-Agent": UA, "Accept": "application/json"})
+        raw = _get(url(name, offset), deadline)
         try:
             page = json.loads(raw)
             batch, count = page["races"], int(page["count"])
@@ -75,14 +101,16 @@ def _search(name: str, timeout: int, retries: int) -> list[dict]:
             return races
 
 
-def fetch_all(*, timeout: int = TIMEOUT, retries: int = ATTEMPTS) -> tuple[list[dict], str]:
+def fetch_all(*, budget: float = BUDGET) -> tuple[list[dict], str]:
     """Every race of both searches (paged; the two run side by side), and
-    when they were fetched. Raises SystemExit on any failure: a partial
-    picture is never used."""
+    when they were fetched. Failed reads are retried while `budget` seconds
+    last; after that any failure raises SystemExit: a partial picture is
+    never used."""
     from concurrent.futures import ThreadPoolExecutor
     fetched = fetch.now_utc()
+    deadline = time.monotonic() + budget
     with ThreadPoolExecutor(max_workers=len(QUERIES)) as pool:
-        jobs = [pool.submit(_search, name, timeout, retries) for name in QUERIES]
+        jobs = [pool.submit(_search, name, deadline) for name in QUERIES]
         races = [r for job in jobs for r in job.result()]      # re-raises either search's failure
     return races, fetched
 

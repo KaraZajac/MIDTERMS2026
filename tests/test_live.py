@@ -103,26 +103,94 @@ class TestCivic(unittest.TestCase):
             q = parse_qs(urlparse(u).query)
             seen.append((kw.get("gzip"), kw.get("timeout"), kw.get("retries")))
             off = int(q["offset"][0])
-            if q.get("query") == ["Governor"]:
+            if q.get("type") == ["Governor"]:
                 return json.dumps({"count": 1, "races": [{"id": "g0"}]}).encode()
             return json.dumps({"count": 3, "races": [{"id": f"f{off}"}] if off < 3 else []}).encode()
 
         with mock.patch.object(civic.fetch, "get", fake_get):
             races, _ = civic.fetch_all()
         self.assertEqual([r["id"] for r in races], ["f0", "f1", "f2", "g0"])
-        self.assertTrue(all(g and t >= 20 and r >= 2 for g, t, r in seen))
+        # one attempt per call: civic retries, against its own time budget
+        self.assertTrue(all(g and t >= 20 and r == 1 for g, t, r in seen))
 
-    def test_fetch_all_is_all_or_nothing(self):
-        from unittest import mock
+    class Clock:
+        """time.monotonic and time.sleep, without the waiting."""
+        def __init__(self):
+            self.t, self.slept = 1000.0, []
+
+        def monotonic(self):
+            return self.t
+
+        def sleep(self, s):
+            self.slept.append(s)
+            self.t += s
+
+    def _governors_fail(self, *errors):
+        """fetch.get where the governors' search raises each of `errors` in
+        turn (then answers), and the federal one answers at once."""
+        left = list(errors)
 
         def fake_get(u, **kw):
             if "Governor" in u:
-                raise SystemExit("download failed: (The read operation timed out)")
+                if left:
+                    raise left.pop(0)
+                return json.dumps({"count": 1, "races": [{"id": "g0"}]}).encode()
             return json.dumps({"count": 1, "races": [{"id": "f0"}]}).encode()
+        return fake_get
 
-        with mock.patch.object(civic.fetch, "get", fake_get):
+    def test_a_busy_server_is_tried_again(self):
+        # 14:00 UTC, Nov 3: a 503 to two quick tries sank the web server's run
+        from unittest import mock
+        clock = self.Clock()
+        busy = civic.fetch.DownloadFailed("download failed: … (HTTP 503)", 503)
+        slow = civic.fetch.DownloadFailed("download failed: … (HTTP 503)", 503, retry_after=7.0)
+        cut = civic.fetch.DownloadFailed("download failed: … (The read operation timed out)")
+        with mock.patch.object(civic.fetch, "get", self._governors_fail(busy, slow, cut)), \
+                mock.patch.object(civic, "time", clock):
+            races, _ = civic.fetch_all()
+        self.assertEqual([r["id"] for r in races], ["f0", "g0"])
+        self.assertEqual(clock.slept, [2.0, 7.0, 8.0])        # backoff, Retry-After, backoff
+
+    def test_fetch_all_is_all_or_nothing(self):
+        # still failing when the budget runs out: no file rather than half a picture
+        from unittest import mock
+        clock = self.Clock()
+        busy = civic.fetch.DownloadFailed("download failed: … (HTTP 503)", 503)
+        with mock.patch.object(civic.fetch, "get", self._governors_fail(*[busy] * 100)), \
+                mock.patch.object(civic, "time", clock):
+            with self.assertRaises(SystemExit) as cm:
+                civic.fetch_all()
+        self.assertIn("HTTP 503", str(cm.exception))
+        self.assertLessEqual(sum(clock.slept), civic.BUDGET - 5)
+        self.assertGreaterEqual(len(clock.slept), 6)
+
+    def test_a_refusal_is_not_retried(self):
+        from unittest import mock
+        clock = self.Clock()
+        gone = civic.fetch.DownloadFailed("download failed: … (HTTP 404)", 404)
+        with mock.patch.object(civic.fetch, "get", self._governors_fail(gone)), \
+                mock.patch.object(civic, "time", clock):
             with self.assertRaises(SystemExit):
                 civic.fetch_all()
+        self.assertEqual(clock.slept, [])
+
+    def test_download_failed(self):
+        # fetch.get says why: the status and Retry-After, or None for the network
+        from unittest import mock
+        from urllib.error import HTTPError
+        f = civic.fetch
+        for err, want in ((HTTPError("https://x", 503, "busy", {"Retry-After": "7"}, None), (503, 7.0)),
+                          (HTTPError("https://x", 429, "slow down", {"Retry-After": "Wed, 04 Nov 2026 01:00:00 GMT"},
+                                     None), (429, None)),
+                          (ConnectionResetError("reset"), (None, None)),
+                          (TimeoutError("The read operation timed out"), (None, None))):
+            if isinstance(err, HTTPError):
+                self.addCleanup(err.close)
+            with mock.patch.object(f, "urlopen", side_effect=err):
+                with self.assertRaises(f.DownloadFailed) as cm:
+                    f.get("https://x", retries=1)
+            self.assertEqual((cm.exception.status, cm.exception.retry_after), want)
+            self.assertIsInstance(cm.exception, SystemExit)
 
     def test_race_ids(self):
         ids = set(RACES)

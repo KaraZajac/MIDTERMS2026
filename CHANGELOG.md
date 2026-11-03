@@ -7,6 +7,21 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-03, morning — civicAPI's searches (no model change)
+- From 14:00 UTC civicAPI answered the governors' text search
+  (`query=Governor`) with 503 DATABASE_TIMEOUT ("Public database request
+  exceeded its time budget"), and every run of the web server's live job
+  failed. The governors' search now filters by office
+  (`election_type=Statewide&type=Governor`). That returns the same races
+  (all 506 still map) and doesn't time out.
+- A failed civicAPI read (429, 5xx, a network error or a timeout) used to
+  get two quick tries. Now it is tried again after 2, 4, 8, then every 10
+  seconds, or the server's Retry-After, while the fetch's 80-second budget
+  lasts. That is inside the web server's 110-second limit on the job.
+  Downloads now say why they failed (`fetch.DownloadFailed`: the HTTP
+  status and Retry-After). A reset connection or a cut-off gzip body
+  counts as a network error to retry, not a crash.
+
 ### 2026-11-03, after the seal — reused inputs keep their provenance (no model change)
 - After the deadline the refresh pulls only Wikipedia (for the results),
   so every build reuses the committed VoteHub polls and FEC filings. The

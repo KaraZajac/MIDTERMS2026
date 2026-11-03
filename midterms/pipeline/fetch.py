@@ -13,8 +13,9 @@ import datetime
 import hashlib
 import json
 import time
+from http.client import HTTPException
 from pathlib import Path
-from urllib.error import HTTPError, URLError
+from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -39,11 +40,29 @@ def now_utc() -> str:
     return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+class DownloadFailed(SystemExit):
+    """A download that failed for good. `status` is the HTTP status (None
+    for a network error, a timeout or a broken body), `retry_after` the
+    server's Retry-After in seconds when it sent one. Uncaught, it ends the
+    command with its message, like the SystemExit it is."""
+
+    def __init__(self, msg: str, status: int | None = None, retry_after: float | None = None) -> None:
+        super().__init__(msg)
+        self.status, self.retry_after = status, retry_after
+
+
+def _retry_after(e: HTTPError) -> float | None:
+    try:
+        return float(e.headers.get("Retry-After"))      # seconds; an HTTP date counts as none
+    except (TypeError, ValueError, AttributeError):
+        return None
+
+
 def get(url: str, *, params: dict | None = None, timeout: int = 120, retries: int = 4,
         headers: dict | None = None, gzip: bool = False) -> bytes:
-    """GET with a descriptive UA and exponential backoff on 429/5xx.
-    `retries` is the number of attempts; `gzip` asks for a compressed body
-    (decompressed here)."""
+    """GET with a descriptive UA and exponential backoff on 429/5xx and
+    network errors. `retries` is the number of attempts; `gzip` asks for a
+    compressed body (decompressed here). Raises DownloadFailed."""
     if params:
         url = f"{url}{'&' if '?' in url else '?'}{urlencode(params)}"
     hdrs = {"User-Agent": UA, "Accept-Encoding": "gzip" if gzip else "identity"}
@@ -59,18 +78,18 @@ def get(url: str, *, params: dict | None = None, timeout: int = 120, retries: in
                 return body
         except HTTPError as e:
             if e.code in (429, 500, 502, 503, 504) and attempt < retries - 1:
-                wait = float(e.headers.get("Retry-After") or delay)
-                time.sleep(min(wait, 60))
+                time.sleep(min(_retry_after(e) or delay, 60))
                 delay *= 2
                 continue
-            raise SystemExit(f"download failed: {url} (HTTP {e.code})")
-        except (URLError, TimeoutError) as e:
+            raise DownloadFailed(f"download failed: {url} (HTTP {e.code})", e.code, _retry_after(e))
+        except (OSError, EOFError, HTTPException) as e:
+            # URLError, timeouts, resets, a cut-off or corrupt gzip body
             if attempt < retries - 1:
                 time.sleep(delay)
                 delay *= 2
                 continue
-            raise SystemExit(f"download failed: {url} ({e})")
-    raise SystemExit(f"download failed: {url}")
+            raise DownloadFailed(f"download failed: {url} ({e})")
+    raise DownloadFailed(f"download failed: {url}")
 
 
 def get_json(url: str, **kw) -> object:
