@@ -1,10 +1,10 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
-governor:AL,governor,AL,Alabama,Kay Ivey,R,no,,Doug Jones,D,Tommy Tuberville,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 Alabama gubernatorial election@1383595511
+governor:AL,governor,AL,Alabama,Kay Ivey,R,no,,Doug Jones,D,Tommy Tuberville,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 Alabama gubernatorial election@1383623487
 governor:AK,governor,AK,Alaska,Mike Dunleavy,R,no,,Jonathan Kreiss-Tomkins,D,Bernadette Wilson,R,Dave Bronson (R); Treg Taylor (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 Alaska gubernatorial election@1383594366
-governor:AZ,governor,AZ,Arizona,Katie Hobbs,D,yes,,Katie Hobbs,D,Andy Biggs,R,Risa Lombardo (G); Teri Ann Hourihan (NO LABELS),,-4.12,-5.59,0.31,state,,wikipedia:2026 Arizona gubernatorial election@1383594480
-governor:AR,governor,AR,Arkansas,Sarah Huckabee Sanders,R,yes,,Fredrick Love,D,Sarah Huckabee Sanders,R,Colt Shelby (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 Arkansas gubernatorial election@1383594551
-governor:CA,governor,CA,California,Gavin Newsom,D,no,,Xavier Becerra,D,Steve Hilton,R,,,23.05,20.8,29.82,state,,wikipedia:2026 California gubernatorial election@1383543181
-governor:CO,governor,CO,Colorado,Jared Polis,D,no,,Phil Weiser,D,Victor Marx,R,Stephen T. Hamilton (AMERICAN CON); Greg Lopez (IND); Erik Mulder (L); Jeff Peckman (UNITY); Erik Underwood (APPROVAL VOT),,11.93,11.29,13.88,state,,wikipedia:2026 Colorado gubernatorial election@1383610183
+governor:AZ,governor,AZ,Arizona,Katie Hobbs,D,yes,,Katie Hobbs,D,Andy Biggs,R,Risa Lombardo (G); Teri Ann Hourihan (NO LABELS),,-4.12,-5.59,0.31,state,,wikipedia:2026 Arizona gubernatorial election@1383624729
+governor:AR,governor,AR,Arkansas,Sarah Huckabee Sanders,R,yes,,Fredrick Love,D,Sarah Huckabee Sanders,R,Colt Shelby (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 Arkansas gubernatorial election@1383625370
+governor:CA,governor,CA,California,Gavin Newsom,D,no,,Xavier Becerra,D,Steve Hilton,R,,,23.05,20.8,29.82,state,,wikipedia:2026 California gubernatorial election@1383626848
+governor:CO,governor,CO,Colorado,Jared Polis,D,no,,Phil Weiser,D,Victor Marx,R,Stephen T. Hamilton (AMERICAN CON); Greg Lopez (IND); Erik Mulder (L); Jeff Peckman (UNITY); Erik Underwood (APPROVAL VOT),,11.93,11.29,13.88,state,,wikipedia:2026 Colorado gubernatorial election@1383626985
 governor:CT,governor,CT,Connecticut,Ned Lamont,D,yes,,Ned Lamont,D,Ryan Fazio,R,,,16.14,14.76,20.34,state,,wikipedia:2026 Connecticut gubernatorial election@1383590871
 governor:FL,governor,FL,Florida,Ron DeSantis,R,no,,David Jolly,D,Byron Donalds,R,Scott Eckhard Jewett (L); Charles Burkett (IND); Frank J. Russo (IND); Moliere Dimanche (IND); Dean Ocean Abrams (IND); Jeffrey Peter Datto (IND),,-10.77,-13.22,-3.39,state,,wikipedia:2026 Florida gubernatorial election@1383596001
 governor:GA,governor,GA,Georgia,Brian Kemp,R,no,,Keisha Lance Bottoms,D,Rick Jackson,R,,,-1.61,-2.21,0.24,state,,wikipedia:2026 Georgia gubernatorial election@1383594781
@@ -30,7 +30,7 @@ governor:PA,governor,PA,Pennsylvania,Josh Shapiro,D,yes,,Josh Shapiro,D,Stacy Ga
 governor:RI,governor,RI,Rhode Island,Dan McKee,D,no,,Helena Buonanno Foulkes,D,Aaron C. Guckian,R,Kenneth Block (IND); Jasjit S. Gotra (IND); C.D. Reynolds (IND),,15.91,14.16,21.2,state,,wikipedia:2026 Rhode Island gubernatorial election@1383590708
 governor:SC,governor,SC,South Carolina,Henry McMaster,R,no,,Jermaine Johnson,D,Alan Wilson,R,Walid Hakim (G); Michael Addison (UNITED CITIZ),,-16.57,-18.12,-11.85,state,,wikipedia:2026 South Carolina gubernatorial election@1383595666
 governor:SD,governor,SD,South Dakota,Larry Rhoden,R,yes,,Dan Ahlers,D,Larry Rhoden,R,,,-29.14,-29.89,-26.87,state,,wikipedia:2026 South Dakota gubernatorial election@1383595722
-governor:TN,governor,TN,Tennessee,Bill Lee,R,no,,Jerri Green,D,Marsha Blackburn,R,,,-28.51,-30.12,-23.66,state,,wikipedia:2026 Tennessee gubernatorial election@1383609443
+governor:TN,governor,TN,Tennessee,Bill Lee,R,no,,Jerri Green,D,Marsha Blackburn,R,David Hatley (IND),,-28.51,-30.12,-23.66,state,,wikipedia:2026 Tennessee gubernatorial election@1383623717
 governor:TX,governor,TX,Texas,Greg Abbott,R,yes,,Gina Hinojosa,D,Greg Abbott,R,Pat Dixon (L),,-11.83,-13.88,-5.66,state,,wikipedia:2026 Texas gubernatorial election@1383585186
 governor:VT,governor,VT,Vermont,Phil Scott,R,yes,,Amanda Janoo,D,Phil Scott,R,Brian Judd (IND); June Goodband (GREEN MOUNTA); Dean Roy (FREEDOM AND ),,33.72,32.77,36.6,state,,wikipedia:2026 Vermont gubernatorial election@1383605151
 governor:WI,governor,WI,Wisconsin,Tony Evers,D,no,,David Crowley,D,Tom Tiffany,R,,,-0.51,-0.87,0.64,state,,wikipedia:2026 Wisconsin gubernatorial election@1383596251
