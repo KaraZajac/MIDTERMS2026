@@ -1,8 +1,8 @@
-generated: '2026-11-03T03:10:16Z'
+generated: '2026-11-03T03:40:12Z'
 generator: python3 -m midterms build
 asof: '2026-11-03'
 election_day: '2026-11-03'
-sources_digest: cc697fb944f09be1
+sources_digest: bfad1e4f53a20f59
 counts:
   house_races: 435
   senate_races: 35
@@ -10,16 +10,16 @@ counts:
   fixed:
     house:D: 16
     house:R: 1
-  race_polls: 1849
+  race_polls: 1850
   votehub_polls: 38
-  generic_polls: 735
+  generic_polls: 736
   fabricated_polls_excluded:
     wikipedia: 0
     votehub: 11
   polled_races: 179
   ratings: 2708
   outside_averages: 181
-  pollsters: 325
+  pollsters: 326
   pollsters_rated: 197
   finance_matched: 871
   finance_rows: 906
@@ -87,7 +87,7 @@ sources:
     2026 United States House of Representatives elections in Maryland: 1382898492
     2026 United States House of Representatives elections in Massachusetts: 1382774388
     2026 United States House of Representatives elections in Michigan: 1383432175
-    2026 United States House of Representatives elections in Minnesota: 1383044562
+    2026 United States House of Representatives elections in Minnesota: 1383521418
     2026 United States House of Representatives elections in Mississippi: 1383057272
     2026 United States House of Representatives elections in Missouri: 1383506128
     2026 United States House of Representatives elections in Montana: 1383506608
@@ -97,7 +97,7 @@ sources:
     2026 United States House of Representatives elections in New Jersey: 1383510119
     2026 United States House of Representatives elections in New Mexico: 1383076003
     2026 United States House of Representatives elections in New York: 1383500107
-    2026 United States House of Representatives elections in North Carolina: 1383259247
+    2026 United States House of Representatives elections in North Carolina: 1383521308
     2026 United States House of Representatives elections in Ohio: 1383454532
     2026 United States House of Representatives elections in Oklahoma: 1383330397
     2026 United States House of Representatives elections in Oregon: 1382605853
@@ -122,10 +122,10 @@ sources:
     2026 United States Senate election in Iowa: 1383513366
     2026 United States Senate election in Kansas: 1383512810
     2026 United States Senate election in Kentucky: 1383333481
-    2026 United States Senate election in Louisiana: 1383513020
-    2026 United States Senate election in Maine: 1383511506
+    2026 United States Senate election in Louisiana: 1383521034
+    2026 United States Senate election in Maine: 1383521791
     2026 United States Senate election in Massachusetts: 1383515874
-    2026 United States Senate election in Michigan: 1383514049
+    2026 United States Senate election in Michigan: 1383521381
     2026 United States Senate election in Minnesota: 1383511879
     2026 United States Senate election in Mississippi: 1383509577
     2026 United States Senate election in Montana: 1383488371
@@ -144,18 +144,18 @@ sources:
     2026 United States Senate election in Virginia: 1383326455
     2026 United States Senate election in West Virginia: 1383326503
     2026 United States Senate election in Wyoming: 1383326535
-    2026 United States Senate elections: 1383504438
+    2026 United States Senate elections: 1383521731
     2026 United States Senate special election in Florida: 1383484207
     2026 United States Senate special election in Ohio: 1383510484
     2026 United States gubernatorial elections: 1383486590
     2026 Vermont gubernatorial election: 1383497332
     2026 Wisconsin gubernatorial election: 1383335243
     2026 Wyoming gubernatorial election: 1383387798
-    Template:2026 United States elections/polling: 1383511857
+    Template:2026 United States elections/polling: 1383518721
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-03T03:09:33Z'
+      fetched: '2026-11-03T03:39:28Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-03T03:09:40Z'
+      fetched: '2026-11-03T03:39:35Z'
       sha256: 49764f9dc59de28b5d60d4ff9c14d6e2ec3b3a8c5c96bb010920ebf836aaf71c
   votehub_supplement:
     basis: api
