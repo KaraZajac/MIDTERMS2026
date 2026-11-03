@@ -1852,7 +1852,7 @@ house:VA-04,Cook,The Cook Political Report,Solid D,3.0,2026-04-21
 house:VA-04,Inside Elections,Inside Elections,Solid D,3.0,2026-04-21
 house:VA-04,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-04-21
 house:VA-05,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-10-20
-house:VA-05,Cook,The Cook Political Report,Likely R,-2.0,2026-09-25
+house:VA-05,Cook,The Cook Political Report,Lean R,-1.0,2026-11-02
 house:VA-05,Inside Elections,Inside Elections,Lean R,-1.0,2026-10-29
 house:VA-05,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:VA-06,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
@@ -2107,7 +2107,7 @@ senate:KS,NBC News,NBC News,Tossup,0.0,2026-11-01
 senate:KS,RCP,RealClearPolitics,Tossup,0.0,2026-10-31
 senate:KS,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 senate:KS,Silver Bulletin,Silver Bulletin,Lean D (flip),1.0,2026-11-01
-senate:KS,Split Ticket,Split Ticket,Tossup,0.0,2026-11-01
+senate:KS,Split Ticket,Split Ticket,Lean D (flip),1.0,2026-11-02
 senate:KY,Cook,The Cook Political Report,Solid R,-3.0,2026-10-30
 senate:KY,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-11-01
 senate:KY,The Economist,The Economist,Safe R,-3.0,2026-11-01
