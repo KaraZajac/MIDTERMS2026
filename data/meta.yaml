@@ -1,8 +1,8 @@
-generated: '2026-11-03T00:10:27Z'
+generated: '2026-11-03T00:40:11Z'
 generator: python3 -m midterms build
 asof: '2026-11-03'
 election_day: '2026-11-03'
-sources_digest: 823a95d3ad26bbc2
+sources_digest: 868e4571b760ed8c
 counts:
   house_races: 435
   senate_races: 35
@@ -10,8 +10,8 @@ counts:
   fixed:
     house:D: 16
     house:R: 1
-  race_polls: 1810
-  votehub_polls: 39
+  race_polls: 1813
+  votehub_polls: 42
   generic_polls: 733
   fabricated_polls_excluded:
     wikipedia: 0
@@ -19,7 +19,7 @@ counts:
   polled_races: 179
   ratings: 2708
   outside_averages: 180
-  pollsters: 325
+  pollsters: 326
   pollsters_rated: 198
   finance_matched: 871
   finance_rows: 906
@@ -66,7 +66,7 @@ sources:
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383477010
     2026 United States House of Representatives elections: 1383470484
-    2026 United States House of Representatives elections in Alabama: 1383248140
+    2026 United States House of Representatives elections in Alabama: 1383495975
     2026 United States House of Representatives elections in Arizona: 1383400470
     2026 United States House of Representatives elections in Arkansas: 1383342040
     2026 United States House of Representatives elections in California (districts 1–26): 1383488089
@@ -122,9 +122,9 @@ sources:
     2026 United States Senate election in Iowa: 1383464948
     2026 United States Senate election in Kansas: 1383492377
     2026 United States Senate election in Kentucky: 1383333481
-    2026 United States Senate election in Louisiana: 1383469074
+    2026 United States Senate election in Louisiana: 1383496451
     2026 United States Senate election in Maine: 1383489123
-    2026 United States Senate election in Massachusetts: 1383331964
+    2026 United States Senate election in Massachusetts: 1383493119
     2026 United States Senate election in Michigan: 1383492212
     2026 United States Senate election in Minnesota: 1383472794
     2026 United States Senate election in Mississippi: 1383357497
@@ -140,7 +140,7 @@ sources:
     2026 United States Senate election in South Carolina: 1383491050
     2026 United States Senate election in South Dakota: 1383326312
     2026 United States Senate election in Tennessee: 1383326354
-    2026 United States Senate election in Texas: 1383484179
+    2026 United States Senate election in Texas: 1383495525
     2026 United States Senate election in Virginia: 1383326455
     2026 United States Senate election in West Virginia: 1383326503
     2026 United States Senate election in Wyoming: 1383326535
@@ -148,14 +148,14 @@ sources:
     2026 United States Senate special election in Florida: 1383484207
     2026 United States Senate special election in Ohio: 1383486817
     2026 United States gubernatorial elections: 1383486590
-    2026 Vermont gubernatorial election: 1383479965
+    2026 Vermont gubernatorial election: 1383496221
     2026 Wisconsin gubernatorial election: 1383335243
     2026 Wyoming gubernatorial election: 1383387798
-    Template:2026 United States elections/polling: 1383491030
+    Template:2026 United States elections/polling: 1383493064
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-03T00:09:43Z'
+      fetched: '2026-11-03T00:39:39Z'
       sha256: ef70fac92d96e34023e100f4a1c998914a85a735c7dad4d86f069e6659502e4f
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,13 +167,13 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-03T00:09:51Z'
-      sha256: 4962589509fe2234639558e6d155d937ea7e54a15e6725dab527b0fe7cc71827
+      fetched: '2026-11-03T00:39:46Z'
+      sha256: 49764f9dc59de28b5d60d4ff9c14d6e2ec3b3a8c5c96bb010920ebf836aaf71c
   votehub_supplement:
     basis: api
-    candidates: 917
-    already_on_wikipedia: 878
-    added: 39
+    candidates: 921
+    already_on_wikipedia: 879
+    added: 42
     excluded_fabricated: 11
   lean: data/lean/sources.yaml
   backtest: data/backtest.yaml (sources:)

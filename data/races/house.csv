@@ -1,12 +1,12 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
 house:AK-AL,house,AK,AK-AL,Nick Begich III,R,yes,2024,Bill Hill,IND,Nick Begich III,R,"Eric Hafner (D); James C. ""Jim"" McDermott (L)",,-12.91,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Alaska@1383402619
-house:AL-01,house,AL,AL-01,Barry Moore,R,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383248140
-house:AL-02,house,AL,AL-02,Shomari Figures,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383248140
-house:AL-03,house,AL,AL-03,Mike Rogers,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383248140
-house:AL-04,house,AL,AL-04,Robert Aderholt,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383248140
-house:AL-05,house,AL,AL-05,Dale Strong,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383248140
-house:AL-06,house,AL,AL-06,Gary Palmer,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383248140
-house:AL-07,house,AL,AL-07,Terri Sewell,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383248140
+house:AL-01,house,AL,AL-01,Barry Moore,R,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383495975
+house:AL-02,house,AL,AL-02,Shomari Figures,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383495975
+house:AL-03,house,AL,AL-03,Mike Rogers,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383495975
+house:AL-04,house,AL,AL-04,Robert Aderholt,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383495975
+house:AL-05,house,AL,AL-05,Dale Strong,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383495975
+house:AL-06,house,AL,AL-06,Gary Palmer,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383495975
+house:AL-07,house,AL,AL-07,Terri Sewell,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383495975
 house:AR-01,house,AR,AR-01,Rick Crawford,R,yes,2010,Terri Yarbrough,D,Rick Crawford,R,Steve Parsons (L),,-45.18,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1383342040
 house:AR-02,house,AR,AR-02,French Hill,R,yes,2014,Chris Jones,D,French Hill,R,,,-15.32,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1383342040
 house:AR-03,house,AR,AR-03,Steve Womack,R,yes,2010,Robb Ryerse,D,Steve Womack,R,Bobby Wilson (L),,-25.24,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1383342040
