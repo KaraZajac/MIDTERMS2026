@@ -1,8 +1,8 @@
-generated: '2026-11-03T07:40:24Z'
+generated: '2026-11-03T08:10:05Z'
 generator: python3 -m midterms build
 asof: '2026-11-03'
 election_day: '2026-11-03'
-sources_digest: d88cda702ea05f57
+sources_digest: dd32b4623ba749dd
 counts:
   house_races: 435
   senate_races: 35
@@ -106,11 +106,11 @@ sources:
     2026 United States House of Representatives elections in South Carolina: 1383287201
     2026 United States House of Representatives elections in Tennessee: 1383320715
     2026 United States House of Representatives elections in Texas: 1383501560
-    2026 United States House of Representatives elections in Utah: 1382668794
+    2026 United States House of Representatives elections in Utah: 1383552368
     2026 United States House of Representatives elections in Virginia: 1383502783
     2026 United States House of Representatives elections in Washington: 1383367633
     2026 United States House of Representatives elections in West Virginia: 1382858408
-    2026 United States House of Representatives elections in Wisconsin: 1383540475
+    2026 United States House of Representatives elections in Wisconsin: 1383549201
     2026 United States Senate election in Alabama: 1383532303
     2026 United States Senate election in Alaska: 1383535038
     2026 United States Senate election in Arkansas: 1383532979
@@ -155,7 +155,7 @@ sources:
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
-      fetched: '2026-11-03T07:39:52Z'
+      fetched: '2026-11-03T08:09:38Z'
       sha256: d750724533d91ca5665418cb9b1f397966de2e36aa823f4f2a5abf1b83d44ef9
     fte-pollster-ratings:
       fetched: '2026-11-01T15:56:00Z'
@@ -167,7 +167,7 @@ sources:
       url: https://www.natesilver.net/api/v1/file/9e28b3fd-62d8-4d41-bdd2-04d40a1b2eef.xlsx
     votehub-polls:
       url: https://api.votehub.com/polls
-      fetched: '2026-11-03T07:39:59Z'
+      fetched: '2026-11-03T08:09:45Z'
       sha256: 49764f9dc59de28b5d60d4ff9c14d6e2ec3b3a8c5c96bb010920ebf836aaf71c
   votehub_supplement:
     basis: api
