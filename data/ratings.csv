@@ -1798,7 +1798,7 @@ house:TX-34,Silver Bulletin,Silver Bulletin,Likely D,2.0,2026-10-22
 house:TX-35,DDHQ,Decision Desk HQ,Tossup,0.0,2026-10-08
 house:TX-35,Cook,The Cook Political Report,Tossup,0.0,2026-10-23
 house:TX-35,Inside Elections,Inside Elections,Tossup,0.0,2026-10-29
-house:TX-35,Sabato,Sabato's Crystal Ball,Tossup,0.0,2026-10-20
+house:TX-35,Sabato,Sabato's Crystal Ball,Lean D,1.0,2026-11-02
 house:TX-35,Silver Bulletin,Silver Bulletin,Tossup,0.0,2026-10-22
 house:TX-36,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:TX-36,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
@@ -2346,7 +2346,7 @@ senate:TN,Split Ticket,Split Ticket,Safe R,-3.0,2026-11-02
 senate:TX,ABC News,ABC News,Lean D (flip),1.0,2026-11-03
 senate:TX,CBS News,CBS News,Tossup,0.0,2026-10-30
 senate:TX,Cook,The Cook Political Report,Tossup,0.0,2026-11-02
-senate:TX,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-11-02
+senate:TX,DDHQ,Decision Desk HQ,Tossup,0.0,2026-11-03
 senate:TX,The Economist,The Economist,Tossup,0.0,2026-11-03
 senate:TX,FiftyPlusOne,FiftyPlusOne,Lean D (flip),1.0,2026-11-02
 senate:TX,Fox News,Fox News,Tossup,0.0,2026-11-01
