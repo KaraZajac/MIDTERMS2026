@@ -9,11 +9,11 @@ senate:AK,Silver Bulletin,2026-11-01,2026-11-03,48.3,45.9
 senate:AR,Silver Bulletin,2026-10-28,2026-11-03,39.8,52.8
 senate:CO,270toWin,2026-11-02,2026-11-02,59.0,38.0
 senate:CO,Silver Bulletin,2026-11-02,2026-11-03,57.1,37.5
-senate:GA,270toWin,2026-10-20,2026-10-21,52.0,43.6
-senate:GA,Decision Desk HQ,2026-10-20,2026-10-21,51.5,43.7
-senate:GA,FiftyPlusOne,2026-10-20,2026-10-21,51.7,43.1
-senate:GA,RealClearPolitics,2026-10-17,2026-10-20,52.0,43.4
-senate:GA,Silver Bulletin,2026-10-17,2026-10-20,51.3,42.4
+senate:GA,270toWin,2026-11-02,2026-11-02,54.0,44.4
+senate:GA,Decision Desk HQ,2026-11-02,2026-11-02,53.1,43.3
+senate:GA,FiftyPlusOne,2026-11-02,2026-11-03,52.5,42.9
+senate:GA,RealClearPolitics,2026-11-02,2026-11-02,51.9,43.3
+senate:GA,Silver Bulletin,2026-11-02,2026-11-03,52.8,43.4
 senate:ID,Silver Bulletin,2026-08-13,2026-10-26,34.6,50.6
 senate:IA,270toWin,2026-11-01,2026-11-02,47.7,46.8
 senate:IA,Decision Desk HQ,2026-11-01,2026-11-03,47.0,47.3
@@ -84,11 +84,11 @@ senate:OH-special,Decision Desk HQ,2026-11-01,2026-11-02,48.3,46.0
 senate:OH-special,FiftyPlusOne,2026-11-01,2026-11-02,48.2,45.3
 senate:OH-special,RealClearPolitics,2026-11-01,2026-11-01,48.9,46.1
 senate:OH-special,Silver Bulletin,2026-11-01,2026-11-02,48.3,45.3
-senate:FL-special,270toWin,2026-10-29,2026-10-31,44.4,50.4
-senate:FL-special,Decision Desk HQ,2026-10-30,2026-10-31,42.5,48.2
-senate:FL-special,FiftyPlusOne,2026-10-30,2026-10-31,43.6,49.6
+senate:FL-special,270toWin,2026-11-02,2026-11-02,44.5,50.8
+senate:FL-special,Decision Desk HQ,2026-11-02,2026-11-02,43.0,48.6
+senate:FL-special,FiftyPlusOne,2026-11-02,2026-11-03,43.6,49.7
 senate:FL-special,RealClearPolitics,2026-10-30,2026-10-31,43.4,49.7
-senate:FL-special,Silver Bulletin,2026-10-30,2026-10-31,43.3,49.2
+senate:FL-special,Silver Bulletin,2026-11-02,2026-11-03,43.5,49.6
 governor:AZ,270toWin,2026-10-08,2026-10-23,49.3,38.8
 governor:AZ,Decision Desk HQ,2026-10-20,2026-10-23,50.6,43.8
 governor:AZ,FiftyPlusOne,2026-10-20,2026-10-23,49.6,41.9
