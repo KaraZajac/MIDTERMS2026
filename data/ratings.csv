@@ -2655,55 +2655,55 @@ governor:SC,Cook,The Cook Political Report,Solid R,-3.0,2026-10-29
 governor:SC,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-11-02
 governor:SC,Fox News,Fox News,Solid R,-3.0,2026-11-01
 governor:SC,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
-governor:SC,NBC News,NBC News,Solid R,-3.0,2026-11-01
-governor:SC,RCP,RealClearPolitics,Likely R,-2.0,2026-10-30
-governor:SC,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-governor:SC,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-01
+governor:SC,NBC News,NBC News,Solid R,-3.0,2026-11-02
+governor:SC,RCP,RealClearPolitics,Likely R,-2.0,2026-11-01
+governor:SC,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-11-02
+governor:SC,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-02
 governor:SD,Cook,The Cook Political Report,Solid R,-3.0,2026-10-29
-governor:SD,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-11-01
+governor:SD,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-11-02
 governor:SD,Fox News,Fox News,Solid R,-3.0,2026-11-01
 governor:SD,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
-governor:SD,NBC News,NBC News,Solid R,-3.0,2026-11-01
-governor:SD,RCP,RealClearPolitics,Solid R,-3.0,2026-10-30
-governor:SD,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-governor:SD,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-01
+governor:SD,NBC News,NBC News,Solid R,-3.0,2026-11-02
+governor:SD,RCP,RealClearPolitics,Solid R,-3.0,2026-11-01
+governor:SD,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-11-02
+governor:SD,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-02
 governor:TN,Cook,The Cook Political Report,Solid R,-3.0,2026-10-29
-governor:TN,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-11-01
+governor:TN,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-11-02
 governor:TN,Fox News,Fox News,Solid R,-3.0,2026-11-01
 governor:TN,Inside Elections,Inside Elections,Likely R,-2.0,2026-10-29
-governor:TN,NBC News,NBC News,Solid R,-3.0,2026-11-01
-governor:TN,RCP,RealClearPolitics,Solid R,-3.0,2026-10-30
-governor:TN,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-governor:TN,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-01
+governor:TN,NBC News,NBC News,Solid R,-3.0,2026-11-02
+governor:TN,RCP,RealClearPolitics,Solid R,-3.0,2026-11-01
+governor:TN,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-11-02
+governor:TN,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-02
 governor:TX,Cook,The Cook Political Report,Lean R,-1.0,2026-10-29
-governor:TX,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-11-01
+governor:TX,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-11-02
 governor:TX,Fox News,Fox News,Lean R,-1.0,2026-11-01
 governor:TX,Inside Elections,Inside Elections,Tilt R,-0.5,2026-10-29
-governor:TX,NBC News,NBC News,Lean R,-1.0,2026-11-01
-governor:TX,RCP,RealClearPolitics,Tossup,0.0,2026-10-30
-governor:TX,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-27
-governor:TX,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-11-01
+governor:TX,NBC News,NBC News,Lean R,-1.0,2026-11-02
+governor:TX,RCP,RealClearPolitics,Tossup,0.0,2026-11-01
+governor:TX,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
+governor:TX,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-11-02
 governor:VT,Cook,The Cook Political Report,Likely R,-2.0,2026-10-29
-governor:VT,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-11-01
+governor:VT,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-11-02
 governor:VT,Fox News,Fox News,Likely R,-2.0,2026-11-01
 governor:VT,Inside Elections,Inside Elections,Likely R,-2.0,2026-10-29
-governor:VT,NBC News,NBC News,Likely R,-2.0,2026-11-01
+governor:VT,NBC News,NBC News,Likely R,-2.0,2026-11-02
 governor:VT,RCP,RealClearPolitics,Tossup,0.0,2026-11-01
-governor:VT,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-27
+governor:VT,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-11-02
 governor:VT,Silver Bulletin,Silver Bulletin,Tossup,0.0,2026-11-02
 governor:WI,Cook,The Cook Political Report,Lean D,1.0,2026-10-29
-governor:WI,DDHQ,Decision Desk HQ,Lean D,1.0,2026-11-01
+governor:WI,DDHQ,Decision Desk HQ,Lean D,1.0,2026-11-02
 governor:WI,Fox News,Fox News,Tossup,0.0,2026-11-01
 governor:WI,Inside Elections,Inside Elections,Tilt D,0.5,2026-10-29
-governor:WI,NBC News,NBC News,Lean D,1.0,2026-11-01
-governor:WI,RCP,RealClearPolitics,Tossup,0.0,2026-10-30
-governor:WI,Sabato,Sabato's Crystal Ball,Lean D,1.0,2026-10-27
-governor:WI,Silver Bulletin,Silver Bulletin,Likely D,2.0,2026-11-01
+governor:WI,NBC News,NBC News,Lean D,1.0,2026-11-02
+governor:WI,RCP,RealClearPolitics,Tossup,0.0,2026-11-01
+governor:WI,Sabato,Sabato's Crystal Ball,Lean D,1.0,2026-11-02
+governor:WI,Silver Bulletin,Silver Bulletin,Likely D,2.0,2026-11-02
 governor:WY,Cook,The Cook Political Report,Solid R,-3.0,2026-10-29
-governor:WY,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-11-01
+governor:WY,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-11-02
 governor:WY,Fox News,Fox News,Solid R,-3.0,2026-11-01
 governor:WY,Inside Elections,Inside Elections,Solid R,-3.0,2026-10-29
-governor:WY,NBC News,NBC News,Solid R,-3.0,2026-11-01
-governor:WY,RCP,RealClearPolitics,Solid R,-3.0,2026-10-30
-governor:WY,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-10-27
-governor:WY,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-01
+governor:WY,NBC News,NBC News,Solid R,-3.0,2026-11-02
+governor:WY,RCP,RealClearPolitics,Solid R,-3.0,2026-11-01
+governor:WY,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2026-11-02
+governor:WY,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-02

@@ -26,10 +26,10 @@ an in-browser [what-if simulator](https://midterms.karazajac.io/simulator/)
 | | Democrats win | Median D seats | 80% interval |
 |---|---:|---:|---:|
 | House (218 for control) | **94.6%** | 236 | 221–250 |
-| Senate (51; VP breaks ties) | **76.3%** | 53 | 49–55 |
-| Governorships (26 of 50) | 82.2% | 28 | 24–31 |
+| Senate (51; VP breaks ties) | **76.7%** | 53 | 49–55 |
+| Governorships (26 of 50) | 82.3% | 28 | 24–31 |
 
-House tipping points: PA-01, CO-08, PA-07. Senate: Ohio (special), Texas, Kansas.
+House tipping points: CO-08, PA-01, PA-07. Senate: Ohio (special), Texas, Kansas.
 <!-- forecast:end -->
 
 ## What's here
