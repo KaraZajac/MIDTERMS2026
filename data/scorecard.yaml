@@ -183,39 +183,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T06:45:01Z'
-  called: 386
+  asof: '2026-11-04T06:56:01Z'
+  called: 397
   scoreboard:
     lite:
-      n: 386
-      brier: 0.0233
-      log_loss: 0.0901
-      calls: 377/386
+      n: 397
+      brier: 0.0241
+      log_loss: 0.0938
+      calls: 388/397
     classic:
-      n: 386
-      brier: 0.0179
-      log_loss: 0.0646
-      calls: 378/386
+      n: 397
+      brier: 0.0178
+      log_loss: 0.0657
+      calls: 389/397
     deluxe:
-      n: 386
-      brier: 0.0176
-      log_loss: 0.0567
-      calls: 377/386
+      n: 397
+      brier: 0.0175
+      log_loss: 0.0576
+      calls: 388/397
     ratings:
-      n: 386
-      brier: 0.0229
-      log_loss: 0.0738
-      calls: 374/386
+      n: 397
+      brier: 0.0234
+      log_loss: 0.0763
+      calls: 385/397
     lean-only:
-      n: 386
-      brier: 0.0326
-      log_loss: 0.1185
-      calls: 369/386
+      n: 397
+      brier: 0.0318
+      log_loss: 0.1165
+      calls: 380/397
     coin-flip:
-      n: 386
+      n: 397
       brier: 0.25
       log_loss: 0.6931
-      calls: 147/386
+      calls: 153/397
   races:
   - - governor:AL
     - R
@@ -262,9 +262,15 @@ provisional:
   - - governor:ME
     - D
     - 0.9902
+  - - governor:MI
+    - D
+    - 0.9497
   - - governor:MN
     - D
     - 0.9939
+  - - governor:NE
+    - R
+    - 0.9433
   - - governor:NM
     - D
     - 0.9842
@@ -277,6 +283,9 @@ provisional:
   - - governor:OK
     - R
     - 0.9619
+  - - governor:OR
+    - D
+    - 0.8073
   - - governor:PA
     - D
     - 0.9997
@@ -388,6 +397,9 @@ provisional:
   - - house:CA-21
     - D
     - 0.9996
+  - - house:CA-22
+    - D
+    - 0.9105
   - - house:CA-25
     - D
     - 0.9998
@@ -1120,6 +1132,9 @@ provisional:
   - - house:TN-06
     - R
     - 0.9995
+  - - house:TN-07
+    - R
+    - 0.9993
   - - house:TN-08
     - R
     - 0.9992
@@ -1204,9 +1219,15 @@ provisional:
   - - house:UT-01
     - D
     - 1.0
+  - - house:UT-02
+    - R
+    - 0.9992
   - - house:UT-03
     - R
     - 1.0
+  - - house:UT-04
+    - R
+    - 0.9996
   - - house:VA-02
     - D
     - 0.8584
@@ -1327,12 +1348,24 @@ provisional:
   - - senate:MA
     - D
     - 0.9999
+  - - senate:ME
+    - D
+    - 0.8091
+  - - senate:MI
+    - D
+    - 0.8724
   - - senate:MN
     - D
     - 0.9207
+  - - senate:MT
+    - R
+    - 0.995
   - - senate:NC
     - D
     - 0.9786
+  - - senate:NE
+    - R
+    - 0.8102
   - - senate:NH
     - D
     - 0.9437
