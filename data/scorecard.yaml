@@ -231,7 +231,7 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T14:13:00Z'
+  asof: '2026-11-04T14:40:01Z'
   called: 420
   scoreboard:
     lite:
