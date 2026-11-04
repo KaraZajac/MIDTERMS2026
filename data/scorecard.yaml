@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 2
+resolved: 3
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-01
 - house:CA-02
 - house:CA-03
-open_count: 487
+open_count: 486
 scoreboard:
   lite:
-    n: 2
-    brier: 0.0296
-    log_loss: 0.1417
-    calls: 2/2
+    n: 3
+    brier: 0.0197
+    log_loss: 0.0945
+    calls: 3/3
   classic:
-    n: 2
-    brier: 0.1077
-    log_loss: 0.3127
-    calls: 2/2
+    n: 3
+    brier: 0.0718
+    log_loss: 0.2085
+    calls: 3/3
   deluxe:
-    n: 2
-    brier: 0.1116
-    log_loss: 0.32
-    calls: 2/2
+    n: 3
+    brier: 0.0744
+    log_loss: 0.2133
+    calls: 3/3
   ratings:
-    n: 2
-    brier: 0.125
-    log_loss: 0.3466
-    calls: 1/2
+    n: 3
+    brier: 0.0833
+    log_loss: 0.2311
+    calls: 2/3
   lean-only:
-    n: 2
-    brier: 0.3036
-    log_loss: 0.7553
-    calls: 1/2
+    n: 3
+    brier: 0.2024
+    log_loss: 0.5035
+    calls: 2/3
   coin-flip:
-    n: 2
+    n: 3
     brier: 0.25
     log_loss: 0.6931
-    calls: 1/2
+    calls: 2/3
 races:
 - id: house:KY-04
   slug: house/ky-04
@@ -108,6 +108,18 @@ races:
     lite: 0.0048
     classic: 0.0016
     deluxe: 0.0002
+  called_right: true
+- id: house:KY-05
+  slug: house/ky-05
+  label: KY-05
+  winner: R
+  winner_name: Hal Rogers
+  margin: -47.47
+  p_winner: 1.0
+  p_d_side:
+    lite: 0.0001
+    classic: 0.0
+    deluxe: 0.0
   called_right: true
 - id: house:KY-06
   slug: house/ky-06
@@ -123,39 +135,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T04:53:16Z'
-  called: 282
+  asof: '2026-11-04T05:03:29Z'
+  called: 318
   scoreboard:
     lite:
-      n: 282
-      brier: 0.0191
-      log_loss: 0.0757
-      calls: 277/282
+      n: 318
+      brier: 0.0189
+      log_loss: 0.0746
+      calls: 313/318
     classic:
-      n: 282
-      brier: 0.0116
-      log_loss: 0.0463
-      calls: 279/282
+      n: 318
+      brier: 0.0112
+      log_loss: 0.045
+      calls: 315/318
     deluxe:
-      n: 282
-      brier: 0.0108
-      log_loss: 0.0369
-      calls: 278/282
+      n: 318
+      brier: 0.0105
+      log_loss: 0.0361
+      calls: 314/318
     ratings:
-      n: 282
-      brier: 0.0142
-      log_loss: 0.0455
-      calls: 276/282
+      n: 318
+      brier: 0.0141
+      log_loss: 0.0451
+      calls: 311/318
     lean-only:
-      n: 282
-      brier: 0.0267
-      log_loss: 0.0849
-      calls: 271/282
+      n: 318
+      brier: 0.0252
+      log_loss: 0.0802
+      calls: 306/318
     coin-flip:
-      n: 282
+      n: 318
       brier: 0.25
       log_loss: 0.6931
-      calls: 112/282
+      calls: 123/318
   races:
   - - governor:AR
     - R
@@ -202,12 +214,18 @@ provisional:
   - - governor:OH
     - D
     - 0.8132
+  - - governor:OK
+    - R
+    - 0.9619
   - - governor:PA
     - D
     - 0.9997
   - - governor:RI
     - D
     - 0.9999
+  - - governor:SD
+    - R
+    - 0.9987
   - - governor:TX
     - D
     - 0.2898
@@ -241,6 +259,9 @@ provisional:
   - - house:AR-01
     - R
     - 0.9999
+  - - house:AR-03
+    - R
+    - 0.9997
   - - house:AR-04
     - R
     - 0.9999
@@ -259,9 +280,63 @@ provisional:
   - - house:AZ-09
     - R
     - 0.9997
+  - - house:CA-01
+    - D
+    - 0.9993
+  - - house:CA-02
+    - D
+    - 1.0
+  - - house:CA-08
+    - D
+    - 1.0
+  - - house:CA-09
+    - D
+    - 0.9999
+  - - house:CA-10
+    - D
+    - 1.0
+  - - house:CA-15
+    - D
+    - 1.0
+  - - house:CA-19
+    - D
+    - 1.0
+  - - house:CA-20
+    - R
+    - 0.9997
   - - house:CA-21
     - D
     - 0.9996
+  - - house:CA-28
+    - D
+    - 1.0
+  - - house:CA-30
+    - D
+    - 1.0
+  - - house:CA-31
+    - D
+    - 0.9999
+  - - house:CA-32
+    - D
+    - 1.0
+  - - house:CA-33
+    - D
+    - 0.9998
+  - - house:CA-36
+    - D
+    - 1.0
+  - - house:CA-43
+    - D
+    - 1.0
+  - - house:CA-44
+    - D
+    - 1.0
+  - - house:CA-46
+    - D
+    - 0.9999
+  - - house:CA-52
+    - D
+    - 0.9999
   - - house:CO-01
     - D
     - 1.0
@@ -274,12 +349,18 @@ provisional:
   - - house:CO-07
     - D
     - 0.9999
+  - - house:CO-08
+    - D
+    - 0.8252
   - - house:CT-01
     - D
     - 0.9999
   - - house:CT-02
     - D
     - 0.9995
+  - - house:CT-03
+    - D
+    - 1.0
   - - house:CT-04
     - D
     - 1.0
@@ -394,6 +475,12 @@ provisional:
   - - house:GA-14
     - R
     - 0.9999
+  - - house:IA-04
+    - R
+    - 0.9996
+  - - house:ID-01
+    - R
+    - 0.9999
   - - house:IL-01
     - D
     - 1.0
@@ -430,6 +517,9 @@ provisional:
   - - house:IL-12
     - R
     - 0.9999
+  - - house:IL-13
+    - D
+    - 0.9998
   - - house:IL-14
     - D
     - 0.9997
@@ -458,6 +548,9 @@ provisional:
     - D
     - 1.0
   - - house:IN-08
+    - R
+    - 0.9998
+  - - house:IN-09
     - R
     - 0.9998
   - - house:KS-01
@@ -502,6 +595,9 @@ provisional:
   - - house:MA-09
     - D
     - 0.9998
+  - - house:MD-01
+    - R
+    - 0.9907
   - - house:MD-02
     - D
     - 0.9999
@@ -535,6 +631,9 @@ provisional:
   - - house:MI-06
     - D
     - 0.9999
+  - - house:MI-09
+    - R
+    - 0.9998
   - - house:MI-11
     - D
     - 0.9998
@@ -598,6 +697,9 @@ provisional:
   - - house:ND-AL
     - R
     - 0.9999
+  - - house:NE-02
+    - D
+    - 0.9871
   - - house:NE-03
     - R
     - 1.0
@@ -736,6 +838,9 @@ provisional:
   - - house:OH-15
     - D
     - 0.2538
+  - - house:OK-01
+    - R
+    - 0.9988
   - - house:OK-02
     - R
     - 1.0
@@ -868,6 +973,9 @@ provisional:
   - - house:TX-37
     - D
     - 1.0
+  - - house:VA-02
+    - D
+    - 0.8584
   - - house:VA-03
     - D
     - 0.9999
@@ -893,6 +1001,12 @@ provisional:
     - D
     - 1.0
   - - house:VT-AL
+    - D
+    - 1.0
+  - - house:WA-01
+    - D
+    - 1.0
+  - - house:WA-02
     - D
     - 1.0
   - - house:WA-06
@@ -928,6 +1042,9 @@ provisional:
   - - house:WV-02
     - R
     - 0.9999
+  - - house:WY-AL
+    - R
+    - 0.9999
   - - senate:AL
     - R
     - 0.9984
@@ -946,6 +1063,9 @@ provisional:
   - - senate:GA
     - D
     - 0.9801
+  - - senate:IA
+    - D
+    - 0.5175
   - - senate:IL
     - D
     - 0.9979
