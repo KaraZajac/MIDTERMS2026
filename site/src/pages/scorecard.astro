@@ -63,7 +63,7 @@ const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1)
                 <td>{NAMES[k] ?? k}{k === (sc.headline ?? "deluxe") ? " (headline)" : ""}</td>
                 <td class="num">{v.brier.toFixed(4)}</td>
                 <td class="num">{typeof v.log_loss === "number" ? v.log_loss.toFixed(4) : "—"}</td>
-                <td class="num">{k === "coin-flip" || typeof v.calls !== "number" ? "—" : `${v.calls}/${v.n}`}</td>
+                <td class="num">{k === "coin-flip" ? "—" : typeof v.calls === "string" ? v.calls : typeof v.calls === "number" ? `${v.calls}/${v.n}` : "—"}</td>
               </tr>
             ))}
           </tbody>
