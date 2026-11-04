@@ -1,8 +1,8 @@
-generated: '2026-11-04T07:54:51Z'
+generated: '2026-11-04T08:05:00Z'
 generator: python3 -m midterms build
 asof: '2026-11-04'
 election_day: '2026-11-03'
-sources_digest: 6f2b13927871ea8b
+sources_digest: 3dc16bf1d7d28c09
 counts:
   house_races: 435
   senate_races: 35
@@ -31,7 +31,7 @@ sources:
     2026 Arizona gubernatorial election: 1383695507
     2026 Arkansas gubernatorial election: 1383701653
     2026 California gubernatorial election: 1383700894
-    2026 Colorado gubernatorial election: 1383704585
+    2026 Colorado gubernatorial election: 1383706020
     2026 Connecticut gubernatorial election: 1383697684
     2026 Florida gubernatorial election: 1383702432
     2026 Georgia gubernatorial election: 1383704591
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383477010
-    2026 United States House of Representatives elections: 1383705726
+    2026 United States House of Representatives elections: 1383706173
     2026 United States House of Representatives elections in Alabama: 1383666973
     2026 United States House of Representatives elections in Arizona: 1383655958
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -98,8 +98,8 @@ sources:
     2026 United States House of Representatives elections in New Mexico: 1383076003
     2026 United States House of Representatives elections in New York: 1383655484
     2026 United States House of Representatives elections in North Carolina: 1383701956
-    2026 United States House of Representatives elections in Ohio: 1383655257
-    2026 United States House of Representatives elections in Oklahoma: 1383630519
+    2026 United States House of Representatives elections in Ohio: 1383705907
+    2026 United States House of Representatives elections in Oklahoma: 1383706496
     2026 United States House of Representatives elections in Oregon: 1383633248
     2026 United States House of Representatives elections in Pennsylvania: 1383657591
     2026 United States House of Representatives elections in Rhode Island: 1382619674
@@ -127,14 +127,14 @@ sources:
     2026 United States Senate election in Massachusetts: 1383686939
     2026 United States Senate election in Michigan: 1383705697
     2026 United States Senate election in Minnesota: 1383702666
-    2026 United States Senate election in Mississippi: 1383703299
+    2026 United States Senate election in Mississippi: 1383706300
     2026 United States Senate election in Montana: 1383630956
     2026 United States Senate election in Nebraska: 1383692075
     2026 United States Senate election in New Hampshire: 1383690691
     2026 United States Senate election in New Jersey: 1383575047
     2026 United States Senate election in New Mexico: 1383672523
     2026 United States Senate election in North Carolina: 1383692857
-    2026 United States Senate election in Oklahoma: 1383674608
+    2026 United States Senate election in Oklahoma: 1383705939
     2026 United States Senate election in Oregon: 1383574513
     2026 United States Senate election in Rhode Island: 1383641408
     2026 United States Senate election in South Carolina: 1383704477
@@ -144,10 +144,10 @@ sources:
     2026 United States Senate election in Virginia: 1383675952
     2026 United States Senate election in West Virginia: 1383668708
     2026 United States Senate election in Wyoming: 1383673830
-    2026 United States Senate elections: 1383705865
+    2026 United States Senate elections: 1383706156
     2026 United States Senate special election in Florida: 1383695265
     2026 United States Senate special election in Ohio: 1383705310
-    2026 United States gubernatorial elections: 1383700475
+    2026 United States gubernatorial elections: 1383706240
     2026 Vermont gubernatorial election: 1383690508
     2026 Wisconsin gubernatorial election: 1383698513
     2026 Wyoming gubernatorial election: 1383701508
