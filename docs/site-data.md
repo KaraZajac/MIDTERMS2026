@@ -266,7 +266,7 @@ the newer `generated`. Every string is plain text.
                               // P(D control) once that call was in
   history: [[t, house, senate, governor, called]]
                               // oldest first: P(D control) given the calls
-                              // (3 decimals) and the number of races called,
+                              // (4 decimals, as p_control) and the races called,
                               // whenever either changed, from the forecast of
                               // record at the deadline on (1,500 kept)
 }

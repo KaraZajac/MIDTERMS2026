@@ -350,16 +350,19 @@ HISTORY_KEPT = 1500
 
 def history(prev: dict | None, doc: dict) -> list[list]:
     """[t, house, senate, governor, called]: each chamber's chance of
-    Democratic control given the calls (3 decimals) and the number of races
+    Democratic control given the calls (4 decimals, as p_control) and the number of races
     called, whenever either changed, oldest first, from the forecast of
     record on. Carried over from the previous live.json; a file without one
     starts from the forecast of record and the calls still in its events."""
-    def r3(x) -> float:
-        return round(float(x), 3)
+    def r4(x) -> float:
+        return round(float(x), 4)
 
     pts = [p for p in ((prev or {}).get("history") or []) if isinstance(p, list) and len(p) == 5]
+    start = [DEADLINE, *(r4(doc["chambers"][c]["pre"]["p_control"].get("D", 0)) for c in CHAMBERS), 0]
+    if pts and pts[0][0] == DEADLINE:
+        pts[0] = start                                 # the forecast exactly as the page shows it
     if not pts:
-        pts = [[DEADLINE, *(r3(doc["chambers"][c]["pre"]["p_control"].get("D", 0)) for c in CHAMBERS), 0]]
+        pts = [start]
         after = {}                                     # each call time's chances (one per batch)
         for e in doc.get("events") or []:
             a = e.get("after") or {}
@@ -368,10 +371,10 @@ def history(prev: dict | None, doc: dict) -> list[list]:
         times = sorted(r.get("called_at") or "" for r in doc["races"].values() if r.get("status") == "called")
         for t in sorted(after):
             n = sum(1 for x in times if x and x <= t)
-            pt = [t, *(r3(after[t][c]) for c in CHAMBERS), n]
+            pt = [t, *(r4(after[t][c]) for c in CHAMBERS), n]
             if pt[1:] != pts[-1][1:]:
                 pts.append(pt)
-    now = [doc["generated"], *(r3(doc["chambers"][c]["live"]["p_control"].get("D", 0)) for c in CHAMBERS),
+    now = [doc["generated"], *(r4(doc["chambers"][c]["live"]["p_control"].get("D", 0)) for c in CHAMBERS),
            doc["counts"]["called"]]
     if now[1:] != pts[-1][1:]:
         pts.append(now)

@@ -13,7 +13,9 @@ model and pipeline that produced it. Automated six-hourly refreshes
   either changed, from the forecast of record on, for a chart of the
   night. Each file carries the previous file's history on; the web
   server's first one started it from the calls still in `events` (back
-  to 00:41 UTC).
+  to 00:41 UTC). Chances are kept to 4 decimals, as `p_control` is: at 3
+  the Senate's forecast (0.7675) read 76.7% on the chart and 76.8% on the
+  gauge beside it.
 
 ### 2026-11-03, night — county results of the statewide races (no model change)
 - `midterms counties` writes each Senate and governor race's results by

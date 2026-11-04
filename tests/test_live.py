@@ -110,16 +110,19 @@ class TestHistory(unittest.TestCase):
         after2 = {"house": 0.954, "senate": 0.7771, "governor": 0.8331}
         events = [{"t": "T2", "type": "call", "after": after2},                 # newest first
                   {"t": "T1", "type": "call", "after": after1}, {"t": "T1", "type": "call", "after": after1}]
-        d = self.doc("T3", (0.954, 0.777, 0.833), 3, races, events)
+        d = self.doc("T3", (0.954, 0.7771, 0.8331), 3, races, events)
         h = F.history(None, d)
-        self.assertEqual(h, [[F.DEADLINE, 0.946, 0.767, 0.823, 0],
+        self.assertEqual(h, [[F.DEADLINE, 0.9461, 0.7672, 0.8231, 0],
                              ["T1", 0.95, 0.77, 0.83, 2],
-                             ["T2", 0.954, 0.777, 0.833, 3]])       # T3 changed nothing: no point
+                             ["T2", 0.954, 0.7771, 0.8331, 3]])     # T3 changed nothing: no point
+        # a history carried from 3-decimal points gets its forecast point redone exactly
+        old = [[F.DEADLINE, 0.946, 0.767, 0.823, 0]] + h[1:]
+        self.assertEqual(F.history({"history": old}, d)[0], h[0])
         # carried on: a change adds a point, no change adds none
-        d2 = self.doc("T4", (0.96, 0.777, 0.833), 4)
+        d2 = self.doc("T4", (0.96, 0.7771, 0.8331), 4)
         h2 = F.history({"history": h}, d2)
-        self.assertEqual(h2[-1], ["T4", 0.96, 0.777, 0.833, 4])
-        self.assertEqual(F.history({"history": h2}, self.doc("T5", (0.96, 0.777, 0.833), 4)), h2)
+        self.assertEqual(h2[-1], ["T4", 0.96, 0.7771, 0.8331, 4])
+        self.assertEqual(F.history({"history": h2}, self.doc("T5", (0.96, 0.7771, 0.8331), 4)), h2)
         # capped, oldest dropped
         long = [["t%d" % i, 0.5, 0.5, 0.5, i] for i in range(F.HISTORY_KEPT + 10)]
         h3 = F.history({"history": long}, self.doc("T6", (0.1, 0.1, 0.1), 9999))
