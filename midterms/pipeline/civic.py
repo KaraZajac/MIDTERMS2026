@@ -118,6 +118,11 @@ def _search(name: str, deadline: float) -> list[dict]:
 # rather than the whole minute's update being lost. If both fail, nothing
 # stands in: the run fails and the last good file stays up, as before.
 KEEP = 300
+# The governors' search failed alone for long stretches (04:30 UTC on, Nov 4),
+# and at 5 minutes its kept answer ran out while the House and Senate still
+# answered, so whole fresh updates were lost. Governors' results move slowly:
+# their last answer may stand in for 30 minutes; the House and Senate's for 5.
+KEEPS = {"federal": KEEP, "governors": 1800}
 
 
 def _kept_path(cache: Path, name: str) -> Path:
@@ -151,7 +156,7 @@ def _kept(cache: Path, name: str, keep: float) -> tuple[list[dict], str] | None:
 
 
 def fetch_all(*, budget: float = BUDGET, cache: Path | None = None,
-              keep: float = KEEP) -> tuple[list[dict], str, dict[str, str]]:
+              keep: float | None = None) -> tuple[list[dict], str, dict[str, str]]:
     """Every race of both searches (paged; the two run side by side), when
     they were fetched, and the searches that stood in with an earlier answer
     ({name: when that answer was fetched}). Failed reads are retried while
@@ -176,7 +181,8 @@ def fetch_all(*, budget: float = BUDGET, cache: Path | None = None,
             _keep(cache, name, fetched, answers[name])
     stood_in, fresh = {}, bool(answers)              # something must be new this run
     for name, e in errors.items():
-        old = _kept(cache, name, keep) if cache is not None and fresh else None
+        limit = keep if keep is not None else KEEPS.get(name, KEEP)
+        old = _kept(cache, name, limit) if cache is not None and fresh else None
         if old is None:
             raise e
         answers[name], stood_in[name] = old

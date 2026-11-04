@@ -289,11 +289,23 @@ class TestCivic(unittest.TestCase):
             raise bad
         with self.assertRaises(SystemExit):
             run(all_fail)
-        old = dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=civic.KEEP + 60)
+        old = dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=civic.KEEPS["governors"] + 60)
         kept.write_text(json.dumps({"fetched": old.strftime("%Y-%m-%dT%H:%M:%SZ"), "races": [{"id": "g0"}]}))
         with self.assertRaises(SystemExit) as cm:
             run(self._governors_fail(*[bad] * 100))
         self.assertIn("HTTP 502", str(cm.exception))
+        # governors' results may stand in for 30 minutes, the House and Senate's for 5
+        mid = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(minutes=20)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        kept.write_text(json.dumps({"fetched": mid, "races": [{"id": "g0"}]}))
+        self.assertEqual(run(self._governors_fail(*[bad] * 100))[2], {"governors": mid})
+        (cache / ".civic-federal.json").write_text(json.dumps({"fetched": mid, "races": [{"id": "f0"}]}))
+
+        def federal_fails(u, **kw):
+            if "Governor" in u:
+                return json.dumps({"count": 1, "races": [{"id": "g0"}]}).encode()
+            raise bad
+        with self.assertRaises(SystemExit):
+            run(federal_fails)
         # a broken kept file is no answer
         kept.write_text("{")
         with self.assertRaises(SystemExit):
