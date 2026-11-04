@@ -34,6 +34,13 @@ const isInc = (c: any) => isIncumbent(r, c);
 const fixed = !!r.fixed;
 // After Election Day: this race's result, once `midterms score` has it
 const result = scorecard()?.races?.find((x: any) => x.id === id) ?? null;
+// Louisiana's first round is scored by the winner's party (docs/site-data.md):
+// the winner can be neither of our candidates (Scalise, LA-01), and the
+// forecast's chance was then its party's, not theirs.
+const resultSide = result?.winner === "D" ? r.d : result?.winner === "R" ? r.r : null;
+const byParty = Boolean(result?.winner_name && resultSide?.name && surname(result.winner_name) !== surname(resultSide.name));
+const PARTY_PLURAL: Record<string, string> = { D: "Democrats", R: "Republicans" };
+const resultWho = byParty ? (PARTY_PLURAL[resultSide.party] ?? "the winner's party") : result?.winner_name ? surname(result.winner_name) : "the winner";
 
 const inputs = r.inputs ?? {};
 const comps = [
@@ -86,7 +93,7 @@ const desc = fixed
     {result && (
       <p class="callout result">
         <strong>Result: {result.winner_name ?? result.winner} won</strong>
-        {result.margin != null && <>, {margin(result.margin, dL, rL)}</>}. The frozen forecast gave {result.winner_name ? surname(result.winner_name) : "the winner"} {aPct(result.p_winner)} chance
+        {result.margin != null && <>, {margin(result.margin, dL, rL)}</>}. The frozen forecast gave {resultWho} {aPct(result.p_winner)} chance
         {result.called_right ? "." : " — an upset by the forecast's own odds."} <a href={url("/scorecard/")}>Scorecard →</a>
       </p>
     )}
