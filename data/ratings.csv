@@ -71,7 +71,7 @@ house:AR-04,Inside Elections,Inside Elections,Solid R,-3.0,2025-03-07
 house:AR-04,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:AR-04,The Economist,The Economist,Safe R,-3.0,2026-05-06
 house:AR-04,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-08-20
-house:AZ-01,DDHQ,Decision Desk HQ,Lean D (flip),1.0,2026-07-14
+house:AZ-01,DDHQ,Decision Desk HQ,Likely D (flip),2.0,2026-11-03
 house:AZ-01,Cook,The Cook Political Report,Lean D (flip),1.0,2026-09-25
 house:AZ-01,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-15
 house:AZ-01,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-10-20
@@ -319,7 +319,7 @@ house:CA-44,Cook,The Cook Political Report,Solid D,3.0,2025-11-05
 house:CA-44,Inside Elections,Inside Elections,Solid D,3.0,2025-03-07
 house:CA-44,Sabato,Sabato's Crystal Ball,Safe D,3.0,2025-07-15
 house:CA-44,The Economist,The Economist,Safe D,3.0,2026-05-06
-house:CA-45,DDHQ,Decision Desk HQ,Likely D,2.0,2026-07-14
+house:CA-45,DDHQ,Decision Desk HQ,Safe D,3.0,2026-11-03
 house:CA-45,Inside Elections,Inside Elections,Solid D,3.0,2026-10-29
 house:CA-45,Cook,The Cook Political Report,Likely D,2.0,2026-07-16
 house:CA-45,Sabato,Sabato's Crystal Ball,Likely D,2.0,2026-09-29
@@ -783,7 +783,7 @@ house:KS-02,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
 house:KS-02,Cook,The Cook Political Report,Likely R,-2.0,2026-10-16
 house:KS-02,Inside Elections,Inside Elections,Likely R,-2.0,2026-10-29
 house:KS-02,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2026-10-20
-house:KS-03,DDHQ,Decision Desk HQ,Likely D,2.0,2026-07-14
+house:KS-03,DDHQ,Decision Desk HQ,Safe D,3.0,2026-11-03
 house:KS-03,Cook,The Cook Political Report,Solid D,3.0,2025-05-29
 house:KS-03,Inside Elections,Inside Elections,Solid D,3.0,2025-05-29
 house:KS-03,Sabato,Sabato's Crystal Ball,Safe D,3.0,2026-07-30
