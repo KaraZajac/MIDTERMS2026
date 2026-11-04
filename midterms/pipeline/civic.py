@@ -85,7 +85,10 @@ def _get(u: str, deadline: float) -> bytes:
         except fetch.DownloadFailed as e:
             if e.status is not None and e.status not in RETRY:
                 raise                                   # a 4xx won't fix itself
-            wait = min(max(delay, e.retry_after or 0.0), 30.0)
+            # a 429's Retry-After is honored (to 30 s); a 5xx's only to 10 s:
+            # civicAPI's 502s, which come back in 0.2 s, ask for 30 s or more,
+            # which left a run two or three tries at a search (Nov 3, 01:00 UTC)
+            wait = min(max(delay, e.retry_after or 0.0), 30.0 if e.status == 429 else 10.0)
             if deadline - time.monotonic() < wait + 5:
                 raise
             time.sleep(wait)

@@ -152,6 +152,19 @@ class TestCivic(unittest.TestCase):
         self.assertEqual([r["id"] for r in races], ["f0", "g0"])
         self.assertEqual(clock.slept, [2.0, 7.0, 8.0])        # backoff, Retry-After, backoff
 
+    def test_a_long_retry_after_on_a_5xx_is_capped(self):
+        # civicAPI's quick 502s ask for 30 s or more: wait 10 s, so a run gets
+        # several tries at a search; a 429's Retry-After is still honored
+        from unittest import mock
+        for status, want in ((502, [10.0, 10.0, 10.0]), (429, [30.0, 30.0])):
+            clock = self.Clock()
+            err = civic.fetch.DownloadFailed(f"download failed: … (HTTP {status})", status, retry_after=30.0)
+            with mock.patch.object(civic.fetch, "get", self._governors_fail(*[err] * len(want))), \
+                    mock.patch.object(civic, "time", clock):
+                races, _, _ = civic.fetch_all()
+            self.assertEqual([r["id"] for r in races], ["f0", "g0"])
+            self.assertEqual(clock.slept, want)
+
     def _governors_slow(self, clock, takes, asked):
         """fetch.get where the governors' search answers after `takes`
         seconds (None: never), timing out like a socket when the read's

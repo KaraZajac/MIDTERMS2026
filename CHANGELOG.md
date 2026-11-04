@@ -25,6 +25,12 @@ model and pipeline that produced it. Automated six-hourly refreshes
   then that older answer's time). If both searches fail, nothing stands
   in: the run fails and the last good file stays up, as before. The
   committed copy is unchanged.
+- From 01:00 UTC civicAPI answered most House-and-Senate searches with a
+  502 in a fifth of a second, asking the client to wait 30 seconds or
+  more before trying again. Honoring that left a run two or three tries,
+  and the search went unanswered for minutes at a time. A 5xx's
+  Retry-After is now honored only up to 10 seconds (a 429's still up to
+  30), so a run gets about seven tries.
 
 ### 2026-11-03, morning — civicAPI's searches (no model change)
 - From 14:00 UTC civicAPI answered the governors' text search
