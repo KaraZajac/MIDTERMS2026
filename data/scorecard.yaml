@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 7
+resolved: 8
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-01
 - house:CA-02
 - house:CA-03
-open_count: 482
+open_count: 481
 scoreboard:
   lite:
-    n: 7
-    brier: 0.0118
-    log_loss: 0.0648
-    calls: 7/7
+    n: 8
+    brier: 0.0162
+    log_loss: 0.0872
+    calls: 8/8
   classic:
-    n: 7
-    brier: 0.0309
-    log_loss: 0.0945
-    calls: 7/7
+    n: 8
+    brier: 0.0271
+    log_loss: 0.0854
+    calls: 8/8
   deluxe:
-    n: 7
-    brier: 0.0319
-    log_loss: 0.0919
-    calls: 7/7
+    n: 8
+    brier: 0.0279
+    log_loss: 0.0807
+    calls: 8/8
   ratings:
-    n: 7
-    brier: 0.0357
-    log_loss: 0.0991
-    calls: 6/7
+    n: 8
+    brier: 0.0313
+    log_loss: 0.0867
+    calls: 7/8
   lean-only:
-    n: 7
-    brier: 0.0867
-    log_loss: 0.216
-    calls: 6/7
+    n: 8
+    brier: 0.0759
+    log_loss: 0.1891
+    calls: 7/8
   coin-flip:
-    n: 7
+    n: 8
     brier: 0.25
     log_loss: 0.6931
-    calls: 5/7
+    calls: 6/8
 races:
 - id: house:KY-01
   slug: house/ky-01
@@ -169,6 +169,18 @@ races:
     classic: 0.5359
     deluxe: 0.5275
   called_right: true
+- id: senate:ID
+  slug: senate/id
+  label: Idaho
+  winner: R
+  winner_name: Jim Risch
+  margin: -23.24
+  p_winner: 0.9975
+  p_d_side:
+    lite: 0.2163
+    classic: 0.0216
+    deluxe: 0.0025
+  called_right: true
 - id: senate:KY
   slug: senate/ky
   label: Kentucky
@@ -183,39 +195,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T07:04:31Z'
-  called: 399
+  asof: '2026-11-04T07:15:01Z'
+  called: 407
   scoreboard:
     lite:
-      n: 399
-      brier: 0.0241
-      log_loss: 0.0942
-      calls: 390/399
+      n: 407
+      brier: 0.0239
+      log_loss: 0.094
+      calls: 398/407
     classic:
-      n: 399
-      brier: 0.0178
-      log_loss: 0.0657
-      calls: 391/399
+      n: 407
+      brier: 0.0177
+      log_loss: 0.0655
+      calls: 399/407
     deluxe:
-      n: 399
+      n: 407
       brier: 0.0174
       log_loss: 0.0574
-      calls: 390/399
+      calls: 398/407
     ratings:
-      n: 399
-      brier: 0.0232
-      log_loss: 0.0759
-      calls: 387/399
+      n: 407
+      brier: 0.0234
+      log_loss: 0.0765
+      calls: 394/407
     lean-only:
-      n: 399
-      brier: 0.0318
-      log_loss: 0.1167
-      calls: 382/399
+      n: 407
+      brier: 0.032
+      log_loss: 0.1169
+      calls: 389/407
     coin-flip:
-      n: 399
+      n: 407
       brier: 0.25
       log_loss: 0.6931
-      calls: 155/399
+      calls: 156/407
   races:
   - - governor:AL
     - R
@@ -367,6 +379,9 @@ provisional:
   - - house:CA-03
     - D
     - 0.9999
+  - - house:CA-06
+    - D
+    - 0.9967
   - - house:CA-08
     - D
     - 1.0
@@ -445,7 +460,19 @@ provisional:
   - - house:CA-44
     - D
     - 1.0
+  - - house:CA-45
+    - D
+    - 0.9985
   - - house:CA-46
+    - D
+    - 0.9999
+  - - house:CA-47
+    - D
+    - 0.9999
+  - - house:CA-48
+    - D
+    - 0.9652
+  - - house:CA-49
     - D
     - 0.9999
   - - house:CA-50
@@ -853,6 +880,9 @@ provisional:
   - - house:MS-04
     - R
     - 0.9998
+  - - house:MT-01
+    - D
+    - 0.6479
   - - house:MT-02
     - R
     - 0.9997
@@ -1048,6 +1078,9 @@ provisional:
   - - house:OR-05
     - D
     - 0.9999
+  - - house:OR-06
+    - D
+    - 0.9999
   - - house:PA-01
     - D
     - 0.8055
@@ -1192,6 +1225,9 @@ provisional:
   - - house:TX-24
     - R
     - 0.9982
+  - - house:TX-25
+    - R
+    - 0.9996
   - - house:TX-26
     - R
     - 0.9996
