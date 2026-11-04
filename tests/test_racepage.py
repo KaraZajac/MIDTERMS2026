@@ -115,6 +115,24 @@ class TestClassify(unittest.TestCase):
         self.assertEqual(races.classify([self.c("A", "D"), self.c("B", "IND")], preds, 3)["fixed"], "")
 
 
+class TestSiteOthers(unittest.TestCase):
+    def test_everyone_but_the_forecasts_two(self):
+        # Wikipedia's results box put CA-34's leader first after Election Day,
+        # so the race table's D-side became the forecast's 'other' (Nov 4)
+        from midterms.pipeline.site_export import others
+        m = {"d_cand": "Jimmy Gomez", "r_cand": ""}
+        row = {"d_cand": "Angela Gonzales-Torres", "d_side": "D", "r_cand": "", "r_side": "R",
+               "others": "Jimmy Gomez (D)"}
+        self.assertEqual(others(m, row), ["Angela Gonzales-Torres (D)"])
+        # before the reorder (and everywhere else): the table's own others
+        row = {"d_cand": "Jimmy Gomez", "d_side": "D", "r_cand": "", "others": "Angela Gonzales-Torres (D)"}
+        self.assertEqual(others(m, row), ["Angela Gonzales-Torres (D)"])
+        la = {"d_cand": "Lauren Jewett", "r_cand": "Randall Arrington"}
+        row = {"d_cand": "Lauren Jewett", "d_side": "D", "r_cand": "Randall Arrington", "r_side": "R",
+               "others": "Steve Scalise (R); E. Glass (IND)"}
+        self.assertEqual(others(la, row), ["Steve Scalise (R)", "E. Glass (IND)"])
+
+
 if __name__ == "__main__":
     unittest.main()
 

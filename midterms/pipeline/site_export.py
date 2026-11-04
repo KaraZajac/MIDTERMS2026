@@ -34,6 +34,7 @@ import yaml
 
 from midterms.model.simulate import QUANTILES, REGIONS
 from midterms.paths import CURATED, DATA, FORECAST, RACES, SITE
+from midterms.pipeline.racepage import _norm
 from midterms.pipeline.states import STATES
 
 VERSIONS = ("lite", "classic", "deluxe")
@@ -216,6 +217,23 @@ def summary(fc: dict, meta: dict, cur: dict, averages: list[dict], ph: str) -> d
     }
 
 
+def others(m: dict, row: dict) -> list[str]:
+    """Everyone in the race but the forecast's two candidates, as 'Name
+    (PARTY)'. The race table follows Wikipedia, whose results boxes reorder
+    after Election Day: CA-34's leader, Gonzales-Torres, became the table's
+    D-side, and the table's 'others' had Gomez, the forecast's. So take the
+    table's whole field against the forecast's names, not its own split."""
+    field = [f"{row[k]} ({row.get(side) or code})"
+             for k, side, code in (("d_cand", "d_side", "D"), ("r_cand", "r_side", "R")) if row.get(k)]
+    field += [o.strip() for o in (row.get("others") or "").split(";") if o.strip()]
+    ours = {_norm(n) for n in (m.get("d_cand"), m.get("r_cand")) if n}
+    out = []
+    for c in field:
+        if _norm(c) not in ours and c not in out:
+            out.append(c)
+    return out
+
+
 def races(fc: dict, ratings: list[dict], averages: list[dict], finance: list[dict],
           race_rows: dict) -> list[dict]:
     rat = defaultdict(dict)
@@ -276,7 +294,7 @@ def races(fc: dict, ratings: list[dict], averages: list[dict], finance: list[dic
             "special": rid.endswith("-special"),
             "d": {"name": m["d_cand"] or None, "party": d_party},
             "r": {"name": m["r_cand"] or None, "party": r_party},
-            "others": [o.strip() for o in (row.get("others") or "").split(";") if o.strip()],
+            "others": others(m, row),
             "incumbent": {"name": m.get("incumbent") or None, "party": inc_party,
                           "running": m.get("inc_running") in ("yes", "both"),
                           "both_running": m.get("inc_running") == "both",

@@ -20,6 +20,14 @@ model and pipeline that produced it. Automated six-hourly refreshes
 - `top_two` now needs two candidates with votes, so WI-02 (Pocan alone)
   has none.
 - Flagged by the site (ASTROPHAGE); the site shows the pair and shares.
+- races.json `others` is now everyone in the race table except the
+  forecast's two candidates (`site_export.others`).
+  - Before, it was the table's own `others`. Wikipedia's results boxes
+    reorder after Election Day, so the table's own D-side and others can
+    swap.
+  - CA-34's page read "Gomez (D) faces Jimmy Gomez (D)": the table's D-side
+    had become Gonzales-Torres, and its others had Gomez.
+  - CA-34 is the only race affected today.
 
 ### 2026-11-04, evening — Louisiana's House races scored by the winner's party (no model change)
 - Our D-side and R-side in Louisiana's first round are one candidate of
