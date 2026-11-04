@@ -11,8 +11,10 @@ interface Props {
   others: any;
   id?: string;
   note?: string;
+  level?: 2 | 3; // h3 inside the provisional section; h2 under the record scoreboard, which has none
 }
-const { others, id = "others", note = "" } = Astro.props;
+const { others, id = "others", note = "", level = 3 } = Astro.props;
+const H = level === 2 ? "h2" : "h3";
 
 type Score = { n?: number; brier?: number; calls?: string | number; tossups?: number };
 const rows: any[] = Array.isArray(others?.raters) ? others.raters.filter((r: any) => r && typeof r === "object") : [];
@@ -50,7 +52,7 @@ const hasComp = rows.some((r) => comp(r));
 
 {rows.length > 0 && (
   <section class="others" id={id} aria-labelledby={`${id}-h`} data-others>
-    <h3 id={`${id}-h`}>How the others did</h3>
+    <H id={`${id}-h`} class="others-h">How the others did</H>
     <p>Each forecaster against our forecast, on the races it rated. Lower Brier scores are better.{note ? ` ${note}` : ""}</p>
     {hasComp && (
       <div class="seg js-only" role="group" aria-label="Which races">
@@ -115,7 +117,7 @@ const hasComp = rows.some((r) => comp(r));
 
 <style>
   .others { margin-top: 36px; }
-  .others h3 { margin: 0 0 6px; }
+  .others .others-h { margin: 0 0 6px; }
   .others .seg { margin: 2px 0 12px; }
   /* The containing block for the sr-only "(lower)" notes: without it they
      belong to the page, and on a phone those past the box's edge widen it. */
