@@ -16,6 +16,11 @@ model and pipeline that produced it. Automated six-hourly refreshes
   each, and stops a cycle after three failures in a row, so it never adds
   to an outage. Counties that don't add up to the race's total (towns
   without FIPS) give no map. Contract: docs/site-data.md.
+- civicAPI sends independent cities, which are county equivalents, without
+  a FIPS: Virginia's 38 held a quarter of its Senate votes, so its
+  counties fell short of the total and it had no map. They are now found
+  by name (Virginia's 38, Baltimore, Carson City; codes checked against
+  the site's county shapes), and each file lists the regions it left out.
 
 ### 2026-11-03, evening — a slow civicAPI answer is waited for (no model change)
 - At 22:58 UTC, as the first polls closed, civicAPI left three 25-second

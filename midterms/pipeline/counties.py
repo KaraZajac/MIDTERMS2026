@@ -70,16 +70,50 @@ def targets(cache: Path, rows: dict[str, dict]) -> dict[str, int]:
     return out
 
 
-def regions(c: dict, race: dict) -> tuple[list[dict], int]:
-    """A civicAPI race's counties, by our sides; and how many regions had no
-    usable FIPS."""
+# Independent cities are county equivalents with their own FIPS, and civicAPI
+# sends them without one (Virginia's 38 held a quarter of its Senate votes at
+# 02:05 UTC, Nov 4). Codes as in the site's county shapes (us-atlas, Census).
+CITIES = {
+    "VA": {"alexandria": "51510", "bristol": "51520", "buena vista": "51530", "charlottesville": "51540",
+           "chesapeake": "51550", "colonial heights": "51570", "covington": "51580", "danville": "51590",
+           "emporia": "51595", "fairfax": "51600", "falls church": "51610", "franklin": "51620",
+           "fredericksburg": "51630", "galax": "51640", "hampton": "51650", "harrisonburg": "51660",
+           "hopewell": "51670", "lexington": "51678", "lynchburg": "51680", "manassas": "51683",
+           "manassas park": "51685", "martinsville": "51690", "newport news": "51700", "norfolk": "51710",
+           "norton": "51720", "petersburg": "51730", "poquoson": "51735", "portsmouth": "51740",
+           "radford": "51750", "richmond": "51760", "roanoke": "51770", "salem": "51775",
+           "staunton": "51790", "suffolk": "51800", "virginia beach": "51810", "waynesboro": "51820",
+           "williamsburg": "51830", "winchester": "51840"},
+    "MD": {"baltimore": "24510"},
+    "NV": {"carson": "32510"},
+}
+
+
+def city_fips(state: str | None, name: str | None) -> str | None:
+    """'Richmond City', 'City of Richmond' or 'Richmond' (a region sent
+    without FIPS, so not the county of that name, which comes with one)."""
+    n = " ".join((name or "").lower().replace("saint ", "st. ").split())
+    if not n or "county" in n:
+        return None
+    if n.startswith("city of "):
+        n = n[8:]
+    if n.endswith(" city"):
+        n = n[:-5]
+    return CITIES.get(state or "", {}).get(n.strip())
+
+
+def regions(c: dict, race: dict) -> tuple[list[dict], list[str]]:
+    """A civicAPI race's counties, by our sides; and the names of the regions
+    without a usable FIPS (left out)."""
     rr = c.get("region_results") or {}
     counties: dict[str, dict] = {}
-    dropped = 0
+    dropped: list[str] = []
     for g in (rr.values() if isinstance(rr, dict) else rr):
         fips = str((g or {}).get("fips") or "")
         if not fips.isdigit() or len(fips) < 5:
-            dropped += 1
+            fips = city_fips(race.get("state"), (g or {}).get("name")) or ""
+        if not fips.isdigit() or len(fips) < 5:
+            dropped.append(str((g or {}).get("name") or "?"))
             continue
         r = civic.result(g, race)
         key, town = fips[:5], len(fips) > 5
@@ -171,7 +205,7 @@ def run(cache: Path, out_dir: Path, *, rows: dict[str, dict] | None = None,
         doc = {"generated": fetch.now_utc(), "fetched": fetched, "race": rid, "civic_id": cid,
                "source": {"name": "civicAPI", "url": "https://civicapi.org", "credit": civic.ATTRIBUTION},
                "total": _votes(c.get("candidates")), "coverage": None if cov is None else round(cov, 3),
-               "regions": regs, "dropped": dropped}
+               "regions": regs, "dropped": len(dropped), "dropped_names": sorted(dropped)[:60]}
         if cov is not None and not COMPLETE[0] <= cov <= COMPLETE[1]:
             doc["regions"] = []                       # counties that don't add up: no map
             doc["note"] = ("civicAPI reports this state's results by town" if dropped

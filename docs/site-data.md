@@ -304,7 +304,8 @@ failed keeps its last file.
     votes: {D, R, other},      // by our sides, as in live.json
     margin                     // two-party, D-side minus R-side, points; null if a
   }],                          // side didn't match or no two-party votes yet
-  dropped,                     // civicAPI regions without a usable FIPS
+  dropped, dropped_names,      // civicAPI regions without a usable FIPS (independent
+                              // cities are found by name: VA's 38, Baltimore, Carson City)
   note?                        // why regions is empty
 }
 ```

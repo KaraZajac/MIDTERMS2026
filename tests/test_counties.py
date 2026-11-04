@@ -48,7 +48,7 @@ class TestCounties(unittest.TestCase):
             "district": county(None, "District 1", 10.0, 5, 5),
             "state": county("13", "Georgia", 50.0, 1, 1)}}
         regs, dropped = counties.regions(c, race)
-        self.assertEqual(dropped, 2)
+        self.assertEqual(sorted(dropped), ["District 1", "Georgia"])
         by = {g["fips"]: g for g in regs}
         self.assertEqual(sorted(by), ["13001", "13121", "23001"])
         self.assertEqual(by["13121"], {"fips": "13121", "name": "Fulton", "pct_reporting": 63.0,
@@ -58,6 +58,22 @@ class TestCounties(unittest.TestCase):
         self.assertEqual((town["name"], town["pct_reporting"], town["votes"]),
                          (None, None, {"D": 60, "R": 40, "other": 0}))
         self.assertEqual(town["margin"], 20.0)
+        # Virginia's independent cities come without FIPS: found by name
+        va = row("VA", "Jon Ossoff", "Mike Collins")
+        vc = {"region_results": {
+            "rc": county(None, "Richmond City", 80.0, 70, 30),
+            "rco": county("51159", "Richmond", 90.0, 10, 30),          # the county, with its FIPS
+            "nf": county(None, "City of Norfolk", 50.0, 60, 40),
+            "vb": county("", "Virginia Beach", 40.0, 45, 55),
+            "x": county(None, "Richmond County", 10.0, 1, 1),         # never the city
+            "y": county(None, "Nowhere City", 10.0, 1, 1)}}
+        regs, dropped = counties.regions(vc, va)
+        self.assertEqual(sorted(g["fips"] for g in regs), ["51159", "51710", "51760", "51810"])
+        self.assertEqual(sorted(dropped), ["Nowhere City", "Richmond County"])
+        self.assertEqual({g["fips"]: g["name"] for g in regs}["51760"], "Richmond City")
+        self.assertEqual(counties.city_fips("NV", "Carson City"), "32510")
+        self.assertEqual(counties.city_fips("MD", "Baltimore City"), "24510")
+        self.assertIsNone(counties.city_fips("MD", "Baltimore County"))
         # a side that doesn't match: no margin
         odd = {"region_results": {"x": {"fips": "13001", "percent_reporting": 5,
                                         "candidates": [cand("Somebody Else", "Libertarian", 9)]}}}
