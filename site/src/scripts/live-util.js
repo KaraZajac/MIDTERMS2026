@@ -75,6 +75,18 @@ export function reporting(x) {
   if (x > 0 && x < 1) return "<1%";
   return `${Math.round(x)}%`;
 }
+/** "45% reporting", or "early returns" when votes are in but the percent is 0 or
+ *  missing: civicAPI's percent often stays at 0 until precincts finish, and "0%"
+ *  next to thousands of votes reads as an error (MIDTERMS2026, Nov 4). Null when
+ *  there's nothing to say. */
+export function reportingText(r) {
+  const x = r?.pct_reporting;
+  const v = r?.votes && typeof r.votes === "object" ? r.votes : null;
+  const any = v ? n(v.D) + n(v.R) + n(v.other) > 0 : false;
+  if (any && (typeof x !== "number" || x === 0)) return "early returns";
+  const p = reporting(x);
+  return p ? `${p} reporting` : null;
+}
 export const tag = (text, cls = "") => h("span", { class: `live-tag ${cls}`.trim() }, text);
 export const credit = () => ["Results and race calls: ", h("a", { href: CIVICAPI }, "civicAPI"), " (civicapi.org)"];
 /** The one line that sets expectations wherever calls are listed. */

@@ -14,7 +14,7 @@
 // optional here: without them the page shows what it can.
 import { pct, pct1, margin, url } from "../lib/format.js";
 import {
-  h, ID, TITLE, NOUN, BOARD, clock, stamp, n, sum, fmtInt, reporting, tag, credit, expectations,
+  h, ID, TITLE, NOUN, BOARD, clock, stamp, n, sum, fmtInt, reporting, reportingText, tag, credit, expectations,
   raceLink, winnerName, gainText, setSkew, schedule, closeClock, nextClosing, closedCount, stale,
   majorityLine, changedLine, seatBuckets,
 } from "./live-util.js";
@@ -291,7 +291,8 @@ function raceBanner(box, data) {
   } else if (r.status === "runoff") {
     status = h("strong", {}, "Headed to a runoff");
   } else if (r.status === "counting") {
-    status = [h("strong", {}, "Counting"), reporting(r.pct_reporting) ? ` · ${reporting(r.pct_reporting)} reporting` : "", r.disputed ? tag("Disputed") : null];
+    const rt = reportingText(r);
+    status = [h("strong", {}, "Counting"), rt ? ` · ${rt}` : "", r.disputed ? tag("Disputed") : null];
   } else {
     status = h("strong", {}, "No votes counted yet");
   }

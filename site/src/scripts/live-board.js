@@ -5,7 +5,7 @@
 // (?chamber=house&show=flips&q=PA), so it can be linked and survives a reload.
 import { pct, margin, STATES } from "../lib/format.js";
 import {
-  h, ID, tag, clock, reporting, raceLink, sideName, sideLabel, winnerName, winnerParty, partyKey,
+  h, ID, tag, clock, reportingText, raceLink, sideName, sideLabel, winnerName, winnerParty, partyKey,
   gainText, decided, windowOf, closingText, stateOf, expectations, n, SEGS, segOf, wonSeg, segLabel,
 } from "./live-util.js";
 
@@ -121,7 +121,7 @@ function count(r, N, id) {
   let m = typeof r.margin === "number" ? r.margin : null;
   const v = r.votes && typeof r.votes === "object" ? r.votes : null;
   if (m == null && v && n(v.D) + n(v.R) > 0) m = (100 * (n(v.D) - n(v.R))) / (n(v.D) + n(v.R));
-  return { m, rep: reporting(r.pct_reporting) };
+  return { m, rep: reportingText(r) }; // "45% reporting" or "early returns"
 }
 function chance(r, N, id) {
   const pre = typeof r.p_pre === "number" ? r.p_pre : null;
@@ -161,13 +161,13 @@ function row(id, r, data, N) {
       sub.push(`The forecast gave ${sideName(N, id, r.winner) ?? "the winner"} ${pct(pw)}.`);
     }
     const c = count(r, N, id);
-    if (c.m != null) sub.push(`${margin(c.m, sideLabel(N, id, "D"), sideLabel(N, id, "R"))}${c.rep ? ` with ${c.rep} reporting` : ""}.`);
+    if (c.m != null) sub.push(`${margin(c.m, sideLabel(N, id, "D"), sideLabel(N, id, "R"))}${c.rep ? (c.rep === "early returns" ? " in early returns" : ` with ${c.rep}`) : ""}.`);
   } else if (st === "counting") {
     const c = count(r, N, id);
     const lead = c.m == null ? null : Math.abs(c.m) < 0.05 ? "Tied" : `${sideName(N, id, c.m > 0 ? "D" : "R") ?? (c.m > 0 ? "D-side" : "R-side")} leads by ${Math.abs(c.m).toFixed(1)} points`;
     main = [
       h("strong", {}, "Counting"),
-      c.rep ? ` · ${c.rep} reporting` : "",
+      c.rep ? ` · ${c.rep}` : "",
       lead ? ` · ${lead}` : "",
       r.disputed === true ? tag("Disputed") : null,
     ];

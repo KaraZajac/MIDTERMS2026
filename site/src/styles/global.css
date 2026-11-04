@@ -696,6 +696,46 @@ details.tableview[open] > summary { margin-bottom: 8px; }
 [data-live-map].is-live .tile[data-res-flip] { box-shadow: inset 0 0 0 2px var(--surface), inset 0 0 0 4px var(--ink-strong); }
 [data-live-map].is-live .sq[data-res-flip] { position: relative; z-index: 1; box-shadow: 0 0 0 1px var(--surface), 0 0 0 2.5px var(--ink-strong); }
 [data-live-map].is-live .tile .pp { display: none; }
+
+/* ---------- election night: a race page's county map (CountyMap.astro, scripts/live-counties.js) ---------- */
+/* four steps by margin (under 5, 5–15, 15–30, 30+ points) from the side's own
+   ramp. Latte: the weakest is the lightest ramp step mixed toward the page.
+   Mocha: the ramp runs dark to bright, and "no votes" is dark grey, so the steps
+   start at the ramp's darkest blue/red and end past its brightest. */
+.county-map { --cm-d1: color-mix(in oklab, var(--d1) 60%, var(--bg)); --cm-d2: var(--d1); --cm-d3: var(--d2); --cm-d4: var(--d3);
+  --cm-r1: color-mix(in oklab, var(--r1) 60%, var(--bg)); --cm-r2: var(--r1); --cm-r3: var(--r2); --cm-r4: var(--r3);
+  margin: 22px 0 6px; padding: 16px 18px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+:root[data-theme="mocha"] .county-map { --cm-d1: var(--d1); --cm-d2: var(--d2); --cm-d3: var(--d3); --cm-d4: color-mix(in oklab, var(--d3) 62%, #ffffff);
+  --cm-r1: var(--r1); --cm-r2: var(--r2); --cm-r3: var(--r3); --cm-r4: color-mix(in oklab, var(--r3) 62%, #ffffff); }
+.county-map[hidden] { display: none !important; }
+.cm-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 16px; }
+.cm-head h2 { margin: 0; font-size: 1.15rem; }
+.cm-asof { margin: 0; font-size: 13px; color: var(--muted); }
+.county-map svg { display: block; width: 100%; max-width: min(var(--cm-w), 100%); height: auto; margin: 12px auto 4px; }
+.cty { fill: var(--na); stroke: var(--surface); stroke-width: 0.7; vector-effect: non-scaling-stroke; }
+.cty:hover { stroke: var(--ink-strong); stroke-width: 1.6; }
+.cm-outline { fill: none; stroke: var(--ink-2); stroke-width: 1; vector-effect: non-scaling-stroke; pointer-events: none; }
+.cty[data-c="d1"], .cmf-d1 { fill: var(--cm-d1); } .cty[data-c="d2"], .cmf-d2 { fill: var(--cm-d2); }
+.cty[data-c="d3"], .cmf-d3 { fill: var(--cm-d3); } .cty[data-c="d4"], .cmf-d4 { fill: var(--cm-d4); }
+.cty[data-c="r1"], .cmf-r1 { fill: var(--cm-r1); } .cty[data-c="r2"], .cmf-r2 { fill: var(--cm-r2); }
+.cty[data-c="r3"], .cmf-r3 { fill: var(--cm-r3); } .cty[data-c="r4"], .cmf-r4 { fill: var(--cm-r4); }
+.cty[data-c="t"], .cty[data-c="n"] { fill: var(--tu); }
+.cmf-hatch { fill: var(--hatch); }
+.cty[data-partial][data-c="d1"] { fill: url(#cmh-d1); } .cty[data-partial][data-c="d2"] { fill: url(#cmh-d2); }
+.cty[data-partial][data-c="d3"] { fill: url(#cmh-d3); } .cty[data-partial][data-c="d4"] { fill: url(#cmh-d4); }
+.cty[data-partial][data-c="r1"] { fill: url(#cmh-r1); } .cty[data-partial][data-c="r2"] { fill: url(#cmh-r2); }
+.cty[data-partial][data-c="r3"] { fill: url(#cmh-r3); } .cty[data-partial][data-c="r4"] { fill: url(#cmh-r4); }
+.cm-legend { display: grid; gap: 4px; margin: 8px 0 0; font-size: 13px; color: var(--ink-2); }
+.cm-legend p { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin: 0; }
+.cm-who { font-weight: 650; color: var(--ink-strong); min-width: 9.5em; }
+.cm-key { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.cm-sw { display: inline-block; width: 13px; height: 13px; border-radius: 3px; flex: none; }
+.cm-sw.d1 { background: var(--cm-d1); } .cm-sw.d2 { background: var(--cm-d2); } .cm-sw.d3 { background: var(--cm-d3); } .cm-sw.d4 { background: var(--cm-d4); }
+.cm-sw.r1 { background: var(--cm-r1); } .cm-sw.r2 { background: var(--cm-r2); } .cm-sw.r3 { background: var(--cm-r3); } .cm-sw.r4 { background: var(--cm-r4); }
+.cm-sw.u { background: var(--na); box-shadow: inset 0 0 0 1px var(--border); }
+.cm-sw.t { background: var(--tu); }
+.cm-sw.part { background-image: repeating-linear-gradient(135deg, var(--hatch) 0 1.5px, transparent 1.5px 4px); }
+.cm-sw.part + .cm-sw.part { margin-left: -2px; }
 [data-live-map].is-live .sq.pivot { outline: none; }
 
 /* ---------- /results/: seat bars and the feed of calls (live-hero.js, live-seats.js, live-feed.js) ---------- */

@@ -76,6 +76,33 @@ civicAPI's results and race calls, and writes `/live.json`.
   `systemctl disable --now midterms-live.timer`. Logs:
   `journalctl -u midterms-live.service`.
 
+## Election night: county maps, `/counties/`
+
+From Nov 4 01:55 UTC through Nov 5, `midterms-counties.timer` runs
+`midterms-counties.service` every 5 minutes (at :00:30, :05:30, …).
+That runs `python3 -m midterms counties --cache-dir
+/srv/live/midterms.karazajac.io --out-dir
+/srv/live/midterms.karazajac.io/counties`, which writes one file per
+Senate and governor race with votes, `counties/<chamber>/<slug>.json`
+(the shape is in `docs/site-data.md`).
+
+- Same user and sandbox as `midterms-live`, `TimeoutStartSec=200`. It
+  reads civicAPI's race ids from the answers the live job keeps beside
+  `live.json`, so it adds no searches.
+- Caddy serves only paths matching
+  `^/counties/(senate|governor)/[a-z0-9-]+\.json$` from that directory,
+  on the site and the onion, `Cache-Control: no-cache`. A race with no
+  file yet answers `null`, not a 404.
+- Senate and governor race pages carry their state's counties as an
+  inline SVG (`site/src/components/CountyMap.astro`, shapes in
+  `site/src/data/county-shapes/`), and `site/src/scripts/live-counties.js`
+  fetches the race's file every 2 minutes while visible and shades each
+  county. `null`, `regions: []` or no county matching a shape keeps the
+  map hidden. House races and Alaska have no county map.
+- Run it once now: `systemctl start midterms-counties.service`. Stop it:
+  `systemctl disable --now midterms-counties.timer`. Logs:
+  `journalctl -u midterms-counties.service`.
+
 ## Checks after a deploy
 
 - `/` shows the three chambers and the version switch changes the numbers.

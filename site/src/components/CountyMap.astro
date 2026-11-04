@@ -1,0 +1,88 @@
+---
+// Election night, one Senate or governor race: its counties, shaded for the side
+// ahead in each (Kara's ask on Nov 3, through MIDTERMS2026). The shapes are built
+// in from src/data/county-shapes/<ST>.json (made from us-atlas' Census-derived
+// counties-10m; see that folder's README); scripts/live-counties.js fetches the
+// county results `midterms counties` writes (/counties/<chamber>/<slug>.json,
+// docs/site-data.md) every 2 minutes and colours them. Hidden until a file with
+// county results arrives; a missing file, null or regions: [] keeps it hidden.
+// House districts cut across counties, so House races have no county map.
+import { surname } from "../lib/format.js";
+import { meta } from "../lib/data.js";
+
+interface Props {
+  r: any;
+}
+const { r } = Astro.props;
+const ST = String(r.id).split(":")[1]?.slice(0, 2);
+const all = import.meta.glob("../data/county-shapes/*.json", { eager: true }) as Record<string, any>;
+const s = r.chamber === "house" ? null : (all[`../data/county-shapes/${ST}.json`]?.default ?? null);
+const dName = r.d?.name ? surname(r.d.name) : "D-side";
+const rName = r.r?.name ? surname(r.r.name) : "R-side";
+const STEPS = ["under 5", "5–15", "15–30", "30+"];
+---
+
+{
+  s && (
+    <figure
+      class="county-map"
+      data-county-map
+      data-src={`/counties/${r.slug}.json`}
+      data-dname={dName}
+      data-rname={rName}
+      data-from={meta().deadline}
+      hidden
+    >
+      <div class="cm-head">
+        <h2>Results by county</h2>
+        <p class="cm-asof" data-cm-asof />
+      </div>
+      <svg viewBox={`0 0 ${s.w} ${s.h}`} role="img" aria-label={`${r.title}: results by county`} style={`--cm-w:${s.w}px`}>
+        <defs>
+          {["d1", "d2", "d3", "d4", "r1", "r2", "r3", "r4"].map((k) => (
+            <pattern id={`cmh-${k}`} patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+              <rect width="6" height="6" class={`cmf-${k}`} />
+              <rect width="2" height="6" class="cmf-hatch" />
+            </pattern>
+          ))}
+        </defs>
+        <g>
+          {s.counties.map(([fips, name, d]: [string, string, string]) => (
+            <path class="cty" d={d} data-fips={fips} data-name={name} data-tip-value={`${name}: no votes yet`} />
+          ))}
+        </g>
+        <path class="cm-outline" d={s.outline} />
+      </svg>
+      <div class="cm-legend">
+        <p>
+          <span class="cm-who">{dName} ahead by</span>
+          {STEPS.map((t, i) => (
+            <span class="cm-key">
+              <span class={`cm-sw d${i + 1}`} />
+              {t}
+            </span>
+          ))}
+        </p>
+        <p>
+          <span class="cm-who">{rName} ahead by</span>
+          {STEPS.map((t, i) => (
+            <span class="cm-key">
+              <span class={`cm-sw r${i + 1}`} />
+              {t}
+            </span>
+          ))}
+        </p>
+        <p>
+          <span class="cm-key"><span class="cm-sw d3 part" /><span class="cm-sw r3 part" />Under 95% reporting</span>
+          <span class="cm-key"><span class="cm-sw t" />Tied or unclear</span>
+          <span class="cm-key"><span class="cm-sw u" />No votes yet</span>
+        </p>
+        <p class="live-small">Margins are in points between {dName} and {rName}, among the votes counted so far. Leads can change as more ballots are counted.</p>
+      </div>
+    </figure>
+  )
+}
+
+<script>
+  import "../scripts/live-counties.js";
+</script>

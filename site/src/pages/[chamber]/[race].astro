@@ -13,6 +13,7 @@ import { pct, pct1, aPct, margin, fmtDate, fmtShortDate, fmtStamp, surname, inWo
 import { scorecard, meta, changes } from "../../lib/data.js";
 import Ago from "../../components/Ago.astro";
 import LiveRace from "../../components/LiveRace.astro";
+import CountyMap from "../../components/CountyMap.astro";
 
 export function getStaticPaths() {
   return races().map((r) => {
@@ -81,6 +82,7 @@ const desc = fixed
     <p class="eyebrow">2026 {chamberName === "Governor" ? "governor" : chamberName} race{r.special ? " · special election" : ""}{r.rules ? ` · ${r.rules}` : ""}</p>
     <h1>{r.title}</h1>
     <LiveRace r={r} />
+    <CountyMap r={r} />
     {result && (
       <p class="callout result">
         <strong>Result: {result.winner_name ?? result.winner} won</strong>
