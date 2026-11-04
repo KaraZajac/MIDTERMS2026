@@ -1,8 +1,8 @@
-generated: '2026-11-04T09:15:04Z'
+generated: '2026-11-04T09:24:40Z'
 generator: python3 -m midterms build
 asof: '2026-11-04'
 election_day: '2026-11-03'
-sources_digest: 611f7377c1e6ed90
+sources_digest: e6a3ef8ead2a594b
 counts:
   house_races: 435
   senate_races: 35
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383477010
-    2026 United States House of Representatives elections: 1383712513
+    2026 United States House of Representatives elections: 1383713032
     2026 United States House of Representatives elections in Alabama: 1383666973
     2026 United States House of Representatives elections in Arizona: 1383655958
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -125,7 +125,7 @@ sources:
     2026 United States Senate election in Louisiana: 1383711558
     2026 United States Senate election in Maine: 1383704872
     2026 United States Senate election in Massachusetts: 1383686939
-    2026 United States Senate election in Michigan: 1383712294
+    2026 United States Senate election in Michigan: 1383713025
     2026 United States Senate election in Minnesota: 1383702666
     2026 United States Senate election in Mississippi: 1383711932
     2026 United States Senate election in Montana: 1383709866
