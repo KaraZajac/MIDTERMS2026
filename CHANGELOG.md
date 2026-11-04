@@ -21,7 +21,7 @@ model and pipeline that produced it. Automated six-hourly refreshes
   without an update). The web server now keeps each search's last answer
   beside its `live.json`. When one search still fails after its retries,
   its last answer stands in if it is at most 5 minutes old, and the page
-  says so ("governors' results as of 7:19 PM ET"; `source.fetched` is
+  says so ("governors' results as of 7:19 p.m. ET"; `source.fetched` is
   then that older answer's time). If both searches fail, nothing stands
   in: the run fails and the last good file stays up, as before. The
   committed copy is unchanged.
@@ -31,6 +31,12 @@ model and pipeline that produced it. Automated six-hourly refreshes
   and the search went unanswered for minutes at a time. A 5xx's
   Retry-After is now honored only up to 10 seconds (a 429's still up to
   30), so a run gets about seven tries.
+- Cloudflare's own origin errors in front of civicAPI (520–524) are
+  retried like a 502. The log names every search that failed and, for an
+  HTTP error, the Retry-After it carried. The page's credit line reads
+  "…; counts from secretaries of state; …" (lowercase after the
+  semicolon), and a stood-in search's time is written "8:09 p.m. ET", as
+  the rest of the site writes times.
 
 ### 2026-11-03, morning — civicAPI's searches (no model change)
 - From 14:00 UTC civicAPI answered the governors' text search

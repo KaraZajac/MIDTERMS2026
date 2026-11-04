@@ -72,7 +72,7 @@ def url(name: str, offset: int = 0) -> str:
 # second gets what is left of the budget.
 TIMEOUT = 50
 BUDGET = 80
-RETRY = {429, 500, 502, 503, 504}
+RETRY = {429, 500, 502, 503, 504, 520, 521, 522, 523, 524}   # 52x: Cloudflare, civicAPI's front
 
 
 def _get(u: str, deadline: float) -> bytes:
@@ -170,6 +170,7 @@ def fetch_all(*, budget: float = BUDGET, cache: Path | None = None,
             answers[name] = job.result()
         except SystemExit as e:
             errors[name] = e
+            print(f"  ! civicAPI {name}: {e}", flush=True)       # each failed search, in the log
             continue
         if cache is not None:
             _keep(cache, name, fetched, answers[name])

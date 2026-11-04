@@ -156,9 +156,10 @@ class TestCivic(unittest.TestCase):
         # civicAPI's quick 502s ask for 30 s or more: wait 10 s, so a run gets
         # several tries at a search; a 429's Retry-After is still honored
         from unittest import mock
-        for status, want in ((502, [10.0, 10.0, 10.0]), (429, [30.0, 30.0])):
+        for status, ra, want in ((502, 30.0, [10.0, 10.0, 10.0]), (429, 30.0, [30.0, 30.0]),
+                                 (522, None, [2.0])):           # Cloudflare's origin errors too
             clock = self.Clock()
-            err = civic.fetch.DownloadFailed(f"download failed: … (HTTP {status})", status, retry_after=30.0)
+            err = civic.fetch.DownloadFailed(f"download failed: … (HTTP {status})", status, retry_after=ra)
             with mock.patch.object(civic.fetch, "get", self._governors_fail(*[err] * len(want))), \
                     mock.patch.object(civic, "time", clock):
                 races, _, _ = civic.fetch_all()
@@ -260,8 +261,8 @@ class TestCivic(unittest.TestCase):
         kept.write_text("{")
         with self.assertRaises(SystemExit):
             run(self._governors_fail(*[bad] * 100))
-        self.assertEqual(livefeed.et_clock("2026-11-04T00:19:01Z"), "7:19 PM ET")
-        self.assertEqual(livefeed.et_clock("2026-11-04T05:05:00Z"), "12:05 AM ET")
+        self.assertEqual(livefeed.et_clock("2026-11-04T00:19:01Z"), "7:19 p.m. ET")
+        self.assertEqual(livefeed.et_clock("2026-11-04T05:05:00Z"), "12:05 a.m. ET")
 
     def test_a_refusal_is_not_retried(self):
         from unittest import mock

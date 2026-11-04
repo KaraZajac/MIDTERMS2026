@@ -289,7 +289,7 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
         "generated": generated, "asof": generated[:10], "fixture": fixture, "status": status,
         "source": {"name": "civicAPI", "url": "https://civicapi.org", "fetched": fetched,
                    "credit": civic.ATTRIBUTION,
-                   "note": "Counts from secretaries of state; calls by civicAPI's decision desk"},
+                   "note": "counts from secretaries of state; calls by civicAPI's decision desk"},
         "forecast": {"snapshot": snapshot, "generated": fc["generated"], "of_record": of_record,
                      "version": head},
         "method": METHOD,
@@ -347,9 +347,10 @@ STOOD_IN = {"federal": "House and Senate results", "governors": "governors' resu
 
 
 def et_clock(iso: str) -> str:
-    """'7:19 PM ET' for a UTC time (Eastern Standard Time, UTC-5, from Nov 1, 2026)."""
+    """'7:19 p.m. ET', as the site writes times, for a UTC time (Eastern
+    Standard Time, UTC-5, from Nov 1, 2026)."""
     t = dt.datetime.strptime(iso, "%Y-%m-%dT%H:%M:%SZ") - dt.timedelta(hours=5)
-    return f"{t.hour % 12 or 12}:{t.minute:02d} {'AM' if t.hour < 12 else 'PM'} ET"
+    return f"{t.hour % 12 or 12}:{t.minute:02d} {'a.m.' if t.hour < 12 else 'p.m.'} ET"
 
 
 def _previous(out: Path | None, explicit: str | None) -> dict | None:

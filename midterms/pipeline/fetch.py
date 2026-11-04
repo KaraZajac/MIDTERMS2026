@@ -81,7 +81,9 @@ def get(url: str, *, params: dict | None = None, timeout: int = 120, retries: in
                 time.sleep(min(_retry_after(e) or delay, 60))
                 delay *= 2
                 continue
-            raise DownloadFailed(f"download failed: {url} (HTTP {e.code})", e.code, _retry_after(e))
+            ra = _retry_after(e)
+            raise DownloadFailed(f"download failed: {url} (HTTP {e.code}"
+                                 f"{'' if ra is None else f', Retry-After {ra:g} s'})", e.code, ra)
         except (OSError, EOFError, HTTPException) as e:
             # URLError, timeouts, resets, a cut-off or corrupt gzip body
             if attempt < retries - 1:
