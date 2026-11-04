@@ -162,10 +162,19 @@ jobs:
             echo "next refresh at $(date -u -d "@$NEXT" +%Y-%m-%dT%H:%MZ) — waiting ${wait}s"
             sleep "$wait"
           fi
-          newer=$(gh run list --workflow refresh.yml --event workflow_dispatch --limit 20 \
-                    --json databaseId --jq "[.[] | select(.databaseId > ${{ github.run_id }})] | length")
-          if [ "${newer:-0}" -gt 0 ]; then
-            echo "a newer dispatched refresh carries the chain"
-            exit 0
-          fi
-          gh workflow run refresh.yml --ref main
+          # GitHub's API fails now and then (an HTTP 500 on Nov 4 09:42Z broke
+          # the chain, and the watchdog cron didn't fire for hours), so try
+          # again for a few minutes; a dispatch that went through anyway is
+          # found by the check above the next try
+          for i in 1 2 3 4 5 6; do
+            newer=$(gh run list --workflow refresh.yml --event workflow_dispatch --limit 20 \
+                      --json databaseId --jq "[.[] | select(.databaseId > ${{ github.run_id }})] | length" || true)
+            if [ "${newer:-0}" -gt 0 ]; then
+              echo "a newer dispatched refresh carries the chain"
+              exit 0
+            fi
+            gh workflow run refresh.yml --ref main && exit 0
+            echo "::warning::dispatching the next refresh failed (try $i of 6)"
+            [ "$i" -lt 6 ] && sleep 60
+          done
+          exit 1

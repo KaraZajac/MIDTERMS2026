@@ -7,6 +7,15 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-04, morning — the refresh chain retries its hand-off (no model change)
+- Each refresh run starts the next one through GitHub's API. At 09:42 UTC
+  that call failed once (HTTP 500), the chain stopped, and the hourly
+  watchdog cron that should have restarted it didn't fire, so the committed
+  results and the scorecard stood still until a manual restart at 14:05
+  UTC. The web server's live results were unaffected. The hand-off now
+  tries six times, a minute apart, and checks before each try that an
+  earlier one didn't go through.
+
 ### 2026-11-03, night — a provisional scoreboard on the calls (no model change)
 - The scorecard of record resolves races from Wikipedia's results boxes,
   which editors fill in after the night, so on election night it had
