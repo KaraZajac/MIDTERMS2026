@@ -590,39 +590,39 @@ others:
         calls: 1/1
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T20:40:01Z'
-  called: 432
+  asof: '2026-11-04T21:10:01Z'
+  called: 435
   scoreboard:
     lite:
-      n: 432
-      brier: 0.0314
-      log_loss: 0.1139
-      calls: 416/432
+      n: 435
+      brier: 0.0312
+      log_loss: 0.1131
+      calls: 419/435
     classic:
-      n: 432
-      brier: 0.0268
-      log_loss: 0.0942
-      calls: 418/432
+      n: 435
+      brier: 0.0266
+      log_loss: 0.0935
+      calls: 421/435
     deluxe:
-      n: 432
-      brier: 0.0276
-      log_loss: 0.1111
-      calls: 418/432
+      n: 435
+      brier: 0.0274
+      log_loss: 0.1104
+      calls: 421/435
     ratings:
-      n: 432
-      brier: 0.0338
-      log_loss: 0.1484
-      calls: 414/432
+      n: 435
+      brier: 0.0336
+      log_loss: 0.1474
+      calls: 417/435
     lean-only:
-      n: 432
-      brier: 0.0423
-      log_loss: 0.146
-      calls: 406/432
+      n: 435
+      brier: 0.042
+      log_loss: 0.145
+      calls: 409/435
     coin-flip:
-      n: 432
+      n: 435
       brier: 0.25
       log_loss: 0.6931
-      calls: 165/432
+      calls: 168/435
   races:
   - - governor:AL
     - R
@@ -1167,9 +1167,18 @@ provisional:
   - - house:KY-06
     - D
     - 0.5275
+  - - house:LA-01
+    - R
+    - 0.9998
   - - house:LA-02
     - D
     - 1.0
+  - - house:LA-03
+    - R
+    - 0.9999
+  - - house:LA-04
+    - R
+    - 0.9997
   - - house:MA-03
     - D
     - 0.9999
@@ -1930,18 +1939,18 @@ provisional:
     raters:
     - name: Cook
       source: The Cook Political Report
-      n: 432
+      n: 435
       theirs:
-        n: 432
-        brier: 0.0364
-        log_loss: 0.1322
-        calls: 401/414
+        n: 435
+        brier: 0.0361
+        log_loss: 0.1313
+        calls: 404/417
         tossups: 18
       ours:
-        n: 432
-        brier: 0.0276
-        log_loss: 0.1111
-        calls: 418/432
+        n: 435
+        brier: 0.0274
+        log_loss: 0.1104
+        calls: 421/435
       competitive:
         n: 104
         theirs:
@@ -1957,18 +1966,18 @@ provisional:
           calls: 91/104
     - name: DDHQ
       source: Decision Desk HQ
-      n: 432
+      n: 435
       theirs:
-        n: 432
-        brier: 0.0349
-        log_loss: 0.1183
-        calls: 405/419
+        n: 435
+        brier: 0.0347
+        log_loss: 0.1175
+        calls: 408/422
         tossups: 13
       ours:
-        n: 432
-        brier: 0.0276
-        log_loss: 0.1111
-        calls: 418/432
+        n: 435
+        brier: 0.0274
+        log_loss: 0.1104
+        calls: 421/435
       competitive:
         n: 104
         theirs:
@@ -1984,18 +1993,18 @@ provisional:
           calls: 91/104
     - name: Inside Elections
       source: Inside Elections
-      n: 432
+      n: 435
       theirs:
-        n: 432
-        brier: 0.0392
-        log_loss: 0.1731
-        calls: 406/419
+        n: 435
+        brier: 0.0389
+        log_loss: 0.1719
+        calls: 409/422
         tossups: 13
       ours:
-        n: 432
-        brier: 0.0276
-        log_loss: 0.1111
-        calls: 418/432
+        n: 435
+        brier: 0.0274
+        log_loss: 0.1104
+        calls: 421/435
       competitive:
         n: 104
         theirs:
@@ -2011,18 +2020,18 @@ provisional:
           calls: 91/104
     - name: Sabato
       source: Sabato's Crystal Ball
-      n: 432
+      n: 435
       theirs:
-        n: 432
-        brier: 0.0287
-        log_loss: 0.1275
-        calls: 418/432
+        n: 435
+        brier: 0.0285
+        log_loss: 0.1267
+        calls: 421/435
         tossups: 0
       ours:
-        n: 432
-        brier: 0.0276
-        log_loss: 0.1111
-        calls: 418/432
+        n: 435
+        brier: 0.0274
+        log_loss: 0.1104
+        calls: 421/435
       competitive:
         n: 104
         theirs:
