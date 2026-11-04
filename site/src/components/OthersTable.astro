@@ -1,0 +1,140 @@
+---
+// "How the others did" (Kara's ask, Nov 4, through MIDTERMS2026): every
+// forecaster in Wikipedia's prediction tables against our headline forecast,
+// each on the races it rated, from a scorecard.json `others` block
+// (docs/site-data.md). Rows cover different races, so the only comparison
+// drawn is within a row: the lower Brier score is bold, nothing else is
+// judged. Rows stay in the order given (most races first). A toggle shows the
+// competitive races instead (each row's `competitive` block; "—" where a
+// forecaster rated none). `calls` is "right/called": a Toss-up isn't a call.
+interface Props {
+  others: any;
+  id?: string;
+  note?: string;
+}
+const { others, id = "others", note = "" } = Astro.props;
+
+type Score = { n?: number; brier?: number; calls?: string | number; tossups?: number };
+const rows: any[] = Array.isArray(others?.raters) ? others.raters.filter((r: any) => r && typeof r === "object") : [];
+const b4 = (x: unknown) => (typeof x === "number" && Number.isFinite(x) ? x.toFixed(4) : null);
+/** {main: "395 of 403", tu: " (17 toss-ups)"} from calls "395/403" and tossups 17. */
+function calls(s: Score | undefined) {
+  if (!s || typeof s !== "object") return null;
+  let right: number | null = null;
+  let of: number | null = null;
+  if (typeof s.calls === "string") {
+    const m = /^(\d+)\/(\d+)$/.exec(s.calls.trim());
+    if (m) [right, of] = [Number(m[1]), Number(m[2])];
+  } else if (typeof s.calls === "number" && typeof s.n === "number") {
+    [right, of] = [s.calls, s.n - (typeof s.tossups === "number" ? s.tossups : 0)];
+  }
+  if (right == null || of == null) return null;
+  const tu = typeof s.tossups === "number" && s.tossups > 0 ? s.tossups : 0;
+  return { main: of > 0 ? `${right} of ${of}` : "no calls", tu: tu ? ` (${tu} toss-up${tu === 1 ? "" : "s"})` : "" };
+}
+function line(name: string, n: unknown, theirs?: Score, ours?: Score) {
+  const tb = b4(theirs?.brier);
+  const ob = b4(ours?.brier);
+  // Compare what is shown: equal to four places, neither is marked.
+  const lower = tb && ob && tb !== ob ? (Number(tb) < Number(ob) ? "theirs" : "ours") : null;
+  return { name, n: typeof n === "number" ? n : null, tb, ob, lower, tc: calls(theirs), oc: calls(ours) };
+}
+const label = (r: any) => (typeof r.source === "string" && r.source) || String(r.name ?? "");
+const comp = (r: any) => (r.competitive && typeof r.competitive === "object" ? r.competitive : null);
+const sets = {
+  all: rows.map((r) => line(label(r), r.n, r.theirs, r.ours)),
+  comp: rows.map((r) => (comp(r) ? line(label(r), comp(r).n, comp(r).theirs, comp(r).ours) : line(label(r), null))),
+};
+const hasComp = rows.some((r) => comp(r));
+---
+
+{rows.length > 0 && (
+  <section class="others" id={id} aria-labelledby={`${id}-h`} data-others>
+    <h3 id={`${id}-h`}>How the others did</h3>
+    <p>Each forecaster against our forecast, on the races it rated. Lower Brier scores are better.{note ? ` ${note}` : ""}</p>
+    {hasComp && (
+      <div class="seg js-only" role="group" aria-label="Which races">
+        <button type="button" data-others-set="all" aria-pressed="true">All their races</button>
+        <button type="button" data-others-set="comp" aria-pressed="false">Competitive races</button>
+      </div>
+    )}
+    <div class="table-scroll">
+      <table class="data others-table">
+        <colgroup><col /><col /></colgroup>
+        <colgroup span="2" />
+        <colgroup span="2" />
+        <thead>
+          <tr>
+            <th rowspan="2" scope="col" class="name">Forecaster</th>
+            <th rowspan="2" scope="col" class="num">Races</th>
+            <th colspan="2" scope="colgroup" class="grp">Brier score</th>
+            <th colspan="2" scope="colgroup" class="grp">Right calls</th>
+          </tr>
+          <tr>
+            <th scope="col" class="num">Theirs</th>
+            <th scope="col" class="num">Ours</th>
+            <th scope="col" class="num">Theirs</th>
+            <th scope="col" class="num">Ours</th>
+          </tr>
+        </thead>
+        {(["all", "comp"] as const).map((k) => (
+          <tbody data-others-rows={k} hidden={k !== "all"}>
+            {sets[k].map((x) => (
+              <tr>
+                <th scope="row" class="name">{x.name}</th>
+                <td class="num">{x.n ?? "—"}</td>
+                <td class="num">{x.tb == null ? "—" : x.lower === "theirs" ? <><strong>{x.tb}</strong><span class="sr-only"> (lower)</span></> : x.tb}</td>
+                <td class="num">{x.ob == null ? "—" : x.lower === "ours" ? <><strong>{x.ob}</strong><span class="sr-only"> (lower)</span></> : x.ob}</td>
+                <td class="num calls">{x.tc ? <>{x.tc.main}{x.tc.tu && <span class="tu">{x.tc.tu}</span>}</> : "—"}</td>
+                <td class="num calls">{x.oc ? x.oc.main : "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        ))}
+      </table>
+    </div>
+    <p class="small ink-2">
+      Each forecaster is scored on its final rating before Election Day, as Wikipedia's prediction tables list it (Safe, Likely, Lean, Tilt, Toss-up). The rating becomes a probability through the same map our model uses for the raters' consensus. A Toss-up counts as 50%: it counts in the Brier score but isn't a call. Rows cover different races, so compare each forecaster with our forecast within its row. Silver Bulletin, The Economist, Decision Desk HQ and Split Ticket publish probabilities. Here they're scored on their rating category, which can understate them. Competitive races: those at least one of Cook, Sabato and Inside Elections didn't rate Safe or Solid.
+    </p>
+  </section>
+)}
+
+<script>
+  // The toggle: which tbody shows. Without JavaScript the toggle is hidden
+  // (js-only) and all their races show.
+  for (const box of document.querySelectorAll<HTMLElement>("[data-others]")) {
+    const buttons = [...box.querySelectorAll<HTMLButtonElement>("button[data-others-set]")];
+    for (const b of buttons) {
+      b.addEventListener("click", () => {
+        for (const x of buttons) x.setAttribute("aria-pressed", String(x === b));
+        for (const t of box.querySelectorAll<HTMLElement>("tbody[data-others-rows]")) t.hidden = t.dataset.othersRows !== b.dataset.othersSet;
+      });
+    }
+  }
+</script>
+
+<style>
+  .others { margin-top: 36px; }
+  .others h3 { margin: 0 0 6px; }
+  .others .seg { margin: 2px 0 12px; }
+  /* The containing block for the sr-only "(lower)" notes: without it they
+     belong to the page, and on a phone those past the box's edge widen it. */
+  .others .table-scroll { position: relative; }
+  .others .table-scroll + p { margin-top: 10px; }
+  table.data.others-table thead th.grp { text-align: center; }
+  table.data.others-table tbody th.name { font-weight: 500; color: var(--ink); }
+  table.data.others-table strong { font-weight: 700; color: var(--ink-strong); }
+  table.data.others-table .tu { color: var(--ink-2); }
+  /* A phone shows the names and both Brier columns; the calls are a swipe away,
+     with the names held in place. */
+  @media (max-width: 640px) {
+    table.data.others-table th, table.data.others-table td { padding-left: 7px; padding-right: 7px; }
+    table.data.others-table thead th { letter-spacing: 0.02em; }
+    table.data.others-table .tu { display: block; font-size: 12px; }
+    table.data.others-table .name { position: sticky; left: 0; background: var(--surface); border-right: 1px solid var(--grid); }
+    table.data.others-table thead th.name { z-index: 2; background: var(--surface-2); }
+    table.data.others-table tbody th.name { z-index: 1; }
+    /* the row's hover wash is see-through; the held name cell must stay solid */
+    table.data.others-table tbody tr:hover th.name { background: linear-gradient(var(--accent-wash), var(--accent-wash)), var(--surface); }
+  }
+</style>

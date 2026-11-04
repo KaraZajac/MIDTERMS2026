@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import OthersTable from "../components/OthersTable.astro";
 import { scorecard, summary, history, meta } from "../lib/data.js";
 import { raceById, sideLabel, sideKey } from "../lib/model.js";
 import { pct, fmtStamp, url, margin } from "../lib/format.js";
@@ -81,6 +82,7 @@ const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1)
       <p class="small ink-2">
         Lower is better for both scores; a coin flip calls no race, so it has no right calls. Most races called so far are safe seats, which flatter every forecast; the close races are the real test. The scorecard of record grades final results from Wikipedia's results tables as editors add them.
       </p>
+      {prov.others && <OthersTable others={prov.others} id="others" note="Graded on the calls so far, not final results." />}
     </section>
   )}
 
