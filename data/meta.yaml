@@ -1,8 +1,8 @@
-generated: '2026-11-04T03:14:54Z'
+generated: '2026-11-04T03:25:02Z'
 generator: python3 -m midterms build
 asof: '2026-11-04'
 election_day: '2026-11-03'
-sources_digest: e5d248498990bbd8
+sources_digest: 94d8b2e215128edc
 counts:
   house_races: 435
   senate_races: 35
@@ -34,7 +34,7 @@ sources:
     2026 Colorado gubernatorial election: 1383628936
     2026 Connecticut gubernatorial election: 1383664537
     2026 Florida gubernatorial election: 1383673487
-    2026 Georgia gubernatorial election: 1383677257
+    2026 Georgia gubernatorial election: 1383678441
     2026 Hawaii gubernatorial election: 1383535205
     2026 Idaho gubernatorial election: 1383633055
     2026 Illinois gubernatorial election: 1383671846
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383477010
-    2026 United States House of Representatives elections: 1383678023
+    2026 United States House of Representatives elections: 1383679233
     2026 United States House of Representatives elections in Alabama: 1383666973
     2026 United States House of Representatives elections in Arizona: 1383655958
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -133,21 +133,21 @@ sources:
     2026 United States Senate election in New Hampshire: 1383675897
     2026 United States Senate election in New Jersey: 1383575047
     2026 United States Senate election in New Mexico: 1383672523
-    2026 United States Senate election in North Carolina: 1383676216
+    2026 United States Senate election in North Carolina: 1383678154
     2026 United States Senate election in Oklahoma: 1383674608
     2026 United States Senate election in Oregon: 1383574513
     2026 United States Senate election in Rhode Island: 1383641408
-    2026 United States Senate election in South Carolina: 1383677782
+    2026 United States Senate election in South Carolina: 1383678684
     2026 United States Senate election in South Dakota: 1383653298
     2026 United States Senate election in Tennessee: 1383573493
     2026 United States Senate election in Texas: 1383676067
     2026 United States Senate election in Virginia: 1383675952
     2026 United States Senate election in West Virginia: 1383668708
     2026 United States Senate election in Wyoming: 1383673830
-    2026 United States Senate elections: 1383677091
+    2026 United States Senate elections: 1383678773
     2026 United States Senate special election in Florida: 1383667050
-    2026 United States Senate special election in Ohio: 1383675888
-    2026 United States gubernatorial elections: 1383677219
+    2026 United States Senate special election in Ohio: 1383678628
+    2026 United States gubernatorial elections: 1383678975
     2026 Vermont gubernatorial election: 1383676342
     2026 Wisconsin gubernatorial election: 1383635669
     2026 Wyoming gubernatorial election: 1383673774
