@@ -195,6 +195,22 @@ record (`resolved`, `scoreboard`, `races`), which resolves races from
 Wikipedia's results boxes alone. Updated with every scoring run (every 10
 minutes on election night, then with each refresh).
 
+`others` (and `provisional.others`, the same on the calls): `{basis, versus,
+competitive_rule, raters: [{name, source, n, theirs: {n, brier, log_loss,
+calls, tossups}, ours: {n, brier, log_loss, calls}, competitive?: {n,
+theirs, ours}}]}` — every forecaster Wikipedia's prediction tables list
+(Cook, Sabato, Inside Elections, DDHQ, Silver Bulletin, The Economist, Split
+Ticket, …), most races first. Each is scored on its final rating before
+Election Day (`data/ratings_final.csv`) through the same rating → margin →
+probability map as the raters' consensus, against the headline version
+(`versus`) on the races it rated. Rows cover different races: compare
+`theirs` with `ours` within a row, not across rows. A Toss-up is 0.5: it
+counts in the Brier score and log loss but not in `calls` (`tossups` counts
+them). `competitive`: the same, on the races at least one of Cook, Sabato
+and Inside Elections didn't rate Safe or Solid. Forecasters that publish
+probabilities (Silver Bulletin, The Economist, DDHQ, Split Ticket) are
+scored on their rating category, which can understate them.
+
 ## live.json (election night) — written by `midterms live`
 
 Two copies, one shape. The web server runs `midterms live --out …` every

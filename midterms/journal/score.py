@@ -20,6 +20,11 @@ Scored, on identical resolved races, for every contender:
   lean-only                 partisan lean + generic ballot, nothing else
   coin-flip                 0.5 everywhere (the floor)
 
+And head to head, on the races each one rated: every forecaster Wikipedia's
+prediction tables list (Cook, Sabato, Inside Elections, DDHQ, Silver
+Bulletin, The Economist, ...), scored on its final rating before Election
+Day (data/ratings_final.csv) through the same map as the raters' consensus.
+
 Metrics: Brier score, log loss, and 'calls' (P > 0.5 on the winner).
 Results: data/scorecard.yaml.
 """
@@ -27,14 +32,18 @@ Results: data/scorecard.yaml.
 from __future__ import annotations
 
 import csv
+import datetime as dt
+import io
 import json
 import math
+import subprocess
+from collections import defaultdict
 from pathlib import Path
 
 import yaml
 
 from midterms.model import ratings as R
-from midterms.paths import DATA, FORECAST, RACES, SITE
+from midterms.paths import DATA, FORECAST, RACES, ROOT, SITE
 from midterms.pipeline import fetch
 from midterms.pipeline import racepage as rp
 from midterms.pipeline import races as racemod
@@ -111,16 +120,21 @@ def _phi(z: float) -> float:
     return 0.5 * (1 + math.erf(z / math.sqrt(2)))
 
 
+def _rating_sd(fc: dict) -> float:
+    """The spread around a rating's implied margin: the race-level ratings
+    error plus the forecast's own shared error (national, region, state)."""
+    p = fc["params"]
+    shared = math.sqrt(p["national"]["sd"] ** 2 + p["shared"]["sd_region"] ** 2
+                       + p["shared"]["sd_state"] ** 2)
+    return math.sqrt(p["ratings"]["sd"] ** 2 + shared ** 2)
+
+
 def challengers(fc: dict) -> dict:
     """race id -> {contender: P(D side)} for the non-model contenders."""
     out = {}
     nat = fc["national"]["environment"]["mu"] or 0.0
-    p = fc["params"]
-    # the raters alone, through the same fitted map and the forecast's own
-    # shared error (national, region, state)
-    shared = math.sqrt(p["national"]["sd"] ** 2 + p["shared"]["sd_region"] ** 2
-                       + p["shared"]["sd_state"] ** 2)
-    total_sd = math.sqrt(p["ratings"]["sd"] ** 2 + shared ** 2)
+    # the raters alone, through the same fitted map
+    total_sd = _rating_sd(fc)
     for rid, meta in fc["races"].items():
         det = fc["detail"].get(rid) or {}
         c = {"coin-flip": 0.5}
@@ -134,20 +148,133 @@ def challengers(fc: dict) -> dict:
     return out
 
 
-def score(probs: dict, res: dict) -> dict:
+def score(probs: dict, res: dict, tossups: bool = False) -> dict:
+    """Brier, log loss and right calls. With `tossups`, a probability of
+    exactly 0.5 (a rater's Toss-up) picks no side: it counts in the Brier
+    score and log loss but not in the calls, and the count is reported."""
     ids = [r for r in res if r in probs]
     if not ids:
         return {"n": 0}
     b = ll = calls = 0.0
+    tu = 0
     for r in ids:
         p = min(max(probs[r], 1e-4), 1 - 1e-4)
         y = 1.0 if res[r]["winner_side"] == "D" else 0.0
         b += (p - y) ** 2
         ll += -(y * math.log(p) + (1 - y) * math.log(1 - p))
-        calls += 1.0 if (p > 0.5) == (y == 1.0) else 0.0
+        if tossups and probs[r] == 0.5:
+            tu += 1
+        else:
+            calls += 1.0 if (p > 0.5) == (y == 1.0) else 0.0
     n = len(ids)
-    return {"n": n, "brier": round(b / n, 4), "log_loss": round(ll / n, 4),
-            "calls": f"{int(calls)}/{n}"}
+    out = {"n": n, "brier": round(b / n, 4), "log_loss": round(ll / n, 4),
+           "calls": f"{int(calls)}/{n - tu}"}
+    if tossups:
+        out["tossups"] = tu
+    return out
+
+
+# --- the other forecasters, head to head -------------------------------------
+
+FINAL_RATINGS = DATA / "ratings_final.csv"
+SEAL = "forecast-of-record"        # the release tag: the commit the forecast of record came from
+ELECTION_EVE = "2026-11-02"        # a rating dated later can't show it came before polls opened
+OTHERS_BASIS = ("each forecaster's final rating before Election Day, as Wikipedia's prediction "
+                "tables list it, turned into a probability by the map the model uses for the "
+                "raters' consensus; scored against the headline version on the races it rated")
+COMPETITIVE_RULE = "races at least one of Cook, Sabato and Inside Elections didn't rate Safe or Solid"
+
+
+def final_ratings(versions: list[tuple[str, list[dict]]]) -> list[dict]:
+    """Each forecaster's final pre-election rating per race, from successive
+    pulls of data/ratings.csv as (when pulled, rows). The first pull is the
+    one the forecast of record used: all of it was public before polls
+    opened. A later pull's rating replaces it only when it is dated strictly
+    later and no later than Election Eve, a final update Wikipedia listed
+    after the seal (Sabato's Nov 2 ratings). A same-date change, or a
+    rating dated Election Day, is left out: its date can't show it came
+    before polls opened. `seen` is when the chosen rating was first pulled."""
+    out: dict[tuple[str, str], dict] = {}
+    for i, (seen, rows) in enumerate(versions):
+        for r in rows:
+            key = (r["race"], r["rater"])
+            if i == 0 or (r["asof"] <= ELECTION_EVE
+                          and (key not in out or r["asof"] > out[key]["asof"])):
+                out[key] = {**r, "seen": seen}
+    return [out[k] for k in sorted(out)]
+
+
+def freeze_ratings(path: Path = FINAL_RATINGS) -> None:
+    """Write data/ratings_final.csv from the git history of data/ratings.csv
+    (needs a full clone: run once, by hand, after the raters' final updates
+    reach Wikipedia). Pinned, so later edits to the prediction tables can't
+    change the comparison."""
+    def git(*a: str) -> str:
+        return subprocess.run(["git", "-C", str(ROOT), *a], capture_output=True, text=True,
+                              check=True).stdout
+
+    def utc(ts: str) -> str:
+        return dt.datetime.fromtimestamp(int(ts), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    rel = "data/ratings.csv"
+    revs = [(utc(git("log", "-1", "--format=%ct", SEAL).strip()), SEAL)]
+    for line in reversed(git("log", "--format=%H %ct", f"{SEAL}..HEAD", "--", rel).splitlines()):
+        h, ts = line.split()
+        revs.append((utc(ts), h))
+    versions = [(t, list(csv.DictReader(io.StringIO(git("show", f"{rev}:{rel}"))))) for t, rev in revs]
+    rows = final_ratings(versions)
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["race", "rater", "source", "rating", "scale", "asof", "seen"])
+        w.writeheader()
+        w.writerows(rows)
+    print(f"✓ {len(rows)} final ratings from {len(versions)} pulls -> {path}")
+
+
+def rater_probs(fc: dict, path: Path = FINAL_RATINGS) -> tuple[dict, dict, set]:
+    """({rater: {race: P(D side)}}, {rater: its full name}, the competitive
+    races) from the final ratings, through the same rating -> margin ->
+    probability map as the raters' consensus (a Toss-up is exactly 0.5)."""
+    if not path.exists():
+        return {}, {}, set()
+    sd, k = _rating_sd(fc), fc["params"]["ratings"]["k"]
+    probs: dict[str, dict[str, float]] = defaultdict(dict)
+    names: dict[str, str] = {}
+    competitive: set[str] = set()
+    with open(path, newline="") as f:
+        for r in csv.DictReader(f):
+            if r["race"] not in fc["races"] or r["scale"] in ("", None):
+                continue
+            s = float(r["scale"])
+            probs[r["rater"]][r["race"]] = _phi(R.implied_margin(s, k=k) / sd)
+            names.setdefault(r["rater"], r["source"] or r["rater"])
+            if r["rater"] in R.CORE and abs(s) < 3:
+                competitive.add(r["race"])
+    return dict(probs), names, competitive
+
+
+def others(fc: dict, res: dict, raters: tuple[dict, dict, set]) -> dict | None:
+    """Every forecaster against the headline version on the races it rated
+    (and on the competitive ones among them), most races first."""
+    probs, names, competitive = raters
+    if not probs:
+        return None
+    head = fc["headline"]
+    ours = {rid: r["p_d_side"] for rid, r in fc["versions"][head]["races"].items()}
+    rows = []
+    for name, theirs in probs.items():
+        ids = {r: res[r] for r in res if r in theirs and r in ours}
+        if not ids:
+            continue
+        row = {"name": name, "source": names.get(name, name), "n": len(ids),
+               "theirs": score(theirs, ids, tossups=True), "ours": score(ours, ids)}
+        comp = {r: v for r, v in ids.items() if r in competitive}
+        if comp:
+            row["competitive"] = {"n": len(comp), "theirs": score(theirs, comp, tossups=True),
+                                  "ours": score(ours, comp)}
+        rows.append(row)
+    rows.sort(key=lambda r: (-r["n"], r["name"]))
+    return {"basis": OTHERS_BASIS, "versus": head, "competitive_rule": COMPETITIVE_RULE,
+            "raters": rows}
 
 
 LIVE_URL = "https://midterms.karazajac.io/live.json"     # the web server's, newest
@@ -173,7 +300,8 @@ def latest_live() -> dict | None:
     return max(docs, key=lambda d: d.get("generated") or "") if docs else None
 
 
-def provisional(fc: dict, contenders: dict, live: dict | None) -> dict | None:
+def provisional(fc: dict, contenders: dict, live: dict | None,
+                raters: tuple[dict, dict, set] | None = None) -> dict | None:
     """The same scoreboard on the races called so far (civicAPI's decision
     desk, or Wikipedia's results where it called first): calls, not final
     results, so kept apart from the scorecard of record, which resolves
@@ -192,10 +320,14 @@ def provisional(fc: dict, contenders: dict, live: dict | None) -> dict | None:
         win_d = called[rid]["winner_side"] == "D"
         p_d = fc["versions"][head]["races"][rid]["p_d_side"]
         rows.append([rid, "D" if win_d else "R", round(p_d if win_d else 1 - p_d, 4)])
-    return {"basis": "race calls so far (civicAPI's decision desk), not final results",
-            "asof": live.get("generated"), "called": len(called),
-            "scoreboard": {name: score(probs, called) for name, probs in contenders.items()},
-            "races": rows}                          # [race, winning side, headline P(winner)]
+    out = {"basis": "race calls so far (civicAPI's decision desk), not final results",
+           "asof": live.get("generated"), "called": len(called),
+           "scoreboard": {name: score(probs, called) for name, probs in contenders.items()},
+           "races": rows}                           # [race, winning side, headline P(winner)]
+    oth = others(fc, called, raters) if raters else None
+    if oth:
+        out["others"] = oth
+    return out
 
 
 def main() -> dict:
@@ -232,13 +364,21 @@ def main() -> dict:
     out = {"forecast": path.name, "forecast_generated": fc["generated"], "deadline": DEADLINE,
            "headline": head, "resolved": len(resolved), "open": open_races[:60],
            "open_count": len(open_races), "scoreboard": board, "races": table}
-    prov = provisional(fc, contenders, latest_live())
+    raters = rater_probs(fc)
+    oth = others(fc, resolved, raters)
+    if oth:
+        out["others"] = oth
+    prov = provisional(fc, contenders, latest_live(), raters)
     if prov:
         out["provisional"] = prov
         s = prov["scoreboard"].get(head) or {}
         if s.get("n"):
             print(f"  provisional, {prov['called']} races called (as of {prov['asof']}): "
                   f"{head} Brier {s['brier']:.4f}, calls {s['calls']}")
+        rows = (prov.get("others") or {}).get("raters") or []
+        if rows:
+            ahead = sum(1 for r in rows if r["ours"]["brier"] < r["theirs"]["brier"])
+            print(f"  head to head on their races: {head} ahead of {ahead} of {len(rows)} forecasters")
     (DATA / "scorecard.yaml").write_text(yaml.safe_dump(out, sort_keys=False))
     print(f"scoring {path.name} (generated {fc['generated']}) on {len(resolved)} resolved races")
     for name, s in sorted(board.items(), key=lambda kv: kv[1].get("brier", 9)):

@@ -7,6 +7,25 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-04, afternoon — how the other forecasters did (no model change)
+- The scorecard now compares the forecast with every forecaster in
+  Wikipedia's prediction tables, head to head on the races each one rated:
+  Cook, Sabato, Inside Elections, DDHQ, Silver Bulletin, The Economist, RCP,
+  Fox News, NBC News, Split Ticket, MS NOW, FiftyPlusOne, CBS News and ABC
+  News. Each is scored on its final rating before Election Day, turned into
+  a probability by the same map as the raters' consensus, against the
+  headline version on the same races, and again on the competitive races
+  (any of Cook, Sabato and Inside Elections short of Safe).
+- The ratings are pinned in `data/ratings_final.csv`: the 2,684 the
+  forecast of record saw, plus 24 final updates dated Nov 2 that Wikipedia
+  listed only on Election Day (Sabato's final ratings, four of Cook's). A
+  rating dated Election Day, or changed under the same date, is left out.
+  `midterms score --freeze-ratings` rebuilds the file from git history.
+- On the 420 races called by 14:13 UTC Nov 4, Deluxe's Brier score was
+  lower than every forecaster's on its own races except Split Ticket's
+  (40 races, 0.0265 to 0.0287) and FiftyPlusOne's (33, 0.0314 to 0.0348);
+  Sabato's final ratings came closest of the big four (0.0183 to 0.0174).
+
 ### 2026-11-04, morning — the refresh hand-off retries; the county job after Nov 5 (no model change)
 - Each refresh run starts the next one through GitHub's API. At 09:42 UTC
   that call failed once (HTTP 500), the chain stopped, and the hourly

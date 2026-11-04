@@ -50,7 +50,10 @@ def main(argv: list[str] | None = None) -> None:
     p = sub.add_parser("show", help="one race in detail")
     p.add_argument("race", help="e.g. senate:ME, house:PA-07, governor:AZ")
 
-    sub.add_parser("score", help="score the frozen forecast against results")
+    p = sub.add_parser("score", help="score the frozen forecast against results")
+    p.add_argument("--freeze-ratings", action="store_true",
+                   help="write data/ratings_final.csv (each rater's final pre-election rating) "
+                        "from the git history of data/ratings.csv; once, by hand")
     sub.add_parser("export", help="site JSON")
 
     p = sub.add_parser("live", help="election night: civicAPI results -> live.json")
@@ -96,7 +99,10 @@ def main(argv: list[str] | None = None) -> None:
         forecast.show(args.race)
     elif args.cmd == "score":
         from midterms.journal import score
-        score.main()
+        if args.freeze_ratings:
+            score.freeze_ratings()
+        else:
+            score.main()
     elif args.cmd == "export":
         from midterms.pipeline import site_export
         site_export.main()
