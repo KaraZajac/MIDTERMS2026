@@ -503,12 +503,12 @@ house:FL-15,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
 house:FL-15,Inside Elections,Inside Elections,Solid R,-3.0,2026-05-05
 house:FL-15,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:FL-15,The Economist,The Economist,Safe R,-3.0,2026-05-06
-house:FL-16,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
+house:FL-16,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-11-03
 house:FL-16,Cook,The Cook Political Report,Likely R,-2.0,2026-10-16
 house:FL-16,Inside Elections,Inside Elections,Likely R,-2.0,2026-09-17
 house:FL-16,Sabato,Sabato's Crystal Ball,Likely R,-2.0,2026-05-04
 house:FL-16,The Economist,The Economist,Lean R,-1.0,2026-05-06
-house:FL-17,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
+house:FL-17,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-11-03
 house:FL-17,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
 house:FL-17,Inside Elections,Inside Elections,Solid R,-3.0,2026-05-05
 house:FL-17,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
@@ -558,7 +558,7 @@ house:FL-26,Cook,The Cook Political Report,Solid R,-3.0,2025-02-06
 house:FL-26,Inside Elections,Inside Elections,Solid R,-3.0,2026-05-05
 house:FL-26,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:FL-26,The Economist,The Economist,Likely R,-2.0,2026-05-06
-house:FL-27,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
+house:FL-27,DDHQ,Decision Desk HQ,Lean R,-1.0,2026-11-03
 house:FL-27,Cook,The Cook Political Report,Lean R,-1.0,2026-09-25
 house:FL-27,Inside Elections,Inside Elections,Lean R,-1.0,2026-09-17
 house:FL-27,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-09-22
