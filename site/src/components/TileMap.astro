@@ -66,11 +66,12 @@ const office = chamber === "senate" ? "Senate" : "governor's";
     <li><span class="key d" />Won by a Democrat</li>
     <li><span class="key r" />Won by a Republican</li>
     <li><span class="key i" />Won by an independent</li>
+    <li><span class="key res-lead-d" /><span class="key res-lead-r" />Leading (still counting)</li>
     <li><span class="key res-u" />Not called yet</li>
     <li><span class="key res-count" />Counting</li>
     <li><span class="key res-flip" />Changed hands</li>
   </ul>
-  <figcaption class="cap-live">Each square is a state, coloured by the winner once its race is called; outlined squares changed hands. Grey squares with no outline have no {office} race this year.</figcaption>
+  <figcaption class="cap-live">Each square is a state, coloured by the winner once its race is called; outlined squares changed hands. Grey squares with no outline have no {office} race this year. Leads can change as more ballots are counted.</figcaption>
   <figcaption class="cap-forecast">Each square is a state; the number is the favorite's chance. {chamber === "senate" ? "* special election. " : ""}Grey squares have no {office} race this year. Solid ≥95%, Likely ≥75%, Lean ≥60%.</figcaption>
 </figure>
 
