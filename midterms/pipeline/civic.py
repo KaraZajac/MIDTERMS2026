@@ -30,9 +30,11 @@ resolves races from Wikipedia's results boxes (journal/score.py).
 
 from __future__ import annotations
 
+import datetime as dt
 import json
 import time
 from difflib import SequenceMatcher
+from pathlib import Path
 from urllib.parse import urlencode
 
 from midterms.pipeline import fetch
@@ -105,18 +107,76 @@ def _search(name: str, deadline: float) -> list[dict]:
             return races
 
 
-def fetch_all(*, budget: float = BUDGET) -> tuple[list[dict], str]:
-    """Every race of both searches (paged; the two run side by side), and
-    when they were fetched. Failed reads are retried while `budget` seconds
-    last; after that any failure raises SystemExit: a partial picture is
-    never used."""
+# On election night civicAPI's two searches failed by turns (five runs of the
+# web server's job between 23:07 and 00:23 UTC, each on one search, while the
+# other answered). So the web server keeps each search's last answer beside
+# its live.json, and when one search still fails after its retries, its last
+# answer stands in if it is at most KEEP seconds old (live.json says so)
+# rather than the whole minute's update being lost. If both fail, nothing
+# stands in: the run fails and the last good file stays up, as before.
+KEEP = 300
+
+
+def _kept_path(cache: Path, name: str) -> Path:
+    return cache / f".civic-{name}.json"
+
+
+def _keep(cache: Path, name: str, fetched: str, races: list[dict]) -> None:
+    """Keep a search's answer for the next run (best effort)."""
+    path = _kept_path(cache, name)
+    tmp = path.with_name(path.name + ".tmp")
+    try:
+        tmp.write_text(json.dumps({"fetched": fetched, "races": races}, separators=(",", ":")))
+        tmp.replace(path)
+    except OSError:
+        pass
+
+
+def _kept(cache: Path, name: str, keep: float) -> tuple[list[dict], str] | None:
+    """A search's kept answer and when it was fetched, if at most `keep`
+    seconds old."""
+    try:
+        doc = json.loads(_kept_path(cache, name).read_text())
+        when = dt.datetime.strptime(doc["fetched"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
+        races = doc["races"]
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+    age = (dt.datetime.now(dt.timezone.utc) - when).total_seconds()
+    if not isinstance(races, list) or not 0 <= age <= keep:
+        return None
+    return races, doc["fetched"]
+
+
+def fetch_all(*, budget: float = BUDGET, cache: Path | None = None,
+              keep: float = KEEP) -> tuple[list[dict], str, dict[str, str]]:
+    """Every race of both searches (paged; the two run side by side), when
+    they were fetched, and the searches that stood in with an earlier answer
+    ({name: when that answer was fetched}). Failed reads are retried while
+    `budget` seconds last. With a `cache` directory each search's answer is
+    kept there, and one failed search is answered from its kept answer if
+    that is at most `keep` seconds old. Otherwise any failure raises
+    SystemExit: a partial picture is never used."""
     from concurrent.futures import ThreadPoolExecutor
     fetched = fetch.now_utc()
     deadline = time.monotonic() + budget
     with ThreadPoolExecutor(max_workers=len(QUERIES)) as pool:
-        jobs = [pool.submit(_search, name, deadline) for name in QUERIES]
-        races = [r for job in jobs for r in job.result()]      # re-raises either search's failure
-    return races, fetched
+        jobs = {name: pool.submit(_search, name, deadline) for name in QUERIES}
+    answers, errors = {}, {}
+    for name, job in jobs.items():
+        try:
+            answers[name] = job.result()
+        except SystemExit as e:
+            errors[name] = e
+            continue
+        if cache is not None:
+            _keep(cache, name, fetched, answers[name])
+    stood_in, fresh = {}, bool(answers)              # something must be new this run
+    for name, e in errors.items():
+        old = _kept(cache, name, keep) if cache is not None and fresh else None
+        if old is None:
+            raise e
+        answers[name], stood_in[name] = old
+    return [r for name in QUERIES for r in answers[name]], fetched, stood_in
 
 
 def race_id(c: dict, ids: set[str]) -> str | None:

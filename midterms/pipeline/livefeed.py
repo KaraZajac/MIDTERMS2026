@@ -343,6 +343,15 @@ def fixture_results(fc: dict, rows: dict, hour_et: float, seed: int = FIXTURE_SE
 
 # --------------------------------------------------------------------- main
 
+STOOD_IN = {"federal": "House and Senate results", "governors": "governors' results"}
+
+
+def et_clock(iso: str) -> str:
+    """'7:19 PM ET' for a UTC time (Eastern Standard Time, UTC-5, from Nov 1, 2026)."""
+    t = dt.datetime.strptime(iso, "%Y-%m-%dT%H:%M:%SZ") - dt.timedelta(hours=5)
+    return f"{t.hour % 12 or 12}:{t.minute:02d} {'AM' if t.hour < 12 else 'PM'} ET"
+
+
 def _previous(out: Path | None, explicit: str | None) -> dict | None:
     cands = [Path(explicit)] if explicit else []
     if out is not None and out.name.endswith(".tmp"):
@@ -369,13 +378,15 @@ def main(out: str | None = None, previous: str | None = None, draws: int | None 
     rows = race_rows()
     rows = {rid: {**rows.get(rid, {}), **{k: m[k] for k in ("state", "d_cand", "r_cand", "d_side") if m.get(k)}}
             for rid, m in fc["races"].items()}
+    stood_in = {}
     if fixture is not None:
         res, fetched = fixture_results(fc, rows, fixture, seed=seed), None
         prev = json.loads(Path(previous).read_text()) if previous else None      # a fixture sequence
     else:
         wiki = wikipedia_calls(fc)
         try:
-            civic_races, fetched = civic.fetch_all()
+            # the web server (--out) keeps each search's last answer beside its live.json
+            civic_races, fetched, stood_in = civic.fetch_all(cache=Path(out).parent if out else None)
             res = civic.results(civic_races, rows)
             if len(res) < MIN_MAPPED:
                 raise SystemExit(f"civicapi: only {len(res)} of {len(rows)} races mapped — not writing")
@@ -385,12 +396,18 @@ def main(out: str | None = None, previous: str | None = None, draws: int | None 
             if out is not None or not wiki:
                 raise
             print(f"  ! {e} — calls from Wikipedia's results boxes only")
-            res, fetched = {}, None
+            res, fetched, stood_in = {}, None, {}
         prev = _previous(Path(out) if out else None, previous)
     doc = assemble(fc, snapshot, of_record, rows, res, fetched, prev, generated,
                    draws=draws, fixture=fixture is not None, wiki=wiki if fixture is None else None)
     if fixture is None and fetched is None:
         doc["source"]["note"] = "civicAPI was unreachable: calls from Wikipedia's results boxes, no counts"
+    elif stood_in:
+        # a search that failed this run answered from its last answer (civic.KEEP)
+        doc["source"]["fetched"] = min(stood_in.values())
+        doc["source"]["note"] += "".join(f"; {STOOD_IN[name]} as of {et_clock(when)}"
+                                         for name, when in sorted(stood_in.items()))
+        print(f"  ! civicAPI: {', '.join(sorted(stood_in))} from the last answer ({min(stood_in.values())})")
     text = json.dumps(doc, separators=(",", ":"), ensure_ascii=False)
     path = Path(out) if out else SITE / "live.json"
     path.write_text(text)

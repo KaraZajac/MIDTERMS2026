@@ -108,8 +108,9 @@ class TestCivic(unittest.TestCase):
             return json.dumps({"count": 3, "races": [{"id": f"f{off}"}] if off < 3 else []}).encode()
 
         with mock.patch.object(civic.fetch, "get", fake_get):
-            races, _ = civic.fetch_all()
+            races, _, stood_in = civic.fetch_all()
         self.assertEqual([r["id"] for r in races], ["f0", "f1", "f2", "g0"])
+        self.assertEqual(stood_in, {})
         # one attempt per call: civic retries, against its own time budget
         self.assertTrue(all(g and t >= 20 and r == 1 for g, t, r in seen))
 
@@ -147,7 +148,7 @@ class TestCivic(unittest.TestCase):
         cut = civic.fetch.DownloadFailed("download failed: … (The read operation timed out)")
         with mock.patch.object(civic.fetch, "get", self._governors_fail(busy, slow, cut)), \
                 mock.patch.object(civic, "time", clock):
-            races, _ = civic.fetch_all()
+            races, _, stood_in = civic.fetch_all()
         self.assertEqual([r["id"] for r in races], ["f0", "g0"])
         self.assertEqual(clock.slept, [2.0, 7.0, 8.0])        # backoff, Retry-After, backoff
 
@@ -173,7 +174,7 @@ class TestCivic(unittest.TestCase):
         clock, asked = self.Clock(), []
         with mock.patch.object(civic.fetch, "get", self._governors_slow(clock, 40, asked)), \
                 mock.patch.object(civic, "time", clock):
-            races, _ = civic.fetch_all()
+            races, _, stood_in = civic.fetch_all()
         self.assertEqual([r["id"] for r in races], ["f0", "g0"])
         self.assertEqual((asked, clock.slept), ([civic.TIMEOUT], []))
 
@@ -202,6 +203,52 @@ class TestCivic(unittest.TestCase):
         self.assertIn("HTTP 503", str(cm.exception))
         self.assertLessEqual(sum(clock.slept), civic.BUDGET - 5)
         self.assertGreaterEqual(len(clock.slept), 6)
+
+    def test_a_failed_search_stands_in_with_its_last_answer(self):
+        # election night: the two searches failed by turns; on the web server a
+        # failed search answers from its last answer, if at most KEEP seconds old
+        import datetime as dt
+        import shutil
+        import tempfile
+        from pathlib import Path
+        from unittest import mock
+        from midterms.pipeline import livefeed
+        cache = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, cache)
+        bad = civic.fetch.DownloadFailed("download failed: … (HTTP 502)", 502)
+
+        def run(fake, where=cache):
+            clock = self.Clock()
+            with mock.patch.object(civic.fetch, "get", fake), mock.patch.object(civic, "time", clock):
+                return civic.fetch_all(cache=where)
+
+        _, first, stood_in = run(self._governors_fail())
+        self.assertEqual(stood_in, {})
+        kept = cache / ".civic-governors.json"
+        self.assertEqual(json.loads(kept.read_text()), {"fetched": first, "races": [{"id": "g0"}]})
+        # the governors' search fails all the way through: its last answer stands in
+        races, _, stood_in = run(self._governors_fail(*[bad] * 100))
+        self.assertEqual([r["id"] for r in races], ["f0", "g0"])
+        self.assertEqual(stood_in, {"governors": first})
+        # never without a cache, never when every search failed, never past KEEP
+        with self.assertRaises(SystemExit):
+            run(self._governors_fail(*[bad] * 100), where=None)
+
+        def all_fail(u, **kw):
+            raise bad
+        with self.assertRaises(SystemExit):
+            run(all_fail)
+        old = dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=civic.KEEP + 60)
+        kept.write_text(json.dumps({"fetched": old.strftime("%Y-%m-%dT%H:%M:%SZ"), "races": [{"id": "g0"}]}))
+        with self.assertRaises(SystemExit) as cm:
+            run(self._governors_fail(*[bad] * 100))
+        self.assertIn("HTTP 502", str(cm.exception))
+        # a broken kept file is no answer
+        kept.write_text("{")
+        with self.assertRaises(SystemExit):
+            run(self._governors_fail(*[bad] * 100))
+        self.assertEqual(livefeed.et_clock("2026-11-04T00:19:01Z"), "7:19 PM ET")
+        self.assertEqual(livefeed.et_clock("2026-11-04T05:05:00Z"), "12:05 AM ET")
 
     def test_a_refusal_is_not_retried(self):
         from unittest import mock

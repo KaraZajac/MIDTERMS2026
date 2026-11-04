@@ -199,6 +199,9 @@ the newer `generated`. Every string is plain text.
   fixture: false,             // true only for simulated nights (tests/fixtures/live/)
   status,                     // "awaiting" (no votes yet) | "counting" | "complete"
   source: {name: "civicAPI", url, fetched, credit, note},
+                              // fetched: when civicAPI was read; on the web server, when
+                              // one search failed and its last answer (≤ 5 min old)
+                              // stood in, that answer's time, and note says which
   forecast: {snapshot, generated, of_record, version},
                               // the forecast conditioned: after the deadline, the
                               // forecast of record (of_record true)

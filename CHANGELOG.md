@@ -15,6 +15,16 @@ model and pipeline that produced it. Automated six-hourly refreshes
   asked the same slow search again. Now the first read waits up to 50
   seconds; a second gets what is left of the same 80-second budget, so a
   run still ends well inside the server's 110-second limit.
+- Then civicAPI's two searches failed by turns: five of the server's 74
+  runs between 23:07 and 00:23 UTC failed, each on one search while the
+  other answered, two of them in a row (`/live.json` went 4 minutes
+  without an update). The web server now keeps each search's last answer
+  beside its `live.json`. When one search still fails after its retries,
+  its last answer stands in if it is at most 5 minutes old, and the page
+  says so ("governors' results as of 7:19 PM ET"; `source.fetched` is
+  then that older answer's time). If both searches fail, nothing stands
+  in: the run fails and the last good file stays up, as before. The
+  committed copy is unchanged.
 
 ### 2026-11-03, morning — civicAPI's searches (no model change)
 - From 14:00 UTC civicAPI answered the governors' text search
