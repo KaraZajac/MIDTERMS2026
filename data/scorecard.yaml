@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 5
+resolved: 6
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-01
 - house:CA-02
 - house:CA-03
-open_count: 484
+open_count: 483
 scoreboard:
   lite:
-    n: 5
-    brier: 0.0118
-    log_loss: 0.0572
-    calls: 5/5
+    n: 6
+    brier: 0.0099
+    log_loss: 0.048
+    calls: 6/6
   classic:
-    n: 5
-    brier: 0.0431
-    log_loss: 0.1252
-    calls: 5/5
+    n: 6
+    brier: 0.0359
+    log_loss: 0.1043
+    calls: 6/6
   deluxe:
-    n: 5
-    brier: 0.0447
-    log_loss: 0.128
-    calls: 5/5
+    n: 6
+    brier: 0.0372
+    log_loss: 0.1067
+    calls: 6/6
   ratings:
-    n: 5
-    brier: 0.05
-    log_loss: 0.1387
-    calls: 4/5
+    n: 6
+    brier: 0.0417
+    log_loss: 0.1156
+    calls: 5/6
   lean-only:
-    n: 5
-    brier: 0.1214
-    log_loss: 0.3022
-    calls: 4/5
+    n: 6
+    brier: 0.1012
+    log_loss: 0.2518
+    calls: 5/6
   coin-flip:
-    n: 5
+    n: 6
     brier: 0.25
     log_loss: 0.6931
-    calls: 4/5
+    calls: 4/6
 races:
 - id: house:KY-01
   slug: house/ky-01
@@ -120,6 +120,18 @@ races:
     lite: 0.0018
     classic: 0.0002
     deluxe: 0.0001
+  called_right: true
+- id: house:KY-03
+  slug: house/ky-03
+  label: KY-03
+  winner: D
+  winner_name: Morgan McGarvey
+  margin: 40.67
+  p_winner: 1.0
+  p_d_side:
+    lite: 0.9981
+    classic: 0.9997
+    deluxe: 1.0
   called_right: true
 - id: house:KY-04
   slug: house/ky-04
@@ -159,39 +171,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T05:16:00Z'
-  called: 324
+  asof: '2026-11-04T05:25:01Z'
+  called: 336
   scoreboard:
     lite:
-      n: 324
-      brier: 0.0191
-      log_loss: 0.0757
-      calls: 319/324
+      n: 336
+      brier: 0.0197
+      log_loss: 0.0786
+      calls: 331/336
     classic:
-      n: 324
-      brier: 0.0117
-      log_loss: 0.0464
-      calls: 321/324
+      n: 336
+      brier: 0.0121
+      log_loss: 0.0485
+      calls: 333/336
     deluxe:
-      n: 324
-      brier: 0.0119
-      log_loss: 0.0394
-      calls: 319/324
+      n: 336
+      brier: 0.012
+      log_loss: 0.0405
+      calls: 331/336
     ratings:
-      n: 324
-      brier: 0.0166
-      log_loss: 0.0536
-      calls: 316/324
+      n: 336
+      brier: 0.0168
+      log_loss: 0.0552
+      calls: 328/336
     lean-only:
-      n: 324
-      brier: 0.0254
-      log_loss: 0.0807
-      calls: 312/324
+      n: 336
+      brier: 0.026
+      log_loss: 0.0833
+      calls: 324/336
     coin-flip:
-      n: 324
+      n: 336
       brier: 0.25
       log_loss: 0.6931
-      calls: 123/324
+      calls: 128/336
   races:
   - - governor:AR
     - R
@@ -337,6 +349,9 @@ provisional:
   - - house:CA-21
     - D
     - 0.9996
+  - - house:CA-26
+    - D
+    - 0.9998
   - - house:CA-28
     - D
     - 1.0
@@ -352,6 +367,9 @@ provisional:
   - - house:CA-33
     - D
     - 0.9998
+  - - house:CA-35
+    - D
+    - 0.9999
   - - house:CA-36
     - D
     - 1.0
@@ -472,6 +490,9 @@ provisional:
   - - house:FL-28
     - R
     - 0.9992
+  - - house:GA-01
+    - R
+    - 0.9982
   - - house:GA-02
     - D
     - 0.9998
@@ -511,6 +532,15 @@ provisional:
   - - house:GA-14
     - R
     - 0.9999
+  - - house:IA-01
+    - D
+    - 0.8271
+  - - house:IA-02
+    - D
+    - 0.6573
+  - - house:IA-03
+    - D
+    - 0.8388
   - - house:IA-04
     - R
     - 0.9996
@@ -778,6 +808,12 @@ provisional:
   - - house:NJ-12
     - D
     - 0.9999
+  - - house:NM-01
+    - D
+    - 0.9997
+  - - house:NM-02
+    - D
+    - 0.948
   - - house:NM-03
     - D
     - 0.9992
@@ -973,6 +1009,15 @@ provisional:
   - - house:TN-03
     - R
     - 0.9999
+  - - house:TN-05
+    - R
+    - 0.9931
+  - - house:TN-06
+    - R
+    - 0.9995
+  - - house:TN-08
+    - R
+    - 0.9992
   - - house:TX-01
     - R
     - 0.9999
@@ -1011,6 +1056,9 @@ provisional:
     - 0.855
   - - house:TX-37
     - D
+    - 1.0
+  - - house:UT-03
+    - R
     - 1.0
   - - house:VA-02
     - D
