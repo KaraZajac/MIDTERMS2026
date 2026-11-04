@@ -35,7 +35,7 @@ CHAMBERS = ("senate", "governor")
 WORKERS = 3
 BUDGET = 150          # seconds for a whole cycle (the server's limit on the job is 200)
 TIMEOUT = 25
-TRIP = 3              # failures in a row that end a cycle
+TRIP = 5              # failures in a row that end a cycle
 KEEP_IDS = 3600       # a kept search answer this old still names the races
 
 
@@ -221,14 +221,31 @@ def run(cache: Path, out_dir: Path, *, rows: dict[str, dict] | None = None,
             state["written"] += 1
             state["run"] = 0
 
-    def age(rid: str) -> float:
+    try:                                         # the live job's file: each race's forecast
+        p_pre = {rid: r.get("p_pre") for rid, r in json.loads((cache / "live.json").read_text())["races"].items()}
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        p_pre = {}
+
+    def need(rid: str) -> tuple[int, float]:
+        """(0, 0) for a race with no map yet (no file, or an empty one from
+        before dropped_names, which today's code may fill); else (1, age)."""
+        p = path_for(out_dir, rid)
         try:
-            return path_for(out_dir, rid).stat().st_mtime
-        except OSError:
-            return float("-inf")                 # no file yet: first
-    # races without a file first, then the oldest: a cycle that stops early
-    # (civicAPI failing) doesn't keep retrying the same few races
-    order = sorted(todo, key=lambda rid: (age(rid), random.random()))
+            d = json.loads(p.read_text())
+            if isinstance(d, dict) and (d.get("regions") or "dropped_names" in d):
+                return 1, p.stat().st_mtime
+        except (OSError, ValueError):
+            pass
+        return 0, 0.0
+
+    def close(rid: str) -> float:
+        p = p_pre.get(rid)
+        return abs(p - 0.5) if isinstance(p, (int, float)) else 1.0
+
+    # races without a map first, the closest first (Iowa before Wyoming), then
+    # the oldest file: a cycle that stops early (civicAPI failing) doesn't keep
+    # retrying the same few races, and the races people watch fill in first
+    order = sorted(todo, key=lambda rid: (*need(rid), close(rid), random.random()))
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
         for rid in order:
             pool.submit(one, rid, todo[rid])

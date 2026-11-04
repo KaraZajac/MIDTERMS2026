@@ -137,14 +137,19 @@ class TestCounties(unittest.TestCase):
         self.assertEqual(len(asked), counties.TRIP)
         self.assertEqual(old.read_text(), '{"kept": true}')
 
-    def test_races_without_a_file_go_first_then_the_oldest(self):
-        sts = ["AL", "CO", "GA"]
+    def test_races_without_a_map_go_first_closest_first_then_the_oldest(self):
+        sts = ["AL", "CO", "GA", "IA", "KS", "OK"]
         rows = {f"senate:{s}": row(s, "A", "B") for s in sts}
         self._keep([search_race(100 + i, "US Senate", s, 10) for i, s in enumerate(sts)])
-        for s, t in (("al", 2000), ("ga", 1000)):            # CO has no file; GA's is older than AL's
+        (self.dir / "live.json").write_text(json.dumps({"races": {
+            "senate:AL": {"p_pre": 0.01}, "senate:CO": {"p_pre": 0.9}, "senate:GA": {"p_pre": 0.6},
+            "senate:IA": {"p_pre": 0.52}, "senate:KS": {"p_pre": 0.03}, "senate:OK": {"p_pre": 0.02}}}))
+        mapped = '{"regions": [{"fips": "01001"}]}'
+        for s, body, t in (("al", mapped, 2000), ("ok", mapped, 1000),   # maps: OK's older than AL's
+                           ("ks", '{"regions": []}', 3000)):             # empty, from before dropped_names
             p = self.out / "senate" / f"{s}.json"
             p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text("{}")
+            p.write_text(body)
             os.utime(p, (t, t))
         asked = []
 
@@ -154,7 +159,8 @@ class TestCounties(unittest.TestCase):
 
         with mock.patch.object(counties.fetch, "get", fake_get), mock.patch.object(counties, "WORKERS", 1):
             counties.run(self.dir, self.out, rows=rows)
-        self.assertEqual(asked, [101, 102, 100])                   # CO, then GA, then AL
+        # no map yet, closest first: IA (0.52), GA (0.6), CO (0.9), KS (0.03); then OK, then AL
+        self.assertEqual(asked, [103, 102, 101, 104, 105, 100])
 
     def test_no_kept_answers_no_requests(self):
         with mock.patch.object(counties.fetch, "get", side_effect=AssertionError("no request")):

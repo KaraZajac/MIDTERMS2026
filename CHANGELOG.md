@@ -31,6 +31,11 @@ model and pipeline that produced it. Automated six-hourly refreshes
   counties fell short of the total and it had no map. They are now found
   by name (Virginia's 38, Baltimore, Carson City; codes checked against
   the site's county shapes), and each file lists the regions it left out.
+- By 03:05 UTC civicAPI had answered none of the county requests for 30
+  minutes, and 41 races with votes (Iowa's Senate race among them) had no
+  map. Each cycle now tries the races without a map first, the closest
+  races first (by the forecast), and stops after five failures in a row
+  instead of three. Empty files from before the city lookup count as no map.
 
 ### 2026-11-03, evening — a slow civicAPI answer is waited for (no model change)
 - At 22:58 UTC, as the first polls closed, civicAPI left three 25-second
