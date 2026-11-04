@@ -1,6 +1,7 @@
 """County results for the statewide races (midterms/pipeline/counties.py)."""
 
 import json
+import os
 import shutil
 import tempfile
 import unittest
@@ -119,6 +120,25 @@ class TestCounties(unittest.TestCase):
         self.assertEqual(got, {"written": 0, "failed": counties.TRIP, "skipped": len(sts) - counties.TRIP})
         self.assertEqual(len(asked), counties.TRIP)
         self.assertEqual(old.read_text(), '{"kept": true}')
+
+    def test_races_without_a_file_go_first_then_the_oldest(self):
+        sts = ["AL", "CO", "GA"]
+        rows = {f"senate:{s}": row(s, "A", "B") for s in sts}
+        self._keep([search_race(100 + i, "US Senate", s, 10) for i, s in enumerate(sts)])
+        for s, t in (("al", 2000), ("ga", 1000)):            # CO has no file; GA's is older than AL's
+            p = self.out / "senate" / f"{s}.json"
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text("{}")
+            os.utime(p, (t, t))
+        asked = []
+
+        def fake_get(u, **kw):
+            asked.append(int(u.rsplit("/", 1)[1]))
+            return json.dumps({"region_results": {}}).encode()
+
+        with mock.patch.object(counties.fetch, "get", fake_get), mock.patch.object(counties, "WORKERS", 1):
+            counties.run(self.dir, self.out, rows=rows)
+        self.assertEqual(asked, [101, 102, 100])                   # CO, then GA, then AL
 
     def test_no_kept_answers_no_requests(self):
         with mock.patch.object(counties.fetch, "get", side_effect=AssertionError("no request")):

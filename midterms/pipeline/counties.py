@@ -22,6 +22,7 @@ regions, and the page then shows no map.
 from __future__ import annotations
 
 import json
+import random
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -186,9 +187,17 @@ def run(cache: Path, out_dir: Path, *, rows: dict[str, dict] | None = None,
             state["written"] += 1
             state["run"] = 0
 
+    def age(rid: str) -> float:
+        try:
+            return path_for(out_dir, rid).stat().st_mtime
+        except OSError:
+            return float("-inf")                 # no file yet: first
+    # races without a file first, then the oldest: a cycle that stops early
+    # (civicAPI failing) doesn't keep retrying the same few races
+    order = sorted(todo, key=lambda rid: (age(rid), random.random()))
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        for rid, cid in sorted(todo.items()):
-            pool.submit(one, rid, cid)
+        for rid in order:
+            pool.submit(one, rid, todo[rid])
     out = {k: state[k] for k in ("written", "failed", "skipped")}
     print(f"✓ counties: {len(todo)} races with votes; {out['written']} written, {out['failed']} failed, "
           f"{out['skipped']} not tried{' (stopped after failures)' if state['tripped'] else ''} -> {out_dir}")
