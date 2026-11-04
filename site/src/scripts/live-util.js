@@ -236,14 +236,24 @@ export const closedCount = (data) => schedule(data).filter((s) => Date.parse(s.t
 
 // --- a stalled feed --------------------------------------------------------------
 
-// The server's job runs every 5 minutes until 22:30Z, then every minute.
-const MINUTELY = Date.parse("2026-11-03T22:30:00Z");
+// How old the newest copy may get before the page says "Results feed delayed",
+// in minutes, by when the server's job runs: every 5 minutes until Nov 3 22:30Z,
+// every minute through Nov 5, then every 5 minutes again from Nov 6 through
+// Nov 10 while late ballots are counted (15 minutes: three missed runs). The job
+// ends with Nov 10. After that the only copy is the repository's, refreshed every
+// six hours, and the page's updated time says enough, so the warning stays off
+// (MIDTERMS2026, Nov 4).
+const LIMITS = [
+  [Date.parse("2026-11-03T22:30:00Z"), 12],
+  [Date.parse("2026-11-06T00:00:00Z"), 5],
+  [Date.parse("2026-11-11T00:00:00Z"), 15],
+];
 /** True when the newest copy is older than the job's cadence allows. */
 export function stale(data) {
   if (!data || data.status === "complete" || !iso(data.generated)) return false;
   const t = now();
-  const limit = (t < MINUTELY ? 12 : 5) * 60000;
-  return t - Date.parse(data.generated) > limit;
+  const step = LIMITS.find(([until]) => t < until);
+  return step ? t - Date.parse(data.generated) > step[1] * 60000 : false;
 }
 
 // --- what each chamber still needs, and what changed hands ----------------------

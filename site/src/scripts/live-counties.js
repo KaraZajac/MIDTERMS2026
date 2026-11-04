@@ -1,7 +1,8 @@
 // Election night: a Senate or governor race page's county map (CountyMap.astro).
-// It fetches /counties/<chamber>/<slug>.json, written every 5 minutes by
-// MIDTERMS2026's `midterms counties` (docs/site-data.md), now and every 2
-// minutes while the page is visible, and shades each county for the side ahead
+// It fetches /counties/<chamber>/<slug>.json, written by MIDTERMS2026's
+// `midterms counties` (docs/site-data.md) every 5 minutes through Nov 5 and
+// every 15 from Nov 6 to Nov 10, now and every 2 minutes while the page is
+// visible, and shades each county for the side ahead
 // there: four steps by the two-party margin (under 5, 5–15, 15–30, 30+ points),
 // striped while under 95% reporting, grey with no votes yet. A missing file
 // (Caddy answers null), null, regions: [] or no county that matches a shape

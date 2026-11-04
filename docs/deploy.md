@@ -47,9 +47,11 @@ Logs: `journalctl -u midterms-sync.service`.
 ## Election night: `/live.json`
 
 From Nov 3 22:30 UTC through Nov 5, `midterms-live.timer` runs
-`midterms-live.service` every minute. That runs `python3 -m midterms live`
-in the server's checkout: it reads the frozen forecast of record and
-civicAPI's results and race calls, and writes `/live.json`.
+`midterms-live.service` every minute, then every 5 minutes (on the :00
+and :05 marks) from Nov 6 through Nov 10 while late ballots are counted.
+That runs `python3 -m midterms live` in the server's checkout: it reads
+the frozen forecast of record and civicAPI's results and race calls, and
+writes `/live.json`.
 
 - The job runs as the unprivileged `midterms-live` user in a systemd
   sandbox. The system and the checkout are read-only, and its only
@@ -72,6 +74,12 @@ civicAPI's results and race calls, and writes `/live.json`.
   Before the deadline they request nothing. A simulated night
   (`"fixture": true`) only ever renders on a local preview: copy one from
   `tests/fixtures/live/` to `site/dist/live.json` and serve `dist/`.
+- A page says "Results feed delayed" when the copy it shows is older than
+  the job's cadence allows (`stale()` in `site/src/scripts/live-util.js`):
+  5 minutes through Nov 5, then 15 minutes (three missed runs) through
+  Nov 10. After that the only copy is the repository's, refreshed every
+  six hours, so the warning stays off and the "Updated" time beside the
+  results says how old they are.
 - Run it once now: `systemctl start midterms-live.service`. Stop it:
   `systemctl disable --now midterms-live.timer`. Logs:
   `journalctl -u midterms-live.service`.
@@ -79,7 +87,9 @@ civicAPI's results and race calls, and writes `/live.json`.
 ## Election night: county maps, `/counties/`
 
 From Nov 4 01:55 UTC through Nov 5, `midterms-counties.timer` runs
-`midterms-counties.service` every 5 minutes (at :00:30, :05:30, …).
+`midterms-counties.service` every 5 minutes (at :00:30, :05:30, …), then
+every 15 minutes from Nov 6 through Nov 10 (at :00:30, :15:30, :30:30 and
+:45:30, 30 s after a live run).
 That runs `python3 -m midterms counties --cache-dir
 /srv/live/midterms.karazajac.io --out-dir
 /srv/live/midterms.karazajac.io/counties`, which writes one file per
