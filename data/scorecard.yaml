@@ -183,39 +183,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T06:24:01Z'
-  called: 370
+  asof: '2026-11-04T06:35:01Z'
+  called: 381
   scoreboard:
     lite:
-      n: 370
-      brier: 0.023
-      log_loss: 0.0886
-      calls: 361/370
+      n: 381
+      brier: 0.0232
+      log_loss: 0.0892
+      calls: 372/381
     classic:
-      n: 370
-      brier: 0.0174
-      log_loss: 0.0633
-      calls: 363/370
+      n: 381
+      brier: 0.0181
+      log_loss: 0.0649
+      calls: 373/381
     deluxe:
-      n: 370
-      brier: 0.0172
-      log_loss: 0.0558
-      calls: 361/370
+      n: 381
+      brier: 0.0178
+      log_loss: 0.0574
+      calls: 372/381
     ratings:
-      n: 370
-      brier: 0.0227
-      log_loss: 0.0735
-      calls: 359/370
+      n: 381
+      brier: 0.0232
+      log_loss: 0.0747
+      calls: 369/381
     lean-only:
-      n: 370
-      brier: 0.0323
-      log_loss: 0.1183
-      calls: 354/370
+      n: 381
+      brier: 0.0329
+      log_loss: 0.1192
+      calls: 364/381
     coin-flip:
-      n: 370
+      n: 381
       brier: 0.25
       log_loss: 0.6931
-      calls: 142/370
+      calls: 143/381
   races:
   - - governor:AR
     - R
@@ -385,6 +385,9 @@ provisional:
   - - house:CA-21
     - D
     - 0.9996
+  - - house:CA-25
+    - D
+    - 0.9998
   - - house:CA-26
     - D
     - 0.9998
@@ -415,6 +418,12 @@ provisional:
   - - house:CA-38
     - D
     - 0.9998
+  - - house:CA-39
+    - D
+    - 0.9998
+  - - house:CA-42
+    - D
+    - 0.9999
   - - house:CA-43
     - D
     - 1.0
@@ -422,6 +431,9 @@ provisional:
     - D
     - 1.0
   - - house:CA-46
+    - D
+    - 0.9999
+  - - house:CA-50
     - D
     - 0.9999
   - - house:CA-51
@@ -573,6 +585,12 @@ provisional:
     - 1.0
   - - house:GA-14
     - R
+    - 0.9999
+  - - house:HI-01
+    - D
+    - 0.9999
+  - - house:HI-02
+    - D
     - 0.9999
   - - house:IA-01
     - D
@@ -736,6 +754,9 @@ provisional:
   - - house:ME-01
     - D
     - 0.9999
+  - - house:MI-01
+    - R
+    - 0.9991
   - - house:MI-02
     - R
     - 0.9998
@@ -958,6 +979,9 @@ provisional:
   - - house:OH-06
     - R
     - 0.9999
+  - - house:OH-07
+    - D
+    - 0.5165
   - - house:OH-08
     - R
     - 0.9981
@@ -997,6 +1021,12 @@ provisional:
   - - house:OR-03
     - D
     - 1.0
+  - - house:OR-04
+    - D
+    - 0.9998
+  - - house:OR-05
+    - D
+    - 0.9999
   - - house:PA-01
     - D
     - 0.8055
@@ -1153,6 +1183,9 @@ provisional:
   - - house:TX-34
     - D
     - 0.855
+  - - house:TX-35
+    - D
+    - 0.5625
   - - house:TX-37
     - D
     - 1.0
