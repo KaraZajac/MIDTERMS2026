@@ -42,7 +42,8 @@ BUDGET = 150          # seconds for a whole cycle (the server's limit on the job
 TIMEOUT = 25
 TRIP = 5              # failures in a row that end a cycle
 KEEP_IDS = 3600       # a kept search answer this old still names the races
-DOWN = 180            # a live.json older than this: civicAPI isn't answering; skip the cycle
+DOWN = 360            # a live.json older than this: civicAPI isn't answering; skip the cycle
+                      # (the live job's last run failed, every minute or every 5 minutes)
 
 
 def _side_rows() -> dict[str, dict]:

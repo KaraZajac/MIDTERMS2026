@@ -7,7 +7,7 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
-### 2026-11-04, morning — the refresh chain retries its hand-off (no model change)
+### 2026-11-04, morning — the refresh hand-off retries; the county job after Nov 5 (no model change)
 - Each refresh run starts the next one through GitHub's API. At 09:42 UTC
   that call failed once (HTTP 500), the chain stopped, and the hourly
   watchdog cron that should have restarted it didn't fire, so the committed
@@ -15,6 +15,9 @@ model and pipeline that produced it. Automated six-hourly refreshes
   UTC. The web server's live results were unaffected. The hand-off now
   tries six times, a minute apart, and checks before each try that an
   earlier one didn't go through.
+- The county job skips its cycle once the live job's file is more than 6
+  minutes old, not 3, so it keeps working if the web server's live job
+  slows from every minute to every 5 minutes after Nov 5.
 
 ### 2026-11-03, night — a provisional scoreboard on the calls (no model change)
 - The scorecard of record resolves races from Wikipedia's results boxes,
