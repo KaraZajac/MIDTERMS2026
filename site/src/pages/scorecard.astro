@@ -14,6 +14,26 @@ const NAMES: Record<string, string> = {
   lite: "Lite", classic: "Classic", deluxe: "Deluxe", ratings: "Raters' consensus", "lean-only": "Partisan lean only", "coin-flip": "Coin flip",
 };
 const board = sc ? Object.entries(sc.scoreboard ?? {}).sort((a: any, b: any) => (a[1].brier ?? 9) - (b[1].brier ?? 9)) : [];
+
+// Election night (Kara's ask, Nov 4, through MIDTERMS2026): every contender graded
+// on the races *called* so far, from scorecard.json's `provisional` (docs/site-data.md).
+// Calls aren't results, so it stands apart from the record below and says so.
+const prov = sc?.provisional && typeof sc.provisional === "object" && sc.provisional.scoreboard ? sc.provisional : null;
+const provBoard = prov ? Object.entries(prov.scoreboard).filter(([, v]: any) => v && typeof v.brier === "number").sort((a: any, b: any) => a[1].brier - b[1].brier) : [];
+const etClock = (iso: string) => {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const t = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "America/New_York" }).replace("AM", "a.m.").replace("PM", "p.m.");
+  const day = d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "America/New_York" });
+  return day === "Nov 3" ? `${t} ET` : `${day}, ${t} ET`;
+};
+// The chance the headline gave the winner: 1 decimal where whole percents would round to 50%.
+const pWin = (p: number) => (p >= 0.495 && p < 0.505 ? `${(p * 100).toFixed(1)}%` : pct(p));
+const provUpsets = prov
+  ? (Array.isArray(prov.races) ? prov.races : [])
+      .filter((x: any) => Array.isArray(x) && typeof x[2] === "number" && x[2] < 0.5)
+      .sort((a: any, b: any) => a[2] - b[2])
+  : [];
 const resolvedCount = typeof sc?.resolved === "number" ? sc.resolved : (sc?.races?.length ?? 0);
 const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1) - (b.p_winner ?? 1));
 ---
@@ -27,6 +47,42 @@ const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1)
       sneak into the record. After the polls close, each race is scored against its result.
     </p>
   </section>
+
+  {prov && provBoard.length > 0 && (
+    <section class="section provisional" id="provisional">
+      <h2>Provisional: graded on the races called so far</h2>
+      <p>
+        {prov.called} race{prov.called === 1 ? "" : "s"} called as of {etClock(prov.asof)} (calls by civicAPI's decision desk, not final results).
+      </p>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th>Contender</th><th class="num">Brier</th><th class="num">Log loss</th><th class="num">Right calls</th></tr></thead>
+          <tbody>
+            {provBoard.map(([k, v]: any) => (
+              <tr class={k === (sc.headline ?? "deluxe") ? "ours" : undefined}>
+                <td>{NAMES[k] ?? k}{k === (sc.headline ?? "deluxe") ? " (headline)" : ""}</td>
+                <td class="num">{v.brier.toFixed(4)}</td>
+                <td class="num">{typeof v.log_loss === "number" ? v.log_loss.toFixed(4) : "—"}</td>
+                <td class="num">{k === "coin-flip" || typeof v.calls !== "number" ? "—" : `${v.calls}/${v.n}`}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {provUpsets.length > 0 && (
+        <p>
+          <strong>Upsets: </strong>
+          {provUpsets.map((x: any, i: number) => {
+            const r = raceById(x[0]);
+            return <>{i ? "; " : ""}{r ? <a href={url(`/${r.slug}/`)}>{r.chamber === "house" ? r.label : r.title}</a> : x[0]}: {x[1]} won; the forecast gave them {pWin(x[2])}</>;
+          })}.
+        </p>
+      )}
+      <p class="small ink-2">
+        Lower is better for both scores; a coin flip calls no race, so it has no right calls. Most races called so far are safe seats, which flatter every forecast; the close races are the real test. The scorecard of record grades final results from Wikipedia's results tables as editors add them.
+      </p>
+    </section>
+  )}
 
   {sc ? (
     <>
@@ -121,4 +177,8 @@ const scored = [...(sc?.races ?? [])].sort((a: any, b: any) => (a.p_winner ?? 1)
 
 <style>
   tr.ours td { font-weight: 700; color: var(--ink-strong); background: var(--accent-wash); }
+  @media (max-width: 520px) {
+    .provisional :global(.data th), .provisional :global(.data td) { padding-left: 7px; padding-right: 7px; }
+    .provisional :global(.data th) { letter-spacing: 0.02em; }
+  }
 </style>

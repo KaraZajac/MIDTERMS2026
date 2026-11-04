@@ -15,7 +15,14 @@ export function checkBlock() {
     { class: "hero-check", "data-check": true, hidden: true },
     h("h3", {}, "Forecast check"),
     h("div", { class: "hero-check-lines", "data-check-lines": true }),
-    h("p", { class: "live-small" }, "Calls aren't final results; the ", h("a", { href: url("/scorecard/") }, "scorecard"), " grades the forecast once results are in."),
+    h(
+      "p",
+      { class: "live-small" },
+      "Calls aren't final results; the ",
+      h("a", { href: url("/scorecard/") }, "scorecard"),
+      " grades the forecast once results are in. ",
+      h("a", { href: url("/scorecard/#provisional") }, "Full provisional scoreboard →"),
+    ),
   );
 }
 
