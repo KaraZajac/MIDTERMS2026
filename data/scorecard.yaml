@@ -111,39 +111,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T04:28:43Z'
-  called: 272
+  asof: '2026-11-04T04:41:55Z'
+  called: 282
   scoreboard:
     lite:
-      n: 272
-      brier: 0.0196
-      log_loss: 0.0768
-      calls: 267/272
+      n: 282
+      brier: 0.0191
+      log_loss: 0.0757
+      calls: 277/282
     classic:
-      n: 272
-      brier: 0.0119
-      log_loss: 0.047
-      calls: 269/272
-    deluxe:
-      n: 272
-      brier: 0.0111
-      log_loss: 0.0376
-      calls: 268/272
-    ratings:
-      n: 272
-      brier: 0.0145
+      n: 282
+      brier: 0.0116
       log_loss: 0.0463
-      calls: 266/272
+      calls: 279/282
+    deluxe:
+      n: 282
+      brier: 0.0108
+      log_loss: 0.0369
+      calls: 278/282
+    ratings:
+      n: 282
+      brier: 0.0142
+      log_loss: 0.0455
+      calls: 276/282
     lean-only:
-      n: 272
-      brier: 0.0276
-      log_loss: 0.0874
-      calls: 261/272
+      n: 282
+      brier: 0.0267
+      log_loss: 0.0849
+      calls: 271/282
     coin-flip:
-      n: 272
+      n: 282
       brier: 0.25
       log_loss: 0.6931
-      calls: 110/272
+      calls: 112/282
   races:
   - - governor:AR
     - R
@@ -178,6 +178,9 @@ provisional:
   - - governor:MD
     - D
     - 0.9995
+  - - governor:ME
+    - D
+    - 0.9902
   - - governor:NM
     - D
     - 0.9842
@@ -196,6 +199,9 @@ provisional:
   - - governor:TX
     - D
     - 0.2898
+  - - governor:WI
+    - D
+    - 0.833
   - - governor:WY
     - R
     - 0.9994
@@ -241,6 +247,9 @@ provisional:
   - - house:AZ-09
     - R
     - 0.9997
+  - - house:CA-21
+    - D
+    - 0.9996
   - - house:CO-01
     - D
     - 1.0
@@ -493,6 +502,9 @@ provisional:
   - - house:MD-05
     - D
     - 1.0
+  - - house:MD-06
+    - D
+    - 0.9997
   - - house:MD-07
     - D
     - 1.0
@@ -556,6 +568,9 @@ provisional:
   - - house:MS-04
     - R
     - 0.9998
+  - - house:MT-02
+    - R
+    - 0.9997
   - - house:NC-02
     - D
     - 1.0
@@ -610,6 +625,9 @@ provisional:
   - - house:NJ-12
     - D
     - 0.9999
+  - - house:NM-03
+    - D
+    - 0.9992
   - - house:NY-05
     - D
     - 1.0
@@ -715,6 +733,9 @@ provisional:
   - - house:OK-04
     - R
     - 0.9998
+  - - house:OR-01
+    - D
+    - 1.0
   - - house:OR-03
     - D
     - 1.0
@@ -862,12 +883,18 @@ provisional:
   - - house:VT-AL
     - D
     - 1.0
+  - - house:WA-06
+    - D
+    - 1.0
   - - house:WA-07
     - D
     - 1.0
   - - house:WA-09
     - D
     - 1.0
+  - - house:WA-10
+    - D
+    - 0.9999
   - - house:WI-04
     - D
     - 1.0
@@ -949,6 +976,9 @@ provisional:
   - - senate:SD
     - R
     - 0.9969
+  - - senate:TN
+    - R
+    - 0.9981
   - - senate:TX
     - D
     - 0.7396
