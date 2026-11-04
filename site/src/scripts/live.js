@@ -367,7 +367,7 @@ const due = () => LOCAL || !Number.isFinite(FROM) || Date.now() >= FROM;
 function render(box, data, N) {
   if (box.dataset.live === "board") return renderBoard(box, data, N);
   if (box.dataset.live === "hero") return renderHero(box, data, N);
-  if (box.dataset.live === "gauges") return renderGauges(box, data);
+  if (box.dataset.live === "gauges") return renderGauges(box, data, N);
   let node = null;
   if (box.dataset.live === "race") node = raceBanner(box, data);
   else {

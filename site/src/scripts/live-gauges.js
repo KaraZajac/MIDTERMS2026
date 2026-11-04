@@ -11,6 +11,7 @@
 import { pct1 } from "../lib/format.js";
 import { h } from "./live-util.js";
 import { chancesBlock, paintChances } from "./live-chances.js";
+import { closeBlock, paintClose } from "./live-close.js";
 
 const CHAMBERS = [
   ["house", "House", "control"],
@@ -65,10 +66,11 @@ function frame() {
     h("div", { class: "g-row" }, CHAMBERS.map(([k, name]) => gauge(k, name))),
     h("p", { class: "live-small g-cap" }, "Chances of control given the races called so far, from the frozen forecast. The tick marks where each stood before results."),
     h("details", { class: "g-history", "data-g-history": true }, h("summary", {}, "How the chances moved tonight"), hist),
+    closeBlock(),
   );
 }
 
-export function renderGauges(box, data) {
+export function renderGauges(box, data, N) {
   let root = box.querySelector(":scope > .gauges");
   const first = !root;
   if (first) {
@@ -114,5 +116,6 @@ export function renderGauges(box, data) {
   const hist = root.querySelector("[data-chances]");
   paintChances(hist, data);
   root.querySelector("[data-g-history]").hidden = hist.hidden;
+  paintClose(root.querySelector("[data-close]"), data, N);
   if (first) requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("no-anim")));
 }
