@@ -1,12 +1,12 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
 house:AK-AL,house,AK,AK-AL,Nick Begich III,R,yes,2024,Bill Hill,IND,Nick Begich III,R,"Eric Hafner (D); James C. ""Jim"" McDermott (L)",,-12.91,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Alaska@1383516086
-house:AL-01,house,AL,AL-01,Barry Moore,R,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383623376
-house:AL-02,house,AL,AL-02,Shomari Figures,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383623376
-house:AL-03,house,AL,AL-03,Mike Rogers,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383623376
-house:AL-04,house,AL,AL-04,Robert Aderholt,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383623376
-house:AL-05,house,AL,AL-05,Dale Strong,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383623376
-house:AL-06,house,AL,AL-06,Gary Palmer,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383623376
-house:AL-07,house,AL,AL-07,Terri Sewell,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383623376
+house:AL-01,house,AL,AL-01,Barry Moore,R,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383666973
+house:AL-02,house,AL,AL-02,Shomari Figures,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383666973
+house:AL-03,house,AL,AL-03,Mike Rogers,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383666973
+house:AL-04,house,AL,AL-04,Robert Aderholt,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383666973
+house:AL-05,house,AL,AL-05,Dale Strong,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383666973
+house:AL-06,house,AL,AL-06,Gary Palmer,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383666973
+house:AL-07,house,AL,AL-07,Terri Sewell,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383666973
 house:AR-01,house,AR,AR-01,Rick Crawford,R,yes,2010,Terri Yarbrough,D,Rick Crawford,R,Steve Parsons (L),,-45.18,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1383625227
 house:AR-02,house,AR,AR-02,French Hill,R,yes,2014,Chris Jones,D,French Hill,R,,,-15.32,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1383625227
 house:AR-03,house,AR,AR-03,Steve Womack,R,yes,2010,Robb Ryerse,D,Steve Womack,R,Bobby Wilson (L),,-25.24,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1383625227
@@ -153,15 +153,15 @@ house:IL-14,house,IL,IL-14,Lauren Underwood,D,yes,2018,Lauren Underwood,D,James 
 house:IL-15,house,IL,IL-15,Mary Miller,R,yes,2020,Jennifer Todd,D,Mary Miller,R,,,-40.22,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Illinois@1383633707
 house:IL-16,house,IL,IL-16,Darin LaHood,R,yes,2015,Paul Nolley,D,Darin LaHood,R,,,-22.8,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Illinois@1383633707
 house:IL-17,house,IL,IL-17,Eric Sorensen,D,yes,2022,Eric Sorensen,D,Dillan Vancil,R,,,5.61,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Illinois@1383633707
-house:IN-01,house,IN,IN-01,Frank J. Mrvan,D,yes,2020,Frank Mrvan,D,Barb Regnitz,R,,,2.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383654667
-house:IN-02,house,IN,IN-02,Rudy Yakym,R,yes,2022,Jamee Decio,D,Rudy Yakym,R,,,-25.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383654667
-house:IN-03,house,IN,IN-03,Marlin Stutzman,R,yes,2010,Kelly Thompson,D,Marlin Stutzman,R,,,-31.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383654667
-house:IN-04,house,IN,IN-04,Jim Baird,R,yes,2018,Drew Cox,D,Jim Baird,R,,,-29.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383654667
-house:IN-05,house,IN,IN-05,Victoria Spartz,R,yes,2020,J.D. Ford,D,Victoria Spartz,R,,,-16.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383654667
-house:IN-06,house,IN,IN-06,Jefferson Shreve,R,yes,2024,Cynthia Wirth,D,Jefferson Shreve,R,,,-32.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383654667
-house:IN-07,house,IN,IN-07,André Carson,D,yes,2008,André Carson,D,Patrick McAuley,R,James Sceniak (L),,42.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383654667
-house:IN-08,house,IN,IN-08,Mark Messmer,R,yes,2024,Mary Allen,D,Mark Messmer,R,,,-35.74,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383654667
-house:IN-09,house,IN,IN-09,Erin Houchin,R,yes,2022,Brad Meyer,D,Erin Houchin,R,Tonya Hudson (L); Floyd Taylor (IND),,-29.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383654667
+house:IN-01,house,IN,IN-01,Frank J. Mrvan,D,yes,2020,Frank Mrvan,D,Barb Regnitz,R,,,2.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383666984
+house:IN-02,house,IN,IN-02,Rudy Yakym,R,yes,2022,Jamee Decio,D,Rudy Yakym,R,,,-25.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383666984
+house:IN-03,house,IN,IN-03,Marlin Stutzman,R,yes,2010,Kelly Thompson,D,Marlin Stutzman,R,,,-31.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383666984
+house:IN-04,house,IN,IN-04,Jim Baird,R,yes,2018,Drew Cox,D,Jim Baird,R,,,-29.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383666984
+house:IN-05,house,IN,IN-05,Victoria Spartz,R,yes,2020,J.D. Ford,D,Victoria Spartz,R,,,-16.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383666984
+house:IN-06,house,IN,IN-06,Jefferson Shreve,R,yes,2024,Cynthia Wirth,D,Jefferson Shreve,R,,,-32.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383666984
+house:IN-07,house,IN,IN-07,André Carson,D,yes,2008,André Carson,D,Patrick McAuley,R,James Sceniak (L),,42.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383666984
+house:IN-08,house,IN,IN-08,Mark Messmer,R,yes,2024,Mary Allen,D,Mark Messmer,R,,,-35.74,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383666984
+house:IN-09,house,IN,IN-09,Erin Houchin,R,yes,2022,Brad Meyer,D,Erin Houchin,R,Tonya Hudson (L); Floyd Taylor (IND),,-29.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1383666984
 house:KS-01,house,KS,KS-01,Tracey Mann,R,yes,2020,Lauren Reinhold,D,Tracey Mann,R,Steven Jacob (L),,-31.47,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1383654929
 house:KS-02,house,KS,KS-02,Derek Schmidt,R,yes,2024,Don Coover,D,Derek Schmidt,R,John Hauer (L),,-19.22,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1383654929
 house:KS-03,house,KS,KS-03,Sharice Davids,D,yes,2018,Sharice Davids,D,Eric Jenkins,R,Steven A. Hohe (L),,4.26,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1383654929
