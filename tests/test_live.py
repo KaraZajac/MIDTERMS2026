@@ -129,6 +129,30 @@ class TestHistory(unittest.TestCase):
         self.assertEqual((len(h3), h3[-1][0]), (F.HISTORY_KEPT, "T6"))
 
 
+class TestUndouble(unittest.TestCase):
+    def test_new_york_halved_while_the_county_job_finds_the_double_count(self):
+        import shutil
+        import tempfile
+        from pathlib import Path
+        from midterms.pipeline import livefeed as F
+        d = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, d)
+        rows = {"house:NY-16": {"state": "NY"}, "house:NJ-07": {"state": "NJ"}}
+
+        def res():
+            return {"house:NY-16": {"votes": {"D": 120000, "R": 67992, "other": 0}, "margin": 27.7},
+                    "house:NJ-07": {"votes": {"D": 1000, "R": 900, "other": 10}, "margin": 5.3}}
+        self.assertEqual(F.undouble(res(), rows, None), [])
+        self.assertEqual(F.undouble(res(), rows, d), [])                     # no county file yet
+        (d / "governor").mkdir()
+        for flag, want in ((False, []), (True, ["house:NY-16"])):
+            (d / "governor" / "ny.json").write_text(json.dumps({"double_counted": flag}))
+            r = res()
+            self.assertEqual(F.undouble(r, rows, d), want)
+        self.assertEqual(r["house:NY-16"], {"votes": {"D": 60000, "R": 33996, "other": 0}, "margin": 27.7})
+        self.assertEqual(r["house:NJ-07"]["votes"], {"D": 1000, "R": 900, "other": 10})
+
+
 class TestCivic(unittest.TestCase):
     def test_fetch_all(self):
         # both searches side by side, each paged, in a fixed order; gzip, and a patient timeout

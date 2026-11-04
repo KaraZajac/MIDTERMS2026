@@ -116,6 +116,7 @@ def _norm(name: str | None) -> str:
     """'Lac Qui Parle' = 'Lac qui Parle', 'Mcleod' = 'McLeod', 'Saint Louis' =
     'St. Louis', 'Doña Ana' = 'Dona Ana', 'De Kalb' = 'DeKalb'."""
     s = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().lower()
+    s = re.sub(r"\s*\(.*\)\s*$", "", s)           # "Albany (Active Registered Voters: 211,266)"
     s = re.sub(r"\bsaint\b", "st", s)
     s = re.sub(r"\b(county|parish|borough)\b", "", s)
     return re.sub(r"[^a-z0-9]", "", s)
@@ -144,6 +145,11 @@ def name_fips(state: str | None, name: str | None, kind: str | None) -> str | No
     return county_names(state or "").get(_norm(name))
 
 
+def aggregate(g: dict | None) -> bool:
+    """New York's feed carries an 'All Counties' row beside its counties."""
+    return _norm((g or {}).get("name")).startswith("allcounties")
+
+
 def regions(c: dict, race: dict) -> tuple[list[dict], list[str]]:
     """A civicAPI race's counties, by our sides; and the names of the regions
     without a usable FIPS (left out)."""
@@ -151,6 +157,8 @@ def regions(c: dict, race: dict) -> tuple[list[dict], list[str]]:
     counties: dict[str, dict] = {}
     dropped: list[str] = []
     for g in (rr.values() if isinstance(rr, dict) else rr):
+        if aggregate(g):
+            continue                                 # the counties again, summed
         fips = str((g or {}).get("fips") or "")
         if not fips.isdigit() or len(fips) < 5:
             fips = (city_fips(race.get("state"), (g or {}).get("name"))
@@ -187,12 +195,24 @@ def _votes(cands) -> int:
     return total
 
 
+def double_counted(c: dict) -> int | None:
+    """The votes of an 'All Counties' row when the race's total is it plus the
+    counties again (civicAPI's New York feed: every race exactly double,
+    checked on NY-12, NY-16, NY-17 and the governor, Nov 4); else None."""
+    rr = c.get("region_results") or {}
+    agg = [g for g in (rr.values() if isinstance(rr, dict) else rr) if aggregate(g)]
+    if len(agg) != 1:
+        return None
+    a, total = _votes(agg[0].get("candidates")), _votes(c.get("candidates"))
+    return a if a and abs(total - 2 * a) <= 0.01 * total else None
+
+
 def coverage(c: dict, regs: list[dict]) -> float | None:
     """The counties' votes as a share of the race's own total (None before
     any votes). Where civicAPI reports below the county level without FIPS
     (Massachusetts' 351 towns), the counties fall short of the total, and a
     map of them would show counted places as empty."""
-    total = _votes(c.get("candidates"))
+    total = _votes(c.get("candidates")) - (double_counted(c) or 0)
     if not total:
         return None
     return sum(sum(g["votes"].values()) for g in regs) / total
@@ -247,7 +267,9 @@ def run(cache: Path, out_dir: Path, *, rows: dict[str, dict] | None = None,
         cov = coverage(c, regs)
         doc = {"generated": fetch.now_utc(), "fetched": fetched, "race": rid, "civic_id": cid,
                "source": {"name": "civicAPI", "url": "https://civicapi.org", "credit": civic.ATTRIBUTION},
-               "total": _votes(c.get("candidates")), "coverage": None if cov is None else round(cov, 3),
+               "total": _votes(c.get("candidates")) - (double_counted(c) or 0),
+               "double_counted": double_counted(c) is not None,
+               "coverage": None if cov is None else round(cov, 3),
                "regions": regs, "dropped": len(dropped), "dropped_names": sorted(dropped)[:60]}
         if cov is not None and not COMPLETE[0] <= cov <= COMPLETE[1]:
             doc["regions"] = []                       # counties that don't add up: no map

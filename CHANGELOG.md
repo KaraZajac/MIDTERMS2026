@@ -17,6 +17,19 @@ model and pipeline that produced it. Automated six-hourly refreshes
   called right), Classic 0.0106, the raters 0.0127, Lite 0.0187, lean only
   0.0264, a coin flip 0.25. The calls so far are mostly safe seats.
 
+### 2026-11-04, after midnight — New York's double count (no model change)
+- civicAPI's New York feed lists each race's counties and an "All
+  Counties" row of the same votes, and its race totals add both, so every
+  New York count was exactly double (NY-16: 187,992 for 93,996; checked on
+  NY-12, NY-16, NY-17 and the governor). Shares and margins were right. Its
+  county names also carry "(Active Registered Voters: …)".
+- The county job leaves the "All Counties" row out, matches the names
+  without the suffix, measures coverage against the real total, and marks
+  the file `double_counted`. While New York's governor file says so, the web
+  server's live job halves every New York race's votes and says so in the
+  credit line; if civicAPI fixes its feed, the next county run clears the
+  mark and the halving stops by itself.
+
 ### 2026-11-03, night — the committed copy never drops calls (no model change)
 - When civicAPI doesn't answer the refresh's run, the committed
   `live.json` used to fall back to Wikipedia's settled races alone. Once

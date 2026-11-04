@@ -344,6 +344,30 @@ def fixture_results(fc: dict, rows: dict, hour_et: float, seed: int = FIXTURE_SE
 # --------------------------------------------------------------------- main
 
 STOOD_IN = {"federal": "House and Senate results", "governors": "governors' results"}
+HALVED_NOTE = "New York's vote counts halved: civicAPI's New York feed counts every vote twice"
+
+
+def undouble(res: dict[str, dict], rows: dict[str, dict], counties_dir: Path | None) -> list[str]:
+    """civicAPI's New York feed lists each race's counties and an 'All
+    Counties' row of the same votes, so every New York total is exactly
+    double (NY-12, NY-16, NY-17 and the governor checked, Nov 4). While the
+    county job still finds that in New York's governor race
+    (counties/governor/ny.json: double_counted), every New York race's votes
+    are halved; shares and margins don't change. The races halved."""
+    if counties_dir is None:
+        return []
+    try:
+        flag = json.loads((counties_dir / "governor" / "ny.json").read_text()).get("double_counted")
+    except (OSError, ValueError, AttributeError):
+        return []
+    if flag is not True:
+        return []
+    out = []
+    for rid, r in res.items():
+        if (rows.get(rid) or {}).get("state") == "NY" and isinstance(r.get("votes"), dict):
+            r["votes"] = {k: round(v / 2) for k, v in r["votes"].items()}
+            out.append(rid)
+    return sorted(out)
 CHAMBERS = ("house", "senate", "governor")
 HISTORY_KEPT = 1500
 
@@ -414,7 +438,7 @@ def main(out: str | None = None, previous: str | None = None, draws: int | None 
     rows = race_rows()
     rows = {rid: {**rows.get(rid, {}), **{k: m[k] for k in ("state", "d_cand", "r_cand", "d_side") if m.get(k)}}
             for rid, m in fc["races"].items()}
-    stood_in = {}
+    stood_in, halved = {}, []
     if fixture is not None:
         res, fetched = fixture_results(fc, rows, fixture, seed=seed), None
         prev = json.loads(Path(previous).read_text()) if previous else None      # a fixture sequence
@@ -427,6 +451,7 @@ def main(out: str | None = None, previous: str | None = None, draws: int | None 
             res = civic.results(civic_races, rows)
             if len(res) < MIN_MAPPED:
                 raise SystemExit(f"civicapi: only {len(res)} of {len(rows)} races mapped — not writing")
+            halved = undouble(res, rows, Path(out).parent / "counties" if out else None)
         except SystemExit as e:
             # the web server writes nothing (its last good file stays up). The
             # committed copy carries on with Wikipedia's settled races alone only
@@ -438,7 +463,7 @@ def main(out: str | None = None, previous: str | None = None, draws: int | None 
             if out is not None or not wiki or had_calls:
                 raise
             print(f"  ! {e} — calls from Wikipedia's results boxes only")
-            res, fetched, stood_in = {}, None, {}
+            res, fetched, stood_in, halved = {}, None, {}, []
     doc = assemble(fc, snapshot, of_record, rows, res, fetched, prev, generated,
                    draws=draws, fixture=fixture is not None, wiki=wiki if fixture is None else None)
     doc["history"] = history(prev, doc)
@@ -450,6 +475,9 @@ def main(out: str | None = None, previous: str | None = None, draws: int | None 
         doc["source"]["note"] += "".join(f"; {STOOD_IN[name]} as of {et_clock(when)}"
                                          for name, when in sorted(stood_in.items()))
         print(f"  ! civicAPI: {', '.join(sorted(stood_in))} from the last answer ({min(stood_in.values())})")
+    if halved:
+        doc["source"]["note"] += f"; {HALVED_NOTE}"
+        print(f"  ! civicAPI: {len(halved)} New York races halved (its feed counts every vote twice)")
     text = json.dumps(doc, separators=(",", ":"), ensure_ascii=False)
     path = Path(out) if out else SITE / "live.json"
     path.write_text(text)

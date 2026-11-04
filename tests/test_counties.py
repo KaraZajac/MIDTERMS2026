@@ -91,6 +91,18 @@ class TestCounties(unittest.TestCase):
                          ["27073", "27077", "27085", "27137"])
         # a name two shapes share (Virginia's Richmond) only through the city table
         self.assertIsNone(counties.name_fips("VA", "Richmond", "County"))
+        # New York: names with a registered-voters suffix, and an "All Counties" row
+        # that repeats the counties (the race total counts every vote twice)
+        nyd = {"candidates": [cand("Jon Ossoff", "Democratic", 180), cand("Mike Collins", "Republican", 20)],
+               "region_results": {
+                   "all": county(None, "All Counties (Active Registered Voters: 12,665,686)", 50.0, 90, 10),
+                   "k": county(None, "Kings (Active Registered Voters: 1,500,000)", 60.0, 60, 0),
+                   "q": county(None, "Queens (Active Registered Voters: 1,200,000)", 40.0, 30, 10)}}
+        regs, dropped = counties.regions(nyd, ny)
+        self.assertEqual(([g["fips"] for g in regs], dropped), (["36047", "36081"], []))
+        self.assertEqual(counties.double_counted(nyd), 100)
+        self.assertEqual(counties.coverage(nyd, regs), 1.0)
+        self.assertIsNone(counties.double_counted({"candidates": [cand("A", "D", 100)], "region_results": {}}))
         # a side that doesn't match: no margin
         odd = {"region_results": {"x": {"fips": "13001", "percent_reporting": 5,
                                         "candidates": [cand("Somebody Else", "Libertarian", 9)]}}}
