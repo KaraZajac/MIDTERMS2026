@@ -102,7 +102,7 @@ races:
   label: KY-01
   winner: R
   winner_name: James R. Comer
-  margin: -35.14
+  margin: -35.19
   p_winner: 0.9999
   p_d_side:
     lite: 0.0006
@@ -186,7 +186,7 @@ races:
   label: Kentucky
   winner: R
   winner_name: Andy Barr
-  margin: -12.32
+  margin: -12.35
   p_winner: 0.997
   p_d_side:
     lite: 0.1528
@@ -590,7 +590,7 @@ others:
         calls: 1/1
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T16:40:01Z'
+  asof: '2026-11-04T17:10:01Z'
   called: 421
   scoreboard:
     lite:
