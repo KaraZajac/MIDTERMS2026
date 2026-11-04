@@ -10,7 +10,7 @@
 // night, when civicAPI's desk called races slowly): the leader's lighter colour
 // under stripes, like a seat bar's projected segments (data-res-lead). It is
 // never a call, so the label says "Leading", never "wins" or "projected".
-import { ID, clock, reportingText, winnerName, winnerParty, partyKey, gainText, decided, windowOf, closingText, sideName, n } from "./live-util.js";
+import { ID, clock, reportingText, winnerName, winnerParty, partyKey, gainText, decided, windowOf, closingText, sideName, n, settled } from "./live-util.js";
 
 const FIGS = "[data-live-map]";
 const CELLS = "[data-res-id], #seat-strip .sq[data-id]";
@@ -35,7 +35,9 @@ function paintCell(el, data, N) {
   if (!r || typeof r !== "object") return;
   const title = N?.[id]?.[0] ?? id.split(":")[1];
   const done = decided(r) && r.winner;
-  const party = done ? winnerParty(r, N, id) : null;
+  // An uncontested seat with a count between two candidates: who won or leads it.
+  const s = done && r.status === "uncontested" ? settled(r, (x) => winnerName(N, id, x, r)) : null;
+  const party = done ? (s?.party ?? winnerParty(r, N, id)) : null;
   el.dataset.res = done ? partyKey(party) : "u";
   el.toggleAttribute("data-res-flip", Boolean(done && r.flip === true));
   el.toggleAttribute("data-res-counting", r.status === "counting");
@@ -45,9 +47,11 @@ function paintCell(el, data, N) {
 
   let value, label = title;
   if (done) {
-    value = r.status === "uncontested" ? `${winnerName(N, id, r.winner, r)}, uncontested` : `${winnerName(N, id, r.winner, r)} wins`;
+    value = s ? s.text : r.status === "uncontested" ? `${winnerName(N, id, r.winner, r)}, uncontested` : `${winnerName(N, id, r.winner, r)} wins`;
     const bits = [title];
     if (r.status === "called" && r.called_at) bits.push(`called ${clock(r.called_at)} ET`);
+    if (s?.at) bits.push(`called ${clock(s.at)} ET`);
+    if (s?.same) bits.push("same-party race");
     if (r.flip === true) bits.push(gainText(party, r.held));
     if (r.upset === true) bits.push("upset");
     label = bits.join(" · ");

@@ -113,11 +113,15 @@ export function sideName(N, id, side) {
   if (side === "R" && row?.[4]) return `${row[4]} (${short(row[5])})`;
   return null;
 }
+/** "Steve Scalise (R)": a winner outside our sides, from winner_name and party. */
+export function otherName(r) {
+  if (!r?.winner_name) return null;
+  const nm = String(r.winner_name);
+  return typeof r.party === "string" && r.party ? `${nm} (${short(r.party)})` : nm;
+}
 export function winnerName(N, id, side, race) {
   const s = side === "D" || side === "R" ? sideName(N, id, side) : null;
-  if (s) return s;
-  if (race?.winner_name) return String(race.winner_name);
-  return "A candidate";
+  return s ?? otherName(race) ?? "A candidate";
 }
 // First rounds (docs/site-data.md, "First rounds"): Louisiana's House races
 // put every candidate on one ballot, so our D-side and R-side needn't be the
@@ -132,6 +136,28 @@ export function topTwo(r) {
 export const candName = (c) => (typeof c.party === "string" && c.party ? `${c.name.trim()} (${short(c.party)})` : c.name.trim());
 /** "Moore (D) vs. Firment (R)" from a usable top_two, "" from an unusable one. */
 export const pairText = (t2) => (t2?.length === 2 ? t2.map(candName).join(" vs. ") : "");
+
+/** An uncontested race (its party settled before Election Day) with a count
+ *  between two candidates, which live.json gives a top_two too: California's
+ *  same-party races, where our named candidate can lose (CA-34, Nov 4).
+ *  winner "other" is a call for someone else; winner "D"/"R" means ours was
+ *  called or leads, so whether ours leads is read off the count: top_two's
+ *  leader has exactly our side's votes. `who(side)` names "D", "R" or "other".
+ *  {text: "Eric Jones (D) leads", party: whose colour, same: one party's two
+ *  candidates, at: called_at when it says "wins"}, or null. */
+export function settled(r, who) {
+  const t2 = topTwo(r);
+  if (r?.status !== "uncontested" || t2?.length !== 2) return null;
+  const same = typeof t2[0].party === "string" && t2[0].party !== "" && t2[0].party === t2[1].party;
+  const at = iso(r.called_at) ? r.called_at : null;
+  const mine = typeof r.party === "string" && r.party ? r.party : null;
+  const a = n(t2[0].votes), b = n(t2[1].votes);
+  if (r.winner === "other") return { text: `${who("other")} wins`, party: mine, same, at };
+  if (a === b) return { text: "Tied", party: mine, same, at: null };
+  const ours = r.winner === "D" || r.winner === "R" ? n(r.votes?.[r.winner]) : 0;
+  if (ours > 0 && a === ours) return { text: `${who(r.winner)} ${at ? "wins" : "leads"}`, party: mine, same, at };
+  return { text: `${candName(t2[0])} leads`, party: t2[0].party || mine, same, at: null };
+}
 
 /** Label for the side that leads a margin: "D", "R", or a surname for independents. */
 export function sideLabel(N, id, side) {

@@ -16,8 +16,9 @@ import { pct, pct1, margin, url } from "../lib/format.js";
 import {
   h, ID, TITLE, NOUN, BOARD, clock, stamp, n, sum, fmtInt, reporting, reportingText, tag, credit, expectations,
   raceLink, winnerName, gainText, setSkew, schedule, closeClock, nextClosing, closedCount, stale,
-  majorityLine, changedLine, seatBuckets, topTwo, candName, pairText, partyKey,
+  majorityLine, changedLine, seatBuckets, topTwo, candName, pairText, partyKey, otherName, settled, PLURAL,
 } from "./live-util.js";
+const ADJ = { D: "Democratic", R: "Republican" };
 import { renderBoard } from "./live-board.js";
 import { renderHero } from "./live-hero.js";
 import { renderGauges } from "./live-gauges.js";
@@ -272,18 +273,24 @@ function awaiting(box, data) {
 function raceBanner(box, data) {
   const id = box.dataset.race;
   const r = data.races?.[id];
-  if (!r || typeof r !== "object" || data.status === "awaiting" || r.status === "uncontested") return null;
+  if (!r || typeof r !== "object" || data.status === "awaiting") return null;
   const side = {
     D: { name: box.dataset.dname, tag: box.dataset.dtag, key: box.dataset.dkey, label: box.dataset.dlabel },
     R: { name: box.dataset.rname, tag: box.dataset.rtag, key: box.dataset.rkey, label: box.dataset.rlabel },
   };
-  const who = (s) => (side[s]?.name ? `${side[s].name} (${side[s].tag})` : r.winner_name ? String(r.winner_name) : "Another candidate");
+  const who = (s) => (side[s]?.name ? `${side[s].name} (${side[s].tag})` : otherName(r) ?? "Another candidate");
   const called = r.status === "called";
   // A first round (Louisiana's House): the top two, not our sides, are the race.
   const t2 = topTwo(r);
+  // An uncontested seat shows only with a count between two candidates
+  // (California's same-party races): who won or leads it.
+  const fixed = r.status === "uncontested" ? settled(r, who) : null;
+  if (r.status === "uncontested" && !fixed) return null;
 
   let status;
-  if (called) {
+  if (fixed) {
+    status = [h("strong", {}, fixed.text), fixed.at ? ` · called ${clock(fixed.at)} ET` : "", fixed.same ? [" · ", h("span", { class: "nowrap" }, "same-party race")] : ""];
+  } else if (called) {
     status = [
       h("strong", {}, `${who(r.winner)} wins`),
       r.called_at ? ` · called ${clock(r.called_at)} ET` : "",
@@ -331,7 +338,10 @@ function raceBanner(box, data) {
   const pPre = typeof r.p_pre === "number" ? r.p_pre : null;
   const pLive = typeof r.p_live === "number" ? r.p_live : null;
   let chance = null;
-  if (called && (r.winner === "D" || r.winner === "R") && pPre != null) {
+  if (fixed) {
+    const p = fixed.same ? t2[0].party : null;
+    chance = ADJ[p] ? `Both candidates are ${PLURAL[p]}, so the seat stays ${ADJ[p]} either way.` : null;
+  } else if (called && (r.winner === "D" || r.winner === "R") && pPre != null) {
     const pw = r.winner === "D" ? pPre : 1 - pPre;
     chance = `Before results, the forecast gave ${side[r.winner].name || "the winner"} ${pct(pw)}.`;
   } else if (!called && t2) {

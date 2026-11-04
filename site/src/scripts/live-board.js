@@ -7,7 +7,7 @@ import { pct, margin, STATES, surname } from "../lib/format.js";
 import {
   h, ID, tag, clock, reportingText, raceLink, sideName, sideLabel, winnerName, winnerParty, partyKey,
   gainText, decided, windowOf, closingText, stateOf, expectations, n, SEGS, segOf, wonSeg, segLabel,
-  topTwo, candName, pairText,
+  topTwo, candName, pairText, settled,
 } from "./live-util.js";
 
 const VIEWS = { senate: "Senate", governor: "Governors", house: "House" };
@@ -160,12 +160,16 @@ function row(id, r, data, N) {
   const sub = [];
 
   if (decided(r) && r.winner) {
-    const party = winnerParty(r, N, id);
+    // An uncontested seat with a count between two candidates: who won or leads it.
+    const s = st === "uncontested" ? settled(r, (x) => winnerName(N, id, x, r)) : null;
+    const party = s?.party ?? winnerParty(r, N, id);
     const who = winnerName(N, id, r.winner, r);
     main = [
       h("span", { class: `key ${partyKey(party)}`, "aria-hidden": "true" }),
-      h("strong", {}, st === "uncontested" ? `${who}, uncontested` : `${who} wins`),
+      h("strong", {}, s ? s.text : st === "uncontested" ? `${who}, uncontested` : `${who} wins`),
       st === "called" && r.called_at ? h("span", { class: "brow-when" }, ` · called ${clock(r.called_at)} ET`) : null,
+      s?.at ? h("span", { class: "brow-when" }, ` · called ${clock(s.at)} ET`) : null,
+      s?.same ? h("span", { class: "brow-when" }, " · ", h("span", { class: "nowrap" }, "same-party race")) : null,
       r.called_by === "wikipedia" ? h("span", { class: "brow-when" }, " per Wikipedia") : null,
       r.flip === true ? tag(gainText(party, r.held), "gain") : null,
       r.upset === true ? tag("Upset", "upset") : null,
@@ -233,7 +237,7 @@ const GROUPS = [
   ["called", "Called", "Newest call first."],
   ["runoff", "Headed to a runoff", ""],
   ["awaiting", "Not yet", "Closest races first, by the forecast."],
-  ["uncontested", "Uncontested", "Decided before Election Day."],
+  ["uncontested", "Uncontested", "Settled for one party before Election Day."],
 ];
 const EMPTY = {
   all: "No race matches that.",
