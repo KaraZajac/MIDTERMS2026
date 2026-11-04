@@ -183,39 +183,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T06:05:01Z'
-  called: 359
+  asof: '2026-11-04T06:14:01Z'
+  called: 370
   scoreboard:
     lite:
-      n: 359
-      brier: 0.0206
-      log_loss: 0.0822
-      calls: 353/359
+      n: 370
+      brier: 0.023
+      log_loss: 0.0886
+      calls: 361/370
     classic:
-      n: 359
-      brier: 0.0142
-      log_loss: 0.0542
-      calls: 354/359
+      n: 370
+      brier: 0.0174
+      log_loss: 0.0633
+      calls: 363/370
     deluxe:
-      n: 359
-      brier: 0.0127
-      log_loss: 0.0428
-      calls: 353/359
+      n: 370
+      brier: 0.0172
+      log_loss: 0.0558
+      calls: 361/370
     ratings:
-      n: 359
-      brier: 0.0165
-      log_loss: 0.055
-      calls: 351/359
+      n: 370
+      brier: 0.0227
+      log_loss: 0.0735
+      calls: 359/370
     lean-only:
-      n: 359
-      brier: 0.0291
-      log_loss: 0.1103
-      calls: 345/359
+      n: 370
+      brier: 0.0323
+      log_loss: 0.1183
+      calls: 354/370
     coin-flip:
-      n: 359
+      n: 370
       brier: 0.25
       log_loss: 0.6931
-      calls: 138/359
+      calls: 142/370
   races:
   - - governor:AR
     - R
@@ -286,6 +286,9 @@ provisional:
   - - governor:SD
     - R
     - 0.9987
+  - - governor:TN
+    - R
+    - 0.9941
   - - governor:TX
     - D
     - 0.2898
@@ -385,6 +388,9 @@ provisional:
   - - house:CA-26
     - D
     - 0.9998
+  - - house:CA-27
+    - D
+    - 0.9999
   - - house:CA-28
     - D
     - 1.0
@@ -416,6 +422,9 @@ provisional:
     - D
     - 1.0
   - - house:CA-46
+    - D
+    - 0.9999
+  - - house:CA-51
     - D
     - 0.9999
   - - house:CA-52
@@ -640,6 +649,9 @@ provisional:
   - - house:IN-04
     - R
     - 0.9997
+  - - house:IN-05
+    - D
+    - 0.0679
   - - house:IN-06
     - R
     - 0.9998
@@ -727,6 +739,9 @@ provisional:
   - - house:MI-02
     - R
     - 0.9998
+  - - house:MI-03
+    - D
+    - 0.9995
   - - house:MI-05
     - R
     - 0.9997
@@ -1081,6 +1096,12 @@ provisional:
   - - house:TX-07
     - D
     - 1.0
+  - - house:TX-08
+    - R
+    - 0.9994
+  - - house:TX-10
+    - R
+    - 0.9945
   - - house:TX-11
     - R
     - 0.9998
@@ -1108,6 +1129,12 @@ provisional:
   - - house:TX-21
     - R
     - 0.9986
+  - - house:TX-23
+    - D
+    - 0.2531
+  - - house:TX-26
+    - R
+    - 0.9996
   - - house:TX-28
     - D
     - 0.9719
@@ -1186,6 +1213,12 @@ provisional:
   - - house:WA-10
     - D
     - 0.9999
+  - - house:WI-01
+    - D
+    - 0.4317
+  - - house:WI-03
+    - D
+    - 0.7123
   - - house:WI-04
     - D
     - 1.0
