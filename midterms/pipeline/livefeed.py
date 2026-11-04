@@ -420,6 +420,7 @@ def main(out: str | None = None, previous: str | None = None, draws: int | None 
         prev = json.loads(Path(previous).read_text()) if previous else None      # a fixture sequence
     else:
         wiki = wikipedia_calls(fc)
+        prev = _previous(Path(out) if out else None, previous)
         try:
             # the web server (--out) keeps each search's last answer beside its live.json
             civic_races, fetched, stood_in = civic.fetch_all(cache=Path(out).parent if out else None)
@@ -427,13 +428,17 @@ def main(out: str | None = None, previous: str | None = None, draws: int | None 
             if len(res) < MIN_MAPPED:
                 raise SystemExit(f"civicapi: only {len(res)} of {len(rows)} races mapped — not writing")
         except SystemExit as e:
-            # the web server writes nothing (its last good file stays up); the
-            # committed copy carries on with Wikipedia's settled races alone
-            if out is not None or not wiki:
+            # the web server writes nothing (its last good file stays up). The
+            # committed copy carries on with Wikipedia's settled races alone only
+            # if civicAPI never answered tonight: a picture from Wikipedia alone,
+            # newer than the server's last good one but with far fewer calls,
+            # would take its place on the page and retract calls civicAPI made
+            had_calls = any(r.get("status") == "called" and not r.get("called_by")
+                            for r in ((prev or {}).get("races") or {}).values())
+            if out is not None or not wiki or had_calls:
                 raise
             print(f"  ! {e} — calls from Wikipedia's results boxes only")
             res, fetched, stood_in = {}, None, {}
-        prev = _previous(Path(out) if out else None, previous)
     doc = assemble(fc, snapshot, of_record, rows, res, fetched, prev, generated,
                    draws=draws, fixture=fixture is not None, wiki=wiki if fixture is None else None)
     doc["history"] = history(prev, doc)

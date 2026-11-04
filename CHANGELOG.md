@@ -7,6 +7,15 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-03, night — the committed copy never drops calls (no model change)
+- When civicAPI doesn't answer the refresh's run, the committed
+  `live.json` used to fall back to Wikipedia's settled races alone. Once
+  Wikipedia settles a few races, such a copy would be newer than the web
+  server's last good one but hold far fewer calls, and the page, which
+  shows the newer file, would retract calls civicAPI had made. The
+  fallback now applies only while civicAPI hasn't answered at all;
+  otherwise the run writes nothing and the last good copy stays.
+
 ### 2026-11-03, night — the chances through the night (no model change)
 - `live.json` keeps `history`: each chamber's chance of Democratic
   control given the calls, and the number of races called, whenever
