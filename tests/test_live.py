@@ -92,6 +92,40 @@ RACES = {"senate:ME": {"id": "senate:ME", "state": "ME", "d_cand": "Troy Jackson
          "senate:GA": {"id": "senate:GA", "state": "GA", "d_cand": "Jon Ossoff", "r_cand": "Mike Collins"}}
 
 
+class TestHistory(unittest.TestCase):
+    """live.json's `history`: the chances of control through the night."""
+
+    @staticmethod
+    def doc(t, live, called, races=None, events=None):
+        ch = {c: {"pre": {"p_control": {"D": p}}, "live": {"p_control": {"D": q}}}
+              for c, p, q in zip(("house", "senate", "governor"), (0.9461, 0.7672, 0.8231), live)}
+        return {"generated": t, "chambers": ch, "counts": {"called": called},
+                "races": races or {}, "events": events or []}
+
+    def test_seeded_from_the_forecast_and_the_calls_in_events(self):
+        from midterms.pipeline import livefeed as F
+        races = {"a": {"status": "called", "called_at": "T1"}, "b": {"status": "called", "called_at": "T1"},
+                 "c": {"status": "called", "called_at": "T2"}, "d": {"status": "counting"}}
+        after1 = {"house": 0.95, "senate": 0.77, "governor": 0.83}
+        after2 = {"house": 0.954, "senate": 0.7771, "governor": 0.8331}
+        events = [{"t": "T2", "type": "call", "after": after2},                 # newest first
+                  {"t": "T1", "type": "call", "after": after1}, {"t": "T1", "type": "call", "after": after1}]
+        d = self.doc("T3", (0.954, 0.777, 0.833), 3, races, events)
+        h = F.history(None, d)
+        self.assertEqual(h, [[F.DEADLINE, 0.946, 0.767, 0.823, 0],
+                             ["T1", 0.95, 0.77, 0.83, 2],
+                             ["T2", 0.954, 0.777, 0.833, 3]])       # T3 changed nothing: no point
+        # carried on: a change adds a point, no change adds none
+        d2 = self.doc("T4", (0.96, 0.777, 0.833), 4)
+        h2 = F.history({"history": h}, d2)
+        self.assertEqual(h2[-1], ["T4", 0.96, 0.777, 0.833, 4])
+        self.assertEqual(F.history({"history": h2}, self.doc("T5", (0.96, 0.777, 0.833), 4)), h2)
+        # capped, oldest dropped
+        long = [["t%d" % i, 0.5, 0.5, 0.5, i] for i in range(F.HISTORY_KEPT + 10)]
+        h3 = F.history({"history": long}, self.doc("T6", (0.1, 0.1, 0.1), 9999))
+        self.assertEqual((len(h3), h3[-1][0]), (F.HISTORY_KEPT, "T6"))
+
+
 class TestCivic(unittest.TestCase):
     def test_fetch_all(self):
         # both searches side by side, each paged, in a fixed order; gzip, and a patient timeout

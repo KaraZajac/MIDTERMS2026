@@ -264,6 +264,11 @@ the newer `generated`. Every string is plain text.
             p_winner_pre?, upset?, party?, flip?, after: {house, senate, governor}}]
                               // newest first (120 kept); `after` is
                               // P(D control) once that call was in
+  history: [[t, house, senate, governor, called]]
+                              // oldest first: P(D control) given the calls
+                              // (3 decimals) and the number of races called,
+                              // whenever either changed, from the forecast of
+                              // record at the deadline on (1,500 kept)
 }
 ```
 

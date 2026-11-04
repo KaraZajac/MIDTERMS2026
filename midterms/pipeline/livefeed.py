@@ -344,6 +344,38 @@ def fixture_results(fc: dict, rows: dict, hour_et: float, seed: int = FIXTURE_SE
 # --------------------------------------------------------------------- main
 
 STOOD_IN = {"federal": "House and Senate results", "governors": "governors' results"}
+CHAMBERS = ("house", "senate", "governor")
+HISTORY_KEPT = 1500
+
+
+def history(prev: dict | None, doc: dict) -> list[list]:
+    """[t, house, senate, governor, called]: each chamber's chance of
+    Democratic control given the calls (3 decimals) and the number of races
+    called, whenever either changed, oldest first, from the forecast of
+    record on. Carried over from the previous live.json; a file without one
+    starts from the forecast of record and the calls still in its events."""
+    def r3(x) -> float:
+        return round(float(x), 3)
+
+    pts = [p for p in ((prev or {}).get("history") or []) if isinstance(p, list) and len(p) == 5]
+    if not pts:
+        pts = [[DEADLINE, *(r3(doc["chambers"][c]["pre"]["p_control"].get("D", 0)) for c in CHAMBERS), 0]]
+        after = {}                                     # each call time's chances (one per batch)
+        for e in doc.get("events") or []:
+            a = e.get("after") or {}
+            if e.get("type") == "call" and e.get("t") and all(c in a for c in CHAMBERS):
+                after.setdefault(e["t"], a)
+        times = sorted(r.get("called_at") or "" for r in doc["races"].values() if r.get("status") == "called")
+        for t in sorted(after):
+            n = sum(1 for x in times if x and x <= t)
+            pt = [t, *(r3(after[t][c]) for c in CHAMBERS), n]
+            if pt[1:] != pts[-1][1:]:
+                pts.append(pt)
+    now = [doc["generated"], *(r3(doc["chambers"][c]["live"]["p_control"].get("D", 0)) for c in CHAMBERS),
+           doc["counts"]["called"]]
+    if now[1:] != pts[-1][1:]:
+        pts.append(now)
+    return pts[-HISTORY_KEPT:]
 
 
 def et_clock(iso: str) -> str:
@@ -401,6 +433,7 @@ def main(out: str | None = None, previous: str | None = None, draws: int | None 
         prev = _previous(Path(out) if out else None, previous)
     doc = assemble(fc, snapshot, of_record, rows, res, fetched, prev, generated,
                    draws=draws, fixture=fixture is not None, wiki=wiki if fixture is None else None)
+    doc["history"] = history(prev, doc)
     if fixture is None and fetched is None:
         doc["source"]["note"] = "civicAPI was unreachable: calls from Wikipedia's results boxes, no counts"
     elif stood_in:

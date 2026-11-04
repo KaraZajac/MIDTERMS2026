@@ -7,6 +7,14 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-03, night — the chances through the night (no model change)
+- `live.json` keeps `history`: each chamber's chance of Democratic
+  control given the calls, and the number of races called, whenever
+  either changed, from the forecast of record on, for a chart of the
+  night. Each file carries the previous file's history on; the web
+  server's first one started it from the calls still in `events` (back
+  to 00:41 UTC).
+
 ### 2026-11-03, night — county results of the statewide races (no model change)
 - `midterms counties` writes each Senate and governor race's results by
   county (civicAPI's `race/{id}`), one file per race, for county maps on
