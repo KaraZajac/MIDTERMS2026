@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 11
+resolved: 13
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-01
 - house:CA-02
 - house:CA-03
-open_count: 478
+open_count: 476
 scoreboard:
   lite:
-    n: 11
-    brier: 0.023
-    log_loss: 0.1072
-    calls: 11/11
+    n: 13
+    brier: 0.0407
+    log_loss: 0.1567
+    calls: 12/13
   classic:
-    n: 11
-    brier: 0.023
-    log_loss: 0.0859
-    calls: 11/11
+    n: 13
+    brier: 0.0499
+    log_loss: 0.1502
+    calls: 12/13
   deluxe:
-    n: 11
-    brier: 0.0207
-    log_loss: 0.0674
-    calls: 11/11
+    n: 13
+    brier: 0.0592
+    log_loss: 0.1601
+    calls: 12/13
   ratings:
-    n: 11
-    brier: 0.023
-    log_loss: 0.0698
-    calls: 10/11
+    n: 13
+    brier: 0.0737
+    log_loss: 0.2017
+    calls: 11/13
   lean-only:
-    n: 11
-    brier: 0.059
-    log_loss: 0.166
-    calls: 10/11
+    n: 13
+    brier: 0.0821
+    log_loss: 0.2216
+    calls: 11/13
   coin-flip:
-    n: 11
+    n: 13
     brier: 0.25
     log_loss: 0.6931
-    calls: 8/11
+    calls: 8/13
 races:
 - id: house:KY-01
   slug: house/ky-01
@@ -169,6 +169,30 @@ races:
     classic: 0.5359
     deluxe: 0.5275
   called_right: true
+- id: house:MN-01
+  slug: house/mn-01
+  label: MN-01
+  winner: D
+  winner_name: Jake Johnson
+  margin: 0.1
+  p_winner: 0.2643
+  p_d_side:
+    lite: 0.4951
+    classic: 0.3711
+    deluxe: 0.2643
+  called_right: false
+- id: house:MN-02
+  slug: house/mn-02
+  label: MN-02
+  winner: D
+  winner_name: Matt Little
+  margin: 14.3
+  p_winner: 0.9909
+  p_d_side:
+    lite: 0.8564
+    classic: 0.9841
+    deluxe: 0.9909
+  called_right: true
 - id: senate:ID
   slug: senate/id
   label: Idaho
@@ -239,112 +263,112 @@ others:
   raters:
   - name: Cook
     source: The Cook Political Report
-    n: 11
+    n: 13
     theirs:
-      n: 11
-      brier: 0.0228
-      log_loss: 0.0653
-      calls: 10/10
+      n: 13
+      brier: 0.0736
+      log_loss: 0.1979
+      calls: 11/12
       tossups: 1
     ours:
-      n: 11
-      brier: 0.0207
-      log_loss: 0.0674
-      calls: 11/11
+      n: 13
+      brier: 0.0592
+      log_loss: 0.1601
+      calls: 12/13
     competitive:
-      n: 3
+      n: 5
       theirs:
-        n: 3
-        brier: 0.0835
-        log_loss: 0.239
-        calls: 2/2
+        n: 5
+        brier: 0.1912
+        log_loss: 0.5143
+        calls: 3/4
         tossups: 1
       ours:
-        n: 3
-        brier: 0.0761
-        log_loss: 0.2434
-        calls: 3/3
+        n: 5
+        brier: 0.1539
+        log_loss: 0.414
+        calls: 4/5
   - name: DDHQ
     source: Decision Desk HQ
-    n: 11
+    n: 13
     theirs:
-      n: 11
-      brier: 0.0643
-      log_loss: 0.1751
-      calls: 10/11
+      n: 13
+      brier: 0.1086
+      log_loss: 0.289
+      calls: 11/13
       tossups: 0
     ours:
-      n: 11
-      brier: 0.0207
-      log_loss: 0.0674
-      calls: 11/11
+      n: 13
+      brier: 0.0592
+      log_loss: 0.1601
+      calls: 12/13
     competitive:
-      n: 3
+      n: 5
       theirs:
-        n: 3
-        brier: 0.2354
-        log_loss: 0.6261
-        calls: 2/3
+        n: 5
+        brier: 0.2823
+        log_loss: 0.7418
+        calls: 3/5
         tossups: 0
       ours:
-        n: 3
-        brier: 0.0761
-        log_loss: 0.2434
-        calls: 3/3
+        n: 5
+        brier: 0.1539
+        log_loss: 0.414
+        calls: 4/5
   - name: Inside Elections
     source: Inside Elections
-    n: 11
+    n: 13
     theirs:
-      n: 11
-      brier: 0.0251
-      log_loss: 0.0811
-      calls: 10/10
+      n: 13
+      brier: 0.0755
+      log_loss: 0.2113
+      calls: 11/12
       tossups: 1
     ours:
-      n: 11
-      brier: 0.0207
-      log_loss: 0.0674
-      calls: 11/11
+      n: 13
+      brier: 0.0592
+      log_loss: 0.1601
+      calls: 12/13
     competitive:
-      n: 3
+      n: 5
       theirs:
-        n: 3
-        brier: 0.0921
-        log_loss: 0.2972
-        calls: 2/2
+        n: 5
+        brier: 0.1964
+        log_loss: 0.5492
+        calls: 3/4
         tossups: 1
       ours:
-        n: 3
-        brier: 0.0761
-        log_loss: 0.2434
-        calls: 3/3
+        n: 5
+        brier: 0.1539
+        log_loss: 0.414
+        calls: 4/5
   - name: Sabato
     source: Sabato's Crystal Ball
-    n: 11
+    n: 13
     theirs:
-      n: 11
-      brier: 0.0665
-      log_loss: 0.1845
-      calls: 10/11
+      n: 13
+      brier: 0.1105
+      log_loss: 0.2988
+      calls: 11/13
       tossups: 0
     ours:
-      n: 11
-      brier: 0.0207
-      log_loss: 0.0674
-      calls: 11/11
+      n: 13
+      brier: 0.0592
+      log_loss: 0.1601
+      calls: 12/13
     competitive:
-      n: 3
+      n: 5
       theirs:
-        n: 3
-        brier: 0.2438
-        log_loss: 0.6764
-        calls: 2/3
+        n: 5
+        brier: 0.2874
+        log_loss: 0.7767
+        calls: 3/5
         tossups: 0
       ours:
-        n: 3
-        brier: 0.0761
-        log_loss: 0.2434
-        calls: 3/3
+        n: 5
+        brier: 0.1539
+        log_loss: 0.414
+        calls: 4/5
   - name: FiftyPlusOne
     source: FiftyPlusOne
     n: 5
@@ -590,7 +614,7 @@ others:
         calls: 1/1
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T21:10:01Z'
+  asof: '2026-11-04T21:40:01Z'
   called: 435
   scoreboard:
     lite:
