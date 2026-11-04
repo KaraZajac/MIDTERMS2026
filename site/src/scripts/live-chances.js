@@ -81,12 +81,8 @@ function stepsFor(H, i, tEnd) {
     const next = H.slice(k + 1).find((p) => typeof p[i] === "number");
     const to = next ? Date.parse(next[0]) : tEnd;
     if (to <= X0) continue;
-    const prev = out[out.length - 1];
-    if (prev && prev.v === v) {
-      prev.to = to; // same chance: one flat step (the call count rides along)
-      prev.called = H[k][4];
-      continue;
-    }
+    // One step per point, even when the chance didn't move, so each tooltip's
+    // time and call count belong together.
     out.push({ from: Math.max(t, X0), to, v, called: H[k][4], t });
   }
   return out;
