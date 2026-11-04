@@ -3,10 +3,11 @@
 // filtered to called, counting, not yet, changed hands or upsets; narrowed by
 // a state, district or candidate. The view lives in the URL
 // (?chamber=house&show=flips&q=PA), so it can be linked and survives a reload.
-import { pct, margin, STATES } from "../lib/format.js";
+import { pct, margin, STATES, surname } from "../lib/format.js";
 import {
   h, ID, tag, clock, reportingText, raceLink, sideName, sideLabel, winnerName, winnerParty, partyKey,
   gainText, decided, windowOf, closingText, stateOf, expectations, n, SEGS, segOf, wonSeg, segLabel,
+  topTwo, candName, pairText,
 } from "./live-util.js";
 
 const VIEWS = { senate: "Senate", governor: "Governors", house: "House" };
@@ -98,7 +99,11 @@ const calledAt = (r) => (typeof r.called_at === "string" ? Date.parse(r.called_a
 const byCalled = (a, b) => calledAt(b[1]) - calledAt(a[1]) || byClose(a, b);
 
 // "PA", "pa-7", "PA 07", "Pennsylvania", "Fetterman": every word has to match.
-function matcher(q, N) {
+// Names only the live file has count too: a winner outside our sides
+// (Scalise) and a first round's top two.
+const liveNames = (r) =>
+  [r?.winner_name, ...(Array.isArray(r?.top_two) ? r.top_two.map((c) => c?.name) : [])].filter((x) => typeof x === "string");
+function matcher(q, N, races) {
   const whole = q.trim().toLowerCase();
   if (!whole) return () => true;
   const dist = /^([a-z]{2})[\s-]?(\d{1,2}|al)$/.exec(whole);
@@ -110,20 +115,30 @@ function matcher(q, N) {
   return (id) => {
     const st = (stateOf(id) ?? "").toLowerCase();
     const row = N?.[id] ?? [];
-    const hay = [STATES[st.toUpperCase()] ?? "", row[0] ?? "", row[1] ?? "", row[2] ?? "", row[4] ?? ""].join(" ").toLowerCase();
+    const hay = [STATES[st.toUpperCase()] ?? "", row[0] ?? "", row[1] ?? "", row[2] ?? "", row[4] ?? "", ...liveNames(races?.[id])].join(" ").toLowerCase();
     return terms.every((t) => (/^[a-z]{2}$/.test(t) ? st === t || hay.split(/[^a-z']+/).includes(t) : hay.includes(t)));
   };
 }
 
 // --- one row -----------------------------------------------------------------
 
-function count(r, N, id) {
-  let m = typeof r.margin === "number" ? r.margin : null;
-  const v = r.votes && typeof r.votes === "object" ? r.votes : null;
-  if (m == null && v && n(v.D) + n(v.R) > 0) m = (100 * (n(v.D) - n(v.R))) / (n(v.D) + n(v.R));
+// No margin in the file, none shown: the pipeline leaves it out where it would
+// mislead (a first round, or a side it couldn't find in the count), so none is
+// worked out from the votes here (MIDTERMS2026, Nov 4).
+function count(r) {
+  const m = typeof r.margin === "number" && Number.isFinite(r.margin) ? r.margin : null;
   return { m, rep: reportingText(r) }; // "45% reporting" or "early returns"
 }
+/** A first round's count: "Moore 33.1%, Firment 20.8%", or null. */
+function shares(r, t2) {
+  const v = r.votes && typeof r.votes === "object" ? r.votes : null;
+  const total = v ? n(v.D) + n(v.R) + n(v.other) : 0;
+  if (!t2?.length || total <= 0 || !t2.every((c) => n(c.votes) > 0 && n(c.votes) <= total)) return null;
+  return t2.map((c) => `${surname(c.name)} ${((100 * n(c.votes)) / total).toFixed(1)}%`).join(", ");
+}
 function chance(r, N, id) {
+  // The forecast is for our D-side against our R-side, which a first round isn't.
+  if (topTwo(r)) return null;
   const pre = typeof r.p_pre === "number" ? r.p_pre : null;
   const live = typeof r.p_live === "number" ? r.p_live : pre;
   if (live == null) return null;
@@ -140,6 +155,7 @@ function row(id, r, data, N) {
   const st = r.status;
   const cls = ["brow", `s-${st}`];
   const vs = [sideName(N, id, "D"), sideName(N, id, "R")].filter(Boolean).join(" vs. ");
+  const t2 = topTwo(r);
   let main = [];
   const sub = [];
 
@@ -160,11 +176,17 @@ function row(id, r, data, N) {
       const pw = r.winner === "D" ? r.p_pre : 1 - r.p_pre;
       sub.push(`The forecast gave ${sideName(N, id, r.winner) ?? "the winner"} ${pct(pw)}.`);
     }
-    const c = count(r, N, id);
-    if (c.m != null) sub.push(`${margin(c.m, sideLabel(N, id, "D"), sideLabel(N, id, "R"))}${c.rep ? (c.rep === "early returns" ? " in early returns" : ` with ${c.rep}`) : ""}.`);
+    const c = count(r);
+    const when = c.rep ? (c.rep === "early returns" ? " in early returns" : ` with ${c.rep}`) : "";
+    if (c.m != null) sub.push(`${margin(c.m, sideLabel(N, id, "D"), sideLabel(N, id, "R"))}${when}.`);
+    else if (shares(r, t2)) sub.push(`${shares(r, t2)}${when}.`);
   } else if (st === "counting") {
-    const c = count(r, N, id);
-    const lead = c.m == null ? null : Math.abs(c.m) < 0.05 ? "Tied" : `${sideName(N, id, c.m > 0 ? "D" : "R") ?? (c.m > 0 ? "D-side" : "R-side")} leads by ${Math.abs(c.m).toFixed(1)} points`;
+    const c = count(r);
+    const lead =
+      c.m != null
+        ? Math.abs(c.m) < 0.05 ? "Tied" : `${sideName(N, id, c.m > 0 ? "D" : "R") ?? (c.m > 0 ? "D-side" : "R-side")} leads by ${Math.abs(c.m).toFixed(1)} points`
+        : t2?.length ? `${candName(t2[0])} leads`
+          : null;
     main = [
       h("strong", {}, "Counting"),
       c.rep ? ` · ${c.rep}` : "",
@@ -173,10 +195,14 @@ function row(id, r, data, N) {
     ];
     const ch2 = chance(r, N, id);
     if (ch2) sub.push(ch2);
+    if (t2 && shares(r, t2)) sub.push(`So far: ${shares(r, t2)}. A majority wins outright; otherwise the top two meet in a runoff.`);
     sub.push("Early returns can mislead.");
     if (r.disputed === true) sub.push("civicAPI and Wikipedia call this race differently, so it isn't treated as called.");
   } else if (st === "runoff") {
-    main = [h("strong", {}, "Headed to a runoff"), vs ? ` · ${vs}` : ""];
+    // A first round's pair is its top two, never our sides; an unusable list names no one.
+    const pair = t2 ? pairText(t2) : vs;
+    main = [h("strong", {}, "Headed to a runoff"), pair ? ` · ${pair}` : ""];
+    if (t2 && shares(r, t2)) sub.push(`First round: ${shares(r, t2)}.`);
   } else {
     const w = windowOf(data, id);
     main = [h("span", {}, closingText(w))];
@@ -221,7 +247,7 @@ const EMPTY = {
 function draw(box, data, N) {
   const out = box.querySelector("[data-board-list]");
   if (!out) return;
-  const match = matcher(ui.q, N);
+  const match = matcher(ui.q, N, data.races);
   const usePre = data.chambers?.[ui.chamber]?.live?.reliable === false;
   const inSeg = (id, r) => !ui.seg || (decided(r) ? wonSeg(id, r, N) : segOf(id, r, N, usePre)) === ui.seg;
   const all = Object.entries(data.races ?? {}).filter(

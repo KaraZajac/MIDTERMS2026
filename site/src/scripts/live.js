@@ -10,13 +10,13 @@
 // Everything in the file is third-party text. It only ever goes into the page
 // as text (never as HTML), and links are built from race ids that match the
 // id pattern, never from URLs in the data. Fields added on election night
-// (held, party, flip, gains, losses, flips, polls_close, held_note) are all
+// (held, party, flip, gains, losses, flips, polls_close, held_note, top_two) are all
 // optional here: without them the page shows what it can.
 import { pct, pct1, margin, url } from "../lib/format.js";
 import {
   h, ID, TITLE, NOUN, BOARD, clock, stamp, n, sum, fmtInt, reporting, reportingText, tag, credit, expectations,
   raceLink, winnerName, gainText, setSkew, schedule, closeClock, nextClosing, closedCount, stale,
-  majorityLine, changedLine, seatBuckets,
+  majorityLine, changedLine, seatBuckets, topTwo, candName, pairText, partyKey,
 } from "./live-util.js";
 import { renderBoard } from "./live-board.js";
 import { renderHero } from "./live-hero.js";
@@ -279,6 +279,8 @@ function raceBanner(box, data) {
   };
   const who = (s) => (side[s]?.name ? `${side[s].name} (${side[s].tag})` : r.winner_name ? String(r.winner_name) : "Another candidate");
   const called = r.status === "called";
+  // A first round (Louisiana's House): the top two, not our sides, are the race.
+  const t2 = topTwo(r);
 
   let status;
   if (called) {
@@ -290,7 +292,7 @@ function raceBanner(box, data) {
       r.upset ? tag("Upset", "upset") : null,
     ];
   } else if (r.status === "runoff") {
-    status = h("strong", {}, "Headed to a runoff");
+    status = [h("strong", {}, "Headed to a runoff"), pairText(t2) ? ` · ${pairText(t2)}` : ""];
   } else if (r.status === "counting") {
     const rt = reportingText(r);
     status = [h("strong", {}, "Counting"), rt ? ` · ${rt}` : "", r.disputed ? tag("Disputed") : null];
@@ -299,12 +301,19 @@ function raceBanner(box, data) {
   }
 
   const v = r.votes && typeof r.votes === "object" ? r.votes : null;
-  const total = v ? n(v.D) + n(v.R) + n(v.other) : 0;
+  let total = v ? n(v.D) + n(v.R) + n(v.other) : 0;
+  // [name, colour key, votes]: our two sides and everyone else, or a first
+  // round's top two and everyone else.
+  let lines = [[who("D"), side.D.key, n(v?.D)], [who("R"), side.R.key, n(v?.R)], ["Others", "x", n(v?.other)]];
+  if (t2?.length === 2) {
+    const two = n(t2[0].votes) + n(t2[1].votes);
+    total = Math.max(total, two);
+    lines = [...t2.map((c) => [candName(c), c.party ? partyKey(c.party) : "x", n(c.votes)]), ["Others", "x", total - two]];
+  }
   const rows = [];
   if (total > 0) {
-    for (const [s, k, name] of [["D", side.D.key, who("D")], ["R", side.R.key, who("R")], ["other", "x", "Others"]]) {
-      const x = n(v[s]);
-      if (s === "other" && !x) continue;
+    for (const [name, k, x] of lines) {
+      if (name === "Others" && !x) continue;
       const share = x / total;
       rows.push(
         h(
@@ -325,6 +334,12 @@ function raceBanner(box, data) {
   if (called && (r.winner === "D" || r.winner === "R") && pPre != null) {
     const pw = r.winner === "D" ? pPre : 1 - pPre;
     chance = `Before results, the forecast gave ${side[r.winner].name || "the winner"} ${pct(pw)}.`;
+  } else if (!called && t2) {
+    // The forecast is for our D-side against our R-side, which a first round isn't.
+    chance =
+      r.status === "runoff"
+        ? "No candidate won a majority, so the top two meet in a runoff."
+        : "Every candidate is on one ballot: a majority wins outright; otherwise the top two meet in a runoff.";
   } else if (!called && pLive != null) {
     chance = [
       `Chance now, given the races called elsewhere: ${side.D.name || "D-side"} ${pct1(pLive)}, ${side.R.name || "R-side"} ${pct1(1 - pLive)}`,

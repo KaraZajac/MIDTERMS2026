@@ -119,6 +119,20 @@ export function winnerName(N, id, side, race) {
   if (race?.winner_name) return String(race.winner_name);
   return "A candidate";
 }
+// First rounds (docs/site-data.md, "First rounds"): Louisiana's House races
+// put every candidate on one ballot, so our D-side and R-side needn't be the
+// leaders. Those races carry `top_two` and no margin; name them from it.
+/** A first round's two leading candidates, most votes first: null when the race
+ *  isn't a first round, [] or one entry when the list is unusable. */
+export function topTwo(r) {
+  if (!Array.isArray(r?.top_two)) return null;
+  return r.top_two.filter((c) => c && typeof c === "object" && typeof c.name === "string" && c.name.trim()).slice(0, 2);
+}
+/** "Gabe Firment (R)" */
+export const candName = (c) => (typeof c.party === "string" && c.party ? `${c.name.trim()} (${short(c.party)})` : c.name.trim());
+/** "Moore (D) vs. Firment (R)" from a usable top_two, "" from an unusable one. */
+export const pairText = (t2) => (t2?.length === 2 ? t2.map(candName).join(" vs. ") : "");
+
 /** Label for the side that leads a margin: "D", "R", or a surname for independents. */
 export function sideLabel(N, id, side) {
   const row = N?.[id];

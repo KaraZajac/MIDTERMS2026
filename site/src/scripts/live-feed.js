@@ -62,8 +62,12 @@ function calls(data) {
 
 const passes = (f) => (c) => f === "all" || (f === "flips" ? c.flip && c.type !== "retracted" : c.race.startsWith(`${f}:`));
 
-function partyOf(c, N) {
+function partyOf(c, data, N) {
   if (c.party) return c.party;
+  // A call made before the file gave first-round winners a party (Scalise,
+  // LA-01, called at 2:18 a.m.): the race's own, while it's still the same call.
+  const r = data.races?.[c.race];
+  if (r && r.winner === c.winner && typeof r.party === "string" && r.party) return r.party;
   const row = N?.[c.race];
   return c.winner === "D" ? (row?.[3] ?? "D") : c.winner === "R" ? (row?.[5] ?? "R") : null;
 }
@@ -73,7 +77,7 @@ function row(c, data, N, fresh) {
   const ch = c.race.split(":")[0];
   const r = data.races?.[c.race];
   const gone = c.type === "retracted";
-  const party = gone ? null : partyOf(c, N);
+  const party = gone ? null : partyOf(c, data, N);
   const who = winnerName(N, c.race, c.winner, r);
   const surname = c.winner === "D" ? N?.[c.race]?.[2] : c.winner === "R" ? N?.[c.race]?.[4] : null;
   const cls = ["fe", `is-${c.type}`, c.flip && !gone ? "is-flip" : "", c.upset && !gone ? "is-upset" : "", fresh ? "is-new" : ""].filter(Boolean).join(" ");
