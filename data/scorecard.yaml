@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 8
+resolved: 9
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-01
 - house:CA-02
 - house:CA-03
-open_count: 481
+open_count: 480
 scoreboard:
   lite:
-    n: 8
-    brier: 0.0162
-    log_loss: 0.0872
-    calls: 8/8
+    n: 9
+    brier: 0.0144
+    log_loss: 0.0805
+    calls: 9/9
   classic:
-    n: 8
-    brier: 0.0271
-    log_loss: 0.0854
-    calls: 8/8
+    n: 9
+    brier: 0.0242
+    log_loss: 0.0791
+    calls: 9/9
   deluxe:
-    n: 8
-    brier: 0.0279
-    log_loss: 0.0807
-    calls: 8/8
+    n: 9
+    brier: 0.0248
+    log_loss: 0.0723
+    calls: 9/9
   ratings:
-    n: 8
-    brier: 0.0313
-    log_loss: 0.0867
-    calls: 7/8
+    n: 9
+    brier: 0.0278
+    log_loss: 0.0771
+    calls: 8/9
   lean-only:
-    n: 8
-    brier: 0.0759
-    log_loss: 0.1891
-    calls: 7/8
+    n: 9
+    brier: 0.0679
+    log_loss: 0.1752
+    calls: 8/9
   coin-flip:
-    n: 8
+    n: 9
     brier: 0.25
     log_loss: 0.6931
-    calls: 6/8
+    calls: 7/9
 races:
 - id: house:KY-01
   slug: house/ky-01
@@ -193,9 +193,21 @@ races:
     classic: 0.0345
     deluxe: 0.003
   called_right: true
+- id: senate:MT
+  slug: senate/mt
+  label: Montana
+  winner: R
+  winner_name: Kurt Alme
+  margin: -10.51
+  p_winner: 0.995
+  p_d_side:
+    lite: 0.0263
+    classic: 0.0288
+    deluxe: 0.005
+  called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T08:05:01Z'
+  asof: '2026-11-04T08:15:01Z'
   called: 414
   scoreboard:
     lite:

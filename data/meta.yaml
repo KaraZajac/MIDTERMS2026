@@ -1,8 +1,8 @@
-generated: '2026-11-04T08:05:00Z'
+generated: '2026-11-04T08:14:54Z'
 generator: python3 -m midterms build
 asof: '2026-11-04'
 election_day: '2026-11-03'
-sources_digest: 3dc16bf1d7d28c09
+sources_digest: 3bf67183a6a2b9c6
 counts:
   house_races: 435
   senate_races: 35
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383477010
-    2026 United States House of Representatives elections: 1383706173
+    2026 United States House of Representatives elections: 1383708250
     2026 United States House of Representatives elections in Alabama: 1383666973
     2026 United States House of Representatives elections in Arizona: 1383655958
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -99,7 +99,7 @@ sources:
     2026 United States House of Representatives elections in New York: 1383655484
     2026 United States House of Representatives elections in North Carolina: 1383701956
     2026 United States House of Representatives elections in Ohio: 1383705907
-    2026 United States House of Representatives elections in Oklahoma: 1383706496
+    2026 United States House of Representatives elections in Oklahoma: 1383707570
     2026 United States House of Representatives elections in Oregon: 1383633248
     2026 United States House of Representatives elections in Pennsylvania: 1383657591
     2026 United States House of Representatives elections in Rhode Island: 1382619674
@@ -128,7 +128,7 @@ sources:
     2026 United States Senate election in Michigan: 1383705697
     2026 United States Senate election in Minnesota: 1383702666
     2026 United States Senate election in Mississippi: 1383706300
-    2026 United States Senate election in Montana: 1383630956
+    2026 United States Senate election in Montana: 1383706642
     2026 United States Senate election in Nebraska: 1383692075
     2026 United States Senate election in New Hampshire: 1383690691
     2026 United States Senate election in New Jersey: 1383575047
