@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 3
+resolved: 5
 open:
 - governor:AK
 - governor:AL
@@ -64,39 +64,63 @@ open:
 - house:CA-01
 - house:CA-02
 - house:CA-03
-open_count: 486
+open_count: 484
 scoreboard:
   lite:
-    n: 3
-    brier: 0.0197
-    log_loss: 0.0945
-    calls: 3/3
+    n: 5
+    brier: 0.0118
+    log_loss: 0.0572
+    calls: 5/5
   classic:
-    n: 3
-    brier: 0.0718
-    log_loss: 0.2085
-    calls: 3/3
+    n: 5
+    brier: 0.0431
+    log_loss: 0.1252
+    calls: 5/5
   deluxe:
-    n: 3
-    brier: 0.0744
-    log_loss: 0.2133
-    calls: 3/3
+    n: 5
+    brier: 0.0447
+    log_loss: 0.128
+    calls: 5/5
   ratings:
-    n: 3
-    brier: 0.0833
-    log_loss: 0.2311
-    calls: 2/3
+    n: 5
+    brier: 0.05
+    log_loss: 0.1387
+    calls: 4/5
   lean-only:
-    n: 3
-    brier: 0.2024
-    log_loss: 0.5035
-    calls: 2/3
+    n: 5
+    brier: 0.1214
+    log_loss: 0.3022
+    calls: 4/5
   coin-flip:
-    n: 3
+    n: 5
     brier: 0.25
     log_loss: 0.6931
-    calls: 2/3
+    calls: 4/5
 races:
+- id: house:KY-01
+  slug: house/ky-01
+  label: KY-01
+  winner: R
+  winner_name: James R. Comer
+  margin: -35.14
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0006
+    classic: 0.0001
+    deluxe: 0.0001
+  called_right: true
+- id: house:KY-02
+  slug: house/ky-02
+  label: KY-02
+  winner: R
+  winner_name: S. Brett Guthrie
+  margin: -28.3
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0018
+    classic: 0.0002
+    deluxe: 0.0001
+  called_right: true
 - id: house:KY-04
   slug: house/ky-04
   label: KY-04
@@ -135,39 +159,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T05:03:29Z'
-  called: 318
+  asof: '2026-11-04T05:16:00Z'
+  called: 324
   scoreboard:
     lite:
-      n: 318
-      brier: 0.0189
-      log_loss: 0.0746
-      calls: 313/318
+      n: 324
+      brier: 0.0191
+      log_loss: 0.0757
+      calls: 319/324
     classic:
-      n: 318
-      brier: 0.0112
-      log_loss: 0.045
-      calls: 315/318
+      n: 324
+      brier: 0.0117
+      log_loss: 0.0464
+      calls: 321/324
     deluxe:
-      n: 318
-      brier: 0.0105
-      log_loss: 0.0361
-      calls: 314/318
+      n: 324
+      brier: 0.0119
+      log_loss: 0.0394
+      calls: 319/324
     ratings:
-      n: 318
-      brier: 0.0141
-      log_loss: 0.0451
-      calls: 311/318
+      n: 324
+      brier: 0.0166
+      log_loss: 0.0536
+      calls: 316/324
     lean-only:
-      n: 318
-      brier: 0.0252
-      log_loss: 0.0802
-      calls: 306/318
+      n: 324
+      brier: 0.0254
+      log_loss: 0.0807
+      calls: 312/324
     coin-flip:
-      n: 318
+      n: 324
       brier: 0.25
       log_loss: 0.6931
-      calls: 123/318
+      calls: 123/324
   races:
   - - governor:AR
     - R
@@ -190,6 +214,9 @@ provisional:
   - - governor:GA
     - D
     - 0.6394
+  - - governor:HI
+    - D
+    - 0.9992
   - - governor:IA
     - D
     - 0.911
@@ -298,6 +325,9 @@ provisional:
   - - house:CA-15
     - D
     - 1.0
+  - - house:CA-18
+    - D
+    - 1.0
   - - house:CA-19
     - D
     - 1.0
@@ -325,6 +355,9 @@ provisional:
   - - house:CA-36
     - D
     - 1.0
+  - - house:CA-38
+    - D
+    - 0.9998
   - - house:CA-43
     - D
     - 1.0
@@ -364,6 +397,9 @@ provisional:
   - - house:CT-04
     - D
     - 1.0
+  - - house:CT-05
+    - D
+    - 0.9989
   - - house:DE-AL
     - D
     - 0.9999
@@ -649,6 +685,9 @@ provisional:
   - - house:MO-01
     - D
     - 1.0
+  - - house:MO-02
+    - D
+    - 0.2765
   - - house:MO-03
     - R
     - 0.9996
@@ -1015,6 +1054,9 @@ provisional:
   - - house:WA-07
     - D
     - 1.0
+  - - house:WA-08
+    - D
+    - 0.9997
   - - house:WA-09
     - D
     - 1.0
