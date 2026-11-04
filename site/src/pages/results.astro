@@ -4,6 +4,7 @@
 import Base from "../layouts/Base.astro";
 import ResultsHero from "../components/ResultsHero.astro";
 import ResultsBoard from "../components/ResultsBoard.astro";
+import { meta } from "../lib/data.js";
 ---
 
 <Base
@@ -18,6 +19,7 @@ import ResultsBoard from "../components/ResultsBoard.astro";
       Every House, Senate and governor race as it's called, the seats that change hands, and when the polls close. The
       page updates itself every 30 seconds.
     </p>
+    <section class="live live-gauges" data-live="gauges" data-from={meta().deadline} aria-label="Chances of control" hidden></section>
     <p class="results-jump"><a class="btn" href="#board">Every race ↓</a></p>
   </section>
 

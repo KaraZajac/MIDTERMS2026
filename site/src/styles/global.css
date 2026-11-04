@@ -697,6 +697,35 @@ details.tableview[open] > summary { margin-bottom: 8px; }
 [data-live-map].is-live .sq[data-res-flip] { position: relative; z-index: 1; box-shadow: 0 0 0 1px var(--surface), 0 0 0 2.5px var(--ink-strong); }
 [data-live-map].is-live .tile .pp { display: none; }
 
+/* ---------- /results/, top: chances of control as gauges (live-gauges.js) ---------- */
+.live-gauges { margin: 20px 0 8px; max-width: 820px; }
+.live-gauges[hidden], .gauge[hidden], .g-history[hidden] { display: none !important; }
+.gauges { container: gauges / inline-size; }
+.g-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 20px; }
+.gauge { margin: 0; min-width: 0; text-align: center; }
+.g-svg { display: block; width: 100%; max-width: 230px; height: auto; margin: 0 auto; overflow: visible; }
+.g-band { fill: none; stroke-width: 18; }
+.g-band.d3 { stroke: var(--d3); } .g-band.d2 { stroke: var(--d2); } .g-band.d1 { stroke: var(--d1); } .g-band.tu { stroke: var(--tu); }
+.g-band.r1 { stroke: var(--r1); } .g-band.r2 { stroke: var(--r2); } .g-band.r3 { stroke: var(--r3); }
+.g-pre { stroke: var(--ink-strong); stroke-width: 2.5; stroke-linecap: round; }
+.g-pre[hidden] { display: none; }
+.g-needle { transform-box: view-box; transform-origin: 100px 98px; transition: transform 0.6s cubic-bezier(0.25, 0.7, 0.25, 1); }
+.g-needle line { stroke: var(--ink-strong); stroke-width: 3.5; stroke-linecap: round; }
+.g-needle circle { fill: var(--ink-strong); stroke: var(--bg); stroke-width: 2.5; }
+.gauges.no-anim .g-needle { transition: none; }
+.gauge.is-unsteady .g-needle { opacity: 0.35; }
+.gauge figcaption { display: grid; gap: 1px; margin-top: 2px; }
+.g-name { font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.g-val { font-size: 1.3rem; font-weight: 750; line-height: 1.2; font-variant-numeric: tabular-nums; color: var(--ink-strong); }
+.g-val.d { color: var(--d); } .g-val.r { color: var(--r); }
+.g-was { font-size: 12.5px; color: var(--muted); }
+.g-cap { margin: 10px 0 4px; }
+.g-history > summary { cursor: pointer; padding: 4px 0; font-size: 14px; font-weight: 650; color: var(--ink-strong); }
+.g-history .hero-chances { margin: 10px 0 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+@container gauges (max-width: 560px) { .g-row { gap: 8px 10px; } .g-val { font-size: 1.02rem; } .g-was { font-size: 11.5px; } .g-name { font-size: 11.5px; } }
+@container gauges (max-width: 340px) { .g-row { grid-template-columns: minmax(0, 230px); justify-content: center; } }
+@media (prefers-reduced-motion: reduce) { .g-needle { transition: none; } }
+
 /* ---------- /results/: chances through the night and the forecast check (live-chances.js, live-check.js) ---------- */
 .hero-chances, .hero-check { margin: 20px 0 0; padding: 16px 18px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); }
 .hero-chances[hidden], .hero-check[hidden], .hero-chances [hidden] { display: none !important; }

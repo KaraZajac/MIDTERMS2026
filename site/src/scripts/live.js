@@ -20,6 +20,7 @@ import {
 } from "./live-util.js";
 import { renderBoard } from "./live-board.js";
 import { renderHero } from "./live-hero.js";
+import { renderGauges } from "./live-gauges.js";
 import { seatBlock, paintSeats } from "./live-seats.js";
 import { paintMaps } from "./live-maps.js";
 
@@ -366,6 +367,7 @@ const due = () => LOCAL || !Number.isFinite(FROM) || Date.now() >= FROM;
 function render(box, data, N) {
   if (box.dataset.live === "board") return renderBoard(box, data, N);
   if (box.dataset.live === "hero") return renderHero(box, data, N);
+  if (box.dataset.live === "gauges") return renderGauges(box, data);
   let node = null;
   if (box.dataset.live === "race") node = raceBanner(box, data);
   else {

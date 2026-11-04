@@ -13,7 +13,6 @@ import {
 } from "./live-util.js";
 import { seatBlock, paintSeats } from "./live-seats.js";
 import { feedBlock, paintFeed } from "./live-feed.js";
-import { chancesBlock, paintChances } from "./live-chances.js";
 import { checkBlock, paintCheck } from "./live-check.js";
 
 const CHAMBERS = [
@@ -69,7 +68,6 @@ function frame() {
       ),
       h("div", { class: "hero-feedwrap" }, feedBlock()),
     ),
-    chancesBlock(),
     checkBlock(),
     h("p", { class: "live-small live-credit", "data-credit": true }),
   );
@@ -182,7 +180,6 @@ export function renderHero(box, data, N) {
   const grid = root.querySelector(".hero-grid");
   grid.classList.toggle("is-awaiting", data.status === "awaiting");
   paintFeed(root.querySelector(".feed"), data, N);
-  paintChances(root.querySelector("[data-chances]"), data);
   paintCheck(root.querySelector("[data-check]"), data, N);
 
   const f = data.forecast ?? {};

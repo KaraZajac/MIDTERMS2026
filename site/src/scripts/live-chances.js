@@ -1,5 +1,7 @@
 // /results/: each chamber's chance of Democratic control through the night, as
-// a small step chart (Kara's ask on Nov 4, through MIDTERMS2026). live.json's
+// a small step chart (Kara's ask on Nov 4, through MIDTERMS2026), inside the
+// closed "How the chances moved tonight" under the gauges (live-gauges.js,
+// whose summary is its title). live.json's
 // history is [[t, house, senate, governor, called], ...], oldest first: the
 // forecast of record at the deadline, then a point whenever a chance or the
 // number of calls changed. Each value holds until the next point and the last
@@ -28,7 +30,6 @@ export function chancesBlock() {
   return h(
     "section",
     { class: "hero-chances", "data-chances": true, hidden: true },
-    h("h3", {}, "Chances of control through the night"),
     h(
       "div",
       { class: "chn-grid" },
