@@ -21,6 +21,7 @@ regions, and the page then shows no map.
 
 from __future__ import annotations
 
+import datetime as dt
 import json
 import random
 import threading
@@ -37,6 +38,7 @@ BUDGET = 150          # seconds for a whole cycle (the server's limit on the job
 TIMEOUT = 25
 TRIP = 5              # failures in a row that end a cycle
 KEEP_IDS = 3600       # a kept search answer this old still names the races
+DOWN = 180            # a live.json older than this: civicAPI isn't answering; skip the cycle
 
 
 def _side_rows() -> dict[str, dict]:
@@ -222,9 +224,21 @@ def run(cache: Path, out_dir: Path, *, rows: dict[str, dict] | None = None,
             state["run"] = 0
 
     try:                                         # the live job's file: each race's forecast
-        p_pre = {rid: r.get("p_pre") for rid, r in json.loads((cache / "live.json").read_text())["races"].items()}
-    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        live = json.loads((cache / "live.json").read_text())
+    except (OSError, ValueError):
+        live = None
+    try:
+        p_pre = {rid: r.get("p_pre") for rid, r in live["races"].items()}
+    except (KeyError, TypeError, AttributeError):
         p_pre = {}
+    try:                                         # civicAPI down (Nov 4, 04:14 UTC on): ask nothing
+        made = dt.datetime.strptime(live["generated"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
+        age = (dt.datetime.now(dt.timezone.utc) - made).total_seconds()
+    except (KeyError, TypeError, ValueError):
+        age = None
+    if age is not None and age > DOWN:
+        print(f"✓ counties: skipped; live.json is {age / 60:.0f} min old, so civicAPI isn't answering")
+        return {"written": 0, "failed": 0, "skipped": len(todo)}
 
     def need(rid: str) -> tuple[int, float]:
         """(0, 0) for a race with no map yet (no file, or an empty one from

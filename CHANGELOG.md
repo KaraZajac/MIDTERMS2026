@@ -55,6 +55,10 @@ model and pipeline that produced it. Automated six-hourly refreshes
   map. Each cycle now tries the races without a map first, the closest
   races first (by the forecast), and stops after five failures in a row
   instead of three. Empty files from before the city lookup count as no map.
+- From 04:14 UTC civicAPI's API failed for everyone (Cloudflare's 502s,
+  timeouts), while its home page loaded. The county job now asks nothing
+  while the live job's file is more than 3 minutes old, and resumes by
+  itself once the live job gets an answer again.
 
 ### 2026-11-03, evening — a slow civicAPI answer is waited for (no model change)
 - At 22:58 UTC, as the first polls closed, civicAPI left three 25-second

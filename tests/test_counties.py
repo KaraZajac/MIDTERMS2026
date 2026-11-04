@@ -162,6 +162,16 @@ class TestCounties(unittest.TestCase):
         # no map yet, closest first: IA (0.52), GA (0.6), CO (0.9), KS (0.03); then OK, then AL
         self.assertEqual(asked, [103, 102, 101, 104, 105, 100])
 
+    def test_a_cycle_asks_nothing_while_civicapi_is_down(self):
+        import datetime as dt
+        rows = {"senate:GA": row("GA", "A", "B")}
+        self._keep([search_race(87087, "US Senate", "GA", 10)])
+        old = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(minutes=10)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        (self.dir / "live.json").write_text(json.dumps({"generated": old, "races": {}}))
+        with mock.patch.object(counties.fetch, "get", side_effect=AssertionError("no request")):
+            got = counties.run(self.dir, self.out, rows=rows)
+        self.assertEqual(got, {"written": 0, "failed": 0, "skipped": 1})
+
     def test_no_kept_answers_no_requests(self):
         with mock.patch.object(counties.fetch, "get", side_effect=AssertionError("no request")):
             got = counties.run(self.dir, self.out, rows={"senate:GA": row("GA", "A", "B")})
