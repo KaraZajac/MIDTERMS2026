@@ -74,6 +74,23 @@ class TestCounties(unittest.TestCase):
         self.assertEqual(counties.city_fips("NV", "Carson City"), "32510")
         self.assertEqual(counties.city_fips("MD", "Baltimore City"), "24510")
         self.assertIsNone(counties.city_fips("MD", "Baltimore County"))
+        # counties sent without FIPS, by name (the site's shapes): New York's, Minnesota's
+        ny = row("NY", "Jon Ossoff", "Mike Collins")
+        nc = {"region_results": {
+            "k": county(None, "Kings", 30.0, 90, 10),
+            "m": county(None, "New York", 40.0, 85, 15),
+            "s": county(None, "St. Lawrence", 50.0, 40, 60),
+            "x": dict(county(None, "New York", 35.0, 1, 1), type="State")}}   # never the state
+        regs, dropped = counties.regions(nc, ny)
+        self.assertEqual(sorted(g["fips"] for g in regs), ["36047", "36061", "36089"])
+        self.assertEqual(dropped, ["New York"])
+        mn = row("MN", "Jon Ossoff", "Mike Collins")
+        mc = {"region_results": {n: county(None, n, 100.0, 5, 5) for n in
+                                 ("Lac Qui Parle", "Lake Of The Woods", "Mcleod", "Saint Louis")}}
+        self.assertEqual(sorted(g["fips"] for g in counties.regions(mc, mn)[0]),
+                         ["27073", "27077", "27085", "27137"])
+        # a name two shapes share (Virginia's Richmond) only through the city table
+        self.assertIsNone(counties.name_fips("VA", "Richmond", "County"))
         # a side that doesn't match: no margin
         odd = {"region_results": {"x": {"fips": "13001", "percent_reporting": 5,
                                         "candidates": [cand("Somebody Else", "Libertarian", 9)]}}}

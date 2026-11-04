@@ -22,13 +22,17 @@ regions, and the page then shows no map.
 from __future__ import annotations
 
 import datetime as dt
+import functools
 import json
 import random
+import re
+import unicodedata
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from midterms.paths import ROOT
 from midterms.pipeline import civic, fetch
 
 RACE = "https://civicapi.org/api/v2/race/{id}"
@@ -104,6 +108,42 @@ def city_fips(state: str | None, name: str | None) -> str | None:
     return CITIES.get(state or "", {}).get(n.strip())
 
 
+SHAPES = ROOT / "site" / "src" / "data" / "county-shapes"     # [fips, name, path] per state (Census)
+COUNTY_TYPES = {"county", "parish", "borough", "city", "independent city"}
+
+
+def _norm(name: str | None) -> str:
+    """'Lac Qui Parle' = 'Lac qui Parle', 'Mcleod' = 'McLeod', 'Saint Louis' =
+    'St. Louis', 'Doña Ana' = 'Dona Ana', 'De Kalb' = 'DeKalb'."""
+    s = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().lower()
+    s = re.sub(r"\bsaint\b", "st", s)
+    s = re.sub(r"\b(county|parish|borough)\b", "", s)
+    return re.sub(r"[^a-z0-9]", "", s)
+
+
+@functools.lru_cache(maxsize=None)
+def county_names(state: str) -> dict[str, str]:
+    """A state's county names -> FIPS, from the site's county shapes, so a
+    match is always a county the map can draw. A name two counties share
+    (Virginia's Richmond city and county) is left out."""
+    try:
+        rows = json.loads((SHAPES / f"{state}.json").read_text())["counties"]
+    except (OSError, ValueError, KeyError, TypeError):
+        return {}
+    seen: dict[str, set] = {}
+    for row in rows:
+        seen.setdefault(_norm(row[1]), set()).add(str(row[0]))
+    return {k: next(iter(v)) for k, v in seen.items() if k and len(v) == 1}
+
+
+def name_fips(state: str | None, name: str | None, kind: str | None) -> str | None:
+    """A county sent without FIPS, by its name (civicAPI sent all 62 of New
+    York's that way, and Minnesota's 'Mcleod'); never a town or a state."""
+    if kind and str(kind).lower() not in COUNTY_TYPES:
+        return None
+    return county_names(state or "").get(_norm(name))
+
+
 def regions(c: dict, race: dict) -> tuple[list[dict], list[str]]:
     """A civicAPI race's counties, by our sides; and the names of the regions
     without a usable FIPS (left out)."""
@@ -113,7 +153,8 @@ def regions(c: dict, race: dict) -> tuple[list[dict], list[str]]:
     for g in (rr.values() if isinstance(rr, dict) else rr):
         fips = str((g or {}).get("fips") or "")
         if not fips.isdigit() or len(fips) < 5:
-            fips = city_fips(race.get("state"), (g or {}).get("name")) or ""
+            fips = (city_fips(race.get("state"), (g or {}).get("name"))
+                    or name_fips(race.get("state"), (g or {}).get("name"), (g or {}).get("type")) or "")
         if not fips.isdigit() or len(fips) < 5:
             dropped.append(str((g or {}).get("name") or "?"))
             continue

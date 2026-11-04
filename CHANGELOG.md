@@ -50,6 +50,12 @@ model and pipeline that produced it. Automated six-hourly refreshes
   counties fell short of the total and it had no map. They are now found
   by name (Virginia's 38, Baltimore, Carson City; codes checked against
   the site's county shapes), and each file lists the regions it left out.
+- civicAPI also sends some counties themselves without FIPS: all 62 of New
+  York's (its governor's race had no map) and Minnesota's 'Mcleod',
+  'Lac Qui Parle' and 'Lake Of The Woods'. A county without FIPS is now
+  found by its name among the site's county shapes (case, spacing, accents
+  and Saint/St. aside), never a town or a state, and never a name two
+  counties share.
 - By 03:05 UTC civicAPI had answered none of the county requests for 30
   minutes, and 41 races with votes (Iowa's Senate race among them) had no
   map. Each cycle now tries the races without a map first, the closest

@@ -321,7 +321,8 @@ failed keeps its last file.
     margin                     // two-party, D-side minus R-side, points; null if a
   }],                          // side didn't match or no two-party votes yet
   dropped, dropped_names,      // civicAPI regions without a usable FIPS (independent
-                              // cities are found by name: VA's 38, Baltimore, Carson City)
+                              // cities are found by name: VA's 38, Baltimore, Carson City;
+                              // and any county by its name in site/src/data/county-shapes)
   note?                        // why regions is empty
 }
 ```
