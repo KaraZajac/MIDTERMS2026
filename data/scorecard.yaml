@@ -183,39 +183,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T05:45:05Z'
-  called: 343
+  asof: '2026-11-04T05:55:05Z'
+  called: 358
   scoreboard:
     lite:
-      n: 343
-      brier: 0.0197
-      log_loss: 0.0789
-      calls: 338/343
-    classic:
-      n: 343
-      brier: 0.0119
-      log_loss: 0.0481
-      calls: 340/343
-    deluxe:
-      n: 343
-      brier: 0.0118
-      log_loss: 0.0401
-      calls: 338/343
-    ratings:
-      n: 343
-      brier: 0.0165
-      log_loss: 0.0544
-      calls: 335/343
-    lean-only:
-      n: 343
-      brier: 0.0254
+      n: 358
+      brier: 0.0206
       log_loss: 0.082
-      calls: 331/343
+      calls: 352/358
+    classic:
+      n: 358
+      brier: 0.0142
+      log_loss: 0.0543
+      calls: 353/358
+    deluxe:
+      n: 358
+      brier: 0.0127
+      log_loss: 0.0429
+      calls: 352/358
+    ratings:
+      n: 358
+      brier: 0.0165
+      log_loss: 0.0551
+      calls: 350/358
+    lean-only:
+      n: 358
+      brier: 0.0292
+      log_loss: 0.1105
+      calls: 344/358
     coin-flip:
-      n: 343
+      n: 358
       brier: 0.25
       log_loss: 0.6931
-      calls: 129/343
+      calls: 138/358
   races:
   - - governor:AR
     - R
@@ -244,6 +244,9 @@ provisional:
   - - governor:IA
     - D
     - 0.911
+  - - governor:ID
+    - R
+    - 0.9991
   - - governor:IL
     - D
     - 0.9992
@@ -277,12 +280,18 @@ provisional:
   - - governor:RI
     - D
     - 0.9999
+  - - governor:SC
+    - R
+    - 0.9925
   - - governor:SD
     - R
     - 0.9987
   - - governor:TX
     - D
     - 0.2898
+  - - governor:VT
+    - R
+    - 0.5602
   - - governor:WI
     - D
     - 0.833
@@ -340,6 +349,9 @@ provisional:
   - - house:CA-02
     - D
     - 1.0
+  - - house:CA-03
+    - D
+    - 0.9999
   - - house:CA-08
     - D
     - 1.0
@@ -350,6 +362,12 @@ provisional:
     - D
     - 1.0
   - - house:CA-15
+    - D
+    - 1.0
+  - - house:CA-16
+    - D
+    - 1.0
+  - - house:CA-17
     - D
     - 1.0
   - - house:CA-18
@@ -955,9 +973,15 @@ provisional:
   - - house:OR-01
     - D
     - 1.0
+  - - house:OR-02
+    - R
+    - 0.9996
   - - house:OR-03
     - D
     - 1.0
+  - - house:PA-01
+    - D
+    - 0.8055
   - - house:PA-02
     - D
     - 1.0
@@ -1048,6 +1072,9 @@ provisional:
   - - house:TX-01
     - R
     - 0.9999
+  - - house:TX-04
+    - R
+    - 0.9995
   - - house:TX-07
     - D
     - 1.0
@@ -1057,6 +1084,12 @@ provisional:
   - - house:TX-13
     - R
     - 0.9999
+  - - house:TX-14
+    - R
+    - 0.9995
+  - - house:TX-15
+    - D
+    - 0.4835
   - - house:TX-16
     - D
     - 0.9999
@@ -1069,12 +1102,21 @@ provisional:
   - - house:TX-20
     - D
     - 1.0
+  - - house:TX-21
+    - R
+    - 0.9986
+  - - house:TX-28
+    - D
+    - 0.9719
   - - house:TX-29
     - D
     - 1.0
   - - house:TX-30
     - D
     - 1.0
+  - - house:TX-31
+    - R
+    - 0.999
   - - house:TX-33
     - D
     - 1.0
@@ -1195,6 +1237,9 @@ provisional:
   - - senate:KY
     - R
     - 0.997
+  - - senate:LA
+    - R
+    - 0.9335
   - - senate:MA
     - D
     - 0.9999
