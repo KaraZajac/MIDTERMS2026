@@ -183,39 +183,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T05:35:01Z'
-  called: 340
+  asof: '2026-11-04T05:45:05Z'
+  called: 343
   scoreboard:
     lite:
-      n: 340
-      brier: 0.0198
-      log_loss: 0.0791
-      calls: 335/340
+      n: 343
+      brier: 0.0197
+      log_loss: 0.0789
+      calls: 338/343
     classic:
-      n: 340
+      n: 343
       brier: 0.0119
-      log_loss: 0.0482
-      calls: 337/340
+      log_loss: 0.0481
+      calls: 340/343
     deluxe:
-      n: 340
-      brier: 0.0119
-      log_loss: 0.0402
-      calls: 335/340
+      n: 343
+      brier: 0.0118
+      log_loss: 0.0401
+      calls: 338/343
     ratings:
-      n: 340
-      brier: 0.0166
-      log_loss: 0.0546
-      calls: 332/340
+      n: 343
+      brier: 0.0165
+      log_loss: 0.0544
+      calls: 335/343
     lean-only:
-      n: 340
-      brier: 0.0257
-      log_loss: 0.0826
-      calls: 328/340
+      n: 343
+      brier: 0.0254
+      log_loss: 0.082
+      calls: 331/343
     coin-flip:
-      n: 340
+      n: 343
       brier: 0.25
       log_loss: 0.6931
-      calls: 129/340
+      calls: 129/343
   races:
   - - governor:AR
     - R
@@ -730,6 +730,12 @@ provisional:
   - - house:MN-03
     - D
     - 0.9999
+  - - house:MN-04
+    - D
+    - 1.0
+  - - house:MN-05
+    - D
+    - 1.0
   - - house:MN-07
     - R
     - 0.9999
@@ -1192,6 +1198,9 @@ provisional:
   - - senate:MA
     - D
     - 0.9999
+  - - senate:MN
+    - D
+    - 0.9207
   - - senate:NC
     - D
     - 0.9786
