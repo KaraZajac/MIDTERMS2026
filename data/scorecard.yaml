@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 1
+resolved: 2
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-01
 - house:CA-02
 - house:CA-03
-open_count: 488
+open_count: 487
 scoreboard:
   lite:
-    n: 1
-    brier: 0.0
-    log_loss: 0.0048
-    calls: 1/1
+    n: 2
+    brier: 0.0296
+    log_loss: 0.1417
+    calls: 2/2
   classic:
-    n: 1
-    brier: 0.0
-    log_loss: 0.0016
-    calls: 1/1
+    n: 2
+    brier: 0.1077
+    log_loss: 0.3127
+    calls: 2/2
   deluxe:
-    n: 1
-    brier: 0.0
-    log_loss: 0.0002
-    calls: 1/1
+    n: 2
+    brier: 0.1116
+    log_loss: 0.32
+    calls: 2/2
   ratings:
-    n: 1
-    brier: 0.0
-    log_loss: 0.0001
-    calls: 1/1
+    n: 2
+    brier: 0.125
+    log_loss: 0.3466
+    calls: 1/2
   lean-only:
-    n: 1
-    brier: 0.0
-    log_loss: 0.0001
-    calls: 1/1
+    n: 2
+    brier: 0.3036
+    log_loss: 0.7553
+    calls: 1/2
   coin-flip:
-    n: 1
+    n: 2
     brier: 0.25
     log_loss: 0.6931
-    calls: 1/1
+    calls: 1/2
 races:
 - id: house:KY-04
   slug: house/ky-04
@@ -109,9 +109,21 @@ races:
     classic: 0.0016
     deluxe: 0.0002
   called_right: true
+- id: house:KY-06
+  slug: house/ky-06
+  label: KY-06
+  winner: D
+  winner_name: Zach Dembo
+  margin: 9.79
+  p_winner: 0.5275
+  p_d_side:
+    lite: 0.7568
+    classic: 0.5359
+    deluxe: 0.5275
+  called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T04:41:55Z'
+  asof: '2026-11-04T04:53:16Z'
   called: 282
   scoreboard:
     lite:
