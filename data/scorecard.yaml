@@ -590,7 +590,7 @@ others:
         calls: 1/1
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T16:10:01Z'
+  asof: '2026-11-04T16:40:01Z'
   called: 421
   scoreboard:
     lite:
