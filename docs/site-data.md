@@ -281,3 +281,35 @@ incumbent (data/holders/). That is the convention AP and Wikipedia use for
 gains, so a redrawn district can change hands. `flip` marks a called (or
 uncontested) race whose winner's party differs; a winner who is neither
 nominee (`winner: "other"`) has no `party` and is never marked.
+
+## counties/&lt;chamber&gt;/&lt;slug&gt;.json (election night, web server only) — written by `midterms counties`
+
+County results of one statewide race (Senate or governor), from civicAPI's
+`race/{id}`. The web server writes them every 5 minutes beside `/live.json`
+and serves them at `/counties/senate/ga.json`, `/counties/governor/ga.json`,
+`/counties/senate/oh-special.json` (the race page's path). They are not
+committed. A race with no votes yet has no file (404); a race whose fetch
+failed keeps its last file.
+
+```
+{
+  generated, fetched,          // when written; when civicAPI answered for this race
+  race: "senate:GA", civic_id,
+  source: {name: "civicAPI", url, credit},
+  total,                       // the race's votes in the same answer
+  coverage,                    // the regions' votes / total (null before votes)
+  regions: [{                  // by 5-digit county FIPS, sorted
+    fips, name,                // name null for a county added up from towns
+    pct_reporting,             // null for a county added up from towns
+    votes: {D, R, other},      // by our sides, as in live.json
+    margin                     // two-party, D-side minus R-side, points; null if a
+  }],                          // side didn't match or no two-party votes yet
+  dropped,                     // civicAPI regions without a usable FIPS
+  note?                        // why regions is empty
+}
+```
+
+When the counties don't add up to the race's total (coverage outside
+0.97–1.03: Massachusetts' towns come without FIPS), `regions` is `[]` and
+`note` says why: show no map. Shade a county by the side `margin` favors;
+no votes yet (`votes` all 0) is no shade.

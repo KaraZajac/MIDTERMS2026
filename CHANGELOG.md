@@ -7,6 +7,16 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-03, night — county results of the statewide races (no model change)
+- `midterms counties` writes each Senate and governor race's results by
+  county (civicAPI's `race/{id}`), one file per race, for county maps on
+  the race pages. The web server runs it every 5 minutes beside
+  `live.json`. It reuses the race ids the live job already has (no extra
+  searches), fetches only races with votes, three at a time with one try
+  each, and stops a cycle after three failures in a row, so it never adds
+  to an outage. Counties that don't add up to the race's total (towns
+  without FIPS) give no map. Contract: docs/site-data.md.
+
 ### 2026-11-03, evening — a slow civicAPI answer is waited for (no model change)
 - At 22:58 UTC, as the first polls closed, civicAPI left three 25-second
   reads of the governors' search in a row unanswered, and that run of the

@@ -1,0 +1,130 @@
+"""County results for the statewide races (midterms/pipeline/counties.py)."""
+
+import json
+import shutil
+import tempfile
+import unittest
+from pathlib import Path
+from unittest import mock
+
+from midterms.pipeline import civic, counties
+
+
+def row(st, d, r):
+    return {"state": st, "d_cand": d, "r_cand": r, "d_side": "D", "r_side": "R"}
+
+
+def cand(name, party, votes):
+    return {"name": name, "party": party, "votes": votes, "winner": False}
+
+
+def county(fips, name, pct, d, r, other=0):
+    c = [cand("Jon Ossoff", "Democratic", d), cand("Mike Collins", "Republican", r)]
+    if other:
+        c.append(cand("Write-in", "Independent", other))
+    return {"name": name, "type": "County", "fips": fips, "percent_reporting": pct, "candidates": c}
+
+
+def search_race(cid, typ, st, votes, district=None):
+    return {"id": cid, "type": typ, "country": "US", "province": st, "district": district,
+            "candidates": [cand("A", "Democratic", votes), cand("B", "Republican", 0)]}
+
+
+class TestCounties(unittest.TestCase):
+    def setUp(self):
+        self.dir = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.dir)
+        self.out = self.dir / "counties"
+
+    def test_regions(self):
+        # counties by FIPS; towns (longer FIPS) added into their county; no FIPS, dropped
+        race = row("GA", "Jon Ossoff", "Mike Collins")
+        c = {"region_results": {
+            "appling": county("13001", "Appling", 40.0, 1000, 3000),
+            "fulton": county("13121", "Fulton", 63.0, 300000, 100000, 5000),
+            "t1": county("2300160300", "Town A", 100.0, 10, 30),
+            "t2": county("2300174790", "Town B", 50.0, 50, 10),
+            "district": county(None, "District 1", 10.0, 5, 5),
+            "state": county("13", "Georgia", 50.0, 1, 1)}}
+        regs, dropped = counties.regions(c, race)
+        self.assertEqual(dropped, 2)
+        by = {g["fips"]: g for g in regs}
+        self.assertEqual(sorted(by), ["13001", "13121", "23001"])
+        self.assertEqual(by["13121"], {"fips": "13121", "name": "Fulton", "pct_reporting": 63.0,
+                                       "votes": {"D": 300000, "R": 100000, "other": 5000}, "margin": 50.0})
+        self.assertEqual(by["13001"]["margin"], -50.0)
+        town = by["23001"]
+        self.assertEqual((town["name"], town["pct_reporting"], town["votes"]),
+                         (None, None, {"D": 60, "R": 40, "other": 0}))
+        self.assertEqual(town["margin"], 20.0)
+        # a side that doesn't match: no margin
+        odd = {"region_results": {"x": {"fips": "13001", "percent_reporting": 5,
+                                        "candidates": [cand("Somebody Else", "Libertarian", 9)]}}}
+        self.assertIsNone(counties.regions(odd, race)[0][0]["margin"])
+
+    def _keep(self, races):
+        civic._keep(self.dir, "federal", civic.fetch.now_utc(), races)
+
+    def test_run_writes_one_file_per_statewide_race_with_votes(self):
+        rows = {"senate:GA": row("GA", "Jon Ossoff", "Mike Collins"),
+                "senate:NE": row("NE", "Dan Osborn", "Pete Ricketts"),
+                "house:GA-07": row("GA", "X", "Y")}
+        self._keep([search_race(87087, "US Senate", "GA", 500),
+                    search_race(87254, "US Senate", "NE", 0),           # no votes yet: not fetched
+                    search_race(87079, "House of Representatives", "GA", 900, "GA-07")])
+        asked = []
+
+        total = [cand("Jon Ossoff", "Democratic", 300), cand("Mike Collins", "Republican", 100)]
+
+        def fake_get(u, **kw):
+            asked.append(u)
+            return json.dumps({"id": 87087, "candidates": total, "region_results": {
+                "fulton": county("13121", "Fulton", 63.0, 300, 100)}}).encode()
+
+        with mock.patch.object(counties.fetch, "get", fake_get):
+            got = counties.run(self.dir, self.out, rows=rows)
+        self.assertEqual(got, {"written": 1, "failed": 0, "skipped": 0})
+        self.assertEqual(asked, ["https://civicapi.org/api/v2/race/87087"])
+        doc = json.loads((self.out / "senate" / "ga.json").read_text())
+        self.assertEqual((doc["race"], doc["civic_id"], doc["dropped"]), ("senate:GA", 87087, 0))
+        self.assertEqual((doc["total"], doc["coverage"]), (400, 1.0))
+        self.assertEqual(doc["regions"][0]["margin"], 50.0)
+        self.assertNotIn("note", doc)
+        self.assertEqual(doc["source"]["credit"], civic.ATTRIBUTION)
+        # counties that fall short of the race's total (towns without FIPS): no map
+        total[0]["votes"] = 3000
+        with mock.patch.object(counties.fetch, "get", fake_get):
+            counties.run(self.dir, self.out, rows=rows)
+        doc = json.loads((self.out / "senate" / "ga.json").read_text())
+        self.assertEqual((doc["regions"], doc["coverage"]), ([], 0.129))
+        self.assertIn("don't add up", doc["note"])
+        self.assertEqual(counties.path_for(self.out, "senate:OH-special"),
+                         self.out / "senate" / "oh-special.json")
+
+    def test_failures_keep_the_last_file_and_end_the_cycle(self):
+        sts = ["AL", "CO", "GA", "IA", "KS"]
+        rows = {f"senate:{s}": row(s, "A", "B") for s in sts}
+        self._keep([search_race(100 + i, "US Senate", s, 10) for i, s in enumerate(sts)])
+        old = self.out / "senate" / "ga.json"
+        old.parent.mkdir(parents=True)
+        old.write_text('{"kept": true}')
+        asked = []
+
+        def down(u, **kw):
+            asked.append(u)
+            raise civic.fetch.DownloadFailed("download failed: … (HTTP 502)", 502)
+
+        with mock.patch.object(counties.fetch, "get", down), mock.patch.object(counties, "WORKERS", 1):
+            got = counties.run(self.dir, self.out, rows=rows)
+        self.assertEqual(got, {"written": 0, "failed": counties.TRIP, "skipped": len(sts) - counties.TRIP})
+        self.assertEqual(len(asked), counties.TRIP)
+        self.assertEqual(old.read_text(), '{"kept": true}')
+
+    def test_no_kept_answers_no_requests(self):
+        with mock.patch.object(counties.fetch, "get", side_effect=AssertionError("no request")):
+            got = counties.run(self.dir, self.out, rows={"senate:GA": row("GA", "A", "B")})
+        self.assertEqual(got, {"written": 0, "failed": 0, "skipped": 0})
+
+
+if __name__ == "__main__":
+    unittest.main()

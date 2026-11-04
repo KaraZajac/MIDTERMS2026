@@ -13,6 +13,9 @@
                                             the next one starts (refresh.yml)
     midterms live [--out PATH]              election night: results, calls, and the
                                             forecast conditioned on them -> live.json
+    midterms counties --cache-dir D --out-dir O
+                                            county results of the Senate and governor
+                                            races (the web server, beside live.json)
 """
 
 from __future__ import annotations
@@ -61,6 +64,11 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--check", type=int, metavar="NIGHTS",
                    help="calibration self-check over NIGHTS simulated election nights")
 
+    p = sub.add_parser("counties", help="county results of the statewide races -> one file per race")
+    p.add_argument("--cache-dir", required=True,
+                   help="where `midterms live --out` keeps civicAPI's last search answers")
+    p.add_argument("--out-dir", required=True, help="write <chamber>/<slug>.json here")
+
     p = sub.add_parser("cadence", help="the refresh chain: this run's phase and the next run")
     p.add_argument("--event", default="workflow_dispatch", help="github.event_name")
     p.add_argument("--run-id", type=int, help="github.run_id")
@@ -103,6 +111,9 @@ def main(argv: list[str] | None = None) -> None:
             from midterms.pipeline import livefeed
             livefeed.main(out=args.out, previous=args.previous, draws=args.draws, fixture=args.fixture,
                           seed=args.seed)
+    elif args.cmd == "counties":
+        from midterms.pipeline import counties
+        counties.main(args.cache_dir, args.out_dir)
     elif args.cmd == "cadence":
         from midterms.pipeline import cadence
         cadence.main(event=args.event, run_id=args.run_id, runs_path=args.runs)
