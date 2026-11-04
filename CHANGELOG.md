@@ -7,6 +7,16 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-03, night — a provisional scoreboard on the calls (no model change)
+- The scorecard of record resolves races from Wikipedia's results boxes,
+  which editors fill in after the night, so on election night it had
+  graded nothing. `scorecard.json` now also carries `provisional`: every
+  contender scored the same way on the races called so far (from the
+  newest live.json), labeled as calls, not results, and kept apart from
+  the record. At 04:13 UTC, on 253 calls: Deluxe Brier 0.0096 (250/253
+  called right), Classic 0.0106, the raters 0.0127, Lite 0.0187, lean only
+  0.0264, a coin flip 0.25. The calls so far are mostly safe seats.
+
 ### 2026-11-03, night — the committed copy never drops calls (no model change)
 - When civicAPI doesn't answer the refresh's run, the committed
   `live.json` used to fall back to Wikipedia's settled races alone. Once

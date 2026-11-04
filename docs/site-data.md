@@ -185,6 +185,16 @@ standard state tile-grid position for cartograms.
 scoreboard: {lite|classic|deluxe|ratings|lean-only|coin-flip: {n, brier,
 log_loss, calls}}}` — written by `midterms score`.
 
+`provisional` (election night on, when a live.json exists): `{basis, asof,
+called, scoreboard: {… as above}, races: [[race id, winning side "D"|"R",
+headline P(winner)]]}` — the same contenders scored on the races *called*
+so far (civicAPI's decision desk, or Wikipedia where it called first), from
+the newest live.json (the web server's, else the committed copy), as of
+`asof`. Calls are not final results: show it apart from the scorecard of
+record (`resolved`, `scoreboard`, `races`), which resolves races from
+Wikipedia's results boxes alone. Updated with every scoring run (every 10
+minutes on election night, then with each refresh).
+
 ## live.json (election night) — written by `midterms live`
 
 Two copies, one shape. The web server runs `midterms live --out …` every

@@ -34,7 +34,8 @@ from pathlib import Path
 import yaml
 
 from midterms.model import ratings as R
-from midterms.paths import DATA, FORECAST, RACES
+from midterms.paths import DATA, FORECAST, RACES, SITE
+from midterms.pipeline import fetch
 from midterms.pipeline import racepage as rp
 from midterms.pipeline import races as racemod
 from midterms.pipeline import states, wiki
@@ -149,6 +150,54 @@ def score(probs: dict, res: dict) -> dict:
             "calls": f"{int(calls)}/{n}"}
 
 
+LIVE_URL = "https://midterms.karazajac.io/live.json"     # the web server's, newest
+
+
+def latest_live() -> dict | None:
+    """The newest live.json there is: the web server's (fetched) or the
+    committed copy, whichever was generated later. Only real nights of the
+    forecast of record count."""
+    docs = []
+    try:
+        docs.append(json.loads(fetch.get(LIVE_URL, timeout=30, retries=2, gzip=True)))
+    except (SystemExit, ValueError):
+        pass
+    p = SITE / "live.json"
+    if p.exists():
+        try:
+            docs.append(json.loads(p.read_text()))
+        except ValueError:
+            pass
+    docs = [d for d in docs if isinstance(d, dict) and isinstance(d.get("races"), dict)
+            and not d.get("fixture") and (d.get("forecast") or {}).get("of_record")]
+    return max(docs, key=lambda d: d.get("generated") or "") if docs else None
+
+
+def provisional(fc: dict, contenders: dict, live: dict | None) -> dict | None:
+    """The same scoreboard on the races called so far (civicAPI's decision
+    desk, or Wikipedia's results where it called first): calls, not final
+    results, so kept apart from the scorecard of record, which resolves
+    races from Wikipedia's results boxes alone."""
+    if not live:
+        return None
+    res = {rid: {"winner_side": r["winner"]} for rid, r in live["races"].items()
+           if r.get("status") == "called" and r.get("winner") in ("D", "R")}
+    common = set(res)
+    for probs in contenders.values():
+        common &= set(probs)
+    called = {r: res[r] for r in common}
+    head = fc["headline"]
+    rows = []
+    for rid in sorted(called):
+        win_d = called[rid]["winner_side"] == "D"
+        p_d = fc["versions"][head]["races"][rid]["p_d_side"]
+        rows.append([rid, "D" if win_d else "R", round(p_d if win_d else 1 - p_d, 4)])
+    return {"basis": "race calls so far (civicAPI's decision desk), not final results",
+            "asof": live.get("generated"), "called": len(called),
+            "scoreboard": {name: score(probs, called) for name, probs in contenders.items()},
+            "races": rows}                          # [race, winning side, headline P(winner)]
+
+
 def main() -> dict:
     fc, path = frozen_forecast()
     res = outcomes()
@@ -183,6 +232,13 @@ def main() -> dict:
     out = {"forecast": path.name, "forecast_generated": fc["generated"], "deadline": DEADLINE,
            "headline": head, "resolved": len(resolved), "open": open_races[:60],
            "open_count": len(open_races), "scoreboard": board, "races": table}
+    prov = provisional(fc, contenders, latest_live())
+    if prov:
+        out["provisional"] = prov
+        s = prov["scoreboard"].get(head) or {}
+        if s.get("n"):
+            print(f"  provisional, {prov['called']} races called (as of {prov['asof']}): "
+                  f"{head} Brier {s['brier']:.4f}, calls {s['calls']}")
     (DATA / "scorecard.yaml").write_text(yaml.safe_dump(out, sort_keys=False))
     print(f"scoring {path.name} (generated {fc['generated']}) on {len(resolved)} resolved races")
     for name, s in sorted(board.items(), key=lambda kv: kv[1].get("brier", 9)):
