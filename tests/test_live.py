@@ -435,6 +435,23 @@ class TestCivic(unittest.TestCase):
         self.assertEqual([civic.party_code(p) for p in ("Democratic", "Republican", "Libertarian", "Nonpartisan", None)],
                          ["D", "R", "L", "IND", "IND"])
 
+    def test_a_same_party_race(self):
+        # California's top two, both Democrats: settled by party before Election
+        # Day, but the count's winner needn't be the one we named (CA-34, Nov 4)
+        race = {"id": "house:CA-34", "state": "CA", "d_cand": "Jimmy Gomez", "r_cand": "", "d_side": "D",
+                "r_side": "R", "fixed": "D"}
+        cands = [{"name": "Angela Gonzales-Torres", "party": "Democratic", "votes": 66187, "winner": True},
+                 {"name": "Jimmy Gomez", "party": "Democratic", "votes": 46641, "winner": False}]
+        c = civic_race(type="House of Representatives", province="CA", district="CA-34",
+                       percent_reporting=100, candidates=cands)
+        r = civic.result(c, race)
+        self.assertEqual((r["status"], r["winner"], r["winner_name"], r["party"], "margin" in r),
+                         ("called", "other", "Angela Gonzales-Torres", "D", False))
+        self.assertEqual([x["name"] for x in r["top_two"]], ["Angela Gonzales-Torres", "Jimmy Gomez"])
+        alone = civic_race(type="House of Representatives", province="WI", district="WI-02", candidates=[
+            {"name": "Mark Pocan", "party": "Democratic", "votes": 298359}])
+        self.assertNotIn("top_two", civic.result(alone, dict(race, id="house:WI-02", d_cand="Mark Pocan")))
+
     def test_names(self):
         f = civic._find
         cands = [{"name": "Austin Scott"}, {"name": "Kelly Etsi"}]
@@ -572,6 +589,32 @@ class TestSeatsAndClosings(unittest.TestCase):
             self.assertEqual((six["status"], "winner" in six, [x["name"] for x in six["top_two"]]),
                              ("runoff", False, ["Chauna Banks", "Blake Miguez"]))
             self.assertEqual(doc["events"][0]["party"], "R")
+
+    def test_a_same_party_winner_we_didnt_name(self):
+        from midterms.paths import FORECAST
+        from midterms.pipeline import livefeed as F
+        fc = json.loads((FORECAST / "latest.json").read_text())
+        top = [{"name": "Angela Gonzales-Torres", "party": "D", "votes": 66187},
+               {"name": "Jimmy Gomez", "party": "D", "votes": 46641}]
+        res = {"house:CA-34": {"status": "called", "winner": "other", "winner_name": "Angela Gonzales-Torres",
+                               "party": "D", "top_two": top, "pct_reporting": 100.0,
+                               "votes": {"D": 46641, "R": 0, "other": 66187}},
+               "house:CA-04": {"status": "counting", "pct_reporting": 100.0,          # not called: as before
+                               "votes": {"D": 57671, "R": 0, "other": 61299},
+                               "top_two": [{"name": "Eric Jones", "party": "D", "votes": 61299},
+                                           {"name": "Mike Thompson", "party": "D", "votes": 57671}]}}
+        doc = F.assemble(fc, "latest.json", False, F.race_rows(), res, None, None, "2026-11-04T21:00:00Z",
+                         draws=2000, held={"house:CA-34": "D", "house:CA-04": "D"})
+        ca34, ca04 = doc["races"]["house:CA-34"], doc["races"]["house:CA-04"]
+        self.assertEqual((ca34["status"], ca34["winner"], ca34["winner_name"], ca34["party"], ca34.get("flip"),
+                          ca34["top_two"]), ("uncontested", "other", "Angela Gonzales-Torres", "D", None, top))
+        self.assertEqual((ca04["status"], ca04["winner"], ca04["party"], "winner_name" in ca04),
+                         ("uncontested", "D", "D", False))
+        self.assertEqual(ca04["top_two"][0]["name"], "Eric Jones")
+        fixed = doc["chambers"]["house"]["fixed"]
+        self.assertEqual(sum(fixed.values()), sum(1 for m in fc["races"].values()
+                                                  if m["chamber"] == "house" and m.get("fixed")))
+        self.assertNotIn("other", fixed)
 
     def test_poll_closings(self):
         from midterms.pipeline import livefeed as F

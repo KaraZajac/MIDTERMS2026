@@ -7,6 +7,20 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-04, evening — uncontested races with a count name their real winner (no model change)
+- Races settled by party before Election Day can still have a count.
+  These are California's same-party top two, and a candidate against minor
+  opposition (MA-01, NJ-08, PA-03). live.json kept them `uncontested` and
+  named our candidate even when civicAPI had called the other one: CA-34
+  showed Jimmy Gomez, who lost to Angela Gonzales-Torres (both D).
+- These races now carry `top_two`, like Louisiana's.
+- When civicAPI calls a winner we didn't name, the race is `winner: "other"`
+  with `winner_name` and `party`, still `uncontested`, and counted in
+  `fixed` by party. Today that's CA-34.
+- `top_two` now needs two candidates with votes, so WI-02 (Pocan alone)
+  has none.
+- Flagged by the site (ASTROPHAGE); the site shows the pair and shares.
+
 ### 2026-11-04, evening — Louisiana's House races scored by the winner's party (no model change)
 - Our D-side and R-side in Louisiana's first round are one candidate of
   each party, so a race won by another candidate went unscored: Scalise

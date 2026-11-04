@@ -204,7 +204,8 @@ def check_live(g: Gate) -> None:
                     and r.get("party") not in (None, r.get("held")), f"live {rid}: flip without a change of party")
         if "top_two" in r:
             top = r["top_two"]
-            g.check(rid.startswith(civic.FIRST_ROUND) and isinstance(top, list) and 1 <= len(top) <= 2
+            g.check((rid.startswith(civic.FIRST_ROUND) or r.get("status") == "uncontested")
+                    and isinstance(top, list) and len(top) == 2
                     and all(isinstance(x.get("votes"), int) and x.get("party") in ("D", "R", "L", "G", "IND")
                             for x in top), f"live {rid}: top_two {top!r}")
     for c in ("house", "senate", "governor"):

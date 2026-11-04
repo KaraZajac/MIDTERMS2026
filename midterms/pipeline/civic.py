@@ -255,6 +255,10 @@ def result(c: dict, race: dict) -> dict:
     an outright winner who isn't one of our sides."""
     cands = c.get("candidates") or []
     first = str(race.get("id") or "").startswith(FIRST_ROUND)
+    # where our named candidates needn't be the contest: Louisiana's first
+    # round, and races settled by party before Election Day (California's
+    # same-party top two; CA-34's called winner isn't the one we named)
+    loose = first or bool(race.get("fixed"))
     i_d, i_r = _find(cands, race.get("d_cand")), _find(cands, race.get("r_cand"))
     if i_d is not None and i_d == i_r:                   # never one candidate on both sides
         i_d = i_r = None
@@ -292,7 +296,7 @@ def result(c: dict, race: dict) -> dict:
            "pct_reporting": round(pct, 1), "votes": votes}
     if len(winners) == 1:
         out.update(status="called", winner=winners[0][0], winner_name=winners[0][1])
-        if first and winners[0][0] == "other":
+        if loose and winners[0][0] == "other":
             out["party"] = party_code(winners[0][2])
     elif total == 0:
         out.update(status="awaiting", winner=None)
@@ -305,10 +309,10 @@ def result(c: dict, race: dict) -> dict:
         two = votes["D"] + votes["R"]
         if two and out["matched"]["D"] and out["matched"]["R"] and not first:
             out["margin"] = round(100 * (votes["D"] - votes["R"]) / two, 1)
-        if first:
-            top = sorted(range(len(cands)), key=lambda i: -each[i])[:2]
+        top = [i for i in sorted(range(len(cands)), key=lambda i: -each[i])[:2] if each[i] > 0]
+        if loose and len(top) == 2:
             out["top_two"] = [{"name": cands[i].get("name"), "party": party_code(cands[i].get("party")),
-                               "votes": each[i]} for i in top if each[i] > 0]
+                               "votes": each[i]} for i in top]
     return out
 
 

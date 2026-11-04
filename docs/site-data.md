@@ -295,7 +295,8 @@ the newer `generated`. Every string is plain text.
                               // would mislead: a side not found in the count,
                               // or a first-round race; don't compute one)
     top_two?: [{name, party, votes}],
-                              // first-round races only (below): the two
+                              // first-round and uncontested races (below),
+                              // once two candidates have votes: the two
                               // leading candidates in the count, most votes
                               // first; party "D" | "R" | "L" | "G" | "IND"
     p_pre,                    // P(D-side wins), forecast of record
@@ -330,6 +331,16 @@ sides is `winner: "other"` with `winner_name` and `party` (Scalise, LA-01:
 "R"). The same holds when Wikipedia's results settle it (`called_by:
 "wikipedia"`, e.g. a Dec 12 runoff). Such a winner counts for that party
 in `chambers` (`called`, `bloc`, `gains`) and in the conditioned forecast.
+
+**Uncontested races with a count.** Some races were settled by party before
+Election Day but still have a count: California's same-party top two (CA-04,
+CA-34, …), and a candidate against minor opposition (MA-01, NJ-08, PA-03).
+These carry `top_two` too. The race we named a candidate for can be won by
+the other one. When civicAPI calls such a winner (CA-34: Angela
+Gonzales-Torres over Jimmy Gomez, both D), the race stays `uncontested` but
+is `winner: "other"` with `winner_name` and `party`, counted in `fixed` by
+that party. While uncalled it stays winner "D"/"R" with our candidate, even
+if the other one leads in `top_two` (CA-04 now).
 
 **Changing hands.** `held` is the party holding each seat now: House seats
 by district number from the Clerk of the House's member list (a vacant seat

@@ -199,6 +199,11 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
         row = {"status": status}
         if fixed:
             row["winner"] = "D" if fixed == m.get("d_side") else "R"
+            if (r.get("status") == "called" and r.get("winner") == "other"
+                    and r.get("winner_name") and r.get("party")):
+                # settled by party, but the count's winner isn't the candidate we
+                # named (CA-34: Gonzales-Torres beat Gomez, both D)
+                row.update(winner="other", winner_name=r["winner_name"])
         elif status == "called":
             row["winner"] = r["winner"]
             if r["winner"] == "other" and r.get("winner_name"):
@@ -264,7 +269,7 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
                 losses[row["held"]] = losses.get(row["held"], 0) + 1
                 flips.append(rid)
             if row["status"] == "uncontested":
-                p = party(rid, row["winner"])
+                p = row.get("party") or party(rid, row["winner"])
                 fixed[p] = fixed.get(p, 0) + 1
             elif row["status"] == "called":
                 p = row.get("party") or party(rid, row["winner"])
