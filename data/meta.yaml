@@ -1,8 +1,8 @@
-generated: '2026-11-04T04:24:41Z'
+generated: '2026-11-04T04:34:51Z'
 generator: python3 -m midterms build
 asof: '2026-11-04'
 election_day: '2026-11-03'
-sources_digest: 69d676a4cf989806
+sources_digest: 3a668984ad3bc0bd
 counts:
   house_races: 435
   senate_races: 35
@@ -30,15 +30,15 @@ sources:
     2026 Alaska gubernatorial election: 1383659077
     2026 Arizona gubernatorial election: 1383624729
     2026 Arkansas gubernatorial election: 1383625370
-    2026 California gubernatorial election: 1383682970
+    2026 California gubernatorial election: 1383686446
     2026 Colorado gubernatorial election: 1383628936
     2026 Connecticut gubernatorial election: 1383664537
     2026 Florida gubernatorial election: 1383685229
     2026 Georgia gubernatorial election: 1383678441
     2026 Hawaii gubernatorial election: 1383535205
     2026 Idaho gubernatorial election: 1383633055
-    2026 Illinois gubernatorial election: 1383683126
-    2026 Iowa gubernatorial election: 1383685463
+    2026 Illinois gubernatorial election: 1383685961
+    2026 Iowa gubernatorial election: 1383686403
     2026 Kansas gubernatorial election: 1383637696
     2026 Maine gubernatorial election: 1383610159
     2026 Maryland gubernatorial election: 1383673597
@@ -52,20 +52,20 @@ sources:
     2026 New York gubernatorial election: 1383672035
     2026 Ohio gubernatorial election: 1383683079
     2026 Oklahoma gubernatorial election: 1383630353
-    2026 Oregon gubernatorial election: 1383685076
+    2026 Oregon gubernatorial election: 1383685584
     2026 Pennsylvania gubernatorial election: 1383614564
     2026 Rhode Island gubernatorial election: 1383670531
     2026 South Carolina gubernatorial election: 1383595666
     2026 South Dakota gubernatorial election: 1383595722
     2026 Tennessee gubernatorial election: 1383633369
-    2026 Texas gubernatorial election: 1383685507
+    2026 Texas gubernatorial election: 1383685873
     2026 United States House of Representatives election in Alaska: 1383516086
     2026 United States House of Representatives election in Delaware: 1383629650
     2026 United States House of Representatives election in North Dakota: 1382592840
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383477010
-    2026 United States House of Representatives elections: 1383685426
+    2026 United States House of Representatives elections: 1383686560
     2026 United States House of Representatives elections in Alabama: 1383666973
     2026 United States House of Representatives elections in Arizona: 1383655958
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -81,7 +81,7 @@ sources:
     2026 United States House of Representatives elections in Indiana: 1383666984
     2026 United States House of Representatives elections in Iowa: 1383635815
     2026 United States House of Representatives elections in Kansas: 1383654929
-    2026 United States House of Representatives elections in Kentucky: 1383675028
+    2026 United States House of Representatives elections in Kentucky: 1383686584
     2026 United States House of Representatives elections in Louisiana: 1383637083
     2026 United States House of Representatives elections in Maine: 1383610296
     2026 United States House of Representatives elections in Maryland: 1383579055
@@ -111,7 +111,7 @@ sources:
     2026 United States House of Representatives elections in Washington: 1383640379
     2026 United States House of Representatives elections in West Virginia: 1382858408
     2026 United States House of Representatives elections in Wisconsin: 1383636969
-    2026 United States Senate election in Alabama: 1383623275
+    2026 United States Senate election in Alabama: 1383686516
     2026 United States Senate election in Alaska: 1383651763
     2026 United States Senate election in Arkansas: 1383625083
     2026 United States Senate election in Colorado: 1383672712
@@ -119,8 +119,8 @@ sources:
     2026 United States Senate election in Georgia: 1383674807
     2026 United States Senate election in Idaho: 1383680105
     2026 United States Senate election in Illinois: 1383685312
-    2026 United States Senate election in Iowa: 1383632173
-    2026 United States Senate election in Kansas: 1383685176
+    2026 United States Senate election in Iowa: 1383686230
+    2026 United States Senate election in Kansas: 1383685656
     2026 United States Senate election in Kentucky: 1383672944
     2026 United States Senate election in Louisiana: 1383636791
     2026 United States Senate election in Maine: 1383675439
@@ -133,7 +133,7 @@ sources:
     2026 United States Senate election in New Hampshire: 1383675897
     2026 United States Senate election in New Jersey: 1383575047
     2026 United States Senate election in New Mexico: 1383672523
-    2026 United States Senate election in North Carolina: 1383681102
+    2026 United States Senate election in North Carolina: 1383685916
     2026 United States Senate election in Oklahoma: 1383674608
     2026 United States Senate election in Oregon: 1383574513
     2026 United States Senate election in Rhode Island: 1383641408
@@ -144,10 +144,10 @@ sources:
     2026 United States Senate election in Virginia: 1383675952
     2026 United States Senate election in West Virginia: 1383668708
     2026 United States Senate election in Wyoming: 1383673830
-    2026 United States Senate elections: 1383685438
+    2026 United States Senate elections: 1383686498
     2026 United States Senate special election in Florida: 1383667050
-    2026 United States Senate special election in Ohio: 1383683942
-    2026 United States gubernatorial elections: 1383685616
+    2026 United States Senate special election in Ohio: 1383686125
+    2026 United States gubernatorial elections: 1383686631
     2026 Vermont gubernatorial election: 1383680244
     2026 Wisconsin gubernatorial election: 1383635669
     2026 Wyoming gubernatorial election: 1383673774
