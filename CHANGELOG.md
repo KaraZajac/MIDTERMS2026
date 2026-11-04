@@ -7,6 +7,35 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-04, evening — Louisiana's first round in the live results (no model change)
+- Louisiana's House races were a first round: every candidate on one
+  ballot, a majority wins, else the top two meet on Dec 12. Our D-side and
+  R-side there are one candidate of each party, often not the leaders, so
+  live.json misread the races:
+  - It showed LA-01 at D+80 (Jewett vs Arrington, though Scalise won).
+  - It counted the seats Scalise, Higgins and Johnson won outright as
+    "other", not R (House called: R 140 + other 3).
+  - It left LA-05 and LA-06 "counting" at 100%, with the wrong candidate
+    leading.
+- civicAPI's results now give those races (`house:LA-*`):
+  - no side margin;
+  - a new `top_two` field (the two leading candidates, with party and
+    votes);
+  - `runoff` once 99% is counted with no majority;
+  - for an outright winner who isn't one of our sides, their `party`.
+    That party counts in the chamber tallies and in the conditioned
+    forecast (as the side of that party).
+- Now:
+  - House called: R 143, other 0.
+  - LA-05: Moore (D) vs Firment (R). LA-06: Banks (D) vs Miguez (R).
+- The majority check for runoffs now uses the leading candidate, never a
+  side's lump of votes.
+- The data contract (docs/site-data.md) has the details. The site should
+  name a runoff's pair from `top_two`, and no longer compute a margin
+  that live.json leaves out.
+- Scoring is unchanged. The scorecards still leave out a race won by
+  someone other than our two candidates, as before.
+
 ### 2026-11-04, afternoon — how the other forecasters did (no model change)
 - The scorecard now compares the forecast with every forecaster in
   Wikipedia's prediction tables, head to head on the races each one rated:

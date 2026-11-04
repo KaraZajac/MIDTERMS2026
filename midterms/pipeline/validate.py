@@ -22,7 +22,7 @@ from collections import Counter, defaultdict
 import yaml
 
 from midterms.paths import CURATED, DATA, FORECAST, POLLS, RACES
-from midterms.pipeline import excluded, votehub
+from midterms.pipeline import civic, excluded, votehub
 
 APPORTIONMENT_2020 = {
     "AL": 7, "AK": 1, "AZ": 9, "AR": 4, "CA": 52, "CO": 8, "CT": 5, "DE": 1,
@@ -202,6 +202,11 @@ def check_live(g: Gate) -> None:
         if r.get("flip"):
             g.check(r.get("status") in ("called", "uncontested") and r.get("held")
                     and r.get("party") not in (None, r.get("held")), f"live {rid}: flip without a change of party")
+        if "top_two" in r:
+            top = r["top_two"]
+            g.check(rid.startswith(civic.FIRST_ROUND) and isinstance(top, list) and 1 <= len(top) <= 2
+                    and all(isinstance(x.get("votes"), int) and x.get("party") in ("D", "R", "L", "G", "IND")
+                            for x in top), f"live {rid}: top_two {top!r}")
     for c in ("house", "senate", "governor"):
         ch = (doc.get("chambers") or {}).get(c)
         g.check(ch is not None, f"live.json lacks {c}")

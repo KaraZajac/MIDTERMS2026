@@ -51,6 +51,19 @@ UA = "MIDTERMS2026-live/0.1 (+https://midterms.karazajac.io)"
 ATTRIBUTION = "Results and race calls: civicAPI (civicapi.org)"
 TYPES = {"House of Representatives": "house", "US Senate": "senate", "Governor": "governor"}
 MAJORITY_RULE = {"GA"}             # a runoff when no one passes 50% (Dec 1)
+# Louisiana's House: every candidate on one ballot on Nov 3; a majority wins,
+# else the top two meet on Dec 12. Our D-side and R-side there are one
+# candidate of each party and needn't be the leaders (LA-01's are Jewett and
+# Arrington; Scalise won), so these races get no side margin, their top two
+# instead, and an outright winner's party.
+FIRST_ROUND = "house:LA-"
+PARTY = {"Democratic": "D", "Republican": "R", "Libertarian": "L", "Green": "G"}
+
+
+def party_code(label) -> str:
+    """civicAPI's party label as ours: D, R, L, G; anyone else IND."""
+    label = str(label or "")
+    return next((code for name, code in PARTY.items() if label.startswith(name)), "IND")
 
 
 def url(name: str, offset: int = 0) -> str:
@@ -237,8 +250,11 @@ def _find(cands: list[dict], name: str) -> int | None:
 
 def result(c: dict, race: dict) -> dict:
     """One race's state of play, by our sides: D (the D-side nominee),
-    R (the R-side nominee), other (everyone else)."""
+    R (the R-side nominee), other (everyone else). In a first round
+    (FIRST_ROUND), the top two instead of a side margin, and the party of
+    an outright winner who isn't one of our sides."""
     cands = c.get("candidates") or []
+    first = str(race.get("id") or "").startswith(FIRST_ROUND)
     i_d, i_r = _find(cands, race.get("d_cand")), _find(cands, race.get("r_cand"))
     if i_d is not None and i_d == i_r:                   # never one candidate on both sides
         i_d = i_r = None
@@ -255,15 +271,18 @@ def result(c: dict, race: dict) -> dict:
             else:
                 i_r = hits[0]
     votes = {"D": 0, "R": 0, "other": 0}
+    each = []                                            # every candidate's votes, in order
     winners = []
     for i, x in enumerate(cands):
         side = "D" if i == i_d else "R" if i == i_r else "other"
         try:
-            votes[side] += int(x.get("votes") or 0)
+            v = int(x.get("votes") or 0)
         except (TypeError, ValueError):
-            pass
+            v = 0
+        votes[side] += v
+        each.append(v)
         if x.get("winner") is True:
-            winners.append((side, x.get("name")))
+            winners.append((side, x.get("name"), x.get("party")))
     try:
         pct = float(c.get("percent_reporting") or 0)
     except (TypeError, ValueError):
@@ -273,17 +292,23 @@ def result(c: dict, race: dict) -> dict:
            "pct_reporting": round(pct, 1), "votes": votes}
     if len(winners) == 1:
         out.update(status="called", winner=winners[0][0], winner_name=winners[0][1])
+        if first and winners[0][0] == "other":
+            out["party"] = party_code(winners[0][2])
     elif total == 0:
         out.update(status="awaiting", winner=None)
     else:
-        lead = max(votes["D"], votes["R"], votes["other"])
-        runoff = (race.get("state") in MAJORITY_RULE and pct >= 99 and lead * 2 <= total)
+        lead = max(each)                                 # one candidate, never a side's lump
+        runoff = ((first or race.get("state") in MAJORITY_RULE) and pct >= 99 and lead * 2 <= total)
         out.update(status="runoff" if runoff else "counting", winner=None)
     if total:
         out["pct"] = {k: round(100 * v / total, 1) for k, v in votes.items()}
         two = votes["D"] + votes["R"]
-        if two and out["matched"]["D"] and out["matched"]["R"]:
+        if two and out["matched"]["D"] and out["matched"]["R"] and not first:
             out["margin"] = round(100 * (votes["D"] - votes["R"]) / two, 1)
+        if first:
+            top = sorted(range(len(cands)), key=lambda i: -each[i])[:2]
+            out["top_two"] = [{"name": cands[i].get("name"), "party": party_code(cands[i].get("party")),
+                               "votes": each[i]} for i in top if each[i] > 0]
     return out
 
 

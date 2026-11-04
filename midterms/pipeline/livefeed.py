@@ -149,7 +149,17 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
     res = reconcile(res, wiki or {})
     sim = _sim(fc, rows)
     eng = L.Engine(sim, version=head)
-    calls = {rid: r["winner"] for rid, r in res.items()
+    def side_of(rid: str, r: dict) -> str:
+        """The side a call goes to: an outright first-round winner who isn't
+        one of our sides counts for the side of their party (Scalise: R)."""
+        if r["winner"] == "other" and r.get("party"):
+            if r["party"] == fc["races"][rid].get("d_side"):
+                return "D"
+            if r["party"] == (rows.get(rid, {}).get("r_side") or "R"):
+                return "R"
+        return r["winner"]
+
+    calls = {rid: side_of(rid, r) for rid, r in res.items()
              if r.get("status") == "called" and not fc["races"][rid].get("fixed")}
     if calls:
         out = eng.run(calls, n=draws, seed=SEED)
@@ -196,8 +206,10 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
             row["held"] = held[rid]
         if row.get("winner") in ("D", "R"):
             row["party"] = party(rid, row["winner"])
-            if held.get(rid) and row["party"] != held[rid]:
-                row["flip"] = True                                  # the seat changes hands
+        elif row.get("winner") == "other" and r.get("party"):
+            row["party"] = r["party"]                               # a first-round winner's
+        if row.get("party") and held.get(rid) and row["party"] != held[rid]:
+            row["flip"] = True                                      # the seat changes hands
         if r.get("disputed"):
             row["disputed"] = True
         if r.get("votes") and sum(r["votes"].values()):
@@ -205,6 +217,8 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
             row["votes"] = r["votes"]
             if r.get("margin") is not None:
                 row["margin"] = r["margin"]
+            if r.get("top_two"):
+                row["top_two"] = r["top_two"]
         row["p_pre"] = _r(p_pre)
         row["p_live"] = _r(out["races"][rid])
         races[rid] = row
@@ -244,7 +258,7 @@ def assemble(fc: dict, snapshot: str, of_record: bool, rows: dict, res: dict[str
                 p = party(rid, row["winner"])
                 fixed[p] = fixed.get(p, 0) + 1
             elif row["status"] == "called":
-                p = party(rid, row["winner"])
+                p = row.get("party") or party(rid, row["winner"])
                 called[p] = called.get(p, 0) + 1
                 if row["winner"] in ("D", "R"):
                     n_called += 1

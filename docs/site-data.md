@@ -278,12 +278,19 @@ the newer `generated`. Every string is plain text.
                               // has settled it (civicAPI otherwise)
     held?,                    // the party holding the seat now ("D", "R", "IND")
     party?,                   // the winner's party, when the winner is a nominee
+                              // (or a first-round winner: below)
     flip?,                    // true: the seat changes hands (party != held)
     disputed?,                // civicAPI and Wikipedia call it differently:
                               // shown as counting, not used
     pct_reporting?, votes?: {D, R, other}, margin?,
                               // the current count; margin is two-party,
-                              // D-side minus R-side, points
+                              // D-side minus R-side, points (absent when it
+                              // would mislead: a side not found in the count,
+                              // or a first-round race; don't compute one)
+    top_two?: [{name, party, votes}],
+                              // first-round races only (below): the two
+                              // leading candidates in the count, most votes
+                              // first; party "D" | "R" | "L" | "G" | "IND"
     p_pre,                    // P(D-side wins), forecast of record
     p_live                    // P(D-side wins | calls so far); 1 or 0 once called
   }},
@@ -305,6 +312,16 @@ counts (method §10).
 
 Every call is in `races` (status, winner, called_at); `events` keeps only
 the newest 120, so a full list of calls is built from `races`.
+
+**First rounds (Louisiana's House, `house:LA-*`).** Every candidate is on
+one ballot on Nov 3: a majority wins, else the top two meet on Dec 12. Our
+D-side and R-side there are one candidate of each party, not necessarily
+the leaders, so these races have no `margin` and carry `top_two` instead
+(name a runoff's pair from it, not from the sides). `status` is `runoff`
+once 99% is counted with no one past 50%. An outright winner who isn't one
+of our sides is `winner: "other"` with `winner_name` and `party` (Scalise,
+LA-01: "R"), and counts for that party in `chambers` (`called`, `bloc`,
+`gains`) and in the conditioned forecast.
 
 **Changing hands.** `held` is the party holding each seat now: House seats
 by district number from the Clerk of the House's member list (a vacant seat

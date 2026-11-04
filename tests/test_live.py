@@ -391,6 +391,50 @@ class TestCivic(unittest.TestCase):
             {"name": "Someone Else", "votes": 20}])
         self.assertEqual(civic.result(c, RACES["senate:GA"])["status"], "runoff")
 
+    def test_louisiana_first_round(self):
+        # every candidate on one ballot, and our two sides aren't the leaders
+        # (LA-01 on Nov 3: Jewett vs Arrington read D+80; Scalise won)
+        race = {"id": "house:LA-01", "state": "LA", "d_cand": "Lauren Jewett", "r_cand": "Randall Arrington",
+                "d_side": "D", "r_side": "R"}
+        cands = [{"name": "Steve Scalise", "party": "Republican", "votes": 159890, "winner": False},
+                 {"name": "Lauren Jewett", "party": "Democratic", "votes": 89428, "winner": False},
+                 {"name": "Randall Arrington", "party": "Republican", "votes": 9776, "winner": False},
+                 {"name": 'E. "Liddy" Glass', "party": "Nonpartisan", "votes": 4279, "winner": False}]
+        c = civic_race(type="House of Representatives", province="LA", district="LA-01",
+                       percent_reporting=60, candidates=cands)
+        r = civic.result(c, race)
+        self.assertEqual((r["status"], r["votes"]), ("counting", {"D": 89428, "R": 9776, "other": 164169}))
+        self.assertNotIn("margin", r)
+        self.assertEqual(r["top_two"], [{"name": "Steve Scalise", "party": "R", "votes": 159890},
+                                        {"name": "Lauren Jewett", "party": "D", "votes": 89428}])
+        cands[0]["winner"] = True
+        r = civic.result(c, race)
+        self.assertEqual((r["status"], r["winner"], r["winner_name"], r["party"]),
+                         ("called", "other", "Steve Scalise", "R"))
+        # no majority once it's all counted: the top two meet on Dec 12 (LA-05)
+        five = {"id": "house:LA-05", "state": "LA", "d_cand": "Dan McKay", "r_cand": "Stewart Cathey Jr.",
+                "d_side": "D", "r_side": "R"}
+        cands = [{"name": 'Patricia "Pat" Moore', "party": "Democratic", "votes": 40789},
+                 {"name": "Gabe Firment", "party": "Republican", "votes": 39131},
+                 {"name": "Stewart Cathey, Jr.", "party": "Republican", "votes": 28160},
+                 {"name": "Dan McKay", "party": "Democratic", "votes": 16047}]
+        r = civic.result(civic_race(type="House of Representatives", province="LA", district="LA-05",
+                                    percent_reporting=100, candidates=cands), five)
+        self.assertEqual(r["status"], "runoff")
+        self.assertEqual([(x["name"], x["party"]) for x in r["top_two"]],
+                         [('Patricia "Pat" Moore', "D"), ("Gabe Firment", "R")])
+        r = civic.result(civic_race(type="House of Representatives", province="LA", district="LA-05",
+                                    percent_reporting=97, candidates=cands), five)
+        self.assertEqual(r["status"], "counting")
+        # everywhere else, as before: a side margin, no top two, no party for an 'other' winner
+        me = civic.result(civic_race(), RACES["senate:ME"])
+        self.assertEqual((me["margin"], "top_two" in me), (9.1, False))
+        c = civic_race()
+        c["candidates"][2]["winner"] = True
+        self.assertNotIn("party", civic.result(c, RACES["senate:ME"]))
+        self.assertEqual([civic.party_code(p) for p in ("Democratic", "Republican", "Libertarian", "Nonpartisan", None)],
+                         ["D", "R", "L", "IND", "IND"])
+
     def test_names(self):
         f = civic._find
         cands = [{"name": "Austin Scott"}, {"name": "Kelly Etsi"}]
@@ -472,6 +516,33 @@ class TestSeatsAndClosings(unittest.TestCase):
         self.assertTrue(ev["senate:ME"]["flip"])
         self.assertFalse(ev["senate:GA"]["flip"])
         self.assertIn("held_note", doc)
+
+    def test_a_first_round_winner_counts_for_their_party(self):
+        from midterms.paths import FORECAST
+        from midterms.pipeline import livefeed as F
+        fc = json.loads((FORECAST / "latest.json").read_text())
+        top = [{"name": "Steve Scalise", "party": "R", "votes": 159890},
+               {"name": "Lauren Jewett", "party": "D", "votes": 89428}]
+        res = {"house:LA-01": {"status": "called", "winner": "other", "winner_name": "Steve Scalise",
+                               "party": "R", "pct_reporting": 100.0, "top_two": top,
+                               "votes": {"D": 89428, "R": 9776, "other": 164169}},
+               "house:LA-06": {"status": "runoff", "pct_reporting": 100.0,
+                               "votes": {"D": 50878, "R": 49241, "other": 161832},
+                               "top_two": [{"name": "Chauna Banks", "party": "D", "votes": 50878},
+                                           {"name": "Blake Miguez", "party": "R", "votes": 50213}]}}
+        for held, flip in (("R", None), ("D", True)):
+            doc = F.assemble(fc, "latest.json", False, F.race_rows(), res, None, None, "2026-11-04T07:18:01Z",
+                             draws=2000, held={"house:LA-01": held, "house:LA-06": "D"})
+            one, six = doc["races"]["house:LA-01"], doc["races"]["house:LA-06"]
+            self.assertEqual((one["winner"], one["winner_name"], one["party"], one.get("flip")),
+                             ("other", "Steve Scalise", "R", flip))
+            self.assertEqual((one["top_two"], "margin" in one, one["p_live"]), (top, False, 0.0))
+            house = doc["chambers"]["house"]
+            self.assertEqual(house["called"], {"R": 1})                 # not 'other'
+            self.assertEqual(house["gains"], {"R": 1} if flip else {})
+            self.assertEqual((six["status"], "winner" in six, [x["name"] for x in six["top_two"]]),
+                             ("runoff", False, ["Chauna Banks", "Blake Miguez"]))
+            self.assertEqual(doc["events"][0]["party"], "R")
 
     def test_poll_closings(self):
         from midterms.pipeline import livefeed as F
