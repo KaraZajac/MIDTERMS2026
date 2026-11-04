@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 9
+resolved: 11
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-01
 - house:CA-02
 - house:CA-03
-open_count: 480
+open_count: 478
 scoreboard:
   lite:
-    n: 9
-    brier: 0.0144
-    log_loss: 0.0805
-    calls: 9/9
+    n: 11
+    brier: 0.023
+    log_loss: 0.1072
+    calls: 11/11
   classic:
-    n: 9
-    brier: 0.0242
-    log_loss: 0.0791
-    calls: 9/9
+    n: 11
+    brier: 0.023
+    log_loss: 0.0859
+    calls: 11/11
   deluxe:
-    n: 9
-    brier: 0.0248
-    log_loss: 0.0723
-    calls: 9/9
+    n: 11
+    brier: 0.0207
+    log_loss: 0.0674
+    calls: 11/11
   ratings:
-    n: 9
-    brier: 0.0278
-    log_loss: 0.0771
-    calls: 8/9
+    n: 11
+    brier: 0.023
+    log_loss: 0.0698
+    calls: 10/11
   lean-only:
-    n: 9
-    brier: 0.0679
-    log_loss: 0.1752
-    calls: 8/9
+    n: 11
+    brier: 0.059
+    log_loss: 0.166
+    calls: 10/11
   coin-flip:
-    n: 9
+    n: 11
     brier: 0.25
     log_loss: 0.6931
-    calls: 7/9
+    calls: 8/11
 races:
 - id: house:KY-01
   slug: house/ky-01
@@ -193,6 +193,18 @@ races:
     classic: 0.0345
     deluxe: 0.003
   called_right: true
+- id: senate:LA
+  slug: senate/la
+  label: Louisiana
+  winner: R
+  winner_name: Julia Letlow
+  margin: -1.76
+  p_winner: 0.9335
+  p_d_side:
+    lite: 0.3501
+    classic: 0.1854
+    deluxe: 0.0665
+  called_right: true
 - id: senate:MT
   slug: senate/mt
   label: Montana
@@ -205,41 +217,53 @@ races:
     classic: 0.0288
     deluxe: 0.005
   called_right: true
+- id: senate:NC
+  slug: senate/nc
+  label: North Carolina
+  winner: D
+  winner_name: Roy Cooper
+  margin: 20.06
+  p_winner: 0.9786
+  p_d_side:
+    lite: 0.9764
+    classic: 0.9728
+    deluxe: 0.9786
+  called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T09:35:01Z'
-  called: 419
+  asof: '2026-11-04T14:09:00Z'
+  called: 420
   scoreboard:
     lite:
-      n: 419
-      brier: 0.0236
-      log_loss: 0.0943
-      calls: 410/419
+      n: 420
+      brier: 0.0242
+      log_loss: 0.0959
+      calls: 410/420
     classic:
-      n: 419
-      brier: 0.0173
-      log_loss: 0.0646
-      calls: 411/419
+      n: 420
+      brier: 0.0179
+      log_loss: 0.0662
+      calls: 411/420
     deluxe:
-      n: 419
-      brier: 0.017
-      log_loss: 0.0564
-      calls: 410/419
+      n: 420
+      brier: 0.0174
+      log_loss: 0.0578
+      calls: 411/420
     ratings:
-      n: 419
-      brier: 0.023
-      log_loss: 0.0755
-      calls: 406/419
+      n: 420
+      brier: 0.0233
+      log_loss: 0.0765
+      calls: 407/420
     lean-only:
-      n: 419
+      n: 420
       brier: 0.0319
-      log_loss: 0.1163
-      calls: 400/419
+      log_loss: 0.1165
+      calls: 401/420
     coin-flip:
-      n: 419
+      n: 420
       brier: 0.25
       log_loss: 0.6931
-      calls: 163/419
+      calls: 163/420
   races:
   - - governor:AL
     - R
@@ -298,6 +322,9 @@ provisional:
   - - governor:NM
     - D
     - 0.9842
+  - - governor:NV
+    - D
+    - 0.5352
   - - governor:NY
     - D
     - 0.9948
