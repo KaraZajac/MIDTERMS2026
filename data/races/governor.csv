@@ -1,5 +1,5 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
-governor:AL,governor,AL,Alabama,Kay Ivey,R,no,,Doug Jones,D,Tommy Tuberville,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 Alabama gubernatorial election@1383692270
+governor:AL,governor,AL,Alabama,Kay Ivey,R,no,,Doug Jones,D,Tommy Tuberville,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 Alabama gubernatorial election@1383703570
 governor:AK,governor,AK,Alaska,Mike Dunleavy,R,no,,Jonathan Kreiss-Tomkins,D,Bernadette Wilson,R,Dave Bronson (R); Treg Taylor (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 Alaska gubernatorial election@1383659077
 governor:AZ,governor,AZ,Arizona,Katie Hobbs,D,yes,,Katie Hobbs,D,Andy Biggs,R,Risa Lombardo (G); Teri Ann Hourihan (NO LABELS),,-4.12,-5.59,0.31,state,,wikipedia:2026 Arizona gubernatorial election@1383695507
 governor:AR,governor,AR,Arkansas,,,no,,Fredrick Love,D,Sarah Huckabee Sanders,R,Colt Shelby (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 Arkansas gubernatorial election@1383701653
@@ -11,7 +11,7 @@ governor:GA,governor,GA,Georgia,,,no,,Keisha Lance Bottoms,D,Rick Jackson,R,,,-1
 governor:HI,governor,HI,Hawaii,Josh Green,D,yes,,Josh Green,D,Gary Cordery,R,,,25.18,23.56,30.07,state,,wikipedia:2026 Hawaii gubernatorial election@1383535205
 governor:ID,governor,ID,Idaho,Brad Little,R,yes,,Terri Pickens,D,Brad Little,R,John Stegner (IND),,-36.09,-37.52,-31.75,state,,wikipedia:2026 Idaho gubernatorial election@1383633055
 governor:IL,governor,IL,Illinois,,D,yes,,JB Pritzker,D,Darren Bailey,R,Collin Corbett (IND),,12.67,11.14,17.32,state,,wikipedia:2026 Illinois gubernatorial election@1383685961
-governor:IA,governor,IA,Iowa,Kim Reynolds,R,no,,Rob Sand,D,Zach Lahn,R,,,-12.19,-13.45,-8.37,state,,wikipedia:2026 Iowa gubernatorial election@1383686403
+governor:IA,governor,IA,Iowa,Kim Reynolds,R,no,,Rob Sand,D,Zach Lahn,R,,,-12.19,-13.45,-8.37,state,,wikipedia:2026 Iowa gubernatorial election@1383703715
 governor:KS,governor,KS,Kansas,Laura Kelly,D,no,,Cindy Holscher,D,Ty Masterson,R,,,-16.07,-16.41,-14.99,state,,wikipedia:2026 Kansas gubernatorial election@1383637696
 governor:ME,governor,ME,Maine,,,no,,Hannah Pingree,D,Bobby Charles,R,Rick Bennett (IND),,7.64,7.09,9.34,state,,wikipedia:2026 Maine gubernatorial election@1383690073
 governor:MD,governor,MD,Maryland,,D,yes,,Wes Moore,D,Dan Cox,R,Cathy White (WORKING CLAS); Andy Ellis (G),,30.64,29.51,34.06,state,,wikipedia:2026 Maryland gubernatorial election@1383673597

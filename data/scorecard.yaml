@@ -195,39 +195,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T07:15:01Z'
-  called: 407
+  asof: '2026-11-04T07:24:07Z'
+  called: 408
   scoreboard:
     lite:
-      n: 407
-      brier: 0.0239
-      log_loss: 0.094
-      calls: 398/407
+      n: 408
+      brier: 0.0238
+      log_loss: 0.0938
+      calls: 399/408
     classic:
-      n: 407
-      brier: 0.0177
-      log_loss: 0.0655
-      calls: 399/407
+      n: 408
+      brier: 0.0176
+      log_loss: 0.0654
+      calls: 400/408
     deluxe:
-      n: 407
-      brier: 0.0174
-      log_loss: 0.0574
-      calls: 398/407
+      n: 408
+      brier: 0.0173
+      log_loss: 0.0573
+      calls: 399/408
     ratings:
-      n: 407
+      n: 408
       brier: 0.0234
-      log_loss: 0.0765
-      calls: 394/407
+      log_loss: 0.0763
+      calls: 395/408
     lean-only:
-      n: 407
+      n: 408
       brier: 0.032
-      log_loss: 0.1169
-      calls: 389/407
+      log_loss: 0.1166
+      calls: 390/408
     coin-flip:
-      n: 407
+      n: 408
       brier: 0.25
       log_loss: 0.6931
-      calls: 156/407
+      calls: 156/408
   races:
   - - governor:AL
     - R
@@ -754,6 +754,9 @@ provisional:
   - - house:KY-06
     - D
     - 0.5275
+  - - house:LA-02
+    - D
+    - 1.0
   - - house:MA-03
     - D
     - 0.9999
