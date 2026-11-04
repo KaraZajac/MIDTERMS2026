@@ -183,39 +183,39 @@ races:
   called_right: true
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-04T05:55:05Z'
-  called: 358
+  asof: '2026-11-04T06:05:01Z'
+  called: 359
   scoreboard:
     lite:
-      n: 358
+      n: 359
       brier: 0.0206
-      log_loss: 0.082
-      calls: 352/358
+      log_loss: 0.0822
+      calls: 353/359
     classic:
-      n: 358
+      n: 359
       brier: 0.0142
-      log_loss: 0.0543
-      calls: 353/358
+      log_loss: 0.0542
+      calls: 354/359
     deluxe:
-      n: 358
+      n: 359
       brier: 0.0127
-      log_loss: 0.0429
-      calls: 352/358
+      log_loss: 0.0428
+      calls: 353/359
     ratings:
-      n: 358
+      n: 359
       brier: 0.0165
-      log_loss: 0.0551
-      calls: 350/358
+      log_loss: 0.055
+      calls: 351/359
     lean-only:
-      n: 358
-      brier: 0.0292
-      log_loss: 0.1105
-      calls: 344/358
+      n: 359
+      brier: 0.0291
+      log_loss: 0.1103
+      calls: 345/359
     coin-flip:
-      n: 358
+      n: 359
       brier: 0.25
       log_loss: 0.6931
-      calls: 138/358
+      calls: 138/359
   races:
   - - governor:AR
     - R
@@ -745,6 +745,9 @@ provisional:
   - - house:MI-13
     - D
     - 1.0
+  - - house:MN-02
+    - D
+    - 0.9909
   - - house:MN-03
     - D
     - 0.9999
