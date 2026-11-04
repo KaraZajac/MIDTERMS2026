@@ -84,6 +84,11 @@ model and pipeline that produced it. Automated six-hourly refreshes
   and the search went unanswered for minutes at a time. A 5xx's
   Retry-After is now honored only up to 10 seconds (a 429's still up to
   30), so a run gets about seven tries.
+- From 04:30 UTC the governors' search failed alone, run after run, and
+  once its kept answer passed 5 minutes every update was lost, fresh
+  House and Senate results with it. Governors' results move slowly: their
+  last answer may now stand in for 30 minutes (the House and Senate's
+  still for 5), and the page still says how old it is.
 - Cloudflare's own origin errors in front of civicAPI (520–524) are
   retried like a 502. The log names every search that failed and, for an
   HTTP error, the Retry-After it carried. The page's credit line reads
