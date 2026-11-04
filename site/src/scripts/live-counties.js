@@ -54,7 +54,10 @@ function start(box) {
       matched++;
       const v = g.votes && typeof g.votes === "object" ? g.votes : {};
       const total = n(v.D) + n(v.R) + n(v.other);
-      const name = typeof g.name === "string" && g.name ? g.name : p.dataset.name;
+      // civicAPI's own name, without a trailing note like New York's
+      // "(Active Registered Voters: 211,266)"; the Census name if it has none
+      const raw = typeof g.name === "string" ? g.name.replace(/\s*\([^)]*\)\s*$/, "").trim() : "";
+      const name = raw || p.dataset.name;
       if (total <= 0) {
         p.dataset.tipValue = `${name}: no votes yet`;
         continue;
