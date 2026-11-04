@@ -103,6 +103,20 @@ Senate and governor race with votes, `counties/<chamber>/<slug>.json`
   `systemctl disable --now midterms-counties.timer`. Logs:
   `journalctl -u midterms-counties.service`.
 
+## Election night: the archive
+
+Since Nov 4 02:32 UTC every good update is also kept on the server, gzipped,
+outside every web root and never served: GitHub's 10-minute copy has gaps
+whenever civicAPI fails those runs, so these are the night's complete record.
+
+- `/usr/local/bin/midterms-live` writes `/srv/live-archive/midterms/live/
+  <UTC %Y%m%dT%H%M%SZ>.json.gz` after each successful rename.
+- `/usr/local/bin/midterms-counties` (the county service's ExecStart) runs
+  `midterms counties`, then copies each county file that run wrote to
+  `/srv/live-archive/midterms/counties/<stamp>/<chamber>/<slug>.json.gz`.
+- Both services may write there (`ReadWritePaths`). A failed copy is logged,
+  never fatal. Keep everything through Nov 10.
+
 ## Checks after a deploy
 
 - `/` shows the three chambers and the version switch changes the numbers.
