@@ -306,7 +306,11 @@ days out).
 
 - **Louisiana's House races** are a majority-vote first round on Nov 3 with
   a Dec 12 runoff; the model forecasts the eventual party winner and treats
-  the race as D-side vs. R-side. **Georgia** requires a majority (runoff
+  the race as D-side vs. R-side. Our D-side and R-side there are one
+  candidate of each party, not necessarily the leaders, so the scorecard
+  scores these races by the winner's party: Scalise (R) won LA-01 against
+  our R-side, Arrington, and it counts as an R win. A winner of neither
+  side's party would leave the race unscored. **Georgia** requires a majority (runoff
   Dec 1). **Maine and Alaska** use ranked-choice voting; the model uses
   final-round polls where published.
 - **Three-way races** (Montana Senate, Maine governor) are compressed into

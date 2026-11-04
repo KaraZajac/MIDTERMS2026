@@ -27,6 +27,56 @@ class TestProvisional(unittest.TestCase):
         self.assertEqual(p["scoreboard"]["coin-flip"]["brier"], 0.25)
         self.assertIsNone(S.provisional(fc, contenders, None))
 
+    def test_a_first_round_winner_scores_by_party(self):
+        # Louisiana: live.json's 'other' winner carries a party (Scalise: R)
+        fc = {"headline": "deluxe", "races": {k: {"d_side": "D"} for k in ("la1", "la5", "x")},
+              "versions": {"deluxe": {"races": {"la1": {"p_d_side": 0.01}, "la5": {"p_d_side": 0.02},
+                                                "x": {"p_d_side": 0.5}}}}}
+        contenders = {"deluxe": {"la1": 0.01, "la5": 0.02, "x": 0.5}}
+        live = {"generated": "2026-11-04T21:00:00Z", "races": {
+            "la1": {"status": "called", "winner": "other", "winner_name": "Steve Scalise", "party": "R"},
+            "la5": {"status": "called", "winner": "other", "winner_name": "Patricia Moore", "party": "D"},
+            "x": {"status": "called", "winner": "other", "winner_name": "Someone", "party": "IND"}}}
+        p = S.provisional(fc, contenders, live)
+        self.assertEqual(p["races"], [["la1", "R", 0.99], ["la5", "D", 0.02]])     # IND: not scored
+
+
+class TestResolve(unittest.TestCase):
+    """The scorecard of record: a race from its called Wikipedia results box."""
+
+    def test_louisiana_first_round_by_party(self):
+        m = {"d_cand": "Lauren Jewett", "d_side": "D", "r_cand": "Randall Arrington", "r_side": "R"}
+        one = [{"candidate": "Steve Scalise", "party_code": "R", "votes": 159890},
+               {"candidate": "Lauren Jewett", "party_code": "D", "votes": 89428},
+               {"candidate": "Randall Arrington", "party_code": "R", "votes": 9776},
+               {"candidate": "E. Glass", "party_code": "IND", "votes": 4279}]
+        self.assertEqual(S.resolve("house:LA-01", m, one, "LA"),
+                         {"winner_side": "R", "winner_name": "Steve Scalise", "margin": None})
+        five = {"d_cand": "Dan McKay", "d_side": "D", "r_cand": "Stewart Cathey Jr.", "r_side": "R"}
+        first = [{"candidate": "Patricia Moore", "party_code": "D", "votes": 40789},
+                 {"candidate": "Gabe Firment", "party_code": "R", "votes": 39131},
+                 {"candidate": "Dan McKay", "party_code": "D", "votes": 16047},
+                 {"candidate": "Stewart Cathey Jr.", "party_code": "R", "votes": 28160}]
+        self.assertIsNone(S.resolve("house:LA-05", five, first, "LA"))            # no majority: Dec 12
+        runoff = [{"candidate": "Patricia Moore", "party_code": "D", "votes": 61000},
+                  {"candidate": "Gabe Firment", "party_code": "R", "votes": 59000}]
+        self.assertEqual(S.resolve("house:LA-05", five, runoff, "LA"),
+                         {"winner_side": "D", "winner_name": "Patricia Moore", "margin": None})
+        ind = [{"candidate": "Al Ind", "party_code": "IND", "votes": 100},
+               {"candidate": "Lauren Jewett", "party_code": "D", "votes": 10}]
+        self.assertIsNone(S.resolve("house:LA-01", m, ind, "LA"))                 # neither side's party
+
+    def test_everywhere_else_the_two_sides(self):
+        m = {"d_cand": "Troy Jackson", "d_side": "D", "r_cand": "Susan Collins", "r_side": "R"}
+        c = [{"candidate": "Troy Jackson", "votes": 120}, {"candidate": "Susan Collins", "votes": 100},
+             {"candidate": "Write-in", "votes": 5}]
+        self.assertEqual(S.resolve("senate:ME", m, c, "ME"),
+                         {"winner_side": "D", "d_votes": 120, "r_votes": 100, "margin": 9.09})
+        c[2]["votes"] = 30                                              # ranked choice: no majority yet
+        self.assertIsNone(S.resolve("senate:ME", m, c, "ME"))
+        self.assertEqual(S.resolve("senate:NH", m, c, "NH")["winner_side"], "D")   # plurality
+        self.assertIsNone(S.resolve("senate:NH", m, c[:1], "NH"))                  # one side only
+
 
 def rating(race, rater, label, scale, asof):
     return {"race": race, "rater": rater, "source": rater, "rating": label, "scale": str(scale),

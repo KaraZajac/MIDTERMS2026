@@ -7,6 +7,26 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-04, evening — Louisiana's House races scored by the winner's party (no model change)
+- Our D-side and R-side in Louisiana's first round are one candidate of
+  each party, so a race won by another candidate went unscored: Scalise
+  (LA-01), Higgins (LA-03), Johnson (LA-04), and in time the Dec 12
+  runoffs. The model forecasts the eventual party winner there (method §9),
+  so these races are now scored by the winner's party (Kara's decision).
+  A winner of neither side's party still leaves a race unscored.
+  - The scorecard of record (`score.resolve`): the leader of a called
+    results box wins with a majority, for the side of their party, named in
+    `winner_name`, with no side margin. Wikipedia's Louisiana page has no
+    results yet, so nothing changes there until editors add them.
+  - The provisional scoreboard: live.json's `winner: "other"` with a
+    `party` counts for that party's side. At 20:52Z this adds LA-01, LA-03
+    and LA-04 (432 → 435 calls). Deluxe: calls 418/432 → 421/435, Brier
+    .0276 → .0274. Raters' consensus: Brier .0338 → .0336.
+  - The live results' fallback to Wikipedia's results (`wikipedia_calls`)
+    no longer takes every winner who isn't our D-side candidate for the
+    R-side. A Democrat winning a Dec 12 runoff would have shown as an R
+    win. Such a winner comes through as `other`, with name and party.
+
 ### 2026-11-04, evening — Louisiana's first round in the live results (no model change)
 - Louisiana's House races were a first round: every candidate on one
   ballot, a majority wins, else the top two meet on Dec 12. Our D-side and

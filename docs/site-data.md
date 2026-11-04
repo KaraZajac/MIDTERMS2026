@@ -195,6 +195,13 @@ record (`resolved`, `scoreboard`, `races`), which resolves races from
 Wikipedia's results boxes alone. Updated with every scoring run (every 10
 minutes on election night, then with each refresh).
 
+Louisiana's House races (first round, then a Dec 12 runoff) are scored by
+the winner's party:
+- In `races`, `winner_name` can be a candidate who is neither our D-side
+  nor our R-side, and `margin` is null.
+- In `provisional`, a live.json `winner: "other"` with a `party` counts for
+  the side of that party.
+
 `others` (and `provisional.others`, the same on the calls): `{basis, versus,
 competitive_rule, raters: [{name, source, n, theirs: {n, brier, log_loss,
 calls, tossups}, ours: {n, brier, log_loss, calls}, competitive?: {n,
@@ -318,10 +325,11 @@ one ballot on Nov 3: a majority wins, else the top two meet on Dec 12. Our
 D-side and R-side there are one candidate of each party, not necessarily
 the leaders, so these races have no `margin` and carry `top_two` instead
 (name a runoff's pair from it, not from the sides). `status` is `runoff`
-once 99% is counted with no one past 50%. An outright winner who isn't one
-of our sides is `winner: "other"` with `winner_name` and `party` (Scalise,
-LA-01: "R"), and counts for that party in `chambers` (`called`, `bloc`,
-`gains`) and in the conditioned forecast.
+once 99% is counted with no one past 50%. A winner who isn't one of our
+sides is `winner: "other"` with `winner_name` and `party` (Scalise, LA-01:
+"R"). The same holds when Wikipedia's results settle it (`called_by:
+"wikipedia"`, e.g. a Dec 12 runoff). Such a winner counts for that party
+in `chambers` (`called`, `bloc`, `gains`) and in the conditioned forecast.
 
 **Changing hands.** `held` is the party holding each seat now: House seats
 by district number from the Clerk of the House's member list (a vacant seat

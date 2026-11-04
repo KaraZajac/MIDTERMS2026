@@ -460,10 +460,39 @@ class TestSafetyNets(unittest.TestCase):
         from midterms.pipeline import livefeed as F
         out = F.reconcile({"senate:ME": {"status": "called", "winner": "R"},
                            "house:PA-07": {"status": "counting"}},
-                          {"senate:ME": "D", "house:PA-07": "D"})
+                          {"senate:ME": {"winner": "D"}, "house:PA-07": {"winner": "D"}})
         self.assertEqual(out["senate:ME"]["status"], "counting")          # disputed: not used
         self.assertTrue(out["senate:ME"]["disputed"])
         self.assertEqual((out["house:PA-07"]["status"], out["house:PA-07"]["called_by"]), ("called", "wikipedia"))
+
+    def test_wikipedia_settles_a_first_round_by_party(self):
+        # after Dec 12: Louisiana's runoff winner needn't be one of our sides
+        # (LA-05's D-side, McKay, finished 7th); the scorecard names them
+        import tempfile
+        from pathlib import Path
+        from midterms.paths import FORECAST
+        from midterms.pipeline import livefeed as F
+        fc = json.loads((FORECAST / "latest.json").read_text())
+        m = fc["races"]["house:LA-05"]
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d) / "scorecard.yaml"
+            p.write_text(json.dumps({"races": [
+                {"id": "house:LA-05", "winner": "D", "winner_name": "Patricia Moore"},
+                {"id": "senate:GA", "winner": "D", "winner_name": fc["races"]["senate:GA"]["d_cand"]},
+                {"id": "house:LA-02", "winner": "R", "winner_name": fc["races"]["house:LA-02"]["r_cand"]}]}))
+            wiki = F.wikipedia_calls(fc, p)
+        self.assertEqual(wiki, {"house:LA-05": {"winner": "other", "winner_name": "Patricia Moore", "party": "D"},
+                                "senate:GA": {"winner": "D"}, "house:LA-02": {"winner": "R"}})
+        self.assertNotEqual(m["d_cand"], "Patricia Moore")
+        res = {"house:LA-05": {"status": "runoff", "winner": None, "votes": {"D": 1, "R": 1, "other": 2},
+                               "pct_reporting": 100.0}}
+        doc = F.assemble(fc, "latest.json", False, F.race_rows(), res, None, None, "2026-12-13T05:00:00Z",
+                         draws=2000, wiki={"house:LA-05": wiki["house:LA-05"]}, held={"house:LA-05": "R"})
+        five = doc["races"]["house:LA-05"]
+        self.assertEqual((five["status"], five["winner"], five["winner_name"], five["party"], five["flip"],
+                          five["called_by"], five["p_live"]),
+                         ("called", "other", "Patricia Moore", "D", True, "wikipedia", 1.0))
+        self.assertEqual(doc["chambers"]["house"]["gains"], {"D": 1})
 
 
 class TestSeatsAndClosings(unittest.TestCase):

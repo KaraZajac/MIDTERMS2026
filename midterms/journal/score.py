@@ -44,7 +44,7 @@ import yaml
 
 from midterms.model import ratings as R
 from midterms.paths import DATA, FORECAST, RACES, ROOT, SITE
-from midterms.pipeline import fetch
+from midterms.pipeline import civic, fetch
 from midterms.pipeline import racepage as rp
 from midterms.pipeline import races as racemod
 from midterms.pipeline import states, wiki
@@ -73,13 +73,42 @@ def needs_majority(rid: str, state: str) -> bool:
             or (state == "LA" and ch == "house"))      # Louisiana: Nov 3 is round one
 
 
+def resolve(rid: str, m: dict, cands: list[dict], state: str) -> dict | None:
+    """One race's outcome from its called results box, or None (still open).
+
+    Both sides need votes, and where a majority decides (Georgia, ranked-
+    choice Maine and Alaska) the leader needs one. Louisiana's House first
+    round is scored by party. Every candidate was on one ballot, and our
+    D-side and R-side there are one candidate of each party, not
+    necessarily the leaders (LA-01: Jewett and Arrington; Scalise won). So
+    the leader, with a majority, wins for the side of their party; the
+    model forecasts the eventual party winner (method §9). A winner of
+    neither side's party leaves the race open."""
+    votes = {c["candidate"]: c["votes"] for c in cands if c.get("votes")}
+    total = sum(votes.values())
+    if rid.startswith(civic.FIRST_ROUND):
+        lead = max((c for c in cands if c.get("votes")), key=lambda c: c["votes"], default=None)
+        if lead is None or lead["votes"] * 2 <= total:
+            return None
+        side = ("D" if lead.get("party_code") == m.get("d_side") else
+                "R" if lead.get("party_code") == (m.get("r_side") or "R") else None)
+        if side is None:
+            return None
+        return {"winner_side": side, "winner_name": lead["candidate"], "margin": None}
+    dv, rv = votes.get(m["d_cand"]), votes.get(m["r_cand"])
+    if dv is None or rv is None:
+        return None
+    if needs_majority(rid, state) and max(dv, rv) <= total / 2:
+        return None
+    return {"winner_side": "D" if dv > rv else "R", "d_votes": dv, "r_votes": rv,
+            "margin": round(100 * (dv - rv) / (dv + rv), 2)}
+
+
 def outcomes() -> dict:
-    """race id -> {'winner_side': 'D'|'R', 'd_votes', 'r_votes'} for races
-    that are *called*: the results box carries its hold/gain line (so
-    partial election-night counts never resolve a race), both sides have
-    votes, and — where a majority decides (Georgia, Louisiana's House
-    first round, ranked-choice Maine and Alaska) — the leader has one.
-    Everything else stays open until a later refresh."""
+    """race id -> {'winner_side': 'D'|'R', 'margin', ...} (resolve()) for
+    races that are *called*: the results box carries its hold/gain line, so
+    partial election-night counts never resolve a race. Everything else
+    stays open until a later refresh."""
     meta = {}
     for ch in ("house", "senate", "governor"):
         with open(RACES / f"{ch}.csv", newline="") as f:
@@ -103,16 +132,9 @@ def outcomes() -> dict:
                 prefix = f"District {int(x['label'].split('-')[1])}"
             if not rp.results_called(rp.general(tables, prefix)):
                 continue
-            votes = {c["candidate"]: c["votes"] for c in r["cands"] if c.get("votes")}
-            dv, rv = votes.get(m["d_cand"]), votes.get(m["r_cand"])
-            if dv is None or rv is None:
-                continue
-            if needs_majority(x["id"], x["state"]):
-                total = sum(votes.values())
-                if max(dv, rv) <= total / 2:
-                    continue
-            out[x["id"]] = {"winner_side": "D" if dv > rv else "R", "d_votes": dv, "r_votes": rv,
-                            "margin": round(100 * (dv - rv) / (dv + rv), 2)}
+            o = resolve(x["id"], m, r["cands"], x["state"])
+            if o:
+                out[x["id"]] = o
     return out
 
 
@@ -308,8 +330,18 @@ def provisional(fc: dict, contenders: dict, live: dict | None,
     races from Wikipedia's results boxes alone."""
     if not live:
         return None
-    res = {rid: {"winner_side": r["winner"]} for rid, r in live["races"].items()
-           if r.get("status") == "called" and r.get("winner") in ("D", "R")}
+
+    def side(rid: str, r: dict) -> str | None:
+        """The winning side; a first-round winner who isn't one of our
+        sides goes by party (live.json carries it), as in resolve()."""
+        w = r.get("winner")
+        if w == "other" and r.get("party"):
+            d_side = (fc.get("races") or {}).get(rid, {}).get("d_side")
+            w = "D" if r["party"] == d_side else "R" if r["party"] == "R" else None
+        return w if w in ("D", "R") else None
+
+    res = {rid: {"winner_side": side(rid, r)} for rid, r in live["races"].items()
+           if r.get("status") == "called" and side(rid, r)}
     common = set(res)
     for probs in contenders.values():
         common &= set(probs)
@@ -355,8 +387,8 @@ def main() -> dict:
             "id": rid, "slug": rid.split(":")[0] + "/" + rid.split(":")[1].lower(),
             "label": m["label"],
             "winner": m["d_side"] if win_d else "R",
-            "winner_name": m["d_cand"] if win_d else m["r_cand"],
-            "margin": o["margin"],                       # D-side minus R-side, two-party
+            "winner_name": o.get("winner_name") or (m["d_cand"] if win_d else m["r_cand"]),
+            "margin": o["margin"],                       # D-side minus R-side, two-party (None: a first round)
             "p_winner": round(p_d if win_d else 1 - p_d, 4),   # the headline version's
             "p_d_side": {v: round(fc["versions"][v]["races"][rid]["p_d_side"], 4) for v in VERSIONS},
             "called_right": (p_d > 0.5) == win_d,

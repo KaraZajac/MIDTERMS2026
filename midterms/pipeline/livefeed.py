@@ -78,11 +78,13 @@ def forecast_of_record(now: str) -> tuple[dict, str, bool]:
     return json.loads((FORECAST / "latest.json").read_text()), "latest.json", False
 
 
-def wikipedia_calls(fc: dict) -> dict[str, str]:
+def wikipedia_calls(fc: dict, path: Path | None = None) -> dict[str, dict]:
     """Races Wikipedia's results boxes have settled (data/scorecard.yaml,
-    written by `midterms score` from the hold/gain lines): race -> side.
-    A cross-check on civicAPI's calls, and the fallback when it is down."""
-    path = DATA / "scorecard.yaml"
+    written by `midterms score` from the hold/gain lines): race -> the call,
+    {winner: 'D'|'R'}, or for a first-round winner who is neither of our
+    sides {winner: 'other', winner_name, party}. A cross-check on
+    civicAPI's calls, and the fallback when it is down."""
+    path = path or DATA / "scorecard.yaml"
     if not path.exists():
         return {}
     try:
@@ -92,8 +94,15 @@ def wikipedia_calls(fc: dict) -> dict[str, str]:
     out = {}
     for row in sc.get("races") or []:
         m = fc["races"].get(row.get("id"))
-        if m and row.get("winner_name"):
-            out[row["id"]] = "D" if row["winner_name"] == m.get("d_cand") else "R"
+        name = row.get("winner_name")
+        if not m or not name:
+            continue
+        if name == m.get("d_cand"):
+            out[row["id"]] = {"winner": "D"}
+        elif name == m.get("r_cand"):
+            out[row["id"]] = {"winner": "R"}
+        else:                               # Louisiana: scored by the winner's party (score.resolve)
+            out[row["id"]] = {"winner": "other", "winner_name": name, "party": row.get("winner")}
     return out
 
 
@@ -125,18 +134,18 @@ def poll_closings() -> dict:
             "races": {rid: span(v) for rid, v in (doc.get("races") or {}).items()}}
 
 
-def reconcile(res: dict[str, dict], wiki: dict[str, str]) -> dict[str, dict]:
-    """civicAPI's calls against Wikipedia's settled results: a race the two
-    call differently is disputed (shown, not used); a race only Wikipedia
-    has settled counts as called."""
+def reconcile(res: dict[str, dict], wiki: dict[str, dict]) -> dict[str, dict]:
+    """civicAPI's calls against Wikipedia's settled results (wikipedia_calls):
+    a race the two call differently is disputed (shown, not used); a race
+    only Wikipedia has settled counts as called."""
     out = {rid: dict(r) for rid, r in res.items()}
-    for rid, side in wiki.items():
+    for rid, call in wiki.items():
         r = out.setdefault(rid, {"status": "awaiting"})
-        if r.get("status") == "called" and r.get("winner") in ("D", "R") and r["winner"] != side:
+        if r.get("status") == "called" and r.get("winner") in ("D", "R") and r["winner"] != call["winner"]:
             r.update(status="counting", disputed=True)
             r.pop("winner", None)
         elif r.get("status") != "called":
-            r.update(status="called", winner=side, called_by="wikipedia")
+            r.update(status="called", called_by="wikipedia", **call)
     return out
 
 
