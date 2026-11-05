@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 18
+resolved: 19
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-02
 - house:CA-03
 - house:CA-05
-open_count: 471
+open_count: 470
 scoreboard:
   lite:
-    n: 18
-    brier: 0.0314
-    log_loss: 0.1252
-    calls: 17/18
+    n: 19
+    brier: 0.032
+    log_loss: 0.1308
+    calls: 18/19
   classic:
-    n: 18
-    brier: 0.0384
-    log_loss: 0.1214
-    calls: 17/18
+    n: 19
+    brier: 0.0372
+    log_loss: 0.1222
+    calls: 18/19
   deluxe:
-    n: 18
-    brier: 0.0447
-    log_loss: 0.1271
-    calls: 17/18
+    n: 19
+    brier: 0.0423
+    log_loss: 0.121
+    calls: 18/19
   ratings:
-    n: 18
-    brier: 0.0557
-    log_loss: 0.1587
-    calls: 16/18
+    n: 19
+    brier: 0.0527
+    log_loss: 0.1503
+    calls: 17/19
   lean-only:
-    n: 18
-    brier: 0.0787
-    log_loss: 0.2097
-    calls: 15/18
+    n: 19
+    brier: 0.0777
+    log_loss: 0.2134
+    calls: 16/19
   coin-flip:
-    n: 18
+    n: 19
     brier: 0.25
     log_loss: 0.6931
-    calls: 9/18
+    calls: 10/19
 races:
 - id: governor:OH
   slug: governor/oh
@@ -253,6 +253,18 @@ races:
     classic: 0.001
     deluxe: 0.0001
   called_right: true
+- id: house:MN-08
+  slug: house/mn-08
+  label: MN-08
+  winner: R
+  winner_name: Pete Stauber
+  margin: -6.24
+  p_winner: 0.9897
+  p_d_side:
+    lite: 0.2066
+    classic: 0.1267
+    deluxe: 0.0103
+  called_right: true
 - id: senate:ID
   slug: senate/id
   label: Idaho
@@ -323,18 +335,18 @@ others:
   raters:
   - name: Cook
     source: The Cook Political Report
-    n: 18
+    n: 19
     theirs:
-      n: 18
-      brier: 0.0545
-      log_loss: 0.1526
-      calls: 16/17
+      n: 19
+      brier: 0.0517
+      log_loss: 0.1446
+      calls: 17/18
       tossups: 1
     ours:
-      n: 18
-      brier: 0.0447
-      log_loss: 0.1271
-      calls: 17/18
+      n: 19
+      brier: 0.0423
+      log_loss: 0.121
+      calls: 18/19
     competitive:
       n: 6
       theirs:
@@ -350,18 +362,18 @@ others:
         calls: 5/6
   - name: DDHQ
     source: Decision Desk HQ
-    n: 18
+    n: 19
     theirs:
-      n: 18
-      brier: 0.0799
-      log_loss: 0.2185
-      calls: 16/18
+      n: 19
+      brier: 0.0757
+      log_loss: 0.2082
+      calls: 17/19
       tossups: 0
     ours:
-      n: 18
-      brier: 0.0447
-      log_loss: 0.1271
-      calls: 17/18
+      n: 19
+      brier: 0.0423
+      log_loss: 0.121
+      calls: 18/19
     competitive:
       n: 6
       theirs:
@@ -377,18 +389,18 @@ others:
         calls: 5/6
   - name: Inside Elections
     source: Inside Elections
-    n: 18
+    n: 19
     theirs:
-      n: 18
-      brier: 0.0604
-      log_loss: 0.1745
-      calls: 16/17
+      n: 19
+      brier: 0.0573
+      log_loss: 0.1654
+      calls: 17/18
       tossups: 1
     ours:
-      n: 18
-      brier: 0.0447
-      log_loss: 0.1271
-      calls: 17/18
+      n: 19
+      brier: 0.0423
+      log_loss: 0.121
+      calls: 18/19
     competitive:
       n: 6
       theirs:
@@ -404,18 +416,18 @@ others:
         calls: 5/6
   - name: Sabato
     source: Sabato's Crystal Ball
-    n: 18
+    n: 19
     theirs:
-      n: 18
-      brier: 0.0813
-      log_loss: 0.2255
-      calls: 16/18
+      n: 19
+      brier: 0.077
+      log_loss: 0.2137
+      calls: 17/19
       tossups: 0
     ours:
-      n: 18
-      brier: 0.0447
-      log_loss: 0.1271
-      calls: 17/18
+      n: 19
+      brier: 0.0423
+      log_loss: 0.121
+      calls: 18/19
     competitive:
       n: 6
       theirs:
@@ -674,7 +686,7 @@ others:
         calls: 1/1
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-05T01:40:01Z'
+  asof: '2026-11-05T02:10:01Z'
   called: 436
   scoreboard:
     lite:
