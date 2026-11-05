@@ -311,8 +311,9 @@ days out).
   scores these races by the winner's party: Scalise (R) won LA-01 against
   our R-side, Arrington, and it counts as an R win. A winner of neither
   side's party would leave the race unscored. **Georgia** requires a majority (runoff
-  Dec 1). **Maine and Alaska** use ranked-choice voting; the model uses
-  final-round polls where published.
+  Dec 1). **Alaska**, and **Maine** for Congress (its governor is elected
+  by plurality), use ranked-choice voting; the model uses final-round polls
+  where published.
 - **Three-way races** (Montana Senate, Maine governor) are compressed into
   two sides; two-party normalization exaggerates margins when a third
   candidate is large.

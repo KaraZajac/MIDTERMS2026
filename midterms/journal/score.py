@@ -69,7 +69,9 @@ RCV = {"ME", "AK"}                 # ranked-choice: first-round totals can misle
 
 def needs_majority(rid: str, state: str) -> bool:
     ch = rid.split(":")[0]
-    return (state in RCV or (state in MAJORITY_RULE and ch != "house")
+    # Maine's ranked choices are for Congress; its governor wins by plurality
+    rcv = state in RCV and not (state == "ME" and ch == "governor")
+    return (rcv or (state in MAJORITY_RULE and ch != "house")
             or (state == "LA" and ch == "house"))      # Louisiana: Nov 3 is round one
 
 
@@ -77,7 +79,7 @@ def resolve(rid: str, m: dict, cands: list[dict], state: str) -> dict | None:
     """One race's outcome from its called results box, or None (still open).
 
     Both sides need votes, and where a majority decides (Georgia, ranked-
-    choice Maine and Alaska) the leader needs one. Louisiana's House first
+    choice Alaska, and Maine's races for Congress) the leader needs one. Louisiana's House first
     round is scored by party. Every candidate was on one ballot, and our
     D-side and R-side there are one candidate of each party, not
     necessarily the leaders (LA-01: Jewett and Arrington; Scalise won). So

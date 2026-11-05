@@ -77,6 +77,14 @@ class TestResolve(unittest.TestCase):
         self.assertEqual(S.resolve("senate:NH", m, c, "NH")["winner_side"], "D")   # plurality
         self.assertIsNone(S.resolve("senate:NH", m, c[:1], "NH"))                  # one side only
 
+    def test_maine_ranks_choices_for_congress_not_governor(self):
+        m = {"d_cand": "A", "d_side": "D", "r_cand": "B", "r_side": "R"}
+        c = [{"candidate": "A", "votes": 120}, {"candidate": "B", "votes": 100},
+             {"candidate": "C", "votes": 30}]                         # no majority
+        self.assertIsNone(S.resolve("house:ME-02", m, c, "ME"))
+        self.assertIsNone(S.resolve("governor:AK", m, c, "AK"))
+        self.assertEqual(S.resolve("governor:ME", m, c, "ME")["winner_side"], "D")  # plurality
+
 
 def rating(race, rater, label, scale, asof):
     return {"race": race, "rater": rater, "source": rater, "rating": label, "scale": str(scale),

@@ -7,6 +7,22 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-05 — Maine's ranked-choice races (no model change)
+- The `rules` field in races.json was wrong for Maine. It marked the
+  governor's race as ranked-choice and left out ME-01 and ME-02.
+- Maine uses ranked choice in general elections for Congress only. Its
+  constitution requires a plurality for governor (the state's high court
+  said so in 2017, and again in April 2026).
+- Now senate:ME, house:ME-01 and house:ME-02 are "Ranked-choice voting",
+  and governor:ME has no rule.
+- The scorecard of record had the same mistake (`score.needs_majority`).
+  It would have left Maine's governor race open until someone had a
+  majority. No score changes: the leader there has 54.8% with 92%
+  reporting.
+- Found while looking into a request, through Kara, to show leads in
+  votes. In ranked-choice races the count is first choices, and `rules` is
+  how the site can tell which races those are.
+
 ### 2026-11-04, evening — uncontested races with a count name their real winner (no model change)
 - Races settled by party before Election Day can still have a count.
   These are California's same-party top two, and a candidate against minor

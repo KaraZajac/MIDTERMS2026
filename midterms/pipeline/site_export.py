@@ -54,8 +54,12 @@ TILE = {
     "OK": (4, 6), "LA": (5, 6), "MS": (6, 6), "AL": (7, 6), "GA": (8, 6),
     "HI": (0, 7), "TX": (4, 7), "FL": (9, 7),
 }
+# Maine counts ranked choices for Congress, not for governor: its constitution
+# asks a plurality there (its high court, 2017 and again in April 2026). Until
+# Nov 5 this marked governor:ME ranked-choice and left out ME-01 and ME-02.
 RULES = {
-    "senate:ME": "Ranked-choice voting", "governor:ME": "Ranked-choice voting",
+    "senate:ME": "Ranked-choice voting",
+    "house:ME-01": "Ranked-choice voting", "house:ME-02": "Ranked-choice voting",
     "senate:AK": "Top-four primary, ranked-choice general",
     "governor:AK": "Top-four primary, ranked-choice general",
     "house:AK-AL": "Top-four primary, ranked-choice general",
