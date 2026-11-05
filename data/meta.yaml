@@ -1,8 +1,8 @@
-generated: '2026-11-05T09:10:11Z'
+generated: '2026-11-05T09:40:06Z'
 generator: python3 -m midterms build
 asof: '2026-11-05'
 election_day: '2026-11-03'
-sources_digest: 1265db9a83b7f095
+sources_digest: b289938114c3ebfc
 counts:
   house_races: 435
   senate_races: 35
@@ -55,7 +55,7 @@ sources:
     2026 Oregon gubernatorial election: 1383870909
     2026 Pennsylvania gubernatorial election: 1383766660
     2026 Rhode Island gubernatorial election: 1383766156
-    2026 South Carolina gubernatorial election: 1383801795
+    2026 South Carolina gubernatorial election: 1383882910
     2026 South Dakota gubernatorial election: 1383766531
     2026 Tennessee gubernatorial election: 1383839527
     2026 Texas gubernatorial election: 1383849701
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383762837
-    2026 United States House of Representatives elections: 1383880976
+    2026 United States House of Representatives elections: 1383884478
     2026 United States House of Representatives elections in Alabama: 1383869065
     2026 United States House of Representatives elections in Arizona: 1383803664
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -90,7 +90,7 @@ sources:
     2026 United States House of Representatives elections in Minnesota: 1383829095
     2026 United States House of Representatives elections in Mississippi: 1383638087
     2026 United States House of Representatives elections in Missouri: 1383848060
-    2026 United States House of Representatives elections in Montana: 1383649813
+    2026 United States House of Representatives elections in Montana: 1383884295
     2026 United States House of Representatives elections in Nebraska: 1383655080
     2026 United States House of Representatives elections in Nevada: 1383851847
     2026 United States House of Representatives elections in New Hampshire: 1383685421
