@@ -749,39 +749,39 @@ others:
         calls: 1/1
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-05T19:40:01Z'
-  called: 438
+  asof: '2026-11-05T20:10:01Z'
+  called: 454
   scoreboard:
     lite:
-      n: 438
-      brier: 0.0328
-      log_loss: 0.1174
-      calls: 420/438
+      n: 454
+      brier: 0.0357
+      log_loss: 0.1268
+      calls: 435/454
     classic:
-      n: 438
-      brier: 0.0291
-      log_loss: 0.1002
-      calls: 422/438
+      n: 454
+      brier: 0.0307
+      log_loss: 0.106
+      calls: 437/454
     deluxe:
-      n: 438
-      brier: 0.0304
-      log_loss: 0.119
-      calls: 422/438
+      n: 454
+      brier: 0.0315
+      log_loss: 0.1212
+      calls: 436/454
     ratings:
-      n: 438
-      brier: 0.0371
-      log_loss: 0.158
-      calls: 418/438
+      n: 454
+      brier: 0.0385
+      log_loss: 0.1603
+      calls: 433/454
     lean-only:
-      n: 438
-      brier: 0.0445
-      log_loss: 0.1516
-      calls: 410/438
+      n: 454
+      brier: 0.0456
+      log_loss: 0.1555
+      calls: 424/454
     coin-flip:
-      n: 438
+      n: 454
       brier: 0.25
       log_loss: 0.6931
-      calls: 168/438
+      calls: 181/454
   races:
   - - governor:AL
     - R
@@ -909,6 +909,9 @@ provisional:
   - - house:AR-01
     - R
     - 0.9999
+  - - house:AR-02
+    - R
+    - 0.9445
   - - house:AR-03
     - R
     - 0.9997
@@ -1059,6 +1062,9 @@ provisional:
   - - house:CO-02
     - D
     - 1.0
+  - - house:CO-05
+    - D
+    - 0.4782
   - - house:CO-06
     - D
     - 1.0
@@ -1575,6 +1581,12 @@ provisional:
   - - house:NV-04
     - D
     - 0.9936
+  - - house:NY-01
+    - R
+    - 0.9833
+  - - house:NY-02
+    - R
+    - 0.9959
   - - house:NY-03
     - D
     - 0.9778
@@ -1626,6 +1638,9 @@ provisional:
   - - house:NY-20
     - D
     - 0.9999
+  - - house:NY-21
+    - R
+    - 0.7818
   - - house:NY-22
     - D
     - 0.9998
@@ -1668,6 +1683,9 @@ provisional:
   - - house:OH-09
     - D
     - 0.7924
+  - - house:OH-10
+    - D
+    - 0.3519
   - - house:OH-11
     - D
     - 1.0
@@ -1695,6 +1713,9 @@ provisional:
   - - house:OK-04
     - R
     - 0.9998
+  - - house:OK-05
+    - R
+    - 0.9894
   - - house:OR-01
     - D
     - 1.0
@@ -1806,15 +1827,24 @@ provisional:
   - - house:TN-08
     - R
     - 0.9992
+  - - house:TN-09
+    - R
+    - 0.9791
   - - house:TX-01
     - R
     - 0.9999
+  - - house:TX-02
+    - R
+    - 0.9968
   - - house:TX-03
     - R
     - 0.9989
   - - house:TX-04
     - R
     - 0.9995
+  - - house:TX-05
+    - R
+    - 0.9993
   - - house:TX-06
     - R
     - 0.9995
@@ -1863,6 +1893,9 @@ provisional:
   - - house:TX-21
     - R
     - 0.9986
+  - - house:TX-22
+    - R
+    - 0.9992
   - - house:TX-23
     - D
     - 0.2531
@@ -1875,6 +1908,9 @@ provisional:
   - - house:TX-26
     - R
     - 0.9996
+  - - house:TX-27
+    - R
+    - 0.999
   - - house:TX-28
     - D
     - 0.9719
@@ -1887,6 +1923,9 @@ provisional:
   - - house:TX-31
     - R
     - 0.999
+  - - house:TX-32
+    - R
+    - 0.9977
   - - house:TX-33
     - D
     - 1.0
@@ -1902,6 +1941,9 @@ provisional:
   - - house:TX-37
     - D
     - 1.0
+  - - house:TX-38
+    - R
+    - 0.999
   - - house:UT-01
     - D
     - 1.0
@@ -1914,6 +1956,9 @@ provisional:
   - - house:UT-04
     - R
     - 0.9996
+  - - house:VA-01
+    - D
+    - 0.5951
   - - house:VA-02
     - D
     - 0.8584
@@ -1923,6 +1968,9 @@ provisional:
   - - house:VA-04
     - D
     - 1.0
+  - - house:VA-05
+    - R
+    - 0.7806
   - - house:VA-06
     - R
     - 0.9991
@@ -2107,166 +2155,166 @@ provisional:
     raters:
     - name: Cook
       source: The Cook Political Report
-      n: 438
+      n: 454
       theirs:
-        n: 438
-        brier: 0.0397
-        log_loss: 0.1436
-        calls: 405/420
-        tossups: 18
+        n: 454
+        brier: 0.0411
+        log_loss: 0.1465
+        calls: 418/434
+        tossups: 20
       ours:
-        n: 438
-        brier: 0.0304
-        log_loss: 0.119
-        calls: 422/438
+        n: 454
+        brier: 0.0315
+        log_loss: 0.1212
+        calls: 436/454
       competitive:
-        n: 107
+        n: 116
         theirs:
-          n: 107
-          brier: 0.1533
-          log_loss: 0.5013
-          calls: 75/89
-          tossups: 18
+          n: 116
+          brier: 0.1522
+          log_loss: 0.4936
+          calls: 81/96
+          tossups: 20
         ours:
-          n: 107
-          brier: 0.1153
-          log_loss: 0.4225
-          calls: 92/107
+          n: 116
+          brier: 0.1146
+          log_loss: 0.4148
+          calls: 99/116
     - name: DDHQ
       source: Decision Desk HQ
-      n: 438
+      n: 454
       theirs:
-        n: 438
-        brier: 0.0383
-        log_loss: 0.1298
-        calls: 409/425
+        n: 454
+        brier: 0.0428
+        log_loss: 0.1471
+        calls: 422/441
         tossups: 13
       ours:
-        n: 438
-        brier: 0.0304
-        log_loss: 0.119
-        calls: 422/438
+        n: 454
+        brier: 0.0315
+        log_loss: 0.1212
+        calls: 436/454
       competitive:
-        n: 107
+        n: 116
         theirs:
-          n: 107
-          brier: 0.1477
-          log_loss: 0.4893
-          calls: 79/94
+          n: 116
+          brier: 0.1593
+          log_loss: 0.5356
+          calls: 85/103
           tossups: 13
         ours:
-          n: 107
-          brier: 0.1153
-          log_loss: 0.4225
-          calls: 92/107
+          n: 116
+          brier: 0.1146
+          log_loss: 0.4148
+          calls: 99/116
     - name: Inside Elections
       source: Inside Elections
-      n: 438
+      n: 454
       theirs:
-        n: 438
-        brier: 0.0421
-        log_loss: 0.18
-        calls: 410/425
-        tossups: 13
+        n: 454
+        brier: 0.0438
+        log_loss: 0.1826
+        calls: 423/440
+        tossups: 14
       ours:
-        n: 438
-        brier: 0.0304
-        log_loss: 0.119
-        calls: 422/438
+        n: 454
+        brier: 0.0315
+        log_loss: 0.1212
+        calls: 436/454
       competitive:
-        n: 107
+        n: 116
         theirs:
-          n: 107
+          n: 116
           brier: 0.163
-          log_loss: 0.6503
-          calls: 80/94
-          tossups: 13
+          log_loss: 0.6349
+          calls: 86/102
+          tossups: 14
         ours:
-          n: 107
-          brier: 0.1153
-          log_loss: 0.4225
-          calls: 92/107
+          n: 116
+          brier: 0.1146
+          log_loss: 0.4148
+          calls: 99/116
     - name: Sabato
       source: Sabato's Crystal Ball
-      n: 438
+      n: 454
       theirs:
-        n: 438
-        brier: 0.0322
-        log_loss: 0.1389
-        calls: 422/438
+        n: 454
+        brier: 0.0343
+        log_loss: 0.1434
+        calls: 436/454
         tossups: 0
       ours:
-        n: 438
-        brier: 0.0304
-        log_loss: 0.119
-        calls: 422/438
+        n: 454
+        brier: 0.0315
+        log_loss: 0.1212
+        calls: 436/454
       competitive:
-        n: 107
+        n: 116
         theirs:
-          n: 107
-          brier: 0.1224
-          log_loss: 0.4824
-          calls: 92/107
+          n: 116
+          brier: 0.1257
+          log_loss: 0.4816
+          calls: 99/116
           tossups: 0
         ours:
-          n: 107
-          brier: 0.1153
-          log_loss: 0.4225
-          calls: 92/107
+          n: 116
+          brier: 0.1146
+          log_loss: 0.4148
+          calls: 99/116
     - name: Silver Bulletin
       source: Silver Bulletin
-      n: 172
+      n: 179
       theirs:
-        n: 172
-        brier: 0.042
-        log_loss: 0.1491
-        calls: 159/165
+        n: 179
+        brier: 0.0403
+        log_loss: 0.1436
+        calls: 166/172
         tossups: 7
       ours:
-        n: 172
-        brier: 0.0372
-        log_loss: 0.1208
-        calls: 164/172
+        n: 179
+        brier: 0.0358
+        log_loss: 0.1164
+        calls: 171/179
       competitive:
-        n: 60
+        n: 61
         theirs:
-          n: 60
-          brier: 0.1203
-          log_loss: 0.4265
-          calls: 47/53
+          n: 61
+          brier: 0.1183
+          log_loss: 0.4199
+          calls: 48/54
           tossups: 7
         ours:
-          n: 60
-          brier: 0.1068
-          log_loss: 0.345
-          calls: 52/60
+          n: 61
+          brier: 0.1051
+          log_loss: 0.3403
+          calls: 53/61
     - name: The Economist
       source: The Economist
-      n: 133
+      n: 135
       theirs:
-        n: 133
-        brier: 0.0343
-        log_loss: 0.1108
-        calls: 124/128
+        n: 135
+        brier: 0.0408
+        log_loss: 0.1372
+        calls: 125/130
         tossups: 5
       ours:
-        n: 133
-        brier: 0.0167
-        log_loss: 0.0584
-        calls: 130/133
+        n: 135
+        brier: 0.0185
+        log_loss: 0.0634
+        calls: 131/135
       competitive:
-        n: 35
+        n: 37
         theirs:
-          n: 35
-          brier: 0.1295
-          log_loss: 0.4126
-          calls: 26/30
+          n: 37
+          brier: 0.1483
+          log_loss: 0.4923
+          calls: 27/32
           tossups: 5
         ours:
-          n: 35
-          brier: 0.0635
-          log_loss: 0.2195
-          calls: 32/35
+          n: 37
+          brier: 0.0675
+          log_loss: 0.2291
+          calls: 33/37
     - name: Fox News
       source: Fox News
       n: 67

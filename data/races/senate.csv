@@ -1,7 +1,7 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
 senate:AL,senate,AL,Alabama,,,no,,Everett Wess,D,Barry Moore,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 United States Senate election in Alabama@1383936186
 senate:AK,senate,AK,Alaska,,R,yes,,Mary Peltola,D,Dan S. Sullivan,R,Daniel J. Sullivan Jr. (NO PARTY LIS); Gerald L. Heikes (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 United States Senate election in Alaska@1383921336
-senate:AR,senate,AR,Arkansas,,R,yes,,Hallie Shoffner,D,Tom Cotton,R,Jeff Wadlin (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 United States Senate election in Arkansas@1383825966
+senate:AR,senate,AR,Arkansas,,R,yes,,Hallie Shoffner,D,Tom Cotton,R,Jeff Wadlin (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 United States Senate election in Arkansas@1383948738
 senate:CO,senate,CO,Colorado,,D,yes,,John Hickenlooper,D,Mark Baisley,R,Bob Chew (FWD); Blake Huber (L); Adam Withrow (UNITY); Christopher Baum (APPROVAL VOT),,11.93,11.29,13.88,state,,wikipedia:2026 United States Senate election in Colorado@1383943743
 senate:DE,senate,DE,Delaware,,D,yes,,Chris Coons,D,Michael Katz,R,,,16.02,14.96,19.25,state,,wikipedia:2026 United States Senate election in Delaware@1383939366
 senate:GA,senate,GA,Georgia,,D,yes,,Jon Ossoff,D,Mike Collins,R,,,-1.61,-2.21,0.24,state,,wikipedia:2026 United States Senate election in Georgia@1383912475
@@ -25,7 +25,7 @@ senate:NC,senate,NC,North Carolina,,,no,,Roy Cooper,D,Michael Whatley,R,Shannon 
 senate:OK,senate,OK,Oklahoma,,,no,,N'Kiyla Jasmine Thomas,D,Kevin Hern,R,Curtis Stinnett (IND); Ron Meinhardt (IND); Sevier White (L),,-34.68,-34.94,-33.88,state,,wikipedia:2026 United States Senate election in Oklahoma@1383937171
 senate:OR,senate,OR,Oregon,,D,yes,,Jeff Merkley,D,David Brock Smith,R,Gary Dye (L); Chris Henry (PROGRESSIVE),,15.29,14.87,16.61,state,,wikipedia:2026 United States Senate election in Oregon@1383863975
 senate:RI,senate,RI,Rhode Island,,D,yes,,Jack Reed,D,Raymond McKay,R,Michael Bahry (IND),,15.91,14.16,21.2,state,,wikipedia:2026 United States Senate election in Rhode Island@1383921650
-senate:SC,senate,SC,South Carolina,,R,yes,,Annie Andrews,D,Darline Graham,R,Kasie Whitener (L); Mark Hackett (C),,-16.57,-18.12,-11.85,state,,wikipedia:2026 United States Senate election in South Carolina@1383923899
+senate:SC,senate,SC,South Carolina,,R,yes,,Annie Andrews,D,Darline Graham,R,Kasie Whitener (L); Mark Hackett (C),,-16.57,-18.12,-11.85,state,,wikipedia:2026 United States Senate election in South Carolina@1383951520
 senate:SD,senate,SD,South Dakota,,R,yes,,Brian Bengs,IND,Mike Rounds,R,,,-29.14,-29.89,-26.87,state,D-side is Brian Bengs (IND),wikipedia:2026 United States Senate election in South Dakota@1383923969
 senate:TN,senate,TN,Tennessee,,R,yes,,Marquita Bradshaw,D,Bill Hagerty,R,Tharon Chandler (IND); Andrew Gerena (IND); Jeremy Hearn (IND); Robert Jones (IND); James Macon III (IND); Yoshi Matthews (IND); David Sutman Jr. (IND); Catherine Whitson (IND); Andrew Mixon (IND),,-28.51,-30.12,-23.66,state,,wikipedia:2026 United States Senate election in Tennessee@1383896869
 senate:TX,senate,TX,Texas,,,no,,James Talarico,D,Ken Paxton,R,Ted Brown (L),,-11.83,-13.88,-5.66,state,,wikipedia:2026 United States Senate election in Texas@1383941594
