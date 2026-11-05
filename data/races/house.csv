@@ -1,12 +1,12 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
 house:AK-AL,house,AK,AK-AL,,R,yes,2024,Bill Hill,IND,Nick Begich III,R,"Eric Hafner (D); James C. ""Jim"" McDermott (L)",,-12.91,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Alaska@1383803919
-house:AL-01,house,AL,AL-01,,,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383869065
-house:AL-02,house,AL,AL-02,,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383869065
-house:AL-03,house,AL,AL-03,,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383869065
-house:AL-04,house,AL,AL-04,,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383869065
-house:AL-05,house,AL,AL-05,,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383869065
-house:AL-06,house,AL,AL-06,,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383869065
-house:AL-07,house,AL,AL-07,,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383869065
+house:AL-01,house,AL,AL-01,,,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383909602
+house:AL-02,house,AL,AL-02,,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383909602
+house:AL-03,house,AL,AL-03,,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383909602
+house:AL-04,house,AL,AL-04,,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383909602
+house:AL-05,house,AL,AL-05,,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383909602
+house:AL-06,house,AL,AL-06,,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383909602
+house:AL-07,house,AL,AL-07,,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1383909602
 house:AR-01,house,AR,AR-01,Rick Crawford,R,yes,2010,Terri Yarbrough,D,Rick Crawford,R,Steve Parsons (L),,-45.18,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1383625227
 house:AR-02,house,AR,AR-02,French Hill,R,yes,2014,Chris Jones,D,French Hill,R,,,-15.32,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1383625227
 house:AR-03,house,AR,AR-03,Steve Womack,R,yes,2010,Robb Ryerse,D,Steve Womack,R,Bobby Wilson (L),,-25.24,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1383625227
@@ -197,19 +197,19 @@ house:MD-07,house,MD,MD-07,,D,yes,1986,Kweisi Mfume,D,Scott Collier,R,,,61.49,,,
 house:MD-08,house,MD,MD-08,,D,yes,2016,Jamie Raskin,D,Cheryl Riley,R,,,59.43,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Maryland@1383904319
 house:ME-01,house,ME,ME-01,,D,yes,2008,Chellie Pingree,D,Ronald Russell,R,,,22.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Maine@1383839946
 house:ME-02,house,ME,ME-02,,,no,,Matthew Dunlap,D,Paul LePage,R,,,-8.51,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Maine@1383839946
-house:MI-01,house,MI,MI-01,Jack Bergman,R,yes,2016,Callie Barr,D,Jack Bergman,R,Arnett Satterla (L); Doc Kovaly (U.S. TAXPAYE); LaVeta Davenport (G); Liz Hakola (WORKING CLAS); Zebulon Featherly (IND),,-21.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-02,house,MI,MI-02,John Moolenaar,R,yes,2014,Benjamin Ambrose,D,John Moolenaar,R,Charlotta Magoon (G); Richard Sills (NATURAL LAW),,-30.09,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-03,house,MI,MI-03,Hillary Scholten,D,yes,2022,Hillary Scholten,D,Terri DeBoer,R,Joe Jock (G),,8.13,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-04,house,MI,MI-04,,R,yes,2010,Sean McCann,D,Bill Huizenga,R,Shafina Che Barnett (G),,-5.23,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-05,house,MI,MI-05,Tim Walberg,R,yes,2006,Christian Vukasovich,D,Tim Walberg,R,Ronald A. Muszynski (L); Sharon Marie Reiner (U.S. TAXPAYE); Jim Bronke (G),,-26.71,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-06,house,MI,MI-06,Debbie Dingell,D,yes,2014,Debbie Dingell,D,Heather Smiley,R,Timothy Teagan (L); Mike Mickevicius (U.S. TAXPAYE); Clyde Shabazz (G); Linda Rayburn (WORKING CLAS),,24.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-07,house,MI,MI-07,Tom Barrett,R,yes,2024,William Lawrence,D,Tom Barrett,R,Shane Dedrick (G),,-0.85,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-08,house,MI,MI-08,Kristen McDonald Rivet,D,yes,2024,Kristen McDonald Rivet,D,Thomas J. Smith,R,C. Mia Pettus (L); Jim Casha (G); Kathy Goodwin (WORKING CLAS),,-1.0,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-09,house,MI,MI-09,Lisa McClain,R,yes,2020,Ray Pooley,D,Lisa McClain,R,Kevin Vayko (L); John Vlahos (U.S. TAXPAYE); Destiny Clayton (G); Jim Walkowicz (WORKING CLAS),,-32.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-10,house,MI,MI-10,John James,R,no,,Christina Hines,D,Michael Bouchard Jr.,R,Mike Saliba (L); Kwabena Nkromo (G); Andrea L. Kirby (WORKING CLAS),,-5.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-11,house,MI,MI-11,Haley Stevens,D,no,,Jeremy Moss,D,Ethan Baker,R,Farid Ishac (L); Ryan Teasdale (G); Anil Kumar (IND),,17.33,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-12,house,MI,MI-12,Rashida Tlaib,D,yes,2018,Rashida Tlaib,D,James D. Hooper,R,Marc Sosnowski (U.S. TAXPAYE); Brenda K. Sanders (G); Gary Walkowicz (WORKING CLAS),,42.19,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
-house:MI-13,house,MI,MI-13,Shri Thanedar,D,no,,Donavan McKinney,D,T.P. Nykoriak,R,Chris Dardzinski (U.S. TAXPAYE); Raelynn Light (G); Simone R. Coleman (WORKING CLAS),,44.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383826402
+house:MI-01,house,MI,MI-01,Jack Bergman,R,yes,2016,Callie Barr,D,Jack Bergman,R,Arnett Satterla (L); Doc Kovaly (U.S. TAXPAYE); LaVeta Davenport (G); Liz Hakola (WORKING CLAS); Zebulon Featherly (IND),,-21.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-02,house,MI,MI-02,John Moolenaar,R,yes,2014,Benjamin Ambrose,D,John Moolenaar,R,,,-30.09,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-03,house,MI,MI-03,,D,yes,2022,Hillary Scholten,D,Terri DeBoer,R,Joe Jock (IND),,8.13,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-04,house,MI,MI-04,,R,yes,2010,Sean McCann,D,Bill Huizenga,R,Shafina Che Barnett (G),,-5.23,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-05,house,MI,MI-05,,R,yes,2006,Christian Vukasovich,D,Tim Walberg,R,Ronald Muszynski (IND),,-26.71,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-06,house,MI,MI-06,,D,yes,2014,Debbie Dingell,D,Heather Smiley,R,Timothy Teagan (L); Mike Mickevicius (U.S. TAXPAYE); Clyde Shabazz (G); Linda Rayburn (WORKING CLAS),,24.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-07,house,MI,MI-07,,R,yes,2024,William Lawrence,D,Tom Barrett,R,Shane Dedrick (G),,-0.85,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-08,house,MI,MI-08,,D,yes,2024,Kristen McDonald Rivet,D,Thomas Smith,R,Kathy Goodwin (WORKING CLAS); C. Mia Pettus (L); Jim Casha (G),,-1.0,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-09,house,MI,MI-09,,R,yes,2020,Ray Pooley,D,Lisa McClain,R,Jim Walkowicz (WORKING CLAS); Kevin Vayko (L); John Vlahos (U.S. TAXPAYE); Destiny Clayton (G),,-32.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-10,house,MI,MI-10,,,no,,Christina Hines,D,Michael Bouchard,R,Andrea Kirby (WORKING CLAS); Mike Saliba (L); Kwabena Nkromo (G),,-5.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-11,house,MI,MI-11,,,no,,Jeremy Moss,D,Ethan Baker,R,Anil Kumar (IND); Farid Ishac (L); Ryan Teasdale (G),,17.33,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-12,house,MI,MI-12,,D,yes,2018,Rashida Tlaib,D,James Hooper,R,Gary Walkowicz (WORKING CLAS); Brenda Sanders (G); Marc Sosnowski (U.S. TAXPAYE),,42.19,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
+house:MI-13,house,MI,MI-13,,,no,,Donavan McKinney,D,T.P. Nykoriak,R,Simone Coleman (WORKING CLAS); Chris Dardzinski (U.S. TAXPAYE); Raelyn Light (G),,44.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1383911545
 house:MN-01,house,MN,MN-01,,R,yes,2022,Jake Johnson,D,Brad Finstad,R,,,-11.54,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Minnesota@1383829095
 house:MN-02,house,MN,MN-02,,,no,,Matt Little,D,Joe Teirab,R,,,6.29,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Minnesota@1383829095
 house:MN-03,house,MN,MN-03,,,no,,Kelly Morrison,D,Tyler Bass,R,,,21.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Minnesota@1383829095
@@ -359,44 +359,44 @@ house:TN-06,house,TN,TN-06,John Rose,R,no,,Mike Croley,D,Johnny Garrett,R,,,-25.
 house:TN-07,house,TN,TN-07,Matt Van Epps,R,yes,2025,Darden Copeland,D,Matt Van Epps,R,,,-21.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1383850994
 house:TN-08,house,TN,TN-08,David Kustoff,R,yes,2016,Heidi Kuhn,D,David Kustoff,R,,,-19.3,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1383850994
 house:TN-09,house,TN,TN-09,Steve Cohen,D,no,,Justin J. Pearson,D,Brent Taylor,R,,,-18.74,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1383850994
-house:TX-01,house,TX,TX-01,Nathaniel Moran,R,yes,2022,Yolanda Prince,D,Nathaniel Moran,R,Sonia Canciola (IND),,-48.52,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-02,house,TX,TX-02,Dan Crenshaw,R,no,,Shaun Finnie,D,Steve Toth,R,,,-22.81,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-03,house,TX,TX-03,Keith Self,R,yes,2022,Evan Hunt,D,Keith Self,R,,,-22.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-04,house,TX,TX-04,Pat Fallon,R,yes,2020,Jason Pearce,D,Pat Fallon,R,,,-23.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-05,house,TX,TX-05,Lance Gooden,R,yes,2018,Chelsey Hockett,D,Lance Gooden,R,,,-20.5,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-06,house,TX,TX-06,Jake Ellzey,R,yes,2021,Danny Minton,D,Jake Ellzey,R,,,-22.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-07,house,TX,TX-07,Lizzie Fletcher,D,yes,2018,Lizzie Fletcher,D,Alexander Hale,R,Espoir Ngabo (G),,26.05,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-08,house,TX,TX-08,Morgan Luttrell,R,no,,Laura Jones,D,Jessica Steinmann,R,,,-25.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-09,house,TX,TX-09,,,no,,Leticia Gutierrez,D,Alex Mealer,R,,,-17.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-10,house,TX,TX-10,Michael McCaul,R,no,,Caitlin Rourk,D,Chris Gober,R,,,-20.98,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-11,house,TX,TX-11,August Pfluger,R,yes,2020,Claire Reynolds,D,August Pfluger,R,,,-33.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-12,house,TX,TX-12,Craig Goldman,R,yes,2024,Angela Rodriguez Prilliman,D,Craig Goldman,R,,,-22.62,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-13,house,TX,TX-13,Ronny Jackson,R,yes,2020,Mark Nair,D,Ronny Jackson,R,,,-46.21,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-14,house,TX,TX-14,Randy Weber,R,yes,2012,Thurman Bartie,D,Randy Weber,R,,,-23.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-15,house,TX,TX-15,Monica De La Cruz,R,yes,2022,Bobby Pulido,D,Monica De La Cruz,R,,,-14.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-16,house,TX,TX-16,Veronica Escobar,D,yes,2018,Veronica Escobar,D,Adam Bauman,R,,,21.51,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-17,house,TX,TX-17,Pete Sessions,R,yes,1996,Casey Shepard,D,Pete Sessions,R,,,-20.35,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-18,house,TX,TX-18,Al Green & Christian Menefee,D,yes,2026,Christian Menefee,D,Ronald Whitfield,R,,,57.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-19,house,TX,TX-19,Jodey Arrington,R,no,,Kyle Rable,D,Tom Sell,R,,,-50.86,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-20,house,TX,TX-20,Joaquin Castro,D,yes,2012,Joaquin Castro,D,Edgardo Baez,R,,,31.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-21,house,TX,TX-21,Chip Roy,R,no,,Kristin Hook,D,Mark Teixeira,R,,,-20.82,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-22,house,TX,TX-22,Troy Nehls,R,yes,2020,Marquette Greene-Scott,D,Trever Nehls,R,,,-21.43,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-23,house,TX,TX-23,,,no,,Katy Padilla Stout,D,Brandon Herrera,R,,,-13.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-24,house,TX,TX-24,Beth Van Duyne & Julie Johnson,R,yes,2020,Kevin Burge,D,Beth Van Duyne,R,,,-15.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-25,house,TX,TX-25,Marc Veasey & Roger Williams,R,yes,2012,Dione Sims,D,Roger Williams,R,,,-22.28,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-26,house,TX,TX-26,Brandon Gill,R,yes,2024,Steven Shook,D,Brandon Gill,R,,,-22.81,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-27,house,TX,TX-27,Michael Cloud,R,yes,2018,Tanya Lloyd,D,Michael Cloud,R,Dan McQueen (IND),,-20.48,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-28,house,TX,TX-28,Henry Cuellar,D,yes,2004,Henry Cuellar,D,Tano Tijerina,R,,,-5.43,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-29,house,TX,TX-29,Sylvia Garcia,D,yes,2018,Sylvia Garcia,D,Martha Fierro,R,,,34.03,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-30,house,TX,TX-30,,,no,,Frederick Haynes III,D,Everett Jackson,R,,,50.2,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-31,house,TX,TX-31,John Carter,R,yes,2002,Justin Early,D,John Carter,R,,,-21.16,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-32,house,TX,TX-32,,,no,,Dan Barrios,D,Jace Yarbrough,R,,,-16.15,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-33,house,TX,TX-33,Jasmine Crockett,D,no,,Colin Allred,D,Patrick Gillespie,R,,,36.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-34,house,TX,TX-34,Vicente Gonzalez,D,yes,2016,Vicente Gonzalez,D,Eric Flores,R,,,-6.93,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-35,house,TX,TX-35,,,no,,Johnny Garcia,D,Carlos De La Cruz,R,,,-8.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-36,house,TX,TX-36,Brian Babin,R,yes,2014,Rhonda Hart,D,Brian Babin,R,,,-23.65,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-37,house,TX,TX-37,Greg Casar & Lloyd Doggett,D,yes,1994,Greg Casar,D,Lauren Peña,R,,,59.2,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
-house:TX-38,house,TX,TX-38,Wesley Hunt,R,no,,Melissa McDonough,D,Jon Bonck,R,,,-20.51,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383835530
+house:TX-01,house,TX,TX-01,Nathaniel Moran,R,yes,2022,Yolanda Prince,D,Nathaniel Moran,R,Sonia Canciola (IND),,-48.52,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-02,house,TX,TX-02,Dan Crenshaw,R,no,,Shaun Finnie,D,Steve Toth,R,,,-22.81,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-03,house,TX,TX-03,Keith Self,R,yes,2022,Evan Hunt,D,Keith Self,R,,,-22.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-04,house,TX,TX-04,Pat Fallon,R,yes,2020,Jason Pearce,D,Pat Fallon,R,,,-23.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-05,house,TX,TX-05,Lance Gooden,R,yes,2018,Chelsey Hockett,D,Lance Gooden,R,,,-20.5,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-06,house,TX,TX-06,Jake Ellzey,R,yes,2021,Danny Minton,D,Jake Ellzey,R,,,-22.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-07,house,TX,TX-07,Lizzie Fletcher,D,yes,2018,Lizzie Fletcher,D,Alexander Hale,R,Espoir Ngabo (G),,26.05,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-08,house,TX,TX-08,Morgan Luttrell,R,no,,Laura Jones,D,Jessica Steinmann,R,,,-25.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-09,house,TX,TX-09,,,no,,Leticia Gutierrez,D,Alex Mealer,R,,,-17.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-10,house,TX,TX-10,Michael McCaul,R,no,,Caitlin Rourk,D,Chris Gober,R,,,-20.98,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-11,house,TX,TX-11,August Pfluger,R,yes,2020,Claire Reynolds,D,August Pfluger,R,,,-33.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-12,house,TX,TX-12,Craig Goldman,R,yes,2024,Angela Rodriguez Prilliman,D,Craig Goldman,R,,,-22.62,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-13,house,TX,TX-13,Ronny Jackson,R,yes,2020,Mark Nair,D,Ronny Jackson,R,,,-46.21,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-14,house,TX,TX-14,Randy Weber,R,yes,2012,Thurman Bartie,D,Randy Weber,R,,,-23.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-15,house,TX,TX-15,Monica De La Cruz,R,yes,2022,Bobby Pulido,D,Monica De La Cruz,R,,,-14.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-16,house,TX,TX-16,Veronica Escobar,D,yes,2018,Veronica Escobar,D,Adam Bauman,R,,,21.51,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-17,house,TX,TX-17,Pete Sessions,R,yes,1996,Casey Shepard,D,Pete Sessions,R,,,-20.35,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-18,house,TX,TX-18,Al Green & Christian Menefee,D,yes,2026,Christian Menefee,D,Ronald Whitfield,R,,,57.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-19,house,TX,TX-19,Jodey Arrington,R,no,,Kyle Rable,D,Tom Sell,R,,,-50.86,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-20,house,TX,TX-20,Joaquin Castro,D,yes,2012,Joaquin Castro,D,Edgardo Baez,R,,,31.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-21,house,TX,TX-21,Chip Roy,R,no,,Kristin Hook,D,Mark Teixeira,R,,,-20.82,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-22,house,TX,TX-22,Troy Nehls,R,yes,2020,Marquette Greene-Scott,D,Trever Nehls,R,,,-21.43,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-23,house,TX,TX-23,,,no,,Katy Padilla Stout,D,Brandon Herrera,R,,,-13.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-24,house,TX,TX-24,Beth Van Duyne & Julie Johnson,R,yes,2020,Kevin Burge,D,Beth Van Duyne,R,,,-15.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-25,house,TX,TX-25,Marc Veasey & Roger Williams,R,yes,2012,Dione Sims,D,Roger Williams,R,,,-22.28,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-26,house,TX,TX-26,Brandon Gill,R,yes,2024,Steven Shook,D,Brandon Gill,R,,,-22.81,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-27,house,TX,TX-27,Michael Cloud,R,yes,2018,Tanya Lloyd,D,Michael Cloud,R,Dan McQueen (IND),,-20.48,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-28,house,TX,TX-28,Henry Cuellar,D,yes,2004,Henry Cuellar,D,Tano Tijerina,R,,,-5.43,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-29,house,TX,TX-29,Sylvia Garcia,D,yes,2018,Sylvia Garcia,D,Martha Fierro,R,,,34.03,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-30,house,TX,TX-30,,,no,,Frederick Haynes III,D,Everett Jackson,R,,,50.2,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-31,house,TX,TX-31,John Carter,R,yes,2002,Justin Early,D,John Carter,R,,,-21.16,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-32,house,TX,TX-32,,,no,,Dan Barrios,D,Jace Yarbrough,R,,,-16.15,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-33,house,TX,TX-33,Jasmine Crockett,D,no,,Colin Allred,D,Patrick Gillespie,R,,,36.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-34,house,TX,TX-34,Vicente Gonzalez,D,yes,2016,Vicente Gonzalez,D,Eric Flores,R,,,-6.93,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-35,house,TX,TX-35,,,no,,Johnny Garcia,D,Carlos De La Cruz,R,,,-8.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-36,house,TX,TX-36,Brian Babin,R,yes,2014,Rhonda Hart,D,Brian Babin,R,,,-23.65,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-37,house,TX,TX-37,Greg Casar & Lloyd Doggett,D,yes,1994,Greg Casar,D,Lauren Peña,R,,,59.2,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
+house:TX-38,house,TX,TX-38,Wesley Hunt,R,no,,Melissa McDonough,D,Jon Bonck,R,,,-20.51,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1383911640
 house:UT-01,house,UT,UT-01,,,no,,Ben McAdams,D,Riley Owen,R,,,24.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Utah@1383859483
 house:UT-02,house,UT,UT-02,,R,yes,2020,Peter Crosby,D,Blake Moore,R,,,-30.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Utah@1383859483
 house:UT-03,house,UT,UT-03,Mike Kennedy,R,yes,2023,Kent Udell,D,Celeste Maloy,R,,,-42.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Utah@1383859483
