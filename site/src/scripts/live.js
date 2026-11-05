@@ -341,17 +341,21 @@ function raceBanner(box, data) {
   // Both sides are named because the count is the D-side's votes minus the
   // R-side's, whoever else runs. No margin in the file, no lead (live-util.js).
   const rcv = box.dataset.rcv === "1";
+  // Under "Pingree (D) wins", "leads" reads oddly; the count goes on after a
+  // call, so a decided race says "is ahead of … so far" (MIDTERMS2026, Nov 5).
+  const done = r.status === "called" || r.status === "uncontested";
+  const ahead = (a, b, by) => (done ? `${a} is ahead of ${b} by ${by} so far` : `${a} leads ${b} by ${by}`);
   let lead = null;
   if (typeof r.margin === "number" && Number.isFinite(r.margin)) {
     const vl = voteLead(r);
     const mt = marginText(r.margin, vl, side.D.label || "D", side.R.label || "R");
     if (!vl) lead = `Two-party margin: ${mt}`;
     else if (!vl.side) lead = [h("strong", {}, `${who("D")} and ${who("R")} are tied`), ` at ${votesText(n(v?.D), rcv)} each`];
-    else lead = [h("strong", {}, `${who(vl.side)} leads ${who(vl.side === "D" ? "R" : "D")} by ${votesText(vl.by, rcv)}`), " · ", h("span", { class: "nowrap" }, `two-party margin ${mt}`)];
+    else lead = [h("strong", {}, ahead(who(vl.side), who(vl.side === "D" ? "R" : "D"), votesText(vl.by, rcv))), " · ", h("span", { class: "nowrap" }, `two-party margin ${mt}`)];
   } else {
     const pl = pairLead(r);
     if (pl) {
-      const text = pl.by ? `${candName(pl.first)} leads ${candName(pl.second)} by ${votesText(pl.by)}` : `${candName(pl.first)} and ${candName(pl.second)} are tied`;
+      const text = pl.by ? ahead(candName(pl.first), candName(pl.second), votesText(pl.by)) : `${candName(pl.first)} and ${candName(pl.second)} are tied`;
       lead = [r.status === "runoff" ? "First round: " : "", h("strong", {}, text)];
     }
   }
