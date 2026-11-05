@@ -7,8 +7,8 @@ senate:DE,senate,DE,Delaware,,D,yes,,Chris Coons,D,Michael Katz,R,,,16.02,14.96,
 senate:GA,senate,GA,Georgia,,D,yes,,Jon Ossoff,D,Mike Collins,R,,,-1.61,-2.21,0.24,state,,wikipedia:2026 United States Senate election in Georgia@1383833252
 senate:ID,senate,ID,Idaho,,R,yes,,Todd Achilles,IND,Jim Risch,R,Natalie Fleming (IND); Matt Loesby (L),,-36.09,-37.52,-31.75,state,D-side is Todd Achilles (IND),wikipedia:2026 United States Senate election in Idaho@1383842239
 senate:IL,senate,IL,Illinois,,,no,,Juliana Stratton,D,Don Tracy,R,Whitfield Harrington Jr. (AMERICAN CEN),,12.67,11.14,17.32,state,,wikipedia:2026 United States Senate election in Illinois@1383844808
-senate:IA,senate,IA,Iowa,,,no,,Josh Turek,D,Ashley Hinson,R,Thomas Laehn (L),,-12.19,-13.45,-8.37,state,,wikipedia:2026 United States Senate election in Iowa@1383885291
-senate:KS,senate,KS,Kansas,,R,yes,,Adam Hamilton,D,Roger Marshall,R,David Graham (L),,-16.07,-16.41,-14.99,state,,wikipedia:2026 United States Senate election in Kansas@1383881323
+senate:IA,senate,IA,Iowa,,,no,,Josh Turek,D,Ashley Hinson,R,Thomas Laehn (L),,-12.19,-13.45,-8.37,state,,wikipedia:2026 United States Senate election in Iowa@1383889397
+senate:KS,senate,KS,Kansas,,R,yes,,Adam Hamilton,D,Roger Marshall,R,David Graham (L),,-16.07,-16.41,-14.99,state,,wikipedia:2026 United States Senate election in Kansas@1383889514
 senate:KY,senate,KY,Kentucky,,,no,,Charles Booker,D,Andy Barr,R,Christopher Campbell (KENTUCKY),,-29.88,-31.03,-26.4,state,,wikipedia:2026 United States Senate election in Kentucky@1383831366
 senate:LA,senate,LA,Louisiana,,,no,,Jamie Davis,D,Julia Letlow,R,,,-21.51,-22.36,-18.93,state,,wikipedia:2026 United States Senate election in Louisiana@1383832004
 senate:ME,senate,ME,Maine,,R,yes,,Troy Jackson,D,Susan Collins,R,,,7.64,7.09,9.34,state,,wikipedia:2026 United States Senate election in Maine@1383886867
@@ -28,9 +28,9 @@ senate:RI,senate,RI,Rhode Island,,D,yes,,Jack Reed,D,Raymond McKay,R,Michael Bah
 senate:SC,senate,SC,South Carolina,,R,yes,,Annie Andrews,D,Darline Graham,R,Kasie Whitener (L); Mark Hackett (C),,-16.57,-18.12,-11.85,state,,wikipedia:2026 United States Senate election in South Carolina@1383887987
 senate:SD,senate,SD,South Dakota,,R,yes,,Brian Bengs,IND,Mike Rounds,R,,,-29.14,-29.89,-26.87,state,D-side is Brian Bengs (IND),wikipedia:2026 United States Senate election in South Dakota@1383838296
 senate:TN,senate,TN,Tennessee,,R,yes,,Marquita Bradshaw,D,Bill Hagerty,R,Tharon Chandler (IND); Andrew Gerena (IND); Jeremy Hearn (IND); Robert Jones (IND); James Macon III (IND); Yoshi Matthews (IND); David Sutman Jr. (IND); Catherine Whitson (IND); Andrew Mixon (IND),,-28.51,-30.12,-23.66,state,,wikipedia:2026 United States Senate election in Tennessee@1383838546
-senate:TX,senate,TX,Texas,,,no,,James Talarico,D,Ken Paxton,R,Ted Brown (L),,-11.83,-13.88,-5.66,state,,wikipedia:2026 United States Senate election in Texas@1383868590
+senate:TX,senate,TX,Texas,,,no,,James Talarico,D,Ken Paxton,R,Ted Brown (L),,-11.83,-13.88,-5.66,state,,wikipedia:2026 United States Senate election in Texas@1383889148
 senate:VA,senate,VA,Virginia,,D,yes,,Mark Warner,D,Bert Mizusawa,R,,,7.1,5.9,10.73,state,,wikipedia:2026 United States Senate election in Virginia@1383839124
-senate:WV,senate,WV,West Virginia,,R,yes,,Rachel Fetty Anderson,D,Shelley Moore Capito,R,S. Marshall Wilson (C),,-41.92,-42.69,-39.6,state,,wikipedia:2026 United States Senate election in West Virginia@1383839405
+senate:WV,senate,WV,West Virginia,,R,yes,,Rachel Fetty Anderson,D,Shelley Moore Capito,R,S. Marshall Wilson (C),,-41.92,-42.69,-39.6,state,,wikipedia:2026 United States Senate election in West Virginia@1383889928
 senate:WY,senate,WY,Wyoming,,,no,,James Byrd,D,Harriet Hageman,R,,,-46.47,-46.96,-44.96,state,,wikipedia:2026 United States Senate election in Wyoming@1383855635
 senate:OH-special,senate,OH,Ohio (special),,R,yes,,Sherrod Brown,D,Jon Husted,R,Bill Redpath (L); Greg Levy (IND),,-10.53,-11.31,-8.15,state,,wikipedia:2026 United States Senate special election in Ohio@1383837134
 senate:FL-special,senate,FL,Florida (special),,R,yes,,Angie Nixon,D,Ashley Moody,R,Neil J. Gillespie (IND),,-10.77,-13.22,-3.39,state,,wikipedia:2026 United States Senate special election in Florida@1383839436
