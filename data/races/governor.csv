@@ -1,5 +1,5 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
-governor:AL,governor,AL,Alabama,,,no,,Doug Jones,D,Tommy Tuberville,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 Alabama gubernatorial election@1383887479
+governor:AL,governor,AL,Alabama,,,no,,Doug Jones,D,Tommy Tuberville,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 Alabama gubernatorial election@1383917768
 governor:AK,governor,AK,Alaska,,,no,,Jonathan Kreiss-Tomkins,D,Bernadette Wilson,R,Dave Bronson (R); Treg Taylor (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 Alaska gubernatorial election@1383887586
 governor:AZ,governor,AZ,Arizona,,D,yes,,Katie Hobbs,D,Andy Biggs,R,Risa Lombardo (G); Teri Ann Hourihan (NO LABELS),,-4.12,-5.59,0.31,state,,wikipedia:2026 Arizona gubernatorial election@1383913267
 governor:AR,governor,AR,Arkansas,,,no,,Fredrick Love,D,Sarah Huckabee Sanders,R,Colt Shelby (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 Arkansas gubernatorial election@1383749108
