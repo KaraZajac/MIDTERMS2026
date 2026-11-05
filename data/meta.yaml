@@ -1,8 +1,8 @@
-generated: '2026-11-05T12:40:00Z'
+generated: '2026-11-05T13:09:50Z'
 generator: python3 -m midterms build
 asof: '2026-11-05'
 election_day: '2026-11-03'
-sources_digest: 494dc52c43e791de
+sources_digest: 5af3ef8f2be007f4
 counts:
   house_races: 435
   senate_races: 35
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383762837
-    2026 United States House of Representatives elections: 1383897466
+    2026 United States House of Representatives elections: 1383900048
     2026 United States House of Representatives elections in Alabama: 1383869065
     2026 United States House of Representatives elections in Arizona: 1383803664
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -112,7 +112,7 @@ sources:
     2026 United States House of Representatives elections in West Virginia: 1382858408
     2026 United States House of Representatives elections in Wisconsin: 1383891821
     2026 United States Senate election in Alabama: 1383828493
-    2026 United States Senate election in Alaska: 1383851789
+    2026 United States Senate election in Alaska: 1383900020
     2026 United States Senate election in Arkansas: 1383825966
     2026 United States Senate election in Colorado: 1383826185
     2026 United States Senate election in Delaware: 1383887911
@@ -133,7 +133,7 @@ sources:
     2026 United States Senate election in New Hampshire: 1383835290
     2026 United States Senate election in New Jersey: 1383894833
     2026 United States Senate election in New Mexico: 1383871218
-    2026 United States Senate election in North Carolina: 1383866819
+    2026 United States Senate election in North Carolina: 1383898296
     2026 United States Senate election in Oklahoma: 1383837310
     2026 United States Senate election in Oregon: 1383863975
     2026 United States Senate election in Rhode Island: 1383837758
