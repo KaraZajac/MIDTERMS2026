@@ -31,6 +31,7 @@ const d = side(r.d), rr = side(r.r);
   data-rtag={rr.tag}
   data-rkey={rr.key}
   data-rlabel={sideLabel(r, "r")}
+  data-rcv={/ranked/i.test(r.rules ?? "") ? "1" : undefined}
   data-from={meta().deadline}
   hidden
 >

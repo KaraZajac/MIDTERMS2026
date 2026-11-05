@@ -12,11 +12,12 @@
 // id pattern, never from URLs in the data. Fields added on election night
 // (held, party, flip, gains, losses, flips, polls_close, held_note, top_two) are all
 // optional here: without them the page shows what it can.
-import { pct, pct1, margin, url } from "../lib/format.js";
+import { pct, pct1, url } from "../lib/format.js";
 import {
   h, ID, TITLE, NOUN, BOARD, clock, stamp, n, sum, fmtInt, reporting, reportingText, tag, credit, expectations,
   raceLink, winnerName, gainText, setSkew, schedule, closeClock, nextClosing, closedCount, stale,
   majorityLine, changedLine, seatBuckets, topTwo, candName, pairText, partyKey, otherName, settled, PLURAL,
+  voteLead, pairLead, votesText, marginText,
 } from "./live-util.js";
 const ADJ = { D: "Democratic", R: "Republican" };
 import { renderBoard } from "./live-board.js";
@@ -335,6 +336,31 @@ function raceBanner(box, data) {
     }
   }
 
+  // The lead in votes beside the margin in points (a visitor's ask, Nov 5):
+  // "Colom (D) leads Hyde-Smith (R) by 1,795 votes · two-party margin D+0.2".
+  // Both sides are named because the count is the D-side's votes minus the
+  // R-side's, whoever else runs. No margin in the file, no lead (live-util.js).
+  const rcv = box.dataset.rcv === "1";
+  let lead = null;
+  if (typeof r.margin === "number" && Number.isFinite(r.margin)) {
+    const vl = voteLead(r);
+    const mt = marginText(r.margin, vl, side.D.label || "D", side.R.label || "R");
+    if (!vl) lead = `Two-party margin: ${mt}`;
+    else if (!vl.side) lead = [h("strong", {}, `${who("D")} and ${who("R")} are tied`), ` at ${votesText(n(v?.D), rcv)} each`];
+    else lead = [h("strong", {}, `${who(vl.side)} leads ${who(vl.side === "D" ? "R" : "D")} by ${votesText(vl.by, rcv)}`), " · ", h("span", { class: "nowrap" }, `two-party margin ${mt}`)];
+  } else {
+    const pl = pairLead(r);
+    if (pl) {
+      const text = pl.by ? `${candName(pl.first)} leads ${candName(pl.second)} by ${votesText(pl.by)}` : `${candName(pl.first)} and ${candName(pl.second)} are tied`;
+      lead = [r.status === "runoff" ? "First round: " : "", h("strong", {}, text)];
+    }
+  }
+  // Alaska and Maine rank candidates; first choices are what's counted so far.
+  const rcvNote =
+    rcv && r.status === "counting" && lead
+      ? "Ranked-choice race: these are first choices. If no one ends up with more than half, the last-place candidate is dropped and those ballots count for their next choice, round by round, which can change the lead."
+      : null;
+
   const pPre = typeof r.p_pre === "number" ? r.p_pre : null;
   const pLive = typeof r.p_live === "number" ? r.p_live : null;
   let chance = null;
@@ -373,7 +399,8 @@ function raceBanner(box, data) {
     delayNote(),
     h("p", { class: "live-race-status" }, status),
     rows.length ? h("div", { class: "live-votes" }, rows) : null,
-    typeof r.margin === "number" ? h("p", { class: "live-small" }, `Two-party margin: ${margin(r.margin, side.D.label || "D", side.R.label || "R")}`) : null,
+    lead ? h("p", { class: "live-lead" }, lead) : null,
+    rcvNote ? h("p", { class: "live-small" }, rcvNote) : null,
     chance ? h("p", { class: "live-chance" }, chance) : null,
     h("p", { class: "live-small" }, credit(), r.called_by === "wikipedia" ? "; this call: Wikipedia's results table" : "", ". ", h("a", { href: BOARD }, "All results →")),
   );

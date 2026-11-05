@@ -1,12 +1,14 @@
 // /results/, under the gauges: the closest races still counting (Kara's ask on
 // Nov 4, through MIDTERMS2026). From live.json: races counting with a numeric
 // margin and at least 1,000 votes between the two sides (the same floor as the
-// map's lead shading), closest first by |margin|, the first 10, all chambers
+// map's lead shading), closest first by the margin in points, the first 10, all chambers
 // mixed. Each row: the race, the leader in the map's lead look (lighter colour
 // under stripes), percent reporting or "early returns", votes counted, and the
-// forecast's favourite. A phone shows 5 and a button for the rest.
+// forecast's favourite. A phone shows 5 and a button for the rest. Since Nov 5
+// the lead is also a number of votes (a visitor's ask, through Kara), and the
+// count names the leader where the rounded margin reads 0.0.
 import { pct } from "../lib/format.js";
-import { h, n, raceLink, sideName, reportingText } from "./live-util.js";
+import { h, n, raceLink, sideName, reportingText, voteLead, votesText, ranked } from "./live-util.js";
 
 const FLOOR = 1000, TOP = 10, PHONE = 5;
 const CH = { house: "House", senate: "Senate", governor: "Governor" };
@@ -19,21 +21,29 @@ export function closeBlock() {
     h("h2", { class: "close-title", id: "close-title" }, "Closest races still counting"),
     h("ol", { class: "close-list", "data-close-list": true }),
     h("button", { type: "button", class: "btn close-more", "data-close-more": true, hidden: true }),
-    h("p", { class: "live-small" }, "Uncalled races with at least 1,000 votes counted, closest first by the current margin. Leads can change as more ballots are counted."),
+    h("p", { class: "live-small" }, "Uncalled races with at least 1,000 votes counted, closest first by the margin in percentage points, not votes. Leads can change as more ballots are counted."),
   );
 }
 
+/** The margin in points, unrounded where the count has it, so that races the
+ *  file rounds to the same 0.1 (NC-03 and TN-04, both 0.1) still sort right. */
+function gap(r) {
+  const vl = voteLead(r);
+  return vl ? (100 * vl.by) / (r.votes.D + r.votes.R) : Math.abs(r.margin);
+}
 /** [[id, race], ...]: the closest races counting, at most TOP. */
 export function closest(data) {
   return Object.entries(data?.races ?? {})
     .filter(([id, r]) => CH[id.split(":")[0]] && r && r.status === "counting" && typeof r.margin === "number" && Number.isFinite(r.margin) && n(r.votes?.D) + n(r.votes?.R) >= FLOOR)
-    .sort((a, b) => Math.abs(a[1].margin) - Math.abs(b[1].margin) || (a[0] < b[0] ? -1 : 1))
+    .sort((a, b) => gap(a[1]) - gap(b[1]) || (a[0] < b[0] ? -1 : 1))
     .slice(0, TOP);
 }
 
 function row(id, r, N, i) {
   const ch = id.split(":")[0];
-  const side = r.margin > 0 ? "D" : r.margin < 0 ? "R" : null;
+  // The count's lead, D-side votes minus R-side votes; without one, the margin's sign.
+  const vl = voteLead(r);
+  const side = vl ? vl.side : r.margin > 0 ? "D" : r.margin < 0 ? "R" : null;
   const a = Math.abs(r.margin);
   const lead = side
     ? h("span", { class: `close-lead ${side === "D" ? "d" : "r"}` }, `${sideName(N, id, side) ?? (side === "D" ? "D-side" : "R-side")} +${a < 0.05 ? "<0.1" : a.toFixed(1)}`)
@@ -51,8 +61,14 @@ function row(id, r, N, i) {
     h(
       "span",
       { class: "close-meta" },
-      h("span", { class: "close-rep" }, reportingText(r) ?? ""),
-      h("span", { class: "close-votes" }, `${fmt.format(total)} votes`),
+      h("span", { class: "close-ahead" }, vl?.side ? `${votesText(vl.by, ranked(N, id))} ahead` : ""),
+      // reporting over votes counted on a desktop; inline on a phone
+      h(
+        "span",
+        { class: "close-count" },
+        h("span", { class: "close-rep" }, reportingText(r) ?? ""),
+        h("span", { class: "close-votes" }, `${fmt.format(total)} votes`),
+      ),
       h("span", { class: "close-fc" }, fav ? `Forecast: ${sideName(N, id, fav) ?? `${fav}-side`} ${pct(Math.max(r.p_pre, 1 - r.p_pre))}` : ""),
     ),
   );

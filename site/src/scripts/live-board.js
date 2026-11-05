@@ -3,11 +3,11 @@
 // filtered to called, counting, not yet, changed hands or upsets; narrowed by
 // a state, district or candidate. The view lives in the URL
 // (?chamber=house&show=flips&q=PA), so it can be linked and survives a reload.
-import { pct, margin, STATES, surname } from "../lib/format.js";
+import { pct, STATES, surname } from "../lib/format.js";
 import {
   h, ID, tag, clock, reportingText, raceLink, sideName, sideLabel, winnerName, winnerParty, partyKey,
   gainText, decided, windowOf, closingText, stateOf, expectations, n, SEGS, segOf, wonSeg, segLabel,
-  topTwo, candName, pairText, settled,
+  topTwo, candName, pairText, settled, voteLead, pairLead, votesText, marginText, ranked,
 } from "./live-util.js";
 
 const VIEWS = { senate: "Senate", governor: "Governors", house: "House" };
@@ -124,10 +124,30 @@ function matcher(q, N, races) {
 
 // No margin in the file, none shown: the pipeline leaves it out where it would
 // mislead (a first round, or a side it couldn't find in the count), so none is
-// worked out from the votes here (MIDTERMS2026, Nov 4).
+// worked out from the votes here (MIDTERMS2026, Nov 4). The lead in votes
+// follows the same rule (live-util.js voteLead).
 function count(r) {
   const m = typeof r.margin === "number" && Number.isFinite(r.margin) ? r.margin : null;
-  return { m, rep: reportingText(r) }; // "45% reporting" or "early returns"
+  return { m, lead: m == null ? null : voteLead(r), rep: reportingText(r) }; // "45% reporting" or "early returns"
+}
+/** ", 1,658 votes apart": the gap within a top_two, for the shares line. */
+function apart(r) {
+  const pl = pairLead(r);
+  return pl && pl.by > 0 ? `, ${votesText(pl.by)} apart` : "";
+}
+/** A race still counting: "Colom (D) leads by 1,795 votes (0.2 points)", "Tied",
+ *  a first round's "Moore (D) leads by 1,658 votes", or null. */
+function leadText(r, N, id, c, t2) {
+  if (c.m != null) {
+    const pts = Math.abs(c.m) < 0.05 ? "under 0.1 points" : `${Math.abs(c.m).toFixed(1)} points`;
+    const who = (s) => sideName(N, id, s) ?? `${s}-side`;
+    if (c.lead) return c.lead.side ? `${who(c.lead.side)} leads by ${votesText(c.lead.by, ranked(N, id))} (${pts})` : "Tied";
+    return Math.abs(c.m) < 0.05 ? "Tied" : `${who(c.m > 0 ? "D" : "R")} leads by ${pts}`;
+  }
+  if (!t2?.length) return null;
+  const pl = pairLead(r);
+  if (!pl) return `${candName(t2[0])} leads`;
+  return pl.by ? `${candName(pl.first)} leads by ${votesText(pl.by)}` : "Tied";
 }
 /** A first round's count: "Moore 33.1%, Firment 20.8%", or null. */
 function shares(r, t2) {
@@ -182,15 +202,14 @@ function row(id, r, data, N) {
     }
     const c = count(r);
     const when = c.rep ? (c.rep === "early returns" ? " in early returns" : ` with ${c.rep}`) : "";
-    if (c.m != null) sub.push(`${margin(c.m, sideLabel(N, id, "D"), sideLabel(N, id, "R"))}${when}.`);
-    else if (shares(r, t2)) sub.push(`${shares(r, t2)}${when}.`);
+    // "D+18.0, or 751,813 votes, with 89% reporting." The count goes on after a call.
+    const or = c.lead?.side ? `, or ${votesText(c.lead.by, ranked(N, id))}` : "";
+    const gap = c.m == null ? apart(r) : "";
+    if (c.m != null) sub.push(`${marginText(c.m, c.lead, sideLabel(N, id, "D"), sideLabel(N, id, "R"))}${or}${or && when ? "," : ""}${when}.`);
+    else if (shares(r, t2)) sub.push(`${shares(r, t2)}${gap}${gap && when ? "," : ""}${when}.`);
   } else if (st === "counting") {
     const c = count(r);
-    const lead =
-      c.m != null
-        ? Math.abs(c.m) < 0.05 ? "Tied" : `${sideName(N, id, c.m > 0 ? "D" : "R") ?? (c.m > 0 ? "D-side" : "R-side")} leads by ${Math.abs(c.m).toFixed(1)} points`
-        : t2?.length ? `${candName(t2[0])} leads`
-          : null;
+    const lead = leadText(r, N, id, c, t2);
     main = [
       h("strong", {}, "Counting"),
       c.rep ? ` · ${c.rep}` : "",
@@ -206,7 +225,7 @@ function row(id, r, data, N) {
     // A first round's pair is its top two, never our sides; an unusable list names no one.
     const pair = t2 ? pairText(t2) : vs;
     main = [h("strong", {}, "Headed to a runoff"), pair ? ` · ${pair}` : ""];
-    if (t2 && shares(r, t2)) sub.push(`First round: ${shares(r, t2)}.`);
+    if (t2 && shares(r, t2)) sub.push(`First round: ${shares(r, t2)}${apart(r)}.`);
   } else {
     const w = windowOf(data, id);
     main = [h("span", {}, closingText(w))];

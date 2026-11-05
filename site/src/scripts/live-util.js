@@ -4,7 +4,7 @@
 // Everything in live.json is third-party text. It only ever enters the page as
 // text nodes or setAttribute values, never as HTML, and links are built from
 // race ids that match ID, never from URLs in the data.
-import { url, bucket, PARTY_SHORT, STATES } from "../lib/format.js";
+import { url, bucket, margin, PARTY_SHORT, STATES } from "../lib/format.js";
 
 export const ID = /^(house|senate|governor):[A-Za-z0-9-]+$/;
 export const TITLE = { house: "House", senate: "Senate", governor: "Governorships" };
@@ -157,6 +157,47 @@ export function settled(r, who) {
   const ours = r.winner === "D" || r.winner === "R" ? n(r.votes?.[r.winner]) : 0;
   if (ours > 0 && a === ours) return { text: `${who(r.winner)} ${at ? "wins" : "leads"}`, party: mine, same, at };
   return { text: `${candName(t2[0])} leads`, party: t2[0].party || mine, same, at: null };
+}
+
+// --- leads in votes -------------------------------------------------------------
+
+// A lead as a number of votes, next to the margin in points (a visitor's ask,
+// through Kara and MIDTERMS2026, Nov 5: "my brain would love a lead count").
+// The same rule as the margin: no margin in the file, no lead, since the
+// pipeline leaves the margin out where it would mislead (a first round, or a
+// side it couldn't find in the count). It is our D-side's votes minus our
+// R-side's, so it is the lead over the other side's nominee, whoever else runs.
+const isCount = (x) => typeof x === "number" && Number.isFinite(x) && x >= 0;
+/** {side: "D", "R" or null for a tie, by: votes} from votes.D − votes.R, or null. */
+export function voteLead(r) {
+  if (typeof r?.margin !== "number" || !Number.isFinite(r.margin)) return null;
+  const v = r.votes;
+  if (!v || typeof v !== "object" || !isCount(v.D) || !isCount(v.R) || v.D + v.R <= 0) return null;
+  const d = Math.round(v.D - v.R);
+  // The margin is rounded to 0.1 points, so a 99-vote lead in 278,000 reads 0.0
+  // (NC-05, Nov 5): there the count names the leader. Otherwise the two agree,
+  // and if they ever don't, neither is shown as a count.
+  if ((r.margin > 0 && d <= 0) || (r.margin < 0 && d >= 0)) return null;
+  return { side: d > 0 ? "D" : d < 0 ? "R" : null, by: Math.abs(d) };
+}
+/** The lead within a top_two (a first round, or an uncontested seat with a
+ *  count): {first, second, by}, or null. */
+export function pairLead(r) {
+  const t2 = topTwo(r);
+  if (t2?.length !== 2 || !isCount(t2[0].votes) || !isCount(t2[1].votes)) return null;
+  const by = Math.round(t2[0].votes - t2[1].votes);
+  return by >= 0 ? { first: t2[0], second: t2[1], by } : null;
+}
+/** Alaska's and Maine's ranked-choice races report first choices: the race
+ *  index's seventh field, from races.json `rules` (as RaceList.astro reads it). */
+export const ranked = (N, id) => N?.[id]?.[6] === 1;
+/** "1,795 votes", "1 vote", "554 first-choice votes" */
+export const votesText = (x, rcv = false) => `${fmtInt(x)} ${rcv ? "first-choice " : ""}vote${Math.round(n(x)) === 1 ? "" : "s"}`;
+/** The two-party margin, "D+0.2", but "D+<0.1" rather than "Even" when the
+ *  count has a leader the rounding hides. */
+export function marginText(m, lead, dLabel = "D", rLabel = "R") {
+  if (lead?.side && Math.abs(m) < 0.05) return `${lead.side === "D" ? dLabel : rLabel}+<0.1`;
+  return margin(m, dLabel, rLabel);
 }
 
 /** Label for the side that leads a margin: "D", "R", or a surname for independents. */

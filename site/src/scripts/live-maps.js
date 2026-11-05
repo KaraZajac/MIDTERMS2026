@@ -10,7 +10,7 @@
 // night, when civicAPI's desk called races slowly): the leader's lighter colour
 // under stripes, like a seat bar's projected segments (data-res-lead). It is
 // never a call, so the label says "Leading", never "wins" or "projected".
-import { ID, clock, reportingText, winnerName, winnerParty, partyKey, gainText, decided, windowOf, closingText, sideName, n, settled } from "./live-util.js";
+import { ID, clock, reportingText, winnerName, winnerParty, partyKey, gainText, decided, windowOf, closingText, sideName, n, settled, voteLead, votesText, ranked } from "./live-util.js";
 
 const FIGS = "[data-live-map]";
 const CELLS = "[data-res-id], #seat-strip .sq[data-id]";
@@ -21,12 +21,16 @@ const LEAD_FLOOR = 1000;
 
 /** "D" or "R" for the side ahead in a race still counting, or null to leave it plain. */
 export function leader(r) {
-  if (r?.status !== "counting" || typeof r.margin !== "number" || !Number.isFinite(r.margin) || r.margin === 0) return null;
+  if (r?.status !== "counting" || typeof r.margin !== "number" || !Number.isFinite(r.margin)) return null;
   const v = r.votes ?? {};
   const d = n(v.D), rep = n(v.R), other = n(v.other);
   if (d + rep < LEAD_FLOOR) return null;
   if (other > d && other > rep) return null; // someone outside the two sides is ahead
-  return r.margin > 0 ? "D" : "R"; // margin is the two-party margin, D-side minus R-side
+  // margin is the two-party margin, D-side minus R-side, rounded to 0.1 points;
+  // the count decides when it reads 0.0 (NC-05: 99 votes, Nov 5)
+  const vl = voteLead(r);
+  if (vl) return vl.side;
+  return r.margin > 0 ? "D" : r.margin < 0 ? "R" : null;
 }
 
 function paintCell(el, data, N) {
@@ -56,11 +60,12 @@ function paintCell(el, data, N) {
     if (r.upset === true) bits.push("upset");
     label = bits.join(" · ");
   } else if (ahead) {
-    // "Leading: Kaine (D) +12.3, 45% reporting"
+    // "Leading: Kaine (D) +12.3 (45,210 votes), 45% reporting"
     const by = Math.abs(r.margin) < 0.05 ? "<0.1" : Math.abs(r.margin).toFixed(1);
     const who = sideName(N, id, ahead) ?? (ahead === "D" ? "Democratic side" : "Republican side");
     const rep = reportingText(r);
-    value = `Leading: ${who} +${by}${rep ? `, ${rep}` : ""}`;
+    const vl = voteLead(r);
+    value = `Leading: ${who} +${by}${vl?.side ? ` (${votesText(vl.by, ranked(N, id))})` : ""}${rep ? `, ${rep}` : ""}`;
   } else if (r.status === "counting") {
     const m = typeof r.margin === "number" && Math.abs(r.margin) >= 0.05 ? r.margin : null;
     const lead = m == null ? null : sideName(N, id, m > 0 ? "D" : "R");
