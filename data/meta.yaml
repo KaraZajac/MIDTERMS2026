@@ -1,8 +1,8 @@
-generated: '2026-11-05T05:39:58Z'
+generated: '2026-11-05T06:09:52Z'
 generator: python3 -m midterms build
 asof: '2026-11-05'
 election_day: '2026-11-03'
-sources_digest: caae03686d383439
+sources_digest: da264e2d58763bd2
 counts:
   house_races: 435
   senate_races: 35
@@ -26,7 +26,7 @@ counts:
   latest_poll: '2026-11-02'
 sources:
   wikipedia_revisions:
-    2026 Alabama gubernatorial election: 1383840337
+    2026 Alabama gubernatorial election: 1383862840
     2026 Alaska gubernatorial election: 1383728713
     2026 Arizona gubernatorial election: 1383841911
     2026 Arkansas gubernatorial election: 1383749108
@@ -48,9 +48,9 @@ sources:
     2026 Nebraska gubernatorial election: 1383795191
     2026 Nevada gubernatorial election: 1383835098
     2026 New Hampshire gubernatorial election: 1383772581
-    2026 New Mexico gubernatorial election: 1383797729
+    2026 New Mexico gubernatorial election: 1383860095
     2026 New York gubernatorial election: 1383850576
-    2026 Ohio gubernatorial election: 1383838545
+    2026 Ohio gubernatorial election: 1383862437
     2026 Oklahoma gubernatorial election: 1383835622
     2026 Oregon gubernatorial election: 1383780516
     2026 Pennsylvania gubernatorial election: 1383766660
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1382876916
     2026 United States House of Representatives election in Vermont: 1382960577
     2026 United States House of Representatives election in Wyoming: 1383762837
-    2026 United States House of Representatives elections: 1383857157
+    2026 United States House of Representatives elections: 1383860162
     2026 United States House of Representatives elections in Alabama: 1383803106
     2026 United States House of Representatives elections in Arizona: 1383803664
     2026 United States House of Representatives elections in Arkansas: 1383625227
@@ -110,7 +110,7 @@ sources:
     2026 United States House of Representatives elections in Virginia: 1383803557
     2026 United States House of Representatives elections in Washington: 1383827808
     2026 United States House of Representatives elections in West Virginia: 1382858408
-    2026 United States House of Representatives elections in Wisconsin: 1383847236
+    2026 United States House of Representatives elections in Wisconsin: 1383860440
     2026 United States Senate election in Alabama: 1383828493
     2026 United States Senate election in Alaska: 1383851789
     2026 United States Senate election in Arkansas: 1383825966
@@ -123,7 +123,7 @@ sources:
     2026 United States Senate election in Kansas: 1383839621
     2026 United States Senate election in Kentucky: 1383831366
     2026 United States Senate election in Louisiana: 1383832004
-    2026 United States Senate election in Maine: 1383845914
+    2026 United States Senate election in Maine: 1383862639
     2026 United States Senate election in Massachusetts: 1383833076
     2026 United States Senate election in Michigan: 1383834334
     2026 United States Senate election in Minnesota: 1383834589
@@ -140,14 +140,14 @@ sources:
     2026 United States Senate election in South Carolina: 1383854071
     2026 United States Senate election in South Dakota: 1383838296
     2026 United States Senate election in Tennessee: 1383838546
-    2026 United States Senate election in Texas: 1383851255
+    2026 United States Senate election in Texas: 1383860154
     2026 United States Senate election in Virginia: 1383839124
     2026 United States Senate election in West Virginia: 1383839405
     2026 United States Senate election in Wyoming: 1383855635
     2026 United States Senate elections: 1383856475
     2026 United States Senate special election in Florida: 1383839436
     2026 United States Senate special election in Ohio: 1383837134
-    2026 United States gubernatorial elections: 1383854517
+    2026 United States gubernatorial elections: 1383860812
     2026 Vermont gubernatorial election: 1383767137
     2026 Wisconsin gubernatorial election: 1383757611
     2026 Wyoming gubernatorial election: 1383762995
