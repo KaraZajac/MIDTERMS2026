@@ -1,10 +1,10 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
 senate:AL,senate,AL,Alabama,,,no,,Everett Wess,D,Barry Moore,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 United States Senate election in Alabama@1383780910
 senate:AK,senate,AK,Alaska,,R,yes,,Mary Peltola,D,Dan S. Sullivan,R,Daniel J. Sullivan Jr. (NO PARTY LIS); Gerald L. Heikes (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 United States Senate election in Alaska@1383814883
-senate:AR,senate,AR,Arkansas,,R,yes,,Hallie Shoffner,D,Tom Cotton,R,Jeff Wadlin (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 United States Senate election in Arkansas@1383781162
+senate:AR,senate,AR,Arkansas,,R,yes,,Hallie Shoffner,D,Tom Cotton,R,Jeff Wadlin (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 United States Senate election in Arkansas@1383820243
 senate:CO,senate,CO,Colorado,,D,yes,,John Hickenlooper,D,Mark Baisley,R,Christopher Baum (APPROVAL VOT); Bob Chew (FWD); Blake Huber (L); Adam Withrow (UNITY),,11.93,11.29,13.88,state,,wikipedia:2026 United States Senate election in Colorado@1383813484
 senate:DE,senate,DE,Delaware,,D,yes,,Chris Coons,D,Michael Katz,R,,,16.02,14.96,19.25,state,,wikipedia:2026 United States Senate election in Delaware@1383767513
-senate:GA,senate,GA,Georgia,,D,yes,,Jon Ossoff,D,Mike Collins,R,,,-1.61,-2.21,0.24,state,,wikipedia:2026 United States Senate election in Georgia@1383817664
+senate:GA,senate,GA,Georgia,,D,yes,,Jon Ossoff,D,Mike Collins,R,,,-1.61,-2.21,0.24,state,,wikipedia:2026 United States Senate election in Georgia@1383822239
 senate:ID,senate,ID,Idaho,,R,yes,,Todd Achilles,IND,Jim Risch,R,Natalie Fleming (IND); Matt Loesby (L),,-36.09,-37.52,-31.75,state,D-side is Todd Achilles (IND),wikipedia:2026 United States Senate election in Idaho@1383770241
 senate:IL,senate,IL,Illinois,,,no,,Juliana Stratton,D,Don Tracy,R,Whitfield Harrington Jr. (AMERICAN CEN),,12.67,11.14,17.32,state,,wikipedia:2026 United States Senate election in Illinois@1383745858
 senate:IA,senate,IA,Iowa,,,no,,Josh Turek,D,Ashley Hinson,R,Thomas Laehn (L),,-12.19,-13.45,-8.37,state,,wikipedia:2026 United States Senate election in Iowa@1383807879
@@ -14,15 +14,15 @@ senate:LA,senate,LA,Louisiana,,,no,,Jamie Davis,D,Julia Letlow,R,,,-21.51,-22.36
 senate:ME,senate,ME,Maine,,R,yes,,Troy Jackson,D,Susan Collins,R,,,7.64,7.09,9.34,state,,wikipedia:2026 United States Senate election in Maine@1383811244
 senate:MA,senate,MA,Massachusetts,,D,yes,,Ed Markey,D,John Deaton,R,Joe Tache (SOCIALISM AN); Shiva Ayyadurai (IND),,27.98,25.91,34.23,state,,wikipedia:2026 United States Senate election in Massachusetts@1383750932
 senate:MI,senate,MI,Michigan,,,no,,Abdul El-Sayed,D,Mike Rogers,R,Lydia Christensen (L); Tim Long (U.S. TAXPAYE); Douglas P. Marsh (G); Walter P. Kristy (NATURAL LAW),,-0.39,-1.44,2.79,state,,wikipedia:2026 United States Senate election in Michigan@1383811482
-senate:MN,senate,MN,Minnesota,,,no,,Peggy Flanagan,D,Michele Tafoya,R,Marisa Simonetti (IND); Rebecca Whiting (L),,5.07,4.34,7.28,state,,wikipedia:2026 United States Senate election in Minnesota@1383772688
-senate:MS,senate,MS,Mississippi,,R,yes,,Scott Colom,D,Cindy Hyde-Smith,R,Ty Pinkins (IND),,-21.56,-23.15,-16.77,state,,wikipedia:2026 United States Senate election in Mississippi@1383818192
+senate:MN,senate,MN,Minnesota,,,no,,Peggy Flanagan,D,Michele Tafoya,R,Marisa Simonetti (IND); Rebecca Whiting (L),,5.07,4.34,7.28,state,,wikipedia:2026 United States Senate election in Minnesota@1383821880
+senate:MS,senate,MS,Mississippi,,R,yes,,Scott Colom,D,Cindy Hyde-Smith,R,Ty Pinkins (IND),,-21.56,-23.15,-16.77,state,,wikipedia:2026 United States Senate election in Mississippi@1383823816
 senate:MT,senate,MT,Montana,,,no,,Seth Bodnar,IND,Kurt Alme,R,Alani Bankhead (D); Kyle Austin (L),,-19.64,-20.58,-16.79,state,D-side is Seth Bodnar (IND),wikipedia:2026 United States Senate election in Montana@1383788241
 senate:NE,senate,NE,Nebraska,,R,yes,,Dan Osborn,IND,Pete Ricketts,R,Mike Marvin (LEGAL MARIJU); Chuck Conboy (AMERICA FIRS); Robin Richards (WORKING PEOP),,-20.53,-20.84,-19.57,state,D-side is Dan Osborn (IND),wikipedia:2026 United States Senate election in Nebraska@1383812885
-senate:NH,senate,NH,New Hampshire,,,no,,Abigail Emmons,D,John E. Sununu,R,Edmond J. LaPlante Jr. (C),,3.98,2.82,7.5,state,,wikipedia:2026 United States Senate election in New Hampshire@1383815748
+senate:NH,senate,NH,New Hampshire,,,no,,Chris Pappas,D,John E. Sununu,R,Edmond J. LaPlante Jr. (C),,3.98,2.82,7.5,state,,wikipedia:2026 United States Senate election in New Hampshire@1383820013
 senate:NJ,senate,NJ,New Jersey,,D,yes,,Cory Booker,D,Justin Murphy,R,Veronica Fernandez (END THE CORR); Joanne Kuniansky (SOCIALIST WO); Eduardo Castillo (WRITE-IN),,8.55,6.03,16.14,state,,wikipedia:2026 United States Senate election in New Jersey@1383793226
 senate:NM,senate,NM,New Mexico,,D,yes,,Ben Ray Luján,D,Larry Marker,R,,,7.36,6.14,11.04,state,,wikipedia:2026 United States Senate election in New Mexico@1383802642
-senate:NC,senate,NC,North Carolina,,,no,,Roy Cooper,D,Michael Whatley,R,Shannon W. Bray (L); Michael Dublin (G),,-2.8,-3.26,-1.37,state,,wikipedia:2026 United States Senate election in North Carolina@1383811846
-senate:OK,senate,OK,Oklahoma,,,no,,N'Kiyla Jasmine Thomas,D,Kevin Hern,R,Curtis Stinnett (IND); Ron Meinhardt (IND); Sevier White (L),,-34.68,-34.94,-33.88,state,,wikipedia:2026 United States Senate election in Oklahoma@1383766423
+senate:NC,senate,NC,North Carolina,,,no,,Roy Cooper,D,Michael Whatley,R,Shannon W. Bray (L); Michael Dublin (G),,-2.8,-3.26,-1.37,state,,wikipedia:2026 United States Senate election in North Carolina@1383821519
+senate:OK,senate,OK,Oklahoma,,,no,,N'Kiyla Jasmine Thomas,D,Kevin Hern,R,Curtis Stinnett (IND); Ron Meinhardt (IND); Sevier White (L),,-34.68,-34.94,-33.88,state,,wikipedia:2026 United States Senate election in Oklahoma@1383823302
 senate:OR,senate,OR,Oregon,,D,yes,,Jeff Merkley,D,David Brock Smith,R,Gary Dye (L); Chris Henry (PROGRESSIVE),,15.29,14.87,16.61,state,,wikipedia:2026 United States Senate election in Oregon@1383793542
 senate:RI,senate,RI,Rhode Island,,D,yes,,Jack Reed,D,Raymond McKay,R,Michael Bahry (IND),,15.91,14.16,21.2,state,,wikipedia:2026 United States Senate election in Rhode Island@1383783500
 senate:SC,senate,SC,South Carolina,,R,yes,,Annie Andrews,D,Darline Graham,R,Kasie Whitener (L); Mark Hackett (C),,-16.57,-18.12,-11.85,state,,wikipedia:2026 United States Senate election in South Carolina@1383764276
