@@ -1,7 +1,7 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
 governor:AL,governor,AL,Alabama,,,no,,Doug Jones,D,Tommy Tuberville,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 Alabama gubernatorial election@1383862945
 governor:AK,governor,AK,Alaska,,,no,,Jonathan Kreiss-Tomkins,D,Bernadette Wilson,R,Dave Bronson (R); Treg Taylor (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 Alaska gubernatorial election@1383728713
-governor:AZ,governor,AZ,Arizona,,D,yes,,Katie Hobbs,D,Andy Biggs,R,Risa Lombardo (G); Teri Ann Hourihan (NO LABELS),,-4.12,-5.59,0.31,state,,wikipedia:2026 Arizona gubernatorial election@1383841911
+governor:AZ,governor,AZ,Arizona,,D,yes,,Katie Hobbs,D,Andy Biggs,R,Risa Lombardo (G); Teri Ann Hourihan (NO LABELS),,-4.12,-5.59,0.31,state,,wikipedia:2026 Arizona gubernatorial election@1383885561
 governor:AR,governor,AR,Arkansas,,,no,,Fredrick Love,D,Sarah Huckabee Sanders,R,Colt Shelby (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 Arkansas gubernatorial election@1383749108
 governor:CA,governor,CA,California,,,no,,Xavier Becerra,D,Steve Hilton,R,,,23.05,20.8,29.82,state,,wikipedia:2026 California gubernatorial election@1383772091
 governor:CO,governor,CO,Colorado,,,no,,Phil Weiser,D,Victor Marx,R,Stephen T. Hamilton (AMERICAN CON); Greg Lopez (IND); Erik Mulder (L); Jeff Peckman (UNITY); Erik Underwood (APPROVAL VOT),,11.93,11.29,13.88,state,,wikipedia:2026 Colorado gubernatorial election@1383792930
@@ -24,7 +24,7 @@ governor:NH,governor,NH,New Hampshire,,R,yes,,Cinde Warmington,D,Kelly Ayotte,R,
 governor:NM,governor,NM,New Mexico,,,no,,Deb Haaland,D,Gregg Hull,R,,,7.36,6.14,11.04,state,,wikipedia:2026 New Mexico gubernatorial election@1383870927
 governor:NY,governor,NY,New York,,,no,,Kathy Hochul,D,Bruce Blakeman,R,,,15.37,12.68,23.45,state,,wikipedia:2026 New York gubernatorial election@1383875711
 governor:OH,governor,OH,Ohio,,,no,,Amy Acton,D,Vivek Ramaswamy,R,Don Kissick (L),,-10.53,-11.31,-8.15,state,,wikipedia:2026 Ohio gubernatorial election@1383862437
-governor:OK,governor,OK,Oklahoma,,,no,,Cyndi Munson,D,Mike Mazzei,R,,,-34.68,-34.94,-33.88,state,,wikipedia:2026 Oklahoma gubernatorial election@1383835622
+governor:OK,governor,OK,Oklahoma,,,no,,Cyndi Munson,D,Mike Mazzei,R,,,-34.68,-34.94,-33.88,state,,wikipedia:2026 Oklahoma gubernatorial election@1383885740
 governor:OR,governor,OR,Oregon,,D,yes,,Tina Kotek,D,Christine Drazan,R,Brett Smith (PACIFIC GREE),,15.29,14.87,16.61,state,,wikipedia:2026 Oregon gubernatorial election@1383870909
 governor:PA,governor,PA,Pennsylvania,,D,yes,,Josh Shapiro,D,Stacy Garrity,R,Ken Krawchuk (L),,-1.0,-1.73,1.2,state,,wikipedia:2026 Pennsylvania gubernatorial election@1383766660
 governor:RI,governor,RI,Rhode Island,,,no,,Helena Buonanno Foulkes,D,Aaron C. Guckian,R,Kenneth Block (IND); Jasjit S. Gotra (IND); C.D. Reynolds (IND),,15.91,14.16,21.2,state,,wikipedia:2026 Rhode Island gubernatorial election@1383766156
