@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 26
+resolved: 29
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-02
 - house:CA-03
 - house:CA-05
-open_count: 463
+open_count: 460
 scoreboard:
   lite:
-    n: 26
-    brier: 0.0436
-    log_loss: 0.1557
-    calls: 24/26
+    n: 29
+    brier: 0.0431
+    log_loss: 0.1586
+    calls: 27/29
   classic:
-    n: 26
-    brier: 0.0609
-    log_loss: 0.1884
-    calls: 24/26
+    n: 29
+    brier: 0.0611
+    log_loss: 0.1939
+    calls: 27/29
   deluxe:
-    n: 26
-    brier: 0.0696
-    log_loss: 0.2127
-    calls: 24/26
+    n: 29
+    brier: 0.0686
+    log_loss: 0.2151
+    calls: 27/29
   ratings:
-    n: 26
-    brier: 0.0846
-    log_loss: 0.2616
-    calls: 22/26
+    n: 29
+    brier: 0.0845
+    log_loss: 0.2647
+    calls: 25/29
   lean-only:
-    n: 26
-    brier: 0.101
-    log_loss: 0.2782
-    calls: 21/26
+    n: 29
+    brier: 0.1304
+    log_loss: 0.3514
+    calls: 22/29
   coin-flip:
-    n: 26
+    n: 29
     brier: 0.25
     log_loss: 0.6931
-    calls: 12/26
+    calls: 13/29
 races:
 - id: governor:OH
   slug: governor/oh
@@ -325,6 +325,18 @@ races:
     classic: 1.0
     deluxe: 1.0
   called_right: true
+- id: house:WY-AL
+  slug: house/wy-al
+  label: WY-AL
+  winner: R
+  winner_name: Chuck Gray
+  margin: -23.64
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0008
+    classic: 0.0003
+    deluxe: 0.0001
+  called_right: true
 - id: senate:ID
   slug: senate/id
   label: Idaho
@@ -336,6 +348,18 @@ races:
     lite: 0.2163
     classic: 0.0216
     deluxe: 0.0025
+  called_right: true
+- id: senate:KS
+  slug: senate/ks
+  label: Kansas
+  winner: D
+  winner_name: Adam Hamilton
+  margin: 5.16
+  p_winner: 0.666
+  p_d_side:
+    lite: 0.7619
+    classic: 0.6584
+    deluxe: 0.666
   called_right: true
 - id: senate:KY
   slug: senate/ky
@@ -409,6 +433,18 @@ races:
     classic: 0.9949
     deluxe: 0.9988
   called_right: true
+- id: senate:TX
+  slug: senate/tx
+  label: Texas
+  winner: D
+  winner_name: James Talarico
+  margin: 12.33
+  p_winner: 0.7396
+  p_d_side:
+    lite: 0.7565
+    classic: 0.7352
+    deluxe: 0.7396
+  called_right: true
 others:
   basis: each forecaster's final rating before Election Day, as Wikipedia's prediction
     tables list it, turned into a probability by the map the model uses for the raters'
@@ -419,385 +455,385 @@ others:
   raters:
   - name: Cook
     source: The Cook Political Report
-    n: 26
+    n: 29
     theirs:
-      n: 26
-      brier: 0.085
-      log_loss: 0.2833
-      calls: 22/24
-      tossups: 2
+      n: 29
+      brier: 0.0935
+      log_loss: 0.3018
+      calls: 23/25
+      tossups: 4
     ours:
-      n: 26
-      brier: 0.0696
-      log_loss: 0.2127
-      calls: 24/26
+      n: 29
+      brier: 0.0686
+      log_loss: 0.2151
+      calls: 27/29
     competitive:
-      n: 9
+      n: 12
       theirs:
-        n: 9
-        brier: 0.2457
-        log_loss: 0.8183
-        calls: 5/7
-        tossups: 2
+        n: 12
+        brier: 0.2259
+        log_loss: 0.7293
+        calls: 6/8
+        tossups: 4
       ours:
-        n: 9
-        brier: 0.201
-        log_loss: 0.6117
-        calls: 7/9
+        n: 12
+        brier: 0.1657
+        log_loss: 0.5178
+        calls: 10/12
   - name: DDHQ
     source: Decision Desk HQ
-    n: 26
+    n: 29
     theirs:
-      n: 26
-      brier: 0.1016
-      log_loss: 0.324
-      calls: 22/25
-      tossups: 1
-    ours:
-      n: 26
-      brier: 0.0696
-      log_loss: 0.2127
-      calls: 24/26
-    competitive:
-      n: 9
-      theirs:
-        n: 9
-        brier: 0.2935
-        log_loss: 0.928
-        calls: 5/8
-        tossups: 1
-      ours:
-        n: 9
-        brier: 0.201
-        log_loss: 0.6117
-        calls: 7/9
-  - name: Inside Elections
-    source: Inside Elections
-    n: 26
-    theirs:
-      n: 26
-      brier: 0.0827
-      log_loss: 0.2331
-      calls: 22/24
+      n: 29
+      brier: 0.1006
+      log_loss: 0.3204
+      calls: 24/27
       tossups: 2
     ours:
-      n: 26
-      brier: 0.0696
-      log_loss: 0.2127
-      calls: 24/26
+      n: 29
+      brier: 0.0686
+      log_loss: 0.2151
+      calls: 27/29
     competitive:
-      n: 9
+      n: 12
       theirs:
-        n: 9
-        brier: 0.2388
-        log_loss: 0.6732
-        calls: 5/7
+        n: 12
+        brier: 0.2431
+        log_loss: 0.7683
+        calls: 7/10
         tossups: 2
       ours:
-        n: 9
-        brier: 0.201
-        log_loss: 0.6117
+        n: 12
+        brier: 0.1657
+        log_loss: 0.5178
+        calls: 10/12
+  - name: Inside Elections
+    source: Inside Elections
+    n: 29
+    theirs:
+      n: 29
+      brier: 0.0864
+      log_loss: 0.2473
+      calls: 24/26
+      tossups: 3
+    ours:
+      n: 29
+      brier: 0.0686
+      log_loss: 0.2151
+      calls: 27/29
+    competitive:
+      n: 12
+      theirs:
+        n: 12
+        brier: 0.2088
+        log_loss: 0.5975
         calls: 7/9
+        tossups: 3
+      ours:
+        n: 12
+        brier: 0.1657
+        log_loss: 0.5178
+        calls: 10/12
   - name: Sabato
     source: Sabato's Crystal Ball
-    n: 26
+    n: 29
     theirs:
-      n: 26
-      brier: 0.0949
-      log_loss: 0.3139
-      calls: 23/26
+      n: 29
+      brier: 0.0869
+      log_loss: 0.2935
+      calls: 26/29
       tossups: 0
     ours:
-      n: 26
-      brier: 0.0696
-      log_loss: 0.2127
-      calls: 24/26
+      n: 29
+      brier: 0.0686
+      log_loss: 0.2151
+      calls: 27/29
     competitive:
-      n: 9
+      n: 12
       theirs:
-        n: 9
-        brier: 0.2742
-        log_loss: 0.9065
-        calls: 6/9
+        n: 12
+        brier: 0.2099
+        log_loss: 0.709
+        calls: 9/12
         tossups: 0
       ours:
-        n: 9
-        brier: 0.201
-        log_loss: 0.6117
-        calls: 7/9
+        n: 12
+        brier: 0.1657
+        log_loss: 0.5178
+        calls: 10/12
   - name: Silver Bulletin
     source: Silver Bulletin
+    n: 13
+    theirs:
+      n: 13
+      brier: 0.0755
+      log_loss: 0.3112
+      calls: 12/13
+      tossups: 0
+    ours:
+      n: 13
+      brier: 0.0846
+      log_loss: 0.2932
+      calls: 12/13
+    competitive:
+      n: 8
+      theirs:
+        n: 8
+        brier: 0.1227
+        log_loss: 0.5026
+        calls: 7/8
+        tossups: 0
+      ours:
+        n: 8
+        brier: 0.1375
+        log_loss: 0.475
+        calls: 7/8
+  - name: Fox News
+    source: Fox News
     n: 10
     theirs:
       n: 10
-      brier: 0.0956
-      log_loss: 0.3847
-      calls: 9/10
-      tossups: 0
+      brier: 0.0776
+      log_loss: 0.2278
+      calls: 7/7
+      tossups: 3
     ours:
       n: 10
-      brier: 0.0921
-      log_loss: 0.3104
-      calls: 9/10
+      brier: 0.0235
+      log_loss: 0.1153
+      calls: 10/10
+    competitive:
+      n: 6
+      theirs:
+        n: 6
+        brier: 0.1294
+        log_loss: 0.3797
+        calls: 3/3
+        tossups: 3
+      ours:
+        n: 6
+        brier: 0.0392
+        log_loss: 0.1903
+        calls: 6/6
+  - name: NBC News
+    source: NBC News
+    n: 10
+    theirs:
+      n: 10
+      brier: 0.0552
+      log_loss: 0.1784
+      calls: 8/8
+      tossups: 2
+    ours:
+      n: 10
+      brier: 0.0235
+      log_loss: 0.1153
+      calls: 10/10
+    competitive:
+      n: 6
+      theirs:
+        n: 6
+        brier: 0.092
+        log_loss: 0.2933
+        calls: 4/4
+        tossups: 2
+      ours:
+        n: 6
+        brier: 0.0392
+        log_loss: 0.1903
+        calls: 6/6
+  - name: RCP
+    source: RealClearPolitics
+    n: 10
+    theirs:
+      n: 10
+      brier: 0.1002
+      log_loss: 0.2844
+      calls: 6/6
+      tossups: 4
+    ours:
+      n: 10
+      brier: 0.0235
+      log_loss: 0.1153
+      calls: 10/10
+    competitive:
+      n: 6
+      theirs:
+        n: 6
+        brier: 0.1668
+        log_loss: 0.4661
+        calls: 2/2
+        tossups: 4
+      ours:
+        n: 6
+        brier: 0.0392
+        log_loss: 0.1903
+        calls: 6/6
+  - name: FiftyPlusOne
+    source: FiftyPlusOne
+    n: 9
+    theirs:
+      n: 9
+      brier: 0.0059
+      log_loss: 0.0468
+      calls: 9/9
+      tossups: 0
+    ours:
+      n: 9
+      brier: 0.0223
+      log_loss: 0.1052
+      calls: 9/9
     competitive:
       n: 5
       theirs:
         n: 5
-        brier: 0.191
-        log_loss: 0.7645
-        calls: 4/5
+        brier: 0.0105
+        log_loss: 0.0794
+        calls: 5/5
         tossups: 0
       ours:
         n: 5
-        brier: 0.1842
-        log_loss: 0.6184
-        calls: 4/5
-  - name: Fox News
-    source: Fox News
-    n: 8
+        brier: 0.0401
+        log_loss: 0.187
+        calls: 5/5
+  - name: MS NOW
+    source: MS NOW
+    n: 9
     theirs:
-      n: 8
-      brier: 0.0345
-      log_loss: 0.1115
-      calls: 7/7
-      tossups: 1
-    ours:
-      n: 8
-      brier: 0.007
-      log_loss: 0.0557
-      calls: 8/8
-    competitive:
-      n: 4
-      theirs:
-        n: 4
-        brier: 0.0691
-        log_loss: 0.2229
-        calls: 3/3
-        tossups: 1
-      ours:
-        n: 4
-        brier: 0.014
-        log_loss: 0.1084
-        calls: 4/4
-  - name: NBC News
-    source: NBC News
-    n: 8
-    theirs:
-      n: 8
-      brier: 0.0066
-      log_loss: 0.0497
-      calls: 8/8
-      tossups: 0
-    ours:
-      n: 8
-      brier: 0.007
-      log_loss: 0.0557
-      calls: 8/8
-    competitive:
-      n: 4
-      theirs:
-        n: 4
-        brier: 0.013
-        log_loss: 0.0933
-        calls: 4/4
-        tossups: 0
-      ours:
-        n: 4
-        brier: 0.014
-        log_loss: 0.1084
-        calls: 4/4
-  - name: RCP
-    source: RealClearPolitics
-    n: 8
-    theirs:
-      n: 8
-      brier: 0.0627
-      log_loss: 0.1822
-      calls: 6/6
+      n: 9
+      brier: 0.1368
+      log_loss: 0.3769
+      calls: 6/7
       tossups: 2
     ours:
-      n: 8
-      brier: 0.007
-      log_loss: 0.0557
-      calls: 8/8
+      n: 9
+      brier: 0.0223
+      log_loss: 0.1052
+      calls: 9/9
+    competitive:
+      n: 5
+      theirs:
+        n: 5
+        brier: 0.2462
+        log_loss: 0.6784
+        calls: 2/3
+        tossups: 2
+      ours:
+        n: 5
+        brier: 0.0401
+        log_loss: 0.187
+        calls: 5/5
+  - name: Split Ticket
+    source: Split Ticket
+    n: 9
+    theirs:
+      n: 9
+      brier: 0.003
+      log_loss: 0.0274
+      calls: 9/9
+      tossups: 0
+    ours:
+      n: 9
+      brier: 0.0223
+      log_loss: 0.1052
+      calls: 9/9
+    competitive:
+      n: 5
+      theirs:
+        n: 5
+        brier: 0.0055
+        log_loss: 0.0492
+        calls: 5/5
+        tossups: 0
+      ours:
+        n: 5
+        brier: 0.0401
+        log_loss: 0.187
+        calls: 5/5
+  - name: The Economist
+    source: The Economist
+    n: 9
+    theirs:
+      n: 9
+      brier: 0.0586
+      log_loss: 0.1814
+      calls: 7/7
+      tossups: 2
+    ours:
+      n: 9
+      brier: 0.0223
+      log_loss: 0.1052
+      calls: 9/9
+    competitive:
+      n: 5
+      theirs:
+        n: 5
+        brier: 0.1054
+        log_loss: 0.3217
+        calls: 3/3
+        tossups: 2
+      ours:
+        n: 5
+        brier: 0.0401
+        log_loss: 0.187
+        calls: 5/5
+  - name: CBS News
+    source: CBS News
+    n: 4
+    theirs:
+      n: 4
+      brier: 0.3077
+      log_loss: 0.8479
+      calls: 1/2
+      tossups: 2
+    ours:
+      n: 4
+      brier: 0.049
+      log_loss: 0.2166
+      calls: 4/4
     competitive:
       n: 4
       theirs:
         n: 4
-        brier: 0.1251
-        log_loss: 0.3525
-        calls: 2/2
+        brier: 0.3077
+        log_loss: 0.8479
+        calls: 1/2
         tossups: 2
       ours:
         n: 4
-        brier: 0.014
-        log_loss: 0.1084
+        brier: 0.049
+        log_loss: 0.2166
         calls: 4/4
-  - name: FiftyPlusOne
-    source: FiftyPlusOne
-    n: 7
-    theirs:
-      n: 7
-      brier: 0.0002
-      log_loss: 0.0102
-      calls: 7/7
-      tossups: 0
-    ours:
-      n: 7
-      brier: 0.003
-      log_loss: 0.0341
-      calls: 7/7
-    competitive:
-      n: 3
-      theirs:
-        n: 3
-        brier: 0.0004
-        log_loss: 0.0159
-        calls: 3/3
-        tossups: 0
-      ours:
-        n: 3
-        brier: 0.0071
-        log_loss: 0.0757
-        calls: 3/3
-  - name: MS NOW
-    source: MS NOW
-    n: 7
-    theirs:
-      n: 7
-      brier: 0.0394
-      log_loss: 0.1241
-      calls: 6/6
-      tossups: 1
-    ours:
-      n: 7
-      brier: 0.003
-      log_loss: 0.0341
-      calls: 7/7
-    competitive:
-      n: 3
-      theirs:
-        n: 3
-        brier: 0.0919
-        log_loss: 0.2893
-        calls: 2/2
-        tossups: 1
-      ours:
-        n: 3
-        brier: 0.0071
-        log_loss: 0.0757
-        calls: 3/3
-  - name: Split Ticket
-    source: Split Ticket
-    n: 7
-    theirs:
-      n: 7
-      brier: 0.0002
-      log_loss: 0.0069
-      calls: 7/7
-      tossups: 0
-    ours:
-      n: 7
-      brier: 0.003
-      log_loss: 0.0341
-      calls: 7/7
-    competitive:
-      n: 3
-      theirs:
-        n: 3
-        brier: 0.0004
-        log_loss: 0.0159
-        calls: 3/3
-        tossups: 0
-      ours:
-        n: 3
-        brier: 0.0071
-        log_loss: 0.0757
-        calls: 3/3
-  - name: The Economist
-    source: The Economist
-    n: 7
-    theirs:
-      n: 7
-      brier: 0.0039
-      log_loss: 0.0352
-      calls: 7/7
-      tossups: 0
-    ours:
-      n: 7
-      brier: 0.003
-      log_loss: 0.0341
-      calls: 7/7
-    competitive:
-      n: 3
-      theirs:
-        n: 3
-        brier: 0.0089
-        log_loss: 0.0741
-        calls: 3/3
-        tossups: 0
-      ours:
-        n: 3
-        brier: 0.0071
-        log_loss: 0.0757
-        calls: 3/3
-  - name: CBS News
-    source: CBS News
-    n: 2
-    theirs:
-      n: 2
-      brier: 0.1378
-      log_loss: 0.4339
-      calls: 1/1
-      tossups: 1
-    ours:
-      n: 2
-      brier: 0.0084
-      log_loss: 0.0791
-      calls: 2/2
-    competitive:
-      n: 2
-      theirs:
-        n: 2
-        brier: 0.1378
-        log_loss: 0.4339
-        calls: 1/1
-        tossups: 1
-      ours:
-        n: 2
-        brier: 0.0084
-        log_loss: 0.0791
-        calls: 2/2
   - name: ABC News
     source: ABC News
-    n: 1
+    n: 3
     theirs:
-      n: 1
-      brier: 0.0257
-      log_loss: 0.1747
+      n: 3
+      brier: 0.1752
+      log_loss: 0.5203
       calls: 1/1
-      tossups: 0
+      tossups: 2
     ours:
-      n: 1
-      brier: 0.0163
-      log_loss: 0.1366
-      calls: 1/1
+      n: 3
+      brier: 0.0652
+      log_loss: 0.2815
+      calls: 3/3
     competitive:
-      n: 1
+      n: 3
       theirs:
-        n: 1
-        brier: 0.0257
-        log_loss: 0.1747
+        n: 3
+        brier: 0.1752
+        log_loss: 0.5203
         calls: 1/1
-        tossups: 0
+        tossups: 2
       ours:
-        n: 1
-        brier: 0.0163
-        log_loss: 0.1366
-        calls: 1/1
+        n: 3
+        brier: 0.0652
+        log_loss: 0.2815
+        calls: 3/3
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-06T04:10:01Z'
+  asof: '2026-11-06T05:10:01Z'
   called: 460
   scoreboard:
     lite:
