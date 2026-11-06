@@ -85,7 +85,7 @@ house:CT-02,house,CT,CT-02,Joe Courtney,D,yes,2006,Joe Courtney,D,George Austin,
 house:CT-03,house,CT,CT-03,Rosa DeLauro,D,yes,1990,Rosa DeLauro,D,Christopher Lancia,R,,,15.73,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Connecticut@1384000802
 house:CT-04,house,CT,CT-04,Jim Himes,D,yes,2008,Jim Himes,D,Michael Goldstein,R,,,25.64,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Connecticut@1384000802
 house:CT-05,house,CT,CT-05,Jahana Hayes,D,yes,2018,Jahana Hayes,D,Chris Shea,R,,,6.97,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Connecticut@1384000802
-house:DE-AL,house,DE,DE-AL,Sarah McBride,D,yes,2024,Sarah McBride,D,Joseph Arminio,R,,,16.02,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Delaware@1384001752
+house:DE-AL,house,DE,DE-AL,,,no,,Sarah McBride,D,Joseph Arminio,R,,,16.02,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Delaware@1384063633
 house:FL-01,house,FL,FL-01,,R,yes,2025,Gay Valimont,D,Jimmy Patronis,R,Tyler Davis (IND),,-36.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384041995
 house:FL-02,house,FL,FL-02,,,no,,Amanda Green,D,Austin Rogers,R,,,-16.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384041995
 house:FL-03,house,FL,FL-03,,R,yes,2020,Seth Harp,D,Kat Cammack,R,Mike Klein (IND),,-19.56,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384041995
@@ -246,7 +246,7 @@ house:NC-11,house,NC,NC-11,Chuck Edwards,R,no,,Jamie Ager,D,Jennifer Balkcom,R,T
 house:NC-12,house,NC,NC-12,Alma Adams,D,yes,2014,Alma Adams,D,Jack Codiga,R,,,48.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in North Carolina@1383927357
 house:NC-13,house,NC,NC-13,Brad Knott,R,yes,2024,Paul Barringer,D,Brad Knott,R,Steven Swinton (L),,-16.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in North Carolina@1383927357
 house:NC-14,house,NC,NC-14,Tim Moore,R,yes,2024,LaKesha Womack,D,Tim Moore,R,,,-15.51,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in North Carolina@1383927357
-house:ND-AL,house,ND,ND-AL,,R,yes,2024,Trygve Hammer,D,Julie Fedorchak,R,Charles Tuttle (IND); Helene Neville (IND),,-36.66,,,2024+2020,,wikipedia:2026 United States House of Representatives election in North Dakota@1384004003
+house:ND-AL,house,ND,ND-AL,,R,yes,2024,Trygve Hammer,D,Julie Fedorchak,R,Charles Tuttle (IND); Helene Neville (IND),,-36.66,,,2024+2020,,wikipedia:2026 United States House of Representatives election in North Dakota@1384064818
 house:NE-01,house,NE,NE-01,,R,yes,2022,Chris Backemeyer,D,Mike Flood,R,Nik Sandman (L); Daniel Hartong (AMERICA FIRS),,-12.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nebraska@1384006802
 house:NE-02,house,NE,NE-02,,,no,,Denise Powell,D,Brinker Harding,R,Eric Foreman (L),,5.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nebraska@1384006802
 house:NE-03,house,NE,NE-03,,,no,,Becky Stille,D,Adrian Smith,R,David Else (LEGAL MARIJU); Macey Budke (WORKING PEOP); Mark Cohen (IND),,-54.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nebraska@1384006802
@@ -349,7 +349,7 @@ house:SC-04,house,SC,SC-04,William Timmons,R,yes,2018,Courtney McClain,D,William
 house:SC-05,house,SC,SC-05,Ralph Norman,R,no,,Mallory Dittmer,D,Wes Climer,R,,,-21.93,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in South Carolina@1383842148
 house:SC-06,house,SC,SC-06,Jim Clyburn,D,yes,1992,Jim Clyburn,D,John Peterson,R,,,25.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in South Carolina@1383842148
 house:SC-07,house,SC,SC-07,Russell Fry,R,yes,2022,John Vincent,D,Russell Fry,R,,,-24.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in South Carolina@1383842148
-house:SD-AL,house,SD,SD-AL,,,no,,Nicole Gronli,D,Marty Jackley,R,,,-29.14,,,2024+2020,,wikipedia:2026 United States House of Representatives election in South Dakota@1384004235
+house:SD-AL,house,SD,SD-AL,,,no,,Nicole Gronli,D,Marty Jackley,R,,,-29.14,,,2024+2020,,wikipedia:2026 United States House of Representatives election in South Dakota@1384066008
 house:TN-01,house,TN,TN-01,Diana Harshbarger,R,yes,2020,Kristi Burke,D,Diana Harshbarger,R,,,-57.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384049465
 house:TN-02,house,TN,TN-02,Tim Burchett,R,yes,2018,Michaela Barnett,D,Tim Burchett,R,,,-33.2,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384049465
 house:TN-03,house,TN,TN-03,Chuck Fleischmann,R,yes,2010,Anna Golladay,D,Chuck Fleischmann,R,,,-35.24,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384049465
@@ -412,7 +412,7 @@ house:VA-08,house,VA,VA-08,Don Beyer,D,yes,2014,Don Beyer,D,Tony Sabio,R,Shelly 
 house:VA-09,house,VA,VA-09,Morgan Griffith,R,yes,2010,Joy Powers,D,Morgan Griffith,R,,,-43.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Virginia@1383803557
 house:VA-10,house,VA,VA-10,Suhas Subramanyam,D,yes,2024,Suhas Subramanyam,D,Dave Beckwith,R,Ahsen Malik (IND),,11.0,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Virginia@1383803557
 house:VA-11,house,VA,VA-11,James Walkinshaw,D,yes,2025,James Walkinshaw,D,Arthur Purves,R,Dianne Blais (G),,36.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Virginia@1383803557
-house:VT-AL,house,VT,VT-AL,Becca Balint,D,yes,2022,Becca Balint,D,Gerald Malloy,R,,,33.72,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Vermont@1382960577
+house:VT-AL,house,VT,VT-AL,,,no,,Becca Balint,D,Gerald Malloy,R,,,33.72,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Vermont@1384065058
 house:WA-01,house,WA,WA-01,Suzan DelBene,D,yes,2012,Suzan DelBene,D,Mary Silva,R,,,30.15,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Washington@1383945066
 house:WA-02,house,WA,WA-02,Rick Larsen,D,yes,2000,Rick Larsen,D,Edwin H. Feller,R,,,24.21,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Washington@1383945066
 house:WA-03,house,WA,WA-03,Marie Gluesenkamp Perez,D,yes,2022,Marie Gluesenkamp Perez,D,John Braun,R,,,-3.64,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Washington@1383945066
@@ -433,4 +433,4 @@ house:WI-07,house,WI,WI-07,Tom Tiffany,R,no,,Fred Clark,D,Michael Alfonso,R,,,-2
 house:WI-08,house,WI,WI-08,Tony Wied,R,yes,2024,Rick Crosson,D,Tony Wied,R,,,-16.29,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Wisconsin@1384020319
 house:WV-01,house,WV,WV-01,Carol Miller,R,yes,2018,Vince George,D,Carol Miller,R,Belinda Fox-Spencer (C),,-44.3,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in West Virginia@1382858408
 house:WV-02,house,WV,WV-02,Riley Moore,R,yes,2024,Ace Parsi,D,Riley Moore,R,,,-39.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in West Virginia@1382858408
-house:WY-AL,house,WY,WY-AL,,,no,,Lisa Kinney,D,Chuck Gray,R,Shawn Johnson (L); Jeffrey Haggit (C),,-46.47,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Wyoming@1384017181
+house:WY-AL,house,WY,WY-AL,,,no,,Lisa Kinney,D,Chuck Gray,R,Shawn Johnson (L); Jeffrey Haggit (C),,-46.47,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Wyoming@1384064767
