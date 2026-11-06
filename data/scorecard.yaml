@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 24
+resolved: 26
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-02
 - house:CA-03
 - house:CA-05
-open_count: 465
+open_count: 463
 scoreboard:
   lite:
-    n: 24
-    brier: 0.0473
-    log_loss: 0.1682
-    calls: 22/24
+    n: 26
+    brier: 0.0436
+    log_loss: 0.1557
+    calls: 24/26
   classic:
-    n: 24
-    brier: 0.066
-    log_loss: 0.2039
-    calls: 22/24
+    n: 26
+    brier: 0.0609
+    log_loss: 0.1884
+    calls: 24/26
   deluxe:
-    n: 24
-    brier: 0.0754
-    log_loss: 0.2304
-    calls: 22/24
+    n: 26
+    brier: 0.0696
+    log_loss: 0.2127
+    calls: 24/26
   ratings:
-    n: 24
-    brier: 0.0917
-    log_loss: 0.2834
-    calls: 20/24
+    n: 26
+    brier: 0.0846
+    log_loss: 0.2616
+    calls: 22/26
   lean-only:
-    n: 24
-    brier: 0.1094
-    log_loss: 0.3013
-    calls: 19/24
+    n: 26
+    brier: 0.101
+    log_loss: 0.2782
+    calls: 21/26
   coin-flip:
-    n: 24
+    n: 26
     brier: 0.25
     log_loss: 0.6931
-    calls: 10/24
+    calls: 12/26
 races:
 - id: governor:OH
   slug: governor/oh
@@ -277,6 +277,30 @@ races:
     classic: 0.6831
     deluxe: 0.6479
   called_right: true
+- id: house:ND-AL
+  slug: house/nd-al
+  label: ND-AL
+  winner: R
+  winner_name: Julie Fedorchak
+  margin: -22.05
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0033
+    classic: 0.0005
+    deluxe: 0.0001
+  called_right: true
+- id: house:SD-AL
+  slug: house/sd-al
+  label: SD-AL
+  winner: R
+  winner_name: Marty Jackley
+  margin: -28.01
+  p_winner: 0.9991
+  p_d_side:
+    lite: 0.0089
+    classic: 0.0032
+    deluxe: 0.0009
+  called_right: true
 - id: house:TX-09
   slug: house/tx-09
   label: TX-09
@@ -395,18 +419,18 @@ others:
   raters:
   - name: Cook
     source: The Cook Political Report
-    n: 24
+    n: 26
     theirs:
-      n: 24
-      brier: 0.0921
-      log_loss: 0.3069
-      calls: 20/22
+      n: 26
+      brier: 0.085
+      log_loss: 0.2833
+      calls: 22/24
       tossups: 2
     ours:
-      n: 24
-      brier: 0.0754
-      log_loss: 0.2304
-      calls: 22/24
+      n: 26
+      brier: 0.0696
+      log_loss: 0.2127
+      calls: 24/26
     competitive:
       n: 9
       theirs:
@@ -422,18 +446,18 @@ others:
         calls: 7/9
   - name: DDHQ
     source: Decision Desk HQ
-    n: 24
+    n: 26
     theirs:
-      n: 24
-      brier: 0.1101
-      log_loss: 0.351
-      calls: 20/23
+      n: 26
+      brier: 0.1016
+      log_loss: 0.324
+      calls: 22/25
       tossups: 1
     ours:
-      n: 24
-      brier: 0.0754
-      log_loss: 0.2304
-      calls: 22/24
+      n: 26
+      brier: 0.0696
+      log_loss: 0.2127
+      calls: 24/26
     competitive:
       n: 9
       theirs:
@@ -449,18 +473,18 @@ others:
         calls: 7/9
   - name: Inside Elections
     source: Inside Elections
-    n: 24
+    n: 26
     theirs:
-      n: 24
-      brier: 0.0896
-      log_loss: 0.2525
-      calls: 20/22
+      n: 26
+      brier: 0.0827
+      log_loss: 0.2331
+      calls: 22/24
       tossups: 2
     ours:
-      n: 24
-      brier: 0.0754
-      log_loss: 0.2304
-      calls: 22/24
+      n: 26
+      brier: 0.0696
+      log_loss: 0.2127
+      calls: 24/26
     competitive:
       n: 9
       theirs:
@@ -476,18 +500,18 @@ others:
         calls: 7/9
   - name: Sabato
     source: Sabato's Crystal Ball
-    n: 24
+    n: 26
     theirs:
-      n: 24
-      brier: 0.1028
-      log_loss: 0.34
-      calls: 21/24
+      n: 26
+      brier: 0.0949
+      log_loss: 0.3139
+      calls: 23/26
       tossups: 0
     ours:
-      n: 24
-      brier: 0.0754
-      log_loss: 0.2304
-      calls: 22/24
+      n: 26
+      brier: 0.0696
+      log_loss: 0.2127
+      calls: 24/26
     competitive:
       n: 9
       theirs:
@@ -773,7 +797,7 @@ others:
         calls: 1/1
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-06T02:10:01Z'
+  asof: '2026-11-06T03:10:01Z'
   called: 460
   scoreboard:
     lite:
