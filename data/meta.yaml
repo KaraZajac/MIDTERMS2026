@@ -1,8 +1,8 @@
-generated: '2026-11-06T11:09:48Z'
+generated: '2026-11-06T12:09:51Z'
 generator: python3 -m midterms build
 asof: '2026-11-06'
 election_day: '2026-11-03'
-sources_digest: 662f123b3d2698c4
+sources_digest: faaf13089736361c
 counts:
   house_races: 435
   senate_races: 35
@@ -43,7 +43,7 @@ sources:
     2026 Maine gubernatorial election: 1384030909
     2026 Maryland gubernatorial election: 1383973834
     2026 Massachusetts gubernatorial election: 1383987732
-    2026 Michigan gubernatorial election: 1383986133
+    2026 Michigan gubernatorial election: 1384071764
     2026 Minnesota gubernatorial election: 1383984405
     2026 Nebraska gubernatorial election: 1383976438
     2026 Nevada gubernatorial election: 1383968308
@@ -51,7 +51,7 @@ sources:
     2026 New Mexico gubernatorial election: 1383979921
     2026 New York gubernatorial election: 1384033991
     2026 Ohio gubernatorial election: 1383987747
-    2026 Oklahoma gubernatorial election: 1384066625
+    2026 Oklahoma gubernatorial election: 1384069572
     2026 Oregon gubernatorial election: 1384036021
     2026 Pennsylvania gubernatorial election: 1384016412
     2026 Rhode Island gubernatorial election: 1383766156
@@ -65,7 +65,7 @@ sources:
     2026 United States House of Representatives election in South Dakota: 1384066008
     2026 United States House of Representatives election in Vermont: 1384065058
     2026 United States House of Representatives election in Wyoming: 1384064767
-    2026 United States House of Representatives elections: 1384065104
+    2026 United States House of Representatives elections: 1384068004
     2026 United States House of Representatives elections in Alabama: 1383986533
     2026 United States House of Representatives elections in Arizona: 1383941207
     2026 United States House of Representatives elections in Arkansas: 1384000344
@@ -105,7 +105,7 @@ sources:
     2026 United States House of Representatives elections in Rhode Island: 1382619674
     2026 United States House of Representatives elections in South Carolina: 1383842148
     2026 United States House of Representatives elections in Tennessee: 1384049465
-    2026 United States House of Representatives elections in Texas: 1384056925
+    2026 United States House of Representatives elections in Texas: 1384070580
     2026 United States House of Representatives elections in Utah: 1383954751
     2026 United States House of Representatives elections in Virginia: 1383803557
     2026 United States House of Representatives elections in Washington: 1383945066
@@ -127,7 +127,7 @@ sources:
     2026 United States Senate election in Massachusetts: 1383833076
     2026 United States Senate election in Michigan: 1384050340
     2026 United States Senate election in Minnesota: 1384061463
-    2026 United States Senate election in Mississippi: 1384062445
+    2026 United States Senate election in Mississippi: 1384072701
     2026 United States Senate election in Montana: 1383937620
     2026 United States Senate election in Nebraska: 1383976760
     2026 United States Senate election in New Hampshire: 1383835290
@@ -137,7 +137,7 @@ sources:
     2026 United States Senate election in Oklahoma: 1384005473
     2026 United States Senate election in Oregon: 1384010528
     2026 United States Senate election in Rhode Island: 1383921650
-    2026 United States Senate election in South Carolina: 1384041716
+    2026 United States Senate election in South Carolina: 1384069064
     2026 United States Senate election in South Dakota: 1383961461
     2026 United States Senate election in Tennessee: 1383896869
     2026 United States Senate election in Texas: 1384049200
@@ -151,7 +151,7 @@ sources:
     2026 Vermont gubernatorial election: 1384027247
     2026 Wisconsin gubernatorial election: 1384034444
     2026 Wyoming gubernatorial election: 1383955438
-    Template:2026 United States elections/polling: 1383717466
+    Template:2026 United States elections/polling: 1384068090
   files:
     fec-webl26:
       url: https://www.fec.gov/files/bulk-downloads/2026/webl26.zip
