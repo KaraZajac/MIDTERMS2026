@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 43
+resolved: 58
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-06
 - house:CA-08
 - house:CA-09
-open_count: 446
+open_count: 431
 scoreboard:
   lite:
-    n: 43
-    brier: 0.0586
-    log_loss: 0.1922
-    calls: 39/43
+    n: 58
+    brier: 0.0576
+    log_loss: 0.1923
+    calls: 53/58
   classic:
-    n: 43
-    brier: 0.0735
-    log_loss: 0.2166
-    calls: 39/43
+    n: 58
+    brier: 0.0711
+    log_loss: 0.2093
+    calls: 52/58
   deluxe:
-    n: 43
-    brier: 0.0883
-    log_loss: 0.2513
-    calls: 38/43
+    n: 58
+    brier: 0.0871
+    log_loss: 0.2439
+    calls: 51/58
   ratings:
-    n: 43
-    brier: 0.1161
-    log_loss: 0.3446
-    calls: 35/43
+    n: 58
+    brier: 0.1156
+    log_loss: 0.3364
+    calls: 48/58
   lean-only:
-    n: 43
-    brier: 0.1309
-    log_loss: 0.3489
-    calls: 33/43
+    n: 58
+    brier: 0.1173
+    log_loss: 0.3189
+    calls: 45/58
   coin-flip:
-    n: 43
+    n: 58
     brier: 0.25
     log_loss: 0.6931
-    calls: 20/43
+    calls: 27/58
 races:
 - id: governor:CA
   slug: governor/ca
@@ -421,6 +421,186 @@ races:
     classic: 0.0005
     deluxe: 0.0001
   called_right: true
+- id: house:OH-01
+  slug: house/oh-01
+  label: OH-01
+  winner: D
+  winner_name: Greg Landsman
+  margin: 11.75
+  p_winner: 0.9724
+  p_d_side:
+    lite: 0.8457
+    classic: 0.9586
+    deluxe: 0.9724
+  called_right: true
+- id: house:OH-02
+  slug: house/oh-02
+  label: OH-02
+  winner: R
+  winner_name: David Taylor
+  margin: -28.48
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0016
+    classic: 0.0001
+    deluxe: 0.0001
+  called_right: true
+- id: house:OH-03
+  slug: house/oh-03
+  label: OH-03
+  winner: D
+  winner_name: Joyce Beatty
+  margin: 54.45
+  p_winner: 1.0
+  p_d_side:
+    lite: 1.0
+    classic: 1.0
+    deluxe: 1.0
+  called_right: true
+- id: house:OH-04
+  slug: house/oh-04
+  label: OH-04
+  winner: R
+  winner_name: Jim Jordan
+  margin: -34.72
+  p_winner: 1.0
+  p_d_side:
+    lite: 0.0012
+    classic: 0.0002
+    deluxe: 0.0
+  called_right: true
+- id: house:OH-05
+  slug: house/oh-05
+  label: OH-05
+  winner: R
+  winner_name: Bob Latta
+  margin: -12.09
+  p_winner: 0.9996
+  p_d_side:
+    lite: 0.0595
+    classic: 0.0071
+    deluxe: 0.0004
+  called_right: true
+- id: house:OH-06
+  slug: house/oh-06
+  label: OH-06
+  winner: R
+  winner_name: Michael Rulli
+  margin: -20.8
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0072
+    classic: 0.0006
+    deluxe: 0.0001
+  called_right: true
+- id: house:OH-07
+  slug: house/oh-07
+  label: OH-07
+  winner: D
+  winner_name: Brian Poindexter
+  margin: 9.87
+  p_winner: 0.5165
+  p_d_side:
+    lite: 0.713
+    classic: 0.4848
+    deluxe: 0.5165
+  called_right: true
+- id: house:OH-08
+  slug: house/oh-08
+  label: OH-08
+  winner: R
+  winner_name: Warren Davidson
+  margin: -4.28
+  p_winner: 0.9981
+  p_d_side:
+    lite: 0.2513
+    classic: 0.0957
+    deluxe: 0.0019
+  called_right: true
+- id: house:OH-09
+  slug: house/oh-09
+  label: OH-09
+  winner: D
+  winner_name: Marcy Kaptur
+  margin: 5.45
+  p_winner: 0.7924
+  p_d_side:
+    lite: 0.7032
+    classic: 0.7987
+    deluxe: 0.7924
+  called_right: true
+- id: house:OH-10
+  slug: house/oh-10
+  label: OH-10
+  winner: D
+  winner_name: Kristina Knickerbocker
+  margin: 1.68
+  p_winner: 0.3519
+  p_d_side:
+    lite: 0.5314
+    classic: 0.5164
+    deluxe: 0.3519
+  called_right: false
+- id: house:OH-11
+  slug: house/oh-11
+  label: OH-11
+  winner: D
+  winner_name: Shontel Brown
+  margin: 67.06
+  p_winner: 1.0
+  p_d_side:
+    lite: 1.0
+    classic: 1.0
+    deluxe: 1.0
+  called_right: true
+- id: house:OH-12
+  slug: house/oh-12
+  label: OH-12
+  winner: R
+  winner_name: Troy Balderson
+  margin: -18.79
+  p_winner: 0.9998
+  p_d_side:
+    lite: 0.0143
+    classic: 0.0022
+    deluxe: 0.0002
+  called_right: true
+- id: house:OH-13
+  slug: house/oh-13
+  label: OH-13
+  winner: D
+  winner_name: Emilia Sykes
+  margin: 21.91
+  p_winner: 0.9986
+  p_d_side:
+    lite: 0.9507
+    classic: 0.9948
+    deluxe: 0.9986
+  called_right: true
+- id: house:OH-14
+  slug: house/oh-14
+  label: OH-14
+  winner: R
+  winner_name: David Joyce
+  margin: -10.06
+  p_winner: 0.9992
+  p_d_side:
+    lite: 0.1258
+    classic: 0.0323
+    deluxe: 0.0008
+  called_right: true
+- id: house:OH-15
+  slug: house/oh-15
+  label: OH-15
+  winner: D
+  winner_name: Don Leonard
+  margin: 6.82
+  p_winner: 0.2538
+  p_d_side:
+    lite: 0.4328
+    classic: 0.3589
+    deluxe: 0.2538
+  called_right: false
 - id: house:SD-AL
   slug: house/sd-al
   label: SD-AL
@@ -623,112 +803,112 @@ others:
   raters:
   - name: Cook
     source: The Cook Political Report
-    n: 43
+    n: 58
     theirs:
-      n: 43
-      brier: 0.1238
-      log_loss: 0.3926
-      calls: 33/38
-      tossups: 5
+      n: 58
+      brier: 0.1209
+      log_loss: 0.37
+      calls: 45/52
+      tossups: 6
     ours:
-      n: 43
-      brier: 0.0883
-      log_loss: 0.2513
-      calls: 38/43
+      n: 58
+      brier: 0.0871
+      log_loss: 0.2439
+      calls: 51/58
     competitive:
-      n: 17
+      n: 23
       theirs:
-        n: 17
-        brier: 0.3133
-        log_loss: 0.993
-        calls: 7/12
-        tossups: 5
+        n: 23
+        brier: 0.3049
+        log_loss: 0.9329
+        calls: 10/17
+        tossups: 6
       ours:
-        n: 17
-        brier: 0.2234
-        log_loss: 0.634
-        calls: 12/17
+        n: 23
+        brier: 0.2196
+        log_loss: 0.6138
+        calls: 16/23
   - name: DDHQ
     source: Decision Desk HQ
-    n: 43
+    n: 58
     theirs:
-      n: 43
-      brier: 0.1229
-      log_loss: 0.36
-      calls: 34/40
-      tossups: 3
-    ours:
-      n: 43
-      brier: 0.0883
-      log_loss: 0.2513
-      calls: 38/43
-    competitive:
-      n: 17
-      theirs:
-        n: 17
-        brier: 0.3107
-        log_loss: 0.9062
-        calls: 8/14
-        tossups: 3
-      ours:
-        n: 17
-        brier: 0.2234
-        log_loss: 0.634
-        calls: 12/17
-  - name: Inside Elections
-    source: Inside Elections
-    n: 43
-    theirs:
-      n: 43
-      brier: 0.1085
-      log_loss: 0.4498
-      calls: 34/39
+      n: 58
+      brier: 0.1288
+      log_loss: 0.4124
+      calls: 46/54
       tossups: 4
     ours:
-      n: 43
-      brier: 0.0883
-      log_loss: 0.2513
-      calls: 38/43
+      n: 58
+      brier: 0.0871
+      log_loss: 0.2439
+      calls: 51/58
     competitive:
-      n: 17
+      n: 23
       theirs:
-        n: 17
-        brier: 0.2744
-        log_loss: 1.1376
-        calls: 8/13
+        n: 23
+        brier: 0.3246
+        log_loss: 1.0358
+        calls: 11/19
         tossups: 4
       ours:
-        n: 17
-        brier: 0.2234
-        log_loss: 0.634
-        calls: 12/17
+        n: 23
+        brier: 0.2196
+        log_loss: 0.6138
+        calls: 16/23
+  - name: Inside Elections
+    source: Inside Elections
+    n: 58
+    theirs:
+      n: 58
+      brier: 0.1089
+      log_loss: 0.4132
+      calls: 47/54
+      tossups: 4
+    ours:
+      n: 58
+      brier: 0.0871
+      log_loss: 0.2439
+      calls: 51/58
+    competitive:
+      n: 23
+      theirs:
+        n: 23
+        brier: 0.2745
+        log_loss: 1.0419
+        calls: 12/19
+        tossups: 4
+      ours:
+        n: 23
+        brier: 0.2196
+        log_loss: 0.6138
+        calls: 16/23
   - name: Sabato
     source: Sabato's Crystal Ball
-    n: 43
+    n: 58
     theirs:
-      n: 43
-      brier: 0.1242
-      log_loss: 0.3688
-      calls: 36/43
+      n: 58
+      brier: 0.1173
+      log_loss: 0.3434
+      calls: 49/58
       tossups: 0
     ours:
-      n: 43
-      brier: 0.0883
-      log_loss: 0.2513
-      calls: 38/43
+      n: 58
+      brier: 0.0871
+      log_loss: 0.2439
+      calls: 51/58
     competitive:
-      n: 17
+      n: 23
       theirs:
-        n: 17
-        brier: 0.3141
-        log_loss: 0.9326
-        calls: 10/17
+        n: 23
+        brier: 0.2958
+        log_loss: 0.8658
+        calls: 14/23
         tossups: 0
       ours:
-        n: 17
-        brier: 0.2234
-        log_loss: 0.634
-        calls: 12/17
+        n: 23
+        brier: 0.2196
+        log_loss: 0.6138
+        calls: 16/23
   - name: Silver Bulletin
     source: Silver Bulletin
     n: 19
@@ -837,6 +1017,33 @@ others:
         brier: 0.152
         log_loss: 0.4421
         calls: 8/10
+  - name: The Economist
+    source: The Economist
+    n: 12
+    theirs:
+      n: 12
+      brier: 0.2202
+      log_loss: 0.5937
+      calls: 7/10
+      tossups: 2
+    ours:
+      n: 12
+      brier: 0.128
+      log_loss: 0.36
+      calls: 10/12
+    competitive:
+      n: 8
+      theirs:
+        n: 8
+        brier: 0.3303
+        log_loss: 0.8876
+        calls: 3/6
+        tossups: 2
+      ours:
+        n: 8
+        brier: 0.192
+        log_loss: 0.5385
+        calls: 6/8
   - name: FiftyPlusOne
     source: FiftyPlusOne
     n: 11
@@ -918,33 +1125,6 @@ others:
         brier: 0.1399
         log_loss: 0.4195
         calls: 6/7
-  - name: The Economist
-    source: The Economist
-    n: 11
-    theirs:
-      n: 11
-      brier: 0.1761
-      log_loss: 0.4813
-      calls: 7/9
-      tossups: 2
-    ours:
-      n: 11
-      brier: 0.089
-      log_loss: 0.268
-      calls: 10/11
-    competitive:
-      n: 7
-      theirs:
-        n: 7
-        brier: 0.2767
-        log_loss: 0.7528
-        calls: 3/5
-        tossups: 2
-      ours:
-        n: 7
-        brier: 0.1399
-        log_loss: 0.4195
-        calls: 6/7
   - name: CBS News
     source: CBS News
     n: 6
@@ -1001,7 +1181,7 @@ others:
         calls: 4/4
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-07T22:10:01Z'
+  asof: '2026-11-07T23:10:01Z'
   called: 466
   scoreboard:
     lite:
