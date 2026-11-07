@@ -1,12 +1,12 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
 house:AK-AL,house,AK,AK-AL,,R,yes,2024,Bill Hill,IND,Nick Begich III,R,"Eric Hafner (D); James C. ""Jim"" McDermott (L)",,-12.91,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Alaska@1383803919
-house:AL-01,house,AL,AL-01,,,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384201404
-house:AL-02,house,AL,AL-02,,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384201404
-house:AL-03,house,AL,AL-03,,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384201404
-house:AL-04,house,AL,AL-04,,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384201404
-house:AL-05,house,AL,AL-05,,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384201404
-house:AL-06,house,AL,AL-06,,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384201404
-house:AL-07,house,AL,AL-07,,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384201404
+house:AL-01,house,AL,AL-01,,,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384202632
+house:AL-02,house,AL,AL-02,,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384202632
+house:AL-03,house,AL,AL-03,,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384202632
+house:AL-04,house,AL,AL-04,,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384202632
+house:AL-05,house,AL,AL-05,,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384202632
+house:AL-06,house,AL,AL-06,,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384202632
+house:AL-07,house,AL,AL-07,,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384202632
 house:AR-01,house,AR,AR-01,Rick Crawford,R,yes,2010,Terri Yarbrough,D,Rick Crawford,R,Steve Parsons (L),,-45.18,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1384136830
 house:AR-02,house,AR,AR-02,French Hill,R,yes,2014,Chris Jones,D,French Hill,R,,,-15.32,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1384136830
 house:AR-03,house,AR,AR-03,Steve Womack,R,yes,2010,Robb Ryerse,D,Steve Womack,R,Bobby Wilson (L),,-25.24,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1384136830
@@ -20,32 +20,32 @@ house:AZ-06,house,AZ,AZ-06,,R,yes,2022,JoAnna Mendoza,D,Juan Ciscomani,R,Jereme 
 house:AZ-07,house,AZ,AZ-07,,D,yes,2025,Adelita Grijalva,D,Daniel Butierez,R,,,25.1,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arizona@1384189486
 house:AZ-08,house,AZ,AZ-08,,R,yes,2024,Bernadette Greene-Placentia,D,Abraham Hamadeh,R,,,-15.8,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arizona@1384189486
 house:AZ-09,house,AZ,AZ-09,,R,yes,2010,Danielle Sterbinsky,D,Paul Gosar,R,,,-30.05,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arizona@1384189486
-house:CA-01,house,CA,CA-01,,R,yes,2026,Mike McGuire,D,James Gallagher,R,,,14.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-02,house,CA,CA-02,,D,yes,2012,Jared Huffman,D,Robin Littau,R,,,26.35,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-03,house,CA,CA-03,,D,yes,2012,Ami Bera,D,Robb Tucker,R,,,11.46,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-04,house,CA,CA-04,Mike Thompson,D,yes,1998,Mike Thompson,D,,R,Eric Jones (D),D,16.6,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-05,house,CA,CA-05,,R,yes,2008,Michael Masuda,D,Tom McClintock,R,,,-19.65,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-06,house,CA,CA-06,,IND,yes,2022,Richard Pan,D,Kevin Kiley,IND,,,9.73,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-07,house,CA,CA-07,Doris Matsui,D,yes,2005,Doris Matsui,D,,R,Mai Vang (D),D,14.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-08,house,CA,CA-08,,D,yes,2009,John Garamendi,D,Rudy Recile,R,,,37.26,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-09,house,CA,CA-09,,D,yes,2018,Josh Harder,D,John McBride,R,,,15.53,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-10,house,CA,CA-10,,D,yes,2014,Mark DeSaulnier,D,Jeff Frese,R,,,35.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-11,house,CA,CA-11,,,no,,Scott Wiener,D,,R,Connie Chan (D),D,71.97,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-12,house,CA,CA-12,,D,yes,2024,Lateefah Simon,D,,R,Jamie Joyce (D),D,78.83,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-13,house,CA,CA-13,,D,yes,2024,Adam Gray,D,Kevin Lincoln,R,,,4.81,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-14,house,CA,CA-14,Aisha Wahab,D,yes,2026,Aisha Wahab,D,,R,Melissa Hernandez (D),D,38.75,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-15,house,CA,CA-15,,D,yes,2022,Kevin Mullin,D,Charles Hoelter,R,,,51.83,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-16,house,CA,CA-16,,D,yes,2024,Sam Liccardo,D,Peter Sundin Soulé,R,,,50.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-17,house,CA,CA-17,,D,yes,2016,Ro Khanna,D,Ritesh Tandon,R,,,42.85,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-18,house,CA,CA-18,,D,yes,1994,Zoe Lofgren,D,Shane Lewis,R,,,32.93,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-19,house,CA,CA-19,,D,yes,2016,Jimmy Panetta,D,Peter Verbica,R,,,36.86,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-20,house,CA,CA-20,,R,yes,2024,Sandra Van Scotter,D,Vince Fong,R,,,-31.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-21,house,CA,CA-21,,D,yes,2004,Jim Costa,D,Kyle Kirkland,R,,,9.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-22,house,CA,CA-22,,R,yes,2012,Randy Villegas,D,David Valadao,R,,,2.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-23,house,CA,CA-23,Jay Obernolte,R,yes,2020,Tessa Lynn Hodge,D,Jay Obernolte,R,,,-18.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-24,house,CA,CA-24,,,no,,Salud Carbajal,D,Bob Smith,R,,,26.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-25,house,CA,CA-25,,D,yes,2012,Raul Ruiz,D,Joe Males,R,,,8.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
-house:CA-26,house,CA,CA-26,,,no,,Jacqui Irwin,D,Sam Gallucci,R,,,17.49,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1383946222
+house:CA-01,house,CA,CA-01,,R,yes,2026,Mike McGuire,D,James Gallagher,R,,,14.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-02,house,CA,CA-02,,D,yes,2012,Jared Huffman,D,Robin Littau,R,,,26.35,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-03,house,CA,CA-03,,D,yes,2012,Ami Bera,D,Robb Tucker,R,,,11.46,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-04,house,CA,CA-04,Mike Thompson,D,yes,1998,Mike Thompson,D,,R,Eric Jones (D),D,16.6,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-05,house,CA,CA-05,,R,yes,2008,Michael Masuda,D,Tom McClintock,R,,,-19.65,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-06,house,CA,CA-06,,IND,yes,2022,Richard Pan,D,Kevin Kiley,IND,,,9.73,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-07,house,CA,CA-07,Doris Matsui,D,yes,2005,Doris Matsui,D,,R,Mai Vang (D),D,14.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-08,house,CA,CA-08,,D,yes,2009,John Garamendi,D,Rudy Recile,R,,,37.26,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-09,house,CA,CA-09,,D,yes,2018,Josh Harder,D,John McBride,R,,,15.53,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-10,house,CA,CA-10,,D,yes,2014,Mark DeSaulnier,D,Jeff Frese,R,,,35.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-11,house,CA,CA-11,,,no,,Scott Wiener,D,,R,Connie Chan (D),D,71.97,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-12,house,CA,CA-12,,D,yes,2024,Lateefah Simon,D,,R,Jamie Joyce (D),D,78.83,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-13,house,CA,CA-13,,D,yes,2024,Adam Gray,D,Kevin Lincoln,R,,,4.81,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-14,house,CA,CA-14,Aisha Wahab,D,yes,2026,Aisha Wahab,D,,R,Melissa Hernandez (D),D,38.75,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-15,house,CA,CA-15,,D,yes,2022,Kevin Mullin,D,Charles Hoelter,R,,,51.83,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-16,house,CA,CA-16,,D,yes,2024,Sam Liccardo,D,Peter Sundin Soulé,R,,,50.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-17,house,CA,CA-17,,D,yes,2016,Ro Khanna,D,Ritesh Tandon,R,,,42.85,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-18,house,CA,CA-18,,D,yes,1994,Zoe Lofgren,D,Shane Lewis,R,,,32.93,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-19,house,CA,CA-19,,D,yes,2016,Jimmy Panetta,D,Peter Verbica,R,,,36.86,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-20,house,CA,CA-20,,R,yes,2024,Sandra Van Scotter,D,Vince Fong,R,,,-31.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-21,house,CA,CA-21,,D,yes,2004,Jim Costa,D,Kyle Kirkland,R,,,9.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-22,house,CA,CA-22,,R,yes,2012,Randy Villegas,D,David Valadao,R,,,2.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-23,house,CA,CA-23,Jay Obernolte,R,yes,2020,Tessa Lynn Hodge,D,Jay Obernolte,R,,,-18.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-24,house,CA,CA-24,,,no,,Salud Carbajal,D,Bob Smith,R,,,26.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-25,house,CA,CA-25,,D,yes,2012,Raul Ruiz,D,Joe Males,R,,,8.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
+house:CA-26,house,CA,CA-26,,,no,,Jacqui Irwin,D,Sam Gallucci,R,,,17.49,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 1–26)@1384207041
 house:CA-27,house,CA,CA-27,George Whitesides,D,yes,2024,George Whitesides,D,Jason Gibbs,R,,,12.53,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 27–52)@1383950226
 house:CA-28,house,CA,CA-28,Judy Chu,D,yes,2009,Judy Chu,D,April Verlato,R,,,27.94,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 27–52)@1383950226
 house:CA-29,house,CA,CA-29,,D,yes,2024,Luz Rivas,D,,R,Angélica María Dueñas (D),D,38.78,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in California (districts 27–52)@1383950226
@@ -86,34 +86,34 @@ house:CT-03,house,CT,CT-03,Rosa DeLauro,D,yes,1990,Rosa DeLauro,D,Christopher La
 house:CT-04,house,CT,CT-04,Jim Himes,D,yes,2008,Jim Himes,D,Michael Goldstein,R,,,25.64,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Connecticut@1384105950
 house:CT-05,house,CT,CT-05,Jahana Hayes,D,yes,2018,Jahana Hayes,D,Chris Shea,R,,,6.97,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Connecticut@1384105950
 house:DE-AL,house,DE,DE-AL,,,no,,Sarah McBride,D,Joseph Arminio,R,,,16.02,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Delaware@1384136970
-house:FL-01,house,FL,FL-01,,R,yes,2025,Gay Valimont,D,Jimmy Patronis,R,Tyler Davis (IND),,-36.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-02,house,FL,FL-02,,,no,,Amanda Green,D,Austin Rogers,R,,,-16.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-03,house,FL,FL-03,,R,yes,2020,Seth Harp,D,Kat Cammack,R,Mike Klein (IND),,-19.56,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-04,house,FL,FL-04,,R,yes,2022,LaShonda Holloway,D,Aaron Bean,R,Mike Sell (FWD); Todd Schaefer (IND),,-10.68,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-05,house,FL,FL-05,,R,yes,2016,Rachel Grage,D,John Rutherford,R,,,-20.26,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-06,house,FL,FL-06,,R,yes,2025,Eric Yonce,D,Randy Fine,R,Andrew Parrott (L); Michael Gist (IND); Alec Pavlik (WRITE-IN),,-28.71,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-07,house,FL,FL-07,,,no,,Bale Dalton,D,Ryan Elijah,R,Christopher Dennison (L),,-10.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-08,house,FL,FL-08,,R,yes,2024,Jennifer Jenkins,D,Mike Haridopolos,R,,,-15.03,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-09,house,FL,FL-09,,D,yes,2016,Darren Soto,D,Dan Green,R,,,-15.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-10,house,FL,FL-10,,D,yes,2022,Maxwell Frost,D,,R,,D,26.54,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-11,house,FL,FL-11,,,no,,James Pericola,D,Joe Strada,R,Ralph Groves (L),,-14.31,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-12,house,FL,FL-12,,R,yes,2006,Kimberly Overman,D,Gus Bilirakis,R,Branden Scrivener (IND),,-13.16,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-13,house,FL,FL-13,,R,yes,2022,Leela Gray,D,Anna Paulina Luna,R,Tony D'Arrigo (IND),,-12.07,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-14,house,FL,FL-14,,D,yes,2006,Kathy Castor,D,Mike Beltran,R,Brian Lambert (L),,-8.7,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-15,house,FL,FL-15,,R,yes,2022,Robert People,D,Laurel Lee,R,,,-17.77,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-16,house,FL,FL-16,,,no,,Kelly Kirschner,D,Sydney Gruters,R,Mark Davis (IND),,-11.75,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-17,house,FL,FL-17,,R,yes,2018,Matthew Montavon,D,Greg Steube,R,Michael Quirk (IND),,-20.19,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-18,house,FL,FL-18,,R,yes,2020,Curtis Gibson,D,Scott Franklin,R,Deva Simmons (IND),,-15.39,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-19,house,FL,FL-19,,,no,,Victor Arias,D,Jim Schwartzel,R,Seth Haskins (IND),,-28.37,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-20,house,FL,FL-20,,D,yes,2004,Debbie Wasserman Schultz,D,Brent Andersen,R,Kedner Maxime (IND),,40.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-21,house,FL,FL-21,,R,yes,2016,James Martin,D,Brian Mast,R,Alexander Cooke (IND),,-14.54,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-22,house,FL,FL-22,,,no,,Pia Dandiya,D,Casey Askar,R,,,-7.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-23,house,FL,FL-23,,D,yes,2012,Lois Frankel,D,Deborah Adeimy,R,,,17.09,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-24,house,FL,FL-24,,,no,,Oliver Gilbert,D,Mayonna Te Brown,R,Andy Daro (IND),,43.5,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-25,house,FL,FL-25,,D,yes,2022,Jared Moskowitz,D,Scott Singer,R,Peter Jassenoff (L),,-5.65,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-26,house,FL,FL-26,,R,yes,2002,Nicole Locklin,D,Mario Díaz-Balart,R,Deborah Ann Meidinger Hosey (IND),,-14.21,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-27,house,FL,FL-27,,R,yes,2020,Eliott Rodriguez,D,María Elvira Salazar,R,,,-11.09,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
-house:FL-28,house,FL,FL-28,,R,yes,2020,Phil Ehr,D,Carlos Giménez,R,Eddy Rojas (IND),,-20.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384195902
+house:FL-01,house,FL,FL-01,,R,yes,2025,Gay Valimont,D,Jimmy Patronis,R,Tyler Davis (IND),,-36.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-02,house,FL,FL-02,,,no,,Amanda Green,D,Austin Rogers,R,,,-16.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-03,house,FL,FL-03,,R,yes,2020,Seth Harp,D,Kat Cammack,R,Mike Klein (IND),,-19.56,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-04,house,FL,FL-04,,R,yes,2022,LaShonda Holloway,D,Aaron Bean,R,Mike Sell (FWD); Todd Schaefer (IND),,-10.68,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-05,house,FL,FL-05,,R,yes,2016,Rachel Grage,D,John Rutherford,R,,,-20.26,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-06,house,FL,FL-06,,R,yes,2025,Eric Yonce,D,Randy Fine,R,Andrew Parrott (L); Michael Gist (IND); Alec Pavlik (WRITE-IN),,-28.71,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-07,house,FL,FL-07,,,no,,Bale Dalton,D,Ryan Elijah,R,Christopher Dennison (L),,-10.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-08,house,FL,FL-08,,R,yes,2024,Jennifer Jenkins,D,Mike Haridopolos,R,,,-15.03,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-09,house,FL,FL-09,,D,yes,2016,Darren Soto,D,Dan Green,R,,,-15.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-10,house,FL,FL-10,,D,yes,2022,Maxwell Frost,D,,R,,D,26.54,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-11,house,FL,FL-11,,,no,,James Pericola,D,Joe Strada,R,Ralph Groves (L),,-14.31,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-12,house,FL,FL-12,,R,yes,2006,Kimberly Overman,D,Gus Bilirakis,R,Branden Scrivener (IND),,-13.16,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-13,house,FL,FL-13,,R,yes,2022,Leela Gray,D,Anna Paulina Luna,R,Tony D'Arrigo (IND),,-12.07,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-14,house,FL,FL-14,,D,yes,2006,Kathy Castor,D,Mike Beltran,R,Brian Lambert (L),,-8.7,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-15,house,FL,FL-15,,R,yes,2022,Robert People,D,Laurel Lee,R,,,-17.77,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-16,house,FL,FL-16,,,no,,Kelly Kirschner,D,Sydney Gruters,R,Mark Davis (IND),,-11.75,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-17,house,FL,FL-17,,R,yes,2018,Matthew Montavon,D,Greg Steube,R,Michael Quirk (IND),,-20.19,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-18,house,FL,FL-18,,R,yes,2020,Curtis Gibson,D,Scott Franklin,R,Deva Simmons (IND),,-15.39,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-19,house,FL,FL-19,,,no,,Victor Arias,D,Jim Schwartzel,R,Seth Haskins (IND),,-28.37,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-20,house,FL,FL-20,,D,yes,2004,Debbie Wasserman Schultz,D,Brent Andersen,R,Kedner Maxime (IND),,40.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-21,house,FL,FL-21,,R,yes,2016,James Martin,D,Brian Mast,R,Alexander Cooke (IND),,-14.54,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-22,house,FL,FL-22,,,no,,Pia Dandiya,D,Casey Askar,R,,,-7.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-23,house,FL,FL-23,,D,yes,2012,Lois Frankel,D,Deborah Adeimy,R,,,17.09,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-24,house,FL,FL-24,,,no,,Oliver Gilbert,D,Mayonna Te Brown,R,Andy Daro (IND),,43.5,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-25,house,FL,FL-25,,D,yes,2022,Jared Moskowitz,D,Scott Singer,R,Peter Jassenoff (L),,-5.65,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-26,house,FL,FL-26,,R,yes,2002,Nicole Locklin,D,Mario Díaz-Balart,R,Deborah Ann Meidinger Hosey (IND),,-14.21,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-27,house,FL,FL-27,,R,yes,2020,Eliott Rodriguez,D,María Elvira Salazar,R,,,-11.09,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
+house:FL-28,house,FL,FL-28,,R,yes,2020,Phil Ehr,D,Carlos Giménez,R,Eddy Rojas (IND),,-20.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Florida@1384203615
 house:GA-01,house,GA,GA-01,,,no,,Amanda Hollowell,D,Jim Kingston,R,,,-15.33,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Georgia@1384179081
 house:GA-02,house,GA,GA-02,,D,yes,1992,Sanford Bishop,D,Matt Day,R,,,8.34,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Georgia@1384179081
 house:GA-03,house,GA,GA-03,,R,yes,2024,Maura Keller,D,Brian Jack,R,,,-30.03,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Georgia@1384179081
@@ -153,25 +153,25 @@ house:IL-14,house,IL,IL-14,Lauren Underwood,D,yes,2018,Lauren Underwood,D,James 
 house:IL-15,house,IL,IL-15,Mary Miller,R,yes,2020,Jennifer Todd,D,Mary Miller,R,,,-40.22,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Illinois@1384137665
 house:IL-16,house,IL,IL-16,Darin LaHood,R,yes,2015,Paul Nolley,D,Darin LaHood,R,,,-22.8,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Illinois@1384137665
 house:IL-17,house,IL,IL-17,Eric Sorensen,D,yes,2022,Eric Sorensen,D,Dillan Vancil,R,,,5.61,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Illinois@1384137665
-house:IN-01,house,IN,IN-01,,D,yes,2020,Frank Mrvan,D,Barb Regnitz,R,,,2.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384137714
-house:IN-02,house,IN,IN-02,Rudy Yakym,R,yes,2022,Jamee Decio,D,Rudy Yakym,R,,,-25.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384137714
-house:IN-03,house,IN,IN-03,Marlin Stutzman,R,yes,2010,Kelly Thompson,D,Marlin Stutzman,R,,,-31.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384137714
-house:IN-04,house,IN,IN-04,,R,yes,2018,Drew Cox,D,Jim Baird,R,,,-29.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384137714
-house:IN-05,house,IN,IN-05,,R,yes,2020,J.D. Ford,D,Victoria Spartz,R,,,-16.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384137714
-house:IN-06,house,IN,IN-06,Jefferson Shreve,R,yes,2024,Cynthia Wirth,D,Jefferson Shreve,R,,,-32.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384137714
-house:IN-07,house,IN,IN-07,André Carson,D,yes,2008,André Carson,D,Patrick McAuley,R,James Sceniak (L),,42.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384137714
-house:IN-08,house,IN,IN-08,Mark Messmer,R,yes,2024,Mary Allen,D,Mark Messmer,R,,,-35.74,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384137714
-house:IN-09,house,IN,IN-09,Erin Houchin,R,yes,2022,Brad Meyer,D,Erin Houchin,R,Tonya Hudson (L); Floyd Taylor (IND),,-29.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384137714
+house:IN-01,house,IN,IN-01,,D,yes,2020,Frank Mrvan,D,Barb Regnitz,R,,,2.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384208761
+house:IN-02,house,IN,IN-02,Rudy Yakym,R,yes,2022,Jamee Decio,D,Rudy Yakym,R,,,-25.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384208761
+house:IN-03,house,IN,IN-03,Marlin Stutzman,R,yes,2010,Kelly Thompson,D,Marlin Stutzman,R,,,-31.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384208761
+house:IN-04,house,IN,IN-04,,R,yes,2018,Drew Cox,D,Jim Baird,R,,,-29.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384208761
+house:IN-05,house,IN,IN-05,,R,yes,2020,J.D. Ford,D,Victoria Spartz,R,,,-16.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384208761
+house:IN-06,house,IN,IN-06,,R,yes,2024,Cynthia Wirth,D,Jefferson Shreve,R,,,-32.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384208761
+house:IN-07,house,IN,IN-07,,D,yes,2008,André Carson,D,Patrick McAuley,R,James Sceniak (L),,42.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384208761
+house:IN-08,house,IN,IN-08,Mark Messmer,R,yes,2024,Mary Allen,D,Mark Messmer,R,,,-35.74,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384208761
+house:IN-09,house,IN,IN-09,,R,yes,2022,Brad Meyer,D,Erin Houchin,R,Tonya Hudson (L); Floyd Taylor (IND),,-29.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384208761
 house:KS-01,house,KS,KS-01,Tracey Mann,R,yes,2020,Lauren Reinhold,D,Tracey Mann,R,Steven Jacob (L),,-31.47,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1384137806
 house:KS-02,house,KS,KS-02,Derek Schmidt,R,yes,2024,Don Coover,D,Derek Schmidt,R,John Hauer (L),,-19.22,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1384137806
 house:KS-03,house,KS,KS-03,Sharice Davids,D,yes,2018,Sharice Davids,D,Eric Jenkins,R,Steven A. Hohe (L),,4.26,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1384137806
 house:KS-04,house,KS,KS-04,Ron Estes,R,yes,2017,Katy Tyndell,D,Ron Estes,R,Drew Cranmer (L),,-23.35,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1384137806
-house:KY-01,house,KY,KY-01,,R,yes,2016,"John ""Drew"" Williams",D,James R. Comer,R,,,-46.79,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1383915507
-house:KY-02,house,KY,KY-02,,R,yes,2008,Megan Wingfield,D,S. Brett Guthrie,R,Thomas A. Loecken (IND),,-40.8,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1383915507
-house:KY-03,house,KY,KY-03,,D,yes,2022,Morgan McGarvey,D,Maria Teresa Rodriguez,R,,,20.14,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1383915507
-house:KY-04,house,KY,KY-04,,,no,,Melissa Claire Strange,D,Ed Gallrein,R,Jeremy Todd (L),,-35.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1383915507
-house:KY-05,house,KY,KY-05,,R,yes,1980,Ned Pillersdorf,D,Hal Rogers,R,Mikel Wein (IND); Gerardo Serrano (IND),,-63.55,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1383915507
-house:KY-06,house,KY,KY-06,,,no,,Zach Dembo,D,Ralph Alvarado,R,Jay J. Bowman (IND); Pete Lynch (KENTUCKY),,-14.3,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1383915507
+house:KY-01,house,KY,KY-01,,R,yes,2016,"John ""Drew"" Williams",D,James R. Comer,R,,,-46.79,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1384208757
+house:KY-02,house,KY,KY-02,,R,yes,2008,Megan Wingfield,D,S. Brett Guthrie,R,Thomas A. Loecken (IND),,-40.8,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1384208757
+house:KY-03,house,KY,KY-03,,D,yes,2022,Morgan McGarvey,D,Maria Teresa Rodriguez,R,,,20.14,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1384208757
+house:KY-04,house,KY,KY-04,,,no,,Melissa Claire Strange,D,Ed Gallrein,R,Jeremy Todd (L),,-35.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1384208757
+house:KY-05,house,KY,KY-05,,R,yes,1980,Ned Pillersdorf,D,Hal Rogers,R,Mikel Wein (IND); Gerardo Serrano (IND),,-63.55,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1384208757
+house:KY-06,house,KY,KY-06,,,no,,Zach Dembo,D,Ralph Alvarado,R,Jay J. Bowman (IND); Pete Lynch (KENTUCKY),,-14.3,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kentucky@1384208757
 house:LA-01,house,LA,LA-01,,R,yes,2008,Lauren Jewett,D,Randall Arrington,R,Steve Scalise (R); E. Glass (IND),,-39.2,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Louisiana@1384002491
 house:LA-02,house,LA,LA-02,,D,yes,2021,Troy Carter,D,Peter Williams,R,Renada Collins (D); Lisa Ballay (L); Walker Beach (IND),,49.53,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Louisiana@1384002491
 house:LA-03,house,LA,LA-03,,R,yes,2016,John Day,D,Kate Cotten,R,Priscilla Gonzalez (D); Caleb Walker (D); Clay Higgins (R); Tia LeBrun (IND),,-35.61,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Louisiana@1384002491
@@ -230,8 +230,8 @@ house:MS-01,house,MS,MS-01,,R,yes,2015,Cliff Johnson,D,Trent Kelly,R,,,-36.2,,,2
 house:MS-02,house,MS,MS-02,,D,yes,1993,Bennie Thompson,D,Ron Eller,R,,,22.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Mississippi@1384138355
 house:MS-03,house,MS,MS-03,,R,yes,2018,Michael Chiaradio,D,Michael Guest,R,Erik Kiehle (L),,-28.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Mississippi@1384138355
 house:MS-04,house,MS,MS-04,,R,yes,2022,Jeffrey Hulum III,D,Mike Ezell,R,Carl Boyanton (IND),,-41.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Mississippi@1384138355
-house:MT-01,house,MT,MT-01,,,no,,Sam Forstag,D,Aaron Flint,R,Nick Sheedy (L),,-10.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Montana@1384106508
-house:MT-02,house,MT,MT-02,,R,yes,2024,Brian Miller,D,Troy Downing,R,Michael Eisenhauer (IND),,-29.78,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Montana@1384106508
+house:MT-01,house,MT,MT-01,,,no,,Sam Forstag,D,Aaron Flint,R,Nick Sheedy (L),,-10.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Montana@1384203389
+house:MT-02,house,MT,MT-02,,R,yes,2024,Brian Miller,D,Troy Downing,R,Michael Eisenhauer (IND),,-29.78,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Montana@1384203389
 house:NC-01,house,NC,NC-01,Don Davis,D,yes,2022,Don Davis,D,Laurie Buckhout,R,Tom Bailey (L),,-10.48,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in North Carolina@1384160228
 house:NC-02,house,NC,NC-02,Deborah Ross,D,yes,2020,Deborah Ross,D,Eugene Douglass,R,Matthew Laszacs (L); Brian McGinnis (NONE),,34.79,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in North Carolina@1384160228
 house:NC-03,house,NC,NC-03,Greg Murphy,R,yes,2019,Raymond Smith Jr.,D,Greg Murphy,R,Daniel Cavender (L),,-12.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in North Carolina@1384160228
@@ -267,10 +267,10 @@ house:NJ-12,house,NJ,NJ-12,Bonnie Watson Coleman,D,no,,Adam Hamawy,D,Gregg Mele,
 house:NM-01,house,NM,NM-01,Melanie Stansbury,D,yes,2021,Melanie Stansbury,D,Didi Okapareke,R,,,13.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New Mexico@1384138574
 house:NM-02,house,NM,NM-02,Gabe Vasquez,D,yes,2022,Gabe Vasquez,D,Greg Cunningham,R,,,0.11,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New Mexico@1384138574
 house:NM-03,house,NM,NM-03,Teresa Leger Fernández,D,yes,2020,Teresa Leger Fernández,D,Martin Zamora,R,,,6.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New Mexico@1384138574
-house:NV-01,house,NV,NV-01,,D,yes,2008,Dina Titus,D,Carrie Buck,R,,,3.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384135956
-house:NV-02,house,NV,NV-02,,,no,,Teresa Benitez-Thompson,D,David Flippo,R,Lynn Chapman (IND),,-13.55,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384135956
-house:NV-03,house,NV,NV-03,,D,yes,2018,Susie Lee,D,Martin O'Donnell,R,,,1.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384135956
-house:NV-04,house,NV,NV-04,,D,yes,2012,Steven Horsford,D,Cody Whipple,R,,,3.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384135956
+house:NV-01,house,NV,NV-01,,D,yes,2008,Dina Titus,D,Carrie Buck,R,,,3.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384201866
+house:NV-02,house,NV,NV-02,,,no,,Teresa Benitez-Thompson,D,David Flippo,R,Lynn Chapman (IND),,-13.55,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384201866
+house:NV-03,house,NV,NV-03,,D,yes,2018,Susie Lee,D,Martin O'Donnell,R,,,1.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384201866
+house:NV-04,house,NV,NV-04,,D,yes,2012,Steven Horsford,D,Cody Whipple,R,,,3.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384201866
 house:NY-01,house,NY,NY-01,,,no,,Chris Gallant,D,Nick LaLota,R,,,-8.1,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384161698
 house:NY-02,house,NY,NY-02,,,no,,Patrick Halpin,D,Andrew Garbarino,R,,,-11.19,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384161698
 house:NY-03,house,NY,NY-03,,D,yes,2016,Tom Suozzi,D,Mike LiPetri,R,,,-0.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384161698
@@ -297,21 +297,21 @@ house:NY-23,house,NY,NY-23,,,no,,Aaron Gies,D,Nick Langworthy,R,,,-20.54,,,2024+
 house:NY-24,house,NY,NY-24,,,no,,Alissa Ellman,D,Claudia Tenney,R,,,-22.62,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384161698
 house:NY-25,house,NY,NY-25,,,no,,Joseph Morelle,D,Virginia McIntyre,R,,,19.25,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384161698
 house:NY-26,house,NY,NY-26,,D,yes,2024,Tim Kennedy,D,Dennis Hannon,R,,,21.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384161698
-house:OH-01,house,OH,OH-01,Greg Landsman,D,yes,2022,Greg Landsman,D,Eric Conroy,R,Nathan Weise (L),,-1.93,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-02,house,OH,OH-02,David Taylor,R,yes,2024,Jennifer Mazzuckelli,D,David Taylor,R,,,-41.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-03,house,OH,OH-03,Joyce Beatty,D,yes,2012,Joyce Beatty,D,Cleophus Dulaney,R,,,41.59,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-04,house,OH,OH-04,Jim Jordan,R,yes,2006,Joshua Kolasinski,D,Jim Jordan,R,Tracey Tackett (IND),,-42.53,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-05,house,OH,OH-05,Bob Latta,R,yes,2007,Brian Shaver,D,Bob Latta,R,Michael Veloff (L),,-23.37,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-06,house,OH,OH-06,Michael Rulli,R,yes,2024,Elizabeth Kirtley,D,Michael Rulli,R,,,-33.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-07,house,OH,OH-07,Max Miller,R,yes,2022,Brian Poindexter,D,Max Miller,R,,,-10.8,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-08,house,OH,OH-08,Warren Davidson,R,yes,2016,Vanessa Enoch,D,Warren Davidson,R,,,-15.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-09,house,OH,OH-09,Marcy Kaptur,D,yes,1982,Marcy Kaptur,D,Derek Merrin,R,Matthew Althaus (L),,-9.73,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-10,house,OH,OH-10,Mike Turner,R,yes,2002,Kristina Knickerbocker,D,Mike Turner,R,Thomas McMasters (L),,-7.37,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-11,house,OH,OH-11,Shontel Brown,D,yes,2021,Shontel Brown,D,Mike Krichner,R,,,56.14,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-12,house,OH,OH-12,Troy Balderson,R,yes,2018,Jerrad Christian,D,Troy Balderson,R,,,-30.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-13,house,OH,OH-13,Emilia Sykes,D,yes,2022,Emilia Sykes,D,Carey Coleman,R,Sandeep Dixit (IND),,3.98,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-14,house,OH,OH-14,David Joyce,R,yes,2022,Maria Jukic,D,David Joyce,R,,,-19.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
-house:OH-15,house,OH,OH-15,Mike Carey,R,yes,2021,Don Leonard,D,Mike Carey,R,Brennan Barrington (L),,-9.46,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384182718
+house:OH-01,house,OH,OH-01,Greg Landsman,D,yes,2022,Greg Landsman,D,Eric Conroy,R,Nathan Weise (L),,-1.93,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-02,house,OH,OH-02,David Taylor,R,yes,2024,Jennifer Mazzuckelli,D,David Taylor,R,,,-41.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-03,house,OH,OH-03,Joyce Beatty,D,yes,2012,Joyce Beatty,D,Cleophus Dulaney,R,,,41.59,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-04,house,OH,OH-04,Jim Jordan,R,yes,2006,Joshua Kolasinski,D,Jim Jordan,R,Tracey Tackett (IND),,-42.53,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-05,house,OH,OH-05,Bob Latta,R,yes,2007,Brian Shaver,D,Bob Latta,R,Michael Veloff (L),,-23.37,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-06,house,OH,OH-06,Michael Rulli,R,yes,2024,Elizabeth Kirtley,D,Michael Rulli,R,,,-33.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-07,house,OH,OH-07,Max Miller,R,yes,2022,Brian Poindexter,D,Max Miller,R,,,-10.8,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-08,house,OH,OH-08,Warren Davidson,R,yes,2016,Vanessa Enoch,D,Warren Davidson,R,,,-15.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-09,house,OH,OH-09,Marcy Kaptur,D,yes,1982,Marcy Kaptur,D,Derek Merrin,R,Matthew Althaus (L),,-9.73,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-10,house,OH,OH-10,Mike Turner,R,yes,2002,Kristina Knickerbocker,D,Mike Turner,R,Thomas McMasters (L),,-7.37,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-11,house,OH,OH-11,Shontel Brown,D,yes,2021,Shontel Brown,D,Mike Krichner,R,,,56.14,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-12,house,OH,OH-12,Troy Balderson,R,yes,2018,Jerrad Christian,D,Troy Balderson,R,,,-30.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-13,house,OH,OH-13,Emilia Sykes,D,yes,2022,Emilia Sykes,D,Carey Coleman,R,Sandeep Dixit (IND),,3.98,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-14,house,OH,OH-14,David Joyce,R,yes,2022,Maria Jukic,D,David Joyce,R,,,-19.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
+house:OH-15,house,OH,OH-15,Mike Carey,R,yes,2021,Don Leonard,D,Mike Carey,R,Brennan Barrington (L),,-9.46,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384205477
 house:OK-01,house,OK,OK-01,,,no,,John Croisant,D,Mark Tedford,R,,,-21.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Oklahoma@1384139117
 house:OK-02,house,OK,OK-02,,R,yes,2022,Brandon Wade,D,Josh Brecheen,R,Ronnie Hopkins (IND),,-55.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Oklahoma@1384139117
 house:OK-03,house,OK,OK-03,,R,yes,1994,Suzie Byrd,D,Frank Lucas,R,,,-46.24,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Oklahoma@1384139117
@@ -350,15 +350,15 @@ house:SC-05,house,SC,SC-05,Ralph Norman,R,no,,Mallory Dittmer,D,Wes Climer,R,,,-
 house:SC-06,house,SC,SC-06,Jim Clyburn,D,yes,1992,Jim Clyburn,D,John Peterson,R,,,25.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in South Carolina@1384183735
 house:SC-07,house,SC,SC-07,Russell Fry,R,yes,2022,John Vincent,D,Russell Fry,R,,,-24.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in South Carolina@1384183735
 house:SD-AL,house,SD,SD-AL,,,no,,Nicole Gronli,D,Marty Jackley,R,,,-29.14,,,2024+2020,,wikipedia:2026 United States House of Representatives election in South Dakota@1384066008
-house:TN-01,house,TN,TN-01,Diana Harshbarger,R,yes,2020,Kristi Burke,D,Diana Harshbarger,R,,,-57.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384146956
-house:TN-02,house,TN,TN-02,Tim Burchett,R,yes,2018,Michaela Barnett,D,Tim Burchett,R,,,-33.2,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384146956
-house:TN-03,house,TN,TN-03,Chuck Fleischmann,R,yes,2010,Anna Golladay,D,Chuck Fleischmann,R,,,-35.24,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384146956
-house:TN-04,house,TN,TN-04,,,no,,Victoria Broderick,D,Scott DesJarlais,R,,,-22.15,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384146956
-house:TN-05,house,TN,TN-05,Andy Ogles,R,no,,Chaz Molder,D,Charlie Hatcher,R,,,-20.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384146956
-house:TN-06,house,TN,TN-06,John Rose,R,no,,Mike Croley,D,Johnny Garrett,R,,,-25.31,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384146956
-house:TN-07,house,TN,TN-07,Matt Van Epps,R,yes,2025,Darden Copeland,D,Matt Van Epps,R,,,-21.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384146956
-house:TN-08,house,TN,TN-08,David Kustoff,R,yes,2016,Heidi Kuhn,D,David Kustoff,R,,,-19.3,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384146956
-house:TN-09,house,TN,TN-09,Steve Cohen,D,no,,Justin J. Pearson,D,Brent Taylor,R,,,-18.74,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384146956
+house:TN-01,house,TN,TN-01,Diana Harshbarger,R,yes,2020,Kristi Burke,D,Diana Harshbarger,R,,,-57.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384207852
+house:TN-02,house,TN,TN-02,Tim Burchett,R,yes,2018,Michaela Barnett,D,Tim Burchett,R,,,-33.2,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384207852
+house:TN-03,house,TN,TN-03,Chuck Fleischmann,R,yes,2010,Anna Golladay,D,Chuck Fleischmann,R,,,-35.24,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384207852
+house:TN-04,house,TN,TN-04,,,no,,Victoria Broderick,D,Scott DesJarlais,R,,,-22.15,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384207852
+house:TN-05,house,TN,TN-05,Andy Ogles,R,no,,Chaz Molder,D,Charlie Hatcher,R,,,-20.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384207852
+house:TN-06,house,TN,TN-06,John Rose,R,no,,Mike Croley,D,Johnny Garrett,R,,,-25.31,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384207852
+house:TN-07,house,TN,TN-07,Matt Van Epps,R,yes,2025,Darden Copeland,D,Matt Van Epps,R,,,-21.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384207852
+house:TN-08,house,TN,TN-08,David Kustoff,R,yes,2016,Heidi Kuhn,D,David Kustoff,R,,,-19.3,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384207852
+house:TN-09,house,TN,TN-09,Steve Cohen,D,no,,Justin J. Pearson,D,Brent Taylor,R,,,-18.74,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Tennessee@1384207852
 house:TX-01,house,TX,TX-01,,R,yes,2022,Yolanda Prince,D,Nathaniel Moran,R,Sonia Canciola (IND),,-48.52,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1384201457
 house:TX-02,house,TX,TX-02,,,no,,Shaun Finnie,D,Steve Toth,R,,,-22.81,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1384201457
 house:TX-03,house,TX,TX-03,,R,yes,2022,Evan Hunt,D,Keith Self,R,,,-22.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Texas@1384201457
