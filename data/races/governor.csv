@@ -10,7 +10,7 @@ governor:FL,governor,FL,Florida,,,no,,David Jolly,D,Byron Donalds,R,,,-10.77,-13
 governor:GA,governor,GA,Georgia,,,no,,Keisha Lance Bottoms,D,Rick Jackson,R,,,-1.61,-2.21,0.24,state,,wikipedia:2026 Georgia gubernatorial election@1384136507
 governor:HI,governor,HI,Hawaii,,D,yes,,Josh Green,D,Gary Cordery,R,,,25.18,23.56,30.07,state,,wikipedia:2026 Hawaii gubernatorial election@1384180846
 governor:ID,governor,ID,Idaho,,,no,,Terri Pickens,D,Brad Little,R,John Stegner (IND),,-36.09,-37.52,-31.75,state,,wikipedia:2026 Idaho gubernatorial election@1384026630
-governor:IL,governor,IL,Illinois,,D,yes,,JB Pritzker,D,Darren Bailey,R,Collin Corbett (IND),,12.67,11.14,17.32,state,,wikipedia:2026 Illinois gubernatorial election@1384153487
+governor:IL,governor,IL,Illinois,,D,yes,,JB Pritzker,D,Darren Bailey,R,Collin Corbett (IND),,12.67,11.14,17.32,state,,wikipedia:2026 Illinois gubernatorial election@1384190679
 governor:IA,governor,IA,Iowa,,,no,,Rob Sand,D,Zach Lahn,R,,,-12.19,-13.45,-8.37,state,,wikipedia:2026 Iowa gubernatorial election@1384151458
 governor:KS,governor,KS,Kansas,,,no,,Cindy Holscher,D,Ty Masterson,R,,,-16.07,-16.41,-14.99,state,,wikipedia:2026 Kansas gubernatorial election@1384073610
 governor:ME,governor,ME,Maine,,,no,,Hannah Pingree,D,Bobby Charles,R,Rick Bennett (IND),,7.64,7.09,9.34,state,,wikipedia:2026 Maine gubernatorial election@1384030909
@@ -19,7 +19,7 @@ governor:MA,governor,MA,Massachusetts,,D,yes,,Maura Healey,D,Michael Minogue,R,A
 governor:MI,governor,MI,Michigan,,,no,,Jocelyn Benson,D,John James,R,Anthony Hudson (L); Donna Brandenburg (U.S. TAXPAYE); Douglas Campbell (G),,-0.39,-1.44,2.79,state,,wikipedia:2026 Michigan gubernatorial election@1384129231
 governor:MN,governor,MN,Minnesota,,,no,,Amy Klobuchar,D,Lisa Demuth,R,Steven Young (G),,5.07,4.34,7.28,state,,wikipedia:2026 Minnesota gubernatorial election@1384079684
 governor:NE,governor,NE,Nebraska,,R,yes,,Lynne Walz,D,Jim Pillen,R,Rick Beard (LEGAL MARIJU); Brett Lindstrom (AMERICA FIRS),,-20.53,-20.84,-19.57,state,,wikipedia:2026 Nebraska gubernatorial election@1383976438
-governor:NV,governor,NV,Nevada,,R,yes,,Aaron Ford,D,Joe Lombardo,R,Danielle Ford (IND),,-1.77,-3.16,2.45,state,,wikipedia:2026 Nevada gubernatorial election@1384181382
+governor:NV,governor,NV,Nevada,,R,yes,,Aaron Ford,D,Joe Lombardo,R,Danielle Ford (IND),,-1.77,-3.16,2.45,state,,wikipedia:2026 Nevada gubernatorial election@1384183317
 governor:NH,governor,NH,New Hampshire,,R,yes,,Cinde Warmington,D,Kelly Ayotte,R,Stephen Villee (L),,3.98,2.82,7.5,state,,wikipedia:2026 New Hampshire gubernatorial election@1384180938
 governor:NM,governor,NM,New Mexico,,,no,,Deb Haaland,D,Gregg Hull,R,,,7.36,6.14,11.04,state,,wikipedia:2026 New Mexico gubernatorial election@1383979921
 governor:NY,governor,NY,New York,,,no,,Kathy Hochul,D,Bruce Blakeman,R,,,15.37,12.68,23.45,state,,wikipedia:2026 New York gubernatorial election@1384033991
@@ -28,10 +28,10 @@ governor:OK,governor,OK,Oklahoma,,,no,,Cyndi Munson,D,Mike Mazzei,R,Orlando Lynn
 governor:OR,governor,OR,Oregon,,D,yes,,Tina Kotek,D,Christine Drazan,R,Brett Smith (PACIFIC GREE),,15.29,14.87,16.61,state,,wikipedia:2026 Oregon gubernatorial election@1384128413
 governor:PA,governor,PA,Pennsylvania,,D,yes,,Josh Shapiro,D,Stacy Garrity,R,Ken Krawchuk (L),,-1.0,-1.73,1.2,state,,wikipedia:2026 Pennsylvania gubernatorial election@1384169057
 governor:RI,governor,RI,Rhode Island,,,no,,Helena Buonanno Foulkes,D,Aaron C. Guckian,R,Kenneth Block (IND); Jasjit S. Gotra (IND); C.D. Reynolds (IND),,15.91,14.16,21.2,state,,wikipedia:2026 Rhode Island gubernatorial election@1383766156
-governor:SC,governor,SC,South Carolina,,,no,,Jermaine Johnson,D,Alan Wilson,R,Walid Hakim (G); Michael Addison (UNITED CITIZ),,-16.57,-18.12,-11.85,state,,wikipedia:2026 South Carolina gubernatorial election@1384033028
+governor:SC,governor,SC,South Carolina,,,no,,Jermaine Johnson,D,Alan Wilson,R,Walid Hakim (G); Michael Addison (UNITED CITIZ),,-16.57,-18.12,-11.85,state,,wikipedia:2026 South Carolina gubernatorial election@1384190633
 governor:SD,governor,SD,South Dakota,,,no,,Dan Ahlers,D,Larry Rhoden,R,,,-29.14,-29.89,-26.87,state,,wikipedia:2026 South Dakota gubernatorial election@1384028064
 governor:TN,governor,TN,Tennessee,,,no,,Jerri Green,D,Marsha Blackburn,R,David Hatley (IND),,-28.51,-30.12,-23.66,state,,wikipedia:2026 Tennessee gubernatorial election@1384114229
-governor:TX,governor,TX,Texas,,R,yes,,Gina Hinojosa,D,Greg Abbott,R,Pat Dixon (L),,-11.83,-13.88,-5.66,state,,wikipedia:2026 Texas gubernatorial election@1384133424
+governor:TX,governor,TX,Texas,,R,yes,,Gina Hinojosa,D,Greg Abbott,R,Pat Dixon (L),,-11.83,-13.88,-5.66,state,,wikipedia:2026 Texas gubernatorial election@1384190946
 governor:VT,governor,VT,Vermont,,R,yes,,Amanda Janoo,D,Phil Scott,R,Brian Judd (IND); June Goodband (GREEN MOUNTA); Dean Roy (FREEDOM AND ),,33.72,32.77,36.6,state,,wikipedia:2026 Vermont gubernatorial election@1384117857
-governor:WI,governor,WI,Wisconsin,,,no,,David Crowley,D,Tom Tiffany,R,,,-0.51,-0.87,0.64,state,,wikipedia:2026 Wisconsin gubernatorial election@1384176627
+governor:WI,governor,WI,Wisconsin,,,no,,David Crowley,D,Tom Tiffany,R,,,-0.51,-0.87,0.64,state,,wikipedia:2026 Wisconsin gubernatorial election@1384183089
 governor:WY,governor,WY,Wyoming,,,no,,Kenneth Casner,D,Eric Barlow,R,Rebecca Bextel (C),,-46.47,-46.96,-44.96,state,,wikipedia:2026 Wyoming gubernatorial election@1383955438
