@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 34
+resolved: 42
 open:
 - governor:AK
 - governor:AL
@@ -64,38 +64,38 @@ open:
 - house:CA-06
 - house:CA-08
 - house:CA-09
-open_count: 455
+open_count: 447
 scoreboard:
   lite:
-    n: 34
-    brier: 0.0666
-    log_loss: 0.2163
-    calls: 30/34
+    n: 42
+    brier: 0.0576
+    log_loss: 0.1878
+    calls: 38/42
   classic:
-    n: 34
-    brier: 0.0857
-    log_loss: 0.2535
-    calls: 30/34
+    n: 42
+    brier: 0.0752
+    log_loss: 0.2216
+    calls: 38/42
   deluxe:
-    n: 34
-    brier: 0.0963
-    log_loss: 0.2799
-    calls: 30/34
+    n: 42
+    brier: 0.0904
+    log_loss: 0.2572
+    calls: 37/42
   ratings:
-    n: 34
-    brier: 0.1202
-    log_loss: 0.3471
-    calls: 27/34
+    n: 42
+    brier: 0.1189
+    log_loss: 0.3529
+    calls: 34/42
   lean-only:
-    n: 34
-    brier: 0.1596
-    log_loss: 0.4236
-    calls: 24/34
+    n: 42
+    brier: 0.134
+    log_loss: 0.3572
+    calls: 32/42
   coin-flip:
-    n: 34
+    n: 42
     brier: 0.25
     log_loss: 0.6931
-    calls: 14/34
+    calls: 19/42
 races:
 - id: governor:CA
   slug: governor/ca
@@ -300,6 +300,102 @@ races:
     lite: 0.2066
     classic: 0.1267
     deluxe: 0.0103
+  called_right: true
+- id: house:MO-01
+  slug: house/mo-01
+  label: MO-01
+  winner: D
+  winner_name: Wesley Bell
+  margin: 70.83
+  p_winner: 1.0
+  p_d_side:
+    lite: 1.0
+    classic: 1.0
+    deluxe: 1.0
+  called_right: true
+- id: house:MO-02
+  slug: house/mo-02
+  label: MO-02
+  winner: D
+  winner_name: Fred Wellman
+  margin: 5.07
+  p_winner: 0.2765
+  p_d_side:
+    lite: 0.6066
+    classic: 0.5043
+    deluxe: 0.2765
+  called_right: false
+- id: house:MO-03
+  slug: house/mo-03
+  label: MO-03
+  winner: R
+  winner_name: Bob Onder
+  margin: -64.41
+  p_winner: 0.9996
+  p_d_side:
+    lite: 0.0279
+    classic: 0.0034
+    deluxe: 0.0004
+  called_right: true
+- id: house:MO-04
+  slug: house/mo-04
+  label: MO-04
+  winner: R
+  winner_name: Mark Alford
+  margin: -26.73
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0014
+    classic: 0.0003
+    deluxe: 0.0001
+  called_right: true
+- id: house:MO-05
+  slug: house/mo-05
+  label: MO-05
+  winner: D
+  winner_name: Emanuel Cleaver
+  margin: 69.46
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.9992
+    classic: 0.9998
+    deluxe: 0.9999
+  called_right: true
+- id: house:MO-06
+  slug: house/mo-06
+  label: MO-06
+  winner: R
+  winner_name: Chris Stigall
+  margin: -20.19
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0023
+    classic: 0.001
+    deluxe: 0.0001
+  called_right: true
+- id: house:MO-07
+  slug: house/mo-07
+  label: MO-07
+  winner: R
+  winner_name: Eric Burlison
+  margin: -27.45
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0011
+    classic: 0.0001
+    deluxe: 0.0001
+  called_right: true
+- id: house:MO-08
+  slug: house/mo-08
+  label: MO-08
+  winner: R
+  winner_name: Jason Smith
+  margin: -39.8
+  p_winner: 0.9999
+  p_d_side:
+    lite: 0.0003
+    classic: 0.0001
+    deluxe: 0.0001
   called_right: true
 - id: house:MT-01
   slug: house/mt-01
@@ -515,112 +611,112 @@ others:
   raters:
   - name: Cook
     source: The Cook Political Report
-    n: 34
+    n: 42
     theirs:
-      n: 34
-      brier: 0.1286
-      log_loss: 0.3862
-      calls: 25/29
+      n: 42
+      brier: 0.1268
+      log_loss: 0.402
+      calls: 32/37
       tossups: 5
     ours:
-      n: 34
-      brier: 0.0963
-      log_loss: 0.2799
-      calls: 30/34
+      n: 42
+      brier: 0.0904
+      log_loss: 0.2572
+      calls: 37/42
     competitive:
-      n: 16
+      n: 17
       theirs:
-        n: 16
-        brier: 0.2732
-        log_loss: 0.8206
-        calls: 7/11
+        n: 17
+        brier: 0.3133
+        log_loss: 0.993
+        calls: 7/12
         tossups: 5
       ours:
-        n: 16
-        brier: 0.2046
-        log_loss: 0.5933
-        calls: 12/16
+        n: 17
+        brier: 0.2234
+        log_loss: 0.634
+        calls: 12/17
   - name: DDHQ
     source: Decision Desk HQ
-    n: 34
+    n: 42
     theirs:
-      n: 34
-      brier: 0.1347
-      log_loss: 0.4014
-      calls: 26/31
+      n: 42
+      brier: 0.1258
+      log_loss: 0.3685
+      calls: 33/39
       tossups: 3
     ours:
-      n: 34
-      brier: 0.0963
-      log_loss: 0.2799
-      calls: 30/34
+      n: 42
+      brier: 0.0904
+      log_loss: 0.2572
+      calls: 37/42
     competitive:
-      n: 16
+      n: 17
       theirs:
-        n: 16
-        brier: 0.2861
-        log_loss: 0.8484
-        calls: 8/13
+        n: 17
+        brier: 0.3107
+        log_loss: 0.9062
+        calls: 8/14
         tossups: 3
       ours:
-        n: 16
-        brier: 0.2046
-        log_loss: 0.5933
-        calls: 12/16
+        n: 17
+        brier: 0.2234
+        log_loss: 0.634
+        calls: 12/17
   - name: Inside Elections
     source: Inside Elections
-    n: 34
+    n: 42
     theirs:
-      n: 34
-      brier: 0.1078
-      log_loss: 0.298
-      calls: 26/30
+      n: 42
+      brier: 0.1111
+      log_loss: 0.4605
+      calls: 33/38
       tossups: 4
     ours:
-      n: 34
-      brier: 0.0963
-      log_loss: 0.2799
-      calls: 30/34
+      n: 42
+      brier: 0.0904
+      log_loss: 0.2572
+      calls: 37/42
     competitive:
-      n: 16
+      n: 17
       theirs:
-        n: 16
-        brier: 0.2291
-        log_loss: 0.6331
-        calls: 8/12
+        n: 17
+        brier: 0.2744
+        log_loss: 1.1376
+        calls: 8/13
         tossups: 4
       ours:
-        n: 16
-        brier: 0.2046
-        log_loss: 0.5933
-        calls: 12/16
+        n: 17
+        brier: 0.2234
+        log_loss: 0.634
+        calls: 12/17
   - name: Sabato
     source: Sabato's Crystal Ball
-    n: 34
+    n: 42
     theirs:
-      n: 34
-      brier: 0.1363
-      log_loss: 0.4125
-      calls: 28/34
+      n: 42
+      brier: 0.1271
+      log_loss: 0.3776
+      calls: 35/42
       tossups: 0
     ours:
-      n: 34
-      brier: 0.0963
-      log_loss: 0.2799
-      calls: 30/34
+      n: 42
+      brier: 0.0904
+      log_loss: 0.2572
+      calls: 37/42
     competitive:
-      n: 16
+      n: 17
       theirs:
-        n: 16
-        brier: 0.2897
-        log_loss: 0.8765
-        calls: 10/16
+        n: 17
+        brier: 0.3141
+        log_loss: 0.9326
+        calls: 10/17
         tossups: 0
       ours:
-        n: 16
-        brier: 0.2046
-        log_loss: 0.5933
-        calls: 12/16
+        n: 17
+        brier: 0.2234
+        log_loss: 0.634
+        calls: 12/17
   - name: Silver Bulletin
     source: Silver Bulletin
     n: 18
@@ -893,7 +989,7 @@ others:
         calls: 4/4
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-07T13:10:01Z'
+  asof: '2026-11-07T14:10:00Z'
   called: 465
   scoreboard:
     lite:
