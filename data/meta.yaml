@@ -1,8 +1,8 @@
-generated: '2026-11-08T08:09:41Z'
+generated: '2026-11-08T09:09:50Z'
 generator: python3 -m midterms build
 asof: '2026-11-08'
 election_day: '2026-11-03'
-sources_digest: b3b0eb65ddc5d806
+sources_digest: b82e5953b1492e34
 counts:
   house_races: 435
   senate_races: 35
@@ -58,7 +58,7 @@ sources:
     2026 South Carolina gubernatorial election: 1384449516
     2026 South Dakota gubernatorial election: 1384028064
     2026 Tennessee gubernatorial election: 1384451515
-    2026 Texas gubernatorial election: 1384424604
+    2026 Texas gubernatorial election: 1384454301
     2026 United States House of Representatives election in Alaska: 1384369652
     2026 United States House of Representatives election in Delaware: 1384136970
     2026 United States House of Representatives election in North Dakota: 1384064818
@@ -137,12 +137,12 @@ sources:
     2026 United States Senate election in Oklahoma: 1384366006
     2026 United States Senate election in Oregon: 1384239276
     2026 United States Senate election in Rhode Island: 1383921650
-    2026 United States Senate election in South Carolina: 1384449567
+    2026 United States Senate election in South Carolina: 1384457981
     2026 United States Senate election in South Dakota: 1384102705
     2026 United States Senate election in Tennessee: 1384266569
     2026 United States Senate election in Texas: 1384440264
     2026 United States Senate election in Virginia: 1383839124
-    2026 United States Senate election in West Virginia: 1384371997
+    2026 United States Senate election in West Virginia: 1384458261
     2026 United States Senate election in Wyoming: 1383855635
     2026 United States Senate elections: 1384443111
     2026 United States Senate special election in Florida: 1384383241
