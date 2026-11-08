@@ -1,12 +1,12 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
 house:AK-AL,house,AK,AK-AL,,R,yes,2024,Bill Hill,IND,Nick Begich III,R,"Eric Hafner (D); James C. ""Jim"" McDermott (L)",,-12.91,,,2024+2020,,wikipedia:2026 United States House of Representatives election in Alaska@1384369652
-house:AL-01,house,AL,AL-01,,,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384475696
-house:AL-02,house,AL,AL-02,,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384475696
-house:AL-03,house,AL,AL-03,,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384475696
-house:AL-04,house,AL,AL-04,,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384475696
-house:AL-05,house,AL,AL-05,,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384475696
-house:AL-06,house,AL,AL-06,,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384475696
-house:AL-07,house,AL,AL-07,,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384475696
+house:AL-01,house,AL,AL-01,,,no,,Clyde Jones,D,Jerry Carl,R,,,-34.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384512418
+house:AL-02,house,AL,AL-02,,D,yes,2024,Shomari Figures,D,Rhett Marques,R,,,-13.04,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384512418
+house:AL-03,house,AL,AL-03,,R,yes,2002,Lee McInnis,D,Mike Rogers,R,,,-45.67,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384512418
+house:AL-04,house,AL,AL-04,,R,yes,1996,Amanda Pusczek,D,Robert Aderholt,R,,,-65.88,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384512418
+house:AL-05,house,AL,AL-05,,R,yes,2022,Andrew Sneed,D,Dale Strong,R,,,-29.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384512418
+house:AL-06,house,AL,AL-06,,R,yes,2014,Maurice Mercer,D,Gary Palmer,R,,,-34.58,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384512418
+house:AL-07,house,AL,AL-07,,D,yes,2010,Terri Sewell,D,Ammie Akin,R,,,19.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Alabama@1384512418
 house:AR-01,house,AR,AR-01,Rick Crawford,R,yes,2010,Terri Yarbrough,D,Rick Crawford,R,Steve Parsons (L),,-45.18,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1384476327
 house:AR-02,house,AR,AR-02,French Hill,R,yes,2014,Chris Jones,D,French Hill,R,,,-15.32,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1384476327
 house:AR-03,house,AR,AR-03,Steve Womack,R,yes,2010,Robb Ryerse,D,Steve Womack,R,Bobby Wilson (L),,-25.24,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Arkansas@1384476327
@@ -153,15 +153,15 @@ house:IL-14,house,IL,IL-14,Lauren Underwood,D,yes,2018,Lauren Underwood,D,James 
 house:IL-15,house,IL,IL-15,Mary Miller,R,yes,2020,Jennifer Todd,D,Mary Miller,R,,,-40.22,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Illinois@1384137665
 house:IL-16,house,IL,IL-16,Darin LaHood,R,yes,2015,Paul Nolley,D,Darin LaHood,R,,,-22.8,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Illinois@1384137665
 house:IL-17,house,IL,IL-17,Eric Sorensen,D,yes,2022,Eric Sorensen,D,Dillan Vancil,R,,,5.61,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Illinois@1384137665
-house:IN-01,house,IN,IN-01,,D,yes,2020,Frank Mrvan,D,Barb Regnitz,R,,,2.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384418050
-house:IN-02,house,IN,IN-02,,,no,,Jamee Decio,D,Rudy Yakym,R,,,-25.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384418050
-house:IN-03,house,IN,IN-03,,R,yes,2010,Kelly Thompson,D,Marlin Stutzman,R,,,-31.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384418050
-house:IN-04,house,IN,IN-04,,R,yes,2018,Drew Cox,D,Jim Baird,R,,,-29.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384418050
-house:IN-05,house,IN,IN-05,,R,yes,2020,J.D. Ford,D,Victoria Spartz,R,,,-16.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384418050
-house:IN-06,house,IN,IN-06,,R,yes,2024,Cynthia Wirth,D,Jefferson Shreve,R,,,-32.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384418050
-house:IN-07,house,IN,IN-07,,D,yes,2008,André Carson,D,Patrick McAuley,R,James Sceniak (L),,42.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384418050
-house:IN-08,house,IN,IN-08,,R,yes,2024,Mary Allen,D,Mark Messmer,R,,,-35.74,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384418050
-house:IN-09,house,IN,IN-09,,R,yes,2022,Brad Meyer,D,Erin Houchin,R,Tonya Hudson (L); Floyd Taylor (IND),,-29.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384418050
+house:IN-01,house,IN,IN-01,,D,yes,2020,Frank Mrvan,D,Barb Regnitz,R,,,2.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384511894
+house:IN-02,house,IN,IN-02,,,no,,Jamee Decio,D,Rudy Yakym,R,,,-25.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384511894
+house:IN-03,house,IN,IN-03,,R,yes,2010,Kelly Thompson,D,Marlin Stutzman,R,,,-31.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384511894
+house:IN-04,house,IN,IN-04,,R,yes,2018,Drew Cox,D,Jim Baird,R,,,-29.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384511894
+house:IN-05,house,IN,IN-05,,R,yes,2020,J.D. Ford,D,Victoria Spartz,R,,,-16.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384511894
+house:IN-06,house,IN,IN-06,,R,yes,2024,Cynthia Wirth,D,Jefferson Shreve,R,,,-32.99,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384511894
+house:IN-07,house,IN,IN-07,,D,yes,2008,André Carson,D,Patrick McAuley,R,James Sceniak (L),,42.4,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384511894
+house:IN-08,house,IN,IN-08,,R,yes,2024,Mary Allen,D,Mark Messmer,R,,,-35.74,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384511894
+house:IN-09,house,IN,IN-09,,R,yes,2022,Brad Meyer,D,Erin Houchin,R,Tonya Hudson (L); Floyd Taylor (IND),,-29.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Indiana@1384511894
 house:KS-01,house,KS,KS-01,Tracey Mann,R,yes,2020,Lauren Reinhold,D,Tracey Mann,R,Steven Jacob (L),,-31.47,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1384297878
 house:KS-02,house,KS,KS-02,Derek Schmidt,R,yes,2024,Don Coover,D,Derek Schmidt,R,John Hauer (L),,-19.22,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1384297878
 house:KS-03,house,KS,KS-03,Sharice Davids,D,yes,2018,Sharice Davids,D,Eric Jenkins,R,Steven A. Hohe (L),,4.26,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Kansas@1384297878
@@ -197,19 +197,19 @@ house:MD-07,house,MD,MD-07,,D,yes,1986,Kweisi Mfume,D,Scott Collier,R,,,61.49,,,
 house:MD-08,house,MD,MD-08,,D,yes,2016,Jamie Raskin,D,Cheryl Riley,R,,,59.43,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Maryland@1384156310
 house:ME-01,house,ME,ME-01,,D,yes,2008,Chellie Pingree,D,Ronald Russell,R,,,22.42,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Maine@1384435002
 house:ME-02,house,ME,ME-02,,,no,,Matthew Dunlap,D,Paul LePage,R,,,-8.51,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Maine@1384435002
-house:MI-01,house,MI,MI-01,,R,yes,2016,Callie Barr,D,Jack Bergman,R,Arnett Satterla (L); Liz Hakola (WORKING CLAS); Doc Kovaly (U.S. TAXPAYE); LaVeta Davenport (G); Zebulon Featherly (IND),,-21.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-02,house,MI,MI-02,,,no,,Benjamin Ambrose,D,John Moolenaar,R,,,-30.09,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-03,house,MI,MI-03,,D,yes,2022,Hillary Scholten,D,Terri DeBoer,R,Joe Jock (IND),,8.13,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-04,house,MI,MI-04,,R,yes,2010,Sean McCann,D,Bill Huizenga,R,Shafina Che Barnett (G),,-5.23,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-05,house,MI,MI-05,,R,yes,2006,Christian Vukasovich,D,Tim Walberg,R,Ronald Muszynski (L); Sharon Reiner (U.S. TAXPAYE); Jim Bronke (G),,-26.71,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-06,house,MI,MI-06,,D,yes,2014,Debbie Dingell,D,Heather Smiley,R,Linda Rayburn (WORKING CLAS); Timothy Teagan (L); Clyde Shabazz (G); Mike Mickevicius (U.S. TAXPAYE),,24.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-07,house,MI,MI-07,,R,yes,2024,William Lawrence,D,Tom Barrett,R,Shane Dedrick (G),,-0.85,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-08,house,MI,MI-08,,D,yes,2024,Kristen McDonald Rivet,D,Thomas Smith,R,Kathy Goodwin (WORKING CLAS); C. Mia Pettus (L); Jim Casha (G),,-1.0,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-09,house,MI,MI-09,,R,yes,2020,Ray Pooley,D,Lisa McClain,R,Jim Walkowicz (WORKING CLAS); Kevin Vayko (L); John Vlahos (U.S. TAXPAYE); Destiny Clayton (G),,-32.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-10,house,MI,MI-10,,,no,,Christina Hines,D,Michael Bouchard,R,Andrea Kirby (WORKING CLAS); Mike Saliba (L); Kwabena Nkromo (G),,-5.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-11,house,MI,MI-11,,,no,,Jeremy Moss,D,Ethan Baker,R,Anil Kumar (IND); Farid Ishac (L); Ryan Teasdale (G),,17.33,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-12,house,MI,MI-12,,D,yes,2018,Rashida Tlaib,D,James Hooper,R,Gary Walkowicz (WORKING CLAS); Brenda Sanders (G); Marc Sosnowski (U.S. TAXPAYE),,42.19,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
-house:MI-13,house,MI,MI-13,,,no,,Donavan McKinney,D,T.P. Nykoriak,R,Simone Coleman (WORKING CLAS); Chris Dardzinski (U.S. TAXPAYE); Raelyn Light (G),,44.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384505725
+house:MI-01,house,MI,MI-01,,R,yes,2016,Callie Barr,D,Jack Bergman,R,Arnett Satterla (L); Liz Hakola (WORKING CLAS); Doc Kovaly (U.S. TAXPAYE); LaVeta Davenport (G); Zebulon Featherly (IND),,-21.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-02,house,MI,MI-02,,,no,,Benjamin Ambrose,D,John Moolenaar,R,,,-30.09,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-03,house,MI,MI-03,,D,yes,2022,Hillary Scholten,D,Terri DeBoer,R,Joe Jock (IND),,8.13,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-04,house,MI,MI-04,,R,yes,2010,Sean McCann,D,Bill Huizenga,R,Shafina Che Barnett (G),,-5.23,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-05,house,MI,MI-05,,R,yes,2006,Christian Vukasovich,D,Tim Walberg,R,Ronald Muszynski (L); Sharon Reiner (U.S. TAXPAYE); Jim Bronke (G),,-26.71,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-06,house,MI,MI-06,,D,yes,2014,Debbie Dingell,D,Heather Smiley,R,Linda Rayburn (WORKING CLAS); Timothy Teagan (L); Clyde Shabazz (G); Mike Mickevicius (U.S. TAXPAYE),,24.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-07,house,MI,MI-07,,R,yes,2024,William Lawrence,D,Tom Barrett,R,Shane Dedrick (G),,-0.85,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-08,house,MI,MI-08,,D,yes,2024,Kristen McDonald Rivet,D,Thomas Smith,R,Kathy Goodwin (WORKING CLAS); C. Mia Pettus (L); Jim Casha (G),,-1.0,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-09,house,MI,MI-09,,R,yes,2020,Ray Pooley,D,Lisa McClain,R,Jim Walkowicz (WORKING CLAS); Kevin Vayko (L); John Vlahos (U.S. TAXPAYE); Destiny Clayton (G),,-32.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-10,house,MI,MI-10,,,no,,Christina Hines,D,Michael Bouchard,R,Andrea Kirby (WORKING CLAS); Mike Saliba (L); Kwabena Nkromo (G),,-5.27,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-11,house,MI,MI-11,,,no,,Jeremy Moss,D,Ethan Baker,R,Anil Kumar (IND); Farid Ishac (L); Ryan Teasdale (G),,17.33,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-12,house,MI,MI-12,,D,yes,2018,Rashida Tlaib,D,James Hooper,R,Gary Walkowicz (WORKING CLAS); Brenda K. Sanders (G); Marc Sosnowski (U.S. TAXPAYE),,42.19,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
+house:MI-13,house,MI,MI-13,,,no,,Donavan McKinney,D,T.P. Nykoriak,R,Simone Coleman (WORKING CLAS); Chris Dardzinski (U.S. TAXPAYE); Raelyn Light (G),,44.02,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Michigan@1384517308
 house:MN-01,house,MN,MN-01,,R,yes,2022,Jake Johnson,D,Brad Finstad,R,,,-11.54,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Minnesota@1384424453
 house:MN-02,house,MN,MN-02,,,no,,Matt Little,D,Joe Teirab,R,,,6.29,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Minnesota@1384424453
 house:MN-03,house,MN,MN-03,,,no,,Kelly Morrison,D,Tyler Bass,R,,,21.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Minnesota@1384424453
@@ -247,9 +247,9 @@ house:NC-12,house,NC,NC-12,,D,yes,2014,Alma Adams,D,Jack Codiga,R,,,48.02,,,2024
 house:NC-13,house,NC,NC-13,,R,yes,2024,Paul Barringer,D,Brad Knott,R,Steven Swinton (L),,-16.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in North Carolina@1384414519
 house:NC-14,house,NC,NC-14,,R,yes,2024,LaKesha Womack,D,Tim Moore,R,,,-15.51,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in North Carolina@1384414519
 house:ND-AL,house,ND,ND-AL,,R,yes,2024,Trygve Hammer,D,Julie Fedorchak,R,Charles Tuttle (IND); Helene Neville (IND),,-36.66,,,2024+2020,,wikipedia:2026 United States House of Representatives election in North Dakota@1384064818
-house:NE-01,house,NE,NE-01,,R,yes,2022,Chris Backemeyer,D,Mike Flood,R,Nik Sandman (L); Daniel Hartong (AMERICA FIRS),,-12.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nebraska@1384436252
-house:NE-02,house,NE,NE-02,,,no,,Denise Powell,D,Brinker Harding,R,Eric Foreman (L),,5.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nebraska@1384436252
-house:NE-03,house,NE,NE-03,,,no,,Becky Stille,D,Adrian Smith,R,David Else (LEGAL MARIJU); Macey Budke (WORKING PEOP); Mark Cohen (IND),,-54.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nebraska@1384436252
+house:NE-01,house,NE,NE-01,,R,yes,2022,Chris Backemeyer,D,Mike Flood,R,Nik Sandman (L); Daniel Hartong (AMERICA FIRS),,-12.76,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nebraska@1384517747
+house:NE-02,house,NE,NE-02,,,no,,Denise Powell,D,Brinker Harding,R,Eric Foreman (L),,5.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nebraska@1384517747
+house:NE-03,house,NE,NE-03,,,no,,Becky Stille,D,Adrian Smith,R,David Else (LEGAL MARIJU); Macey Budke (WORKING PEOP); Mark Cohen (IND),,-54.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nebraska@1384517747
 house:NH-01,house,NH,NH-01,Chris Pappas,D,no,,Stefany Shaheen,D,Anthony DiLorenzo,R,,,3.01,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New Hampshire@1384436062
 house:NH-02,house,NH,NH-02,Maggie Goodlander,D,yes,2024,Maggie Goodlander,D,Lily Tang Williams,R,,,4.96,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New Hampshire@1384436062
 house:NJ-01,house,NJ,NJ-01,Donald Norcross,D,yes,2014,Donald Norcross,D,Damon Galdo,R,,,20.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New Jersey@1384217612
@@ -267,36 +267,36 @@ house:NJ-12,house,NJ,NJ-12,Bonnie Watson Coleman,D,no,,Adam Hamawy,D,Gregg Mele,
 house:NM-01,house,NM,NM-01,Melanie Stansbury,D,yes,2021,Melanie Stansbury,D,Didi Okapareke,R,,,13.44,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New Mexico@1384436129
 house:NM-02,house,NM,NM-02,Gabe Vasquez,D,yes,2022,Gabe Vasquez,D,Greg Cunningham,R,,,0.11,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New Mexico@1384436129
 house:NM-03,house,NM,NM-03,Teresa Leger Fernández,D,yes,2020,Teresa Leger Fernández,D,Martin Zamora,R,,,6.72,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New Mexico@1384436129
-house:NV-01,house,NV,NV-01,,D,yes,2008,Dina Titus,D,Carrie Buck,R,,,3.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384477033
-house:NV-02,house,NV,NV-02,,,no,,Teresa Benitez-Thompson,D,David Flippo,R,Lynn Chapman (IND),,-13.55,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384477033
-house:NV-03,house,NV,NV-03,,D,yes,2018,Susie Lee,D,Martin O'Donnell,R,,,1.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384477033
-house:NV-04,house,NV,NV-04,,D,yes,2012,Steven Horsford,D,Cody Whipple,R,,,3.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384477033
-house:NY-01,house,NY,NY-01,,,no,,Chris Gallant,D,Nick LaLota,R,,,-8.1,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-02,house,NY,NY-02,,,no,,Patrick Halpin,D,Andrew Garbarino,R,,,-11.19,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-03,house,NY,NY-03,,D,yes,2016,Tom Suozzi,D,Mike LiPetri,R,,,-0.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-04,house,NY,NY-04,,D,yes,2024,Laura Gillen,D,Jeanine Driscoll,R,Blay Tarnoff (L),,4.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-05,house,NY,NY-05,,D,yes,1998,Gregory Meeks,D,George Marsh,R,,,47.77,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-06,house,NY,NY-06,,D,yes,2012,Grace Meng,D,Joseph Chou,R,,,12.29,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-07,house,NY,NY-07,,,no,,Claire Valdez,D,Melvin Rivera,R,Priscilla Ghaznavi (OUR FUTURE),,50.66,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-08,house,NY,NY-08,,D,yes,2012,Hakeem Jeffries,D,Lewis Mizrahi,R,,,47.49,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-09,house,NY,NY-09,,D,yes,2006,Yvette Clarke,D,Joel Anabilah-Azumah,R,,,44.21,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-10,house,NY,NY-10,,,no,,Brad Lander,D,Jennifer Moore,R,,,64.28,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-11,house,NY,NY-11,,,no,,Michael DeCillis,D,Nicole Malliotakis,R,,,-20.56,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-12,house,NY,NY-12,,,no,,Micah Lasher,D,Caroline Shinkle,R,Wilneida Negron (FOR ALL OF U); Karen Ortiz (KAREN ORTIZ),,66.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-13,house,NY,NY-13,,,no,,Darializa Avila Chevalier,D,Jomo Williams,R,,,64.61,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-14,house,NY,NY-14,,,no,,Alexandria Ocasio-Cortez,D,Diamant Hysenaj,R,,,38.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-15,house,NY,NY-15,,D,yes,2020,Ritchie Torres,D,Stylo Sapaskis,R,Gonzalo Duran (CONSERVATIVE); Andre Easton (SOCIALISM AN); Jose Vega (SPEAK THE TR),,54.34,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-16,house,NY,NY-16,,D,yes,2024,George Latimer,D,Joseph Cinquemani,R,,,36.23,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-17,house,NY,NY-17,,,no,,Cait Conley,D,Mike Lawler,R,,,2.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-18,house,NY,NY-18,,,no,,Pat Ryan,D,Jacqueline Auringer,R,,,4.81,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-19,house,NY,NY-19,,,no,,Josh Riley,D,Peter Oberacker,R,,,2.48,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-20,house,NY,NY-20,,,no,,Paul Tonko,D,Ralph Ambrosio,R,,,15.62,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-21,house,NY,NY-21,,,no,,Blake Gendebien,D,Anthony Constantino,R,,,-19.57,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-22,house,NY,NY-22,,,no,,John Mannion,D,Kailee Buller,R,,,8.66,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-23,house,NY,NY-23,,,no,,Aaron Gies,D,Nick Langworthy,R,,,-20.54,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-24,house,NY,NY-24,,,no,,Alissa Ellman,D,Claudia Tenney,R,,,-22.62,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-25,house,NY,NY-25,,,no,,Joseph Morelle,D,Virginia McIntyre,R,,,19.25,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
-house:NY-26,house,NY,NY-26,,D,yes,2024,Tim Kennedy,D,Dennis Hannon,R,,,21.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384236366
+house:NV-01,house,NV,NV-01,,D,yes,2008,Dina Titus,D,Carrie Buck,R,,,3.89,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384517236
+house:NV-02,house,NV,NV-02,,,no,,Teresa Benitez-Thompson,D,David Flippo,R,Lynn Chapman (IND),,-13.55,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384517236
+house:NV-03,house,NV,NV-03,,D,yes,2018,Susie Lee,D,Martin O'Donnell,R,,,1.12,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384517236
+house:NV-04,house,NV,NV-04,,D,yes,2012,Steven Horsford,D,Cody Whipple,R,,,3.87,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Nevada@1384517236
+house:NY-01,house,NY,NY-01,,,no,,Chris Gallant,D,Nick LaLota,R,,,-8.1,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-02,house,NY,NY-02,,,no,,Patrick Halpin,D,Andrew Garbarino,R,,,-11.19,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-03,house,NY,NY-03,,D,yes,2016,Tom Suozzi,D,Mike LiPetri,R,,,-0.41,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-04,house,NY,NY-04,,D,yes,2024,Laura Gillen,D,Jeanine Driscoll,R,Blay Tarnoff (L),,4.63,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-05,house,NY,NY-05,,D,yes,1998,Gregory Meeks,D,George Marsh,R,,,47.77,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-06,house,NY,NY-06,,D,yes,2012,Grace Meng,D,Joseph Chou,R,,,12.29,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-07,house,NY,NY-07,,,no,,Claire Valdez,D,Melvin Rivera,R,Priscilla Ghaznavi (OUR FUTURE),,50.66,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-08,house,NY,NY-08,,D,yes,2012,Hakeem Jeffries,D,Lewis Mizrahi,R,,,47.49,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-09,house,NY,NY-09,,D,yes,2006,Yvette Clarke,D,Joel Anabilah-Azumah,R,,,44.21,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-10,house,NY,NY-10,,,no,,Brad Lander,D,Jennifer Moore,R,,,64.28,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-11,house,NY,NY-11,,,no,,Michael DeCillis,D,Nicole Malliotakis,R,,,-20.56,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-12,house,NY,NY-12,,,no,,Micah Lasher,D,Caroline Shinkle,R,Wilneida Negron (FOR ALL OF U); Karen Ortiz (KAREN ORTIZ),,66.69,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-13,house,NY,NY-13,,,no,,Darializa Avila Chevalier,D,Jomo Williams,R,,,64.61,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-14,house,NY,NY-14,,,no,,Alexandria Ocasio-Cortez,D,Diamant Hysenaj,R,,,38.17,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-15,house,NY,NY-15,,D,yes,2020,Ritchie Torres,D,Stylo Sapaskis,R,Gonzalo Duran (CONSERVATIVE); Andre Easton (SOCIALISM AN); Jose Vega (SPEAK THE TR),,54.34,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-16,house,NY,NY-16,,D,yes,2024,George Latimer,D,Joseph Cinquemani,R,,,36.23,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-17,house,NY,NY-17,,,no,,Cait Conley,D,Mike Lawler,R,,,2.95,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-18,house,NY,NY-18,,,no,,Pat Ryan,D,Jacqueline Auringer,R,,,4.81,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-19,house,NY,NY-19,,,no,,Josh Riley,D,Peter Oberacker,R,,,2.48,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-20,house,NY,NY-20,,,no,,Paul Tonko,D,Ralph Ambrosio,R,,,15.62,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-21,house,NY,NY-21,,,no,,Blake Gendebien,D,Anthony Constantino,R,,,-19.57,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-22,house,NY,NY-22,,,no,,John Mannion,D,Kailee Buller,R,,,8.66,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-23,house,NY,NY-23,,,no,,Aaron Gies,D,Nick Langworthy,R,,,-20.54,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-24,house,NY,NY-24,,,no,,Alissa Ellman,D,Claudia Tenney,R,,,-22.62,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-25,house,NY,NY-25,,,no,,Joseph Morelle,D,Virginia McIntyre,R,,,19.25,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
+house:NY-26,house,NY,NY-26,,D,yes,2024,Tim Kennedy,D,Dennis Hannon,R,,,21.06,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in New York@1384517552
 house:OH-01,house,OH,OH-01,,D,yes,2022,Greg Landsman,D,Eric Conroy,R,Nathan Weise (L),,-1.93,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384468078
 house:OH-02,house,OH,OH-02,,R,yes,2024,Jennifer Mazzuckelli,D,David Taylor,R,,,-41.92,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384468078
 house:OH-03,house,OH,OH-03,,D,yes,2012,Joyce Beatty,D,Cleophus Dulaney,R,,,41.59,,,2024+2020,,wikipedia:2026 United States House of Representatives elections in Ohio@1384468078
