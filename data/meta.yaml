@@ -1,8 +1,8 @@
-generated: '2026-11-08T15:10:04Z'
+generated: '2026-11-08T16:10:01Z'
 generator: python3 -m midterms build
 asof: '2026-11-08'
 election_day: '2026-11-03'
-sources_digest: d2f7f953cdb3ed03
+sources_digest: 79c18b1be994766c
 counts:
   house_races: 435
   senate_races: 35
@@ -28,7 +28,7 @@ sources:
   wikipedia_revisions:
     2026 Alabama gubernatorial election: 1383987036
     2026 Alaska gubernatorial election: 1384109517
-    2026 Arizona gubernatorial election: 1384448402
+    2026 Arizona gubernatorial election: 1384504745
     2026 Arkansas gubernatorial election: 1383978957
     2026 California gubernatorial election: 1384498386
     2026 Colorado gubernatorial election: 1384404263
@@ -37,10 +37,10 @@ sources:
     2026 Georgia gubernatorial election: 1384415038
     2026 Hawaii gubernatorial election: 1384180846
     2026 Idaho gubernatorial election: 1384290153
-    2026 Illinois gubernatorial election: 1384423712
-    2026 Iowa gubernatorial election: 1384484212
+    2026 Illinois gubernatorial election: 1384506183
+    2026 Iowa gubernatorial election: 1384505597
     2026 Kansas gubernatorial election: 1384406925
-    2026 Maine gubernatorial election: 1384458872
+    2026 Maine gubernatorial election: 1384506874
     2026 Maryland gubernatorial election: 1384411493
     2026 Massachusetts gubernatorial election: 1384208225
     2026 Michigan gubernatorial election: 1384365156
@@ -50,7 +50,7 @@ sources:
     2026 New Hampshire gubernatorial election: 1384374011
     2026 New Mexico gubernatorial election: 1384215433
     2026 New York gubernatorial election: 1384485927
-    2026 Ohio gubernatorial election: 1384386901
+    2026 Ohio gubernatorial election: 1384505296
     2026 Oklahoma gubernatorial election: 1384069572
     2026 Oregon gubernatorial election: 1384238930
     2026 Pennsylvania gubernatorial election: 1384169057
@@ -67,11 +67,11 @@ sources:
     2026 United States House of Representatives election in Wyoming: 1384238503
     2026 United States House of Representatives elections: 1384473830
     2026 United States House of Representatives elections in Alabama: 1384475696
-    2026 United States House of Representatives elections in Arizona: 1384340643
+    2026 United States House of Representatives elections in Arizona: 1384504511
     2026 United States House of Representatives elections in Arkansas: 1384476327
     2026 United States House of Representatives elections in California (districts 1–26): 1384377114
     2026 United States House of Representatives elections in California (districts 27–52): 1383950226
-    2026 United States House of Representatives elections in Colorado: 1384418365
+    2026 United States House of Representatives elections in Colorado: 1384508298
     2026 United States House of Representatives elections in Connecticut: 1384435726
     2026 United States House of Representatives elections in Florida: 1384447963
     2026 United States House of Representatives elections in Georgia: 1384179081
@@ -86,7 +86,7 @@ sources:
     2026 United States House of Representatives elections in Maine: 1384435002
     2026 United States House of Representatives elections in Maryland: 1384156310
     2026 United States House of Representatives elections in Massachusetts: 1384436186
-    2026 United States House of Representatives elections in Michigan: 1384459622
+    2026 United States House of Representatives elections in Michigan: 1384505725
     2026 United States House of Representatives elections in Minnesota: 1384424453
     2026 United States House of Representatives elections in Mississippi: 1384298086
     2026 United States House of Representatives elections in Missouri: 1384444861
@@ -113,7 +113,7 @@ sources:
     2026 United States House of Representatives elections in Wisconsin: 1384478969
     2026 United States Senate election in Alabama: 1384117875
     2026 United States Senate election in Alaska: 1384379120
-    2026 United States Senate election in Arkansas: 1384499137
+    2026 United States Senate election in Arkansas: 1384500083
     2026 United States Senate election in Colorado: 1384499419
     2026 United States Senate election in Delaware: 1383939366
     2026 United States Senate election in Georgia: 1384496746
@@ -122,18 +122,18 @@ sources:
     2026 United States Senate election in Iowa: 1384499893
     2026 United States Senate election in Kansas: 1384499663
     2026 United States Senate election in Kentucky: 1384296318
-    2026 United States Senate election in Louisiana: 1384210886
+    2026 United States Senate election in Louisiana: 1384500219
     2026 United States Senate election in Maine: 1384492984
     2026 United States Senate election in Massachusetts: 1384134996
     2026 United States Senate election in Michigan: 1384485656
     2026 United States Senate election in Minnesota: 1384499831
-    2026 United States Senate election in Mississippi: 1384481481
+    2026 United States Senate election in Mississippi: 1384509089
     2026 United States Senate election in Montana: 1384214661
     2026 United States Senate election in Nebraska: 1384499235
     2026 United States Senate election in New Hampshire: 1383835290
     2026 United States Senate election in New Jersey: 1384176142
     2026 United States Senate election in New Mexico: 1384499543
-    2026 United States Senate election in North Carolina: 1384293547
+    2026 United States Senate election in North Carolina: 1384503425
     2026 United States Senate election in Oklahoma: 1384366006
     2026 United States Senate election in Oregon: 1384498692
     2026 United States Senate election in Rhode Island: 1383921650
