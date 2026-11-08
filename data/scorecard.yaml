@@ -786,7 +786,7 @@ races:
   label: Texas
   winner: D
   winner_name: James Talarico
-  margin: 12.33
+  margin: 12.34
   p_winner: 0.7396
   p_d_side:
     lite: 0.7565
@@ -1181,7 +1181,7 @@ others:
         calls: 4/4
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-08T03:10:01Z'
+  asof: '2026-11-08T04:10:01Z'
   called: 466
   scoreboard:
     lite:
