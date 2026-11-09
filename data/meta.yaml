@@ -1,8 +1,8 @@
-generated: '2026-11-09T07:10:00Z'
+generated: '2026-11-09T08:10:03Z'
 generator: python3 -m midterms build
 asof: '2026-11-09'
 election_day: '2026-11-03'
-sources_digest: 4d1fc3c63f7f8990
+sources_digest: fd83f46187d0fcb2
 counts:
   house_races: 435
   senate_races: 35
@@ -58,7 +58,7 @@ sources:
     2026 South Carolina gubernatorial election: 1384615333
     2026 South Dakota gubernatorial election: 1384028064
     2026 Tennessee gubernatorial election: 1384451515
-    2026 Texas gubernatorial election: 1384498829
+    2026 Texas gubernatorial election: 1384639716
     2026 United States House of Representatives election in Alaska: 1384369652
     2026 United States House of Representatives election in Delaware: 1384136970
     2026 United States House of Representatives election in North Dakota: 1384064818
@@ -126,8 +126,8 @@ sources:
     2026 United States Senate election in Maine: 1384600796
     2026 United States Senate election in Massachusetts: 1384537936
     2026 United States Senate election in Michigan: 1384547138
-    2026 United States Senate election in Minnesota: 1384538887
-    2026 United States Senate election in Mississippi: 1384624029
+    2026 United States Senate election in Minnesota: 1384640189
+    2026 United States Senate election in Mississippi: 1384640277
     2026 United States Senate election in Montana: 1384542296
     2026 United States Senate election in Nebraska: 1384542737
     2026 United States Senate election in New Hampshire: 1384543223
@@ -144,7 +144,7 @@ sources:
     2026 United States Senate election in Virginia: 1384547545
     2026 United States Senate election in West Virginia: 1384569048
     2026 United States Senate election in Wyoming: 1384547647
-    2026 United States Senate elections: 1384633591
+    2026 United States Senate elections: 1384638866
     2026 United States Senate special election in Florida: 1384616322
     2026 United States Senate special election in Ohio: 1384607444
     2026 United States gubernatorial elections: 1384588668
