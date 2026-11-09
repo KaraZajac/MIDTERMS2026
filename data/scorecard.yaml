@@ -798,7 +798,7 @@ races:
   label: South Carolina
   winner: D
   winner_name: Annie Andrews
-  margin: 4.57
+  margin: 4.6
   p_winner: 0.2611
   p_d_side:
     lite: 0.3897
@@ -1205,7 +1205,7 @@ others:
         calls: 4/4
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-09T09:10:01Z'
+  asof: '2026-11-09T10:10:01Z'
   called: 466
   scoreboard:
     lite:
