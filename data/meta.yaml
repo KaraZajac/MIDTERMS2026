@@ -1,8 +1,8 @@
-generated: '2026-11-09T13:10:01Z'
+generated: '2026-11-09T14:10:00Z'
 generator: python3 -m midterms build
 asof: '2026-11-09'
 election_day: '2026-11-03'
-sources_digest: 24b7949b96e44660
+sources_digest: 1c04988be142638b
 counts:
   house_races: 435
   senate_races: 35
@@ -38,7 +38,7 @@ sources:
     2026 Hawaii gubernatorial election: 1384180846
     2026 Idaho gubernatorial election: 1384290153
     2026 Illinois gubernatorial election: 1384597052
-    2026 Iowa gubernatorial election: 1384659042
+    2026 Iowa gubernatorial election: 1384669617
     2026 Kansas gubernatorial election: 1384662679
     2026 Maine gubernatorial election: 1384563871
     2026 Maryland gubernatorial election: 1384572134
@@ -123,11 +123,11 @@ sources:
     2026 United States Senate election in Kansas: 1384617660
     2026 United States Senate election in Kentucky: 1384538451
     2026 United States Senate election in Louisiana: 1384537126
-    2026 United States Senate election in Maine: 1384661678
+    2026 United States Senate election in Maine: 1384672340
     2026 United States Senate election in Massachusetts: 1384645064
     2026 United States Senate election in Michigan: 1384660930
     2026 United States Senate election in Minnesota: 1384640189
-    2026 United States Senate election in Mississippi: 1384660396
+    2026 United States Senate election in Mississippi: 1384672916
     2026 United States Senate election in Montana: 1384542296
     2026 United States Senate election in Nebraska: 1384542737
     2026 United States Senate election in New Hampshire: 1384645429
