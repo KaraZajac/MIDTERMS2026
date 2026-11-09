@@ -1,17 +1,17 @@
 id,chamber,state,label,incumbent,inc_party,inc_running,first_elected,d_cand,d_side,r_cand,r_side,others,fixed,lean,pres24_margin,pres20_margin,lean_basis,notes,source
 senate:AL,senate,AL,Alabama,,,no,,Everett Wess,D,Barry Moore,R,,,-29.63,-30.88,-25.82,state,,wikipedia:2026 United States Senate election in Alabama@1384533218
-senate:AK,senate,AK,Alaska,,R,yes,,Mary Peltola,D,Dan S. Sullivan,R,Dan J. Sullivan (NO PARTY LIS); Gerald L. Heikes (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 United States Senate election in Alaska@1384585664
+senate:AK,senate,AK,Alaska,,R,yes,,Mary Peltola,D,Dan S. Sullivan,R,Dan J. Sullivan (NO PARTY LIS); Gerald L. Heikes (R),,-12.91,-13.69,-10.52,state,,wikipedia:2026 United States Senate election in Alaska@1384600819
 senate:AR,senate,AR,Arkansas,,R,yes,,Hallie Shoffner,D,Tom Cotton,R,Jeff Wadlin (L),,-30.62,-31.34,-28.42,state,,wikipedia:2026 United States Senate election in Arkansas@1384533874
 senate:CO,senate,CO,Colorado,,D,yes,,John Hickenlooper,D,Mark Baisley,R,Bob Chew (FWD); Blake Huber (L); Adam Withrow (UNITY); Christopher Baum (APPROVAL VOT),,11.93,11.29,13.88,state,,wikipedia:2026 United States Senate election in Colorado@1384534004
 senate:DE,senate,DE,Delaware,,D,yes,,Chris Coons,D,Michael Katz,R,,,16.02,14.96,19.25,state,,wikipedia:2026 United States Senate election in Delaware@1384534038
-senate:GA,senate,GA,Georgia,,D,yes,,Jon Ossoff,D,Mike Collins,R,,,-1.61,-2.21,0.24,state,,wikipedia:2026 United States Senate election in Georgia@1384570918
+senate:GA,senate,GA,Georgia,,D,yes,,Jon Ossoff,D,Mike Collins,R,,,-1.61,-2.21,0.24,state,,wikipedia:2026 United States Senate election in Georgia@1384605891
 senate:ID,senate,ID,Idaho,,R,yes,,Todd Achilles,IND,Jim Risch,R,Natalie Fleming (IND); Matt Loesby (L),,-36.09,-37.52,-31.75,state,D-side is Todd Achilles (IND),wikipedia:2026 United States Senate election in Idaho@1384535718
 senate:IL,senate,IL,Illinois,,,no,,Juliana Stratton,D,Don Tracy,R,Whitfield Harrington Jr. (AMERICAN CEN),,12.67,11.14,17.32,state,,wikipedia:2026 United States Senate election in Illinois@1384535858
 senate:IA,senate,IA,Iowa,,,no,,Josh Turek,D,Ashley Hinson,R,Thomas Laehn (L),,-12.19,-13.45,-8.37,state,,wikipedia:2026 United States Senate election in Iowa@1384547258
 senate:KS,senate,KS,Kansas,,R,yes,,Adam Hamilton,D,Roger Marshall,R,David Graham (L),,-16.07,-16.41,-14.99,state,,wikipedia:2026 United States Senate election in Kansas@1384547205
 senate:KY,senate,KY,Kentucky,,,no,,Charles Booker,D,Andy Barr,R,Christopher Campbell (KENTUCKY),,-29.88,-31.03,-26.4,state,,wikipedia:2026 United States Senate election in Kentucky@1384538451
 senate:LA,senate,LA,Louisiana,,,no,,Jamie Davis,D,Julia Letlow,R,,,-21.51,-22.36,-18.93,state,,wikipedia:2026 United States Senate election in Louisiana@1384537126
-senate:ME,senate,ME,Maine,,R,yes,,Troy Jackson,D,Susan Collins,R,,,7.64,7.09,9.34,state,,wikipedia:2026 United States Senate election in Maine@1384600259
+senate:ME,senate,ME,Maine,,R,yes,,Troy Jackson,D,Susan Collins,R,,,7.64,7.09,9.34,state,,wikipedia:2026 United States Senate election in Maine@1384600796
 senate:MA,senate,MA,Massachusetts,,D,yes,,Ed Markey,D,John Deaton,R,Joe Tache (SOCIALISM AN); Shiva Ayyadurai (IND),,27.98,25.91,34.23,state,,wikipedia:2026 United States Senate election in Massachusetts@1384537936
 senate:MI,senate,MI,Michigan,,,no,,Abdul El-Sayed,D,Mike Rogers,R,Lydia Christensen (L); Tim Long (U.S. TAXPAYE); Douglas P. Marsh (G); Walter P. Kristy (NATURAL LAW),,-0.39,-1.44,2.79,state,,wikipedia:2026 United States Senate election in Michigan@1384547138
 senate:MN,senate,MN,Minnesota,,,no,,Peggy Flanagan,D,Michele Tafoya,R,Marisa Simonetti (IND); Rebecca Whiting (L),,5.07,4.34,7.28,state,,wikipedia:2026 United States Senate election in Minnesota@1384538887
@@ -32,5 +32,5 @@ senate:TX,senate,TX,Texas,,,no,,James Talarico,D,Ken Paxton,R,Ted Brown (L),,-11
 senate:VA,senate,VA,Virginia,,D,yes,,Mark Warner,D,Bert Mizusawa,R,,,7.1,5.9,10.73,state,,wikipedia:2026 United States Senate election in Virginia@1384547545
 senate:WV,senate,WV,West Virginia,,R,yes,,Rachel Fetty Anderson,D,Shelley Moore Capito,R,S. Marshall Wilson (C),,-41.92,-42.69,-39.6,state,,wikipedia:2026 United States Senate election in West Virginia@1384569048
 senate:WY,senate,WY,Wyoming,,,no,,James Byrd,D,Harriet Hageman,R,,,-46.47,-46.96,-44.96,state,,wikipedia:2026 United States Senate election in Wyoming@1384547647
-senate:OH-special,senate,OH,Ohio (special),,,no,,Sherrod Brown,D,Jon Husted,R,,,-10.53,-11.31,-8.15,state,,wikipedia:2026 United States Senate special election in Ohio@1384578158
+senate:OH-special,senate,OH,Ohio (special),,,no,,Sherrod Brown,D,Jon Husted,R,,,-10.53,-11.31,-8.15,state,,wikipedia:2026 United States Senate special election in Ohio@1384607444
 senate:FL-special,senate,FL,Florida (special),,R,yes,,Angie Nixon,D,Ashley Moody,R,Neil J. Gillespie (IND),,-10.77,-13.22,-3.39,state,,wikipedia:2026 United States Senate special election in Florida@1384534260
