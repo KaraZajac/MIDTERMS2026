@@ -690,7 +690,7 @@ races:
   label: Iowa
   winner: D
   winner_name: Josh Turek
-  margin: 4.24
+  margin: 4.32
   p_winner: 0.5175
   p_d_side:
     lite: 0.5815
@@ -702,7 +702,7 @@ races:
   label: Idaho
   winner: R
   winner_name: Jim Risch
-  margin: -23.24
+  margin: -25.53
   p_winner: 0.9975
   p_d_side:
     lite: 0.2163
@@ -714,7 +714,7 @@ races:
   label: Kansas
   winner: D
   winner_name: Adam Hamilton
-  margin: 5.16
+  margin: 5.21
   p_winner: 0.666
   p_d_side:
     lite: 0.7619
@@ -786,7 +786,7 @@ races:
   label: New Mexico
   winner: D
   winner_name: "Ben Ray Luj\xE1n"
-  margin: 26.47
+  margin: 26.52
   p_winner: 0.9988
   p_d_side:
     lite: 0.9912
@@ -1205,7 +1205,7 @@ others:
         calls: 4/4
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-09T04:05:01Z'
+  asof: '2026-11-09T05:10:01Z'
   called: 466
   scoreboard:
     lite:
