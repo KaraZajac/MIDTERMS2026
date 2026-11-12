@@ -198,7 +198,7 @@ races:
   label: Vermont
   winner: R
   winner_name: Phil Scott
-  margin: -6.73
+  margin: -6.72
   p_winner: 0.5602
   p_d_side:
     lite: 0.5143
@@ -1098,7 +1098,7 @@ races:
   label: Mississippi
   winner: D
   winner_name: Scott Colom
-  margin: 0.5
+  margin: 0.6
   p_winner: 0.0377
   p_d_side:
     lite: 0.2692
@@ -1565,39 +1565,39 @@ others:
         calls: 5/5
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-11T19:42:14Z'
-  called: 476
+  asof: '2026-11-12T07:20:04Z'
+  called: 477
   scoreboard:
     lite:
-      n: 476
-      brier: 0.0466
-      log_loss: 0.1554
-      calls: 446/476
+      n: 477
+      brier: 0.0465
+      log_loss: 0.1555
+      calls: 447/477
     classic:
-      n: 476
-      brier: 0.0395
-      log_loss: 0.1311
-      calls: 451/476
+      n: 477
+      brier: 0.0394
+      log_loss: 0.1309
+      calls: 452/477
     deluxe:
-      n: 476
-      brier: 0.0413
-      log_loss: 0.1514
-      calls: 451/476
+      n: 477
+      brier: 0.0412
+      log_loss: 0.1511
+      calls: 452/477
     ratings:
-      n: 476
-      brier: 0.0504
-      log_loss: 0.1983
-      calls: 444/476
+      n: 477
+      brier: 0.0503
+      log_loss: 0.1979
+      calls: 445/477
     lean-only:
-      n: 476
-      brier: 0.0552
-      log_loss: 0.1838
-      calls: 439/476
+      n: 477
+      brier: 0.0551
+      log_loss: 0.1836
+      calls: 440/477
     coin-flip:
-      n: 476
+      n: 477
       brier: 0.25
       log_loss: 0.6931
-      calls: 192/476
+      calls: 193/477
   races:
   - - governor:AL
     - R
@@ -1815,6 +1815,9 @@ provisional:
   - - house:CA-22
     - D
     - 0.9105
+  - - house:CA-23
+    - R
+    - 0.9989
   - - house:CA-25
     - D
     - 0.9998
@@ -3037,18 +3040,18 @@ provisional:
     raters:
     - name: Cook
       source: The Cook Political Report
-      n: 476
+      n: 477
       theirs:
-        n: 476
-        brier: 0.0515
-        log_loss: 0.181
-        calls: 429/450
+        n: 477
+        brier: 0.0514
+        log_loss: 0.1806
+        calls: 430/451
         tossups: 26
       ours:
-        n: 476
-        brier: 0.0413
-        log_loss: 0.1514
-        calls: 451/476
+        n: 477
+        brier: 0.0412
+        log_loss: 0.1511
+        calls: 452/477
       competitive:
         n: 132
         theirs:
@@ -3064,18 +3067,18 @@ provisional:
           calls: 108/132
     - name: DDHQ
       source: Decision Desk HQ
-      n: 476
+      n: 477
       theirs:
-        n: 476
-        brier: 0.0525
-        log_loss: 0.1774
-        calls: 435/460
+        n: 477
+        brier: 0.0524
+        log_loss: 0.1771
+        calls: 436/461
         tossups: 16
       ours:
-        n: 476
-        brier: 0.0413
-        log_loss: 0.1514
-        calls: 451/476
+        n: 477
+        brier: 0.0412
+        log_loss: 0.1511
+        calls: 452/477
       competitive:
         n: 132
         theirs:
@@ -3091,18 +3094,18 @@ provisional:
           calls: 108/132
     - name: Inside Elections
       source: Inside Elections
-      n: 476
+      n: 477
       theirs:
-        n: 476
-        brier: 0.0564
-        log_loss: 0.2259
-        calls: 434/459
+        n: 477
+        brier: 0.0563
+        log_loss: 0.2254
+        calls: 435/460
         tossups: 17
       ours:
-        n: 476
-        brier: 0.0413
-        log_loss: 0.1514
-        calls: 451/476
+        n: 477
+        brier: 0.0412
+        log_loss: 0.1511
+        calls: 452/477
       competitive:
         n: 132
         theirs:
@@ -3118,18 +3121,18 @@ provisional:
           calls: 108/132
     - name: Sabato
       source: Sabato's Crystal Ball
-      n: 476
+      n: 477
       theirs:
-        n: 476
-        brier: 0.046
-        log_loss: 0.1783
-        calls: 450/476
+        n: 477
+        brier: 0.0459
+        log_loss: 0.1779
+        calls: 451/477
         tossups: 0
       ours:
-        n: 476
-        brier: 0.0413
-        log_loss: 0.1514
-        calls: 451/476
+        n: 477
+        brier: 0.0412
+        log_loss: 0.1511
+        calls: 452/477
       competitive:
         n: 132
         theirs:
@@ -3172,18 +3175,18 @@ provisional:
           calls: 56/67
     - name: The Economist
       source: The Economist
-      n: 149
+      n: 150
       theirs:
-        n: 149
-        brier: 0.0632
-        log_loss: 0.2125
-        calls: 133/142
+        n: 150
+        brier: 0.0627
+        log_loss: 0.2111
+        calls: 134/143
         tossups: 7
       ours:
-        n: 149
-        brier: 0.0363
-        log_loss: 0.1212
-        calls: 142/149
+        n: 150
+        brier: 0.036
+        log_loss: 0.1204
+        calls: 143/150
       competitive:
         n: 48
         theirs:
