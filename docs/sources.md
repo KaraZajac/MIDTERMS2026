@@ -17,8 +17,11 @@ HTML) and pinned by revision id.
 - `2026 United States House of Representatives elections in <State>`
   (at-large states: `…election in <State>`; California is split into
   `(districts 1–26)` and `(districts 27–52)`)
-- `Template:2026 United States elections/polling` — the generic-ballot
-  poll list (2024–2026)
+- `2026 United States elections polling` — the generic-ballot poll list
+  (2024–2026). Until Nov 13, 2026 it was
+  `Template:2026 United States elections/polling`. Wikipedia then merged
+  the template into this article and deleted it. The template's revisions
+  through Nov 4 now belong to the article.
 - `2026 United States House of Representatives elections` — first-elected
   years, generic-ballot averages
 

@@ -3,7 +3,7 @@
 Groups (select with --only):
 
   wiki       Wikipedia: 35 Senate + 36 governor race pages, every state's
-             House page, the generic-ballot polling template, the
+             House page, the generic-ballot poll list, the
              presidential-approval page, the three chamber overviews.
              CC BY-SA 4.0; each page pinned by revision id.
   votehub    VoteHub's public polls API — every poll in one JSON array.

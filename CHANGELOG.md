@@ -7,6 +7,28 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-15 — the generic-ballot polls moved on Wikipedia (no model change)
+- At 18:28Z on Nov 13, Wikipedia merged
+  `Template:2026 United States elections/polling` into the article
+  `2026 United States elections polling` and deleted the template, after a
+  Templates for discussion close.
+- The next five refreshes (Nov 13 19:46Z through Nov 15 06:39Z) stopped
+  at `midterms build`, so `midterms score` didn't run. The scorecard of
+  record stayed at 90 resolved races, and the site export at Nov 13
+  06:54Z. live.json still updated.
+- The build now reads the article. It has the same 736 polls, with the
+  same values in the same order. Each row's `source` now names the article
+  (revision 1384702311), and `table` is one lower, because the template's
+  last revision had one more table above the poll lists.
+- The forecast of record read the template at revision 1383518721. The
+  merge moved that revision to the article's history, so
+  `?oldid=1383518721` still works. Revision 1384068090 (Nov 6), which the
+  builds since then read, was deleted with the template.
+- If the page can't be read, or has no polls, the build now keeps the
+  committed `data/polls/generic.csv` (`build.generic_ledger`), as it does
+  the FEC filings and the VoteHub polls. A page that moves again won't stop
+  the scoring.
+
 ### 2026-11-05 — Maine's ranked-choice races (no model change)
 - The `rules` field in races.json was wrong for Maine. It marked the
   governor's race as ranked-choice and left out ME-01 and ME-02.

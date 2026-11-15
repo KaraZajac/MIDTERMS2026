@@ -68,7 +68,12 @@ def race_pages() -> list[tuple[str, str, str]]:
     return out
 
 
-GENERIC_BALLOT = "Template:2026 United States elections/polling"
+# The generic-ballot poll list. Until Nov 13, 2026 it was the template
+# "Template:2026 United States elections/polling". Wikipedia then merged the
+# template into this article and deleted it. The template's revisions through
+# Nov 4 now belong to this article, including 1383518721, the one the
+# forecast of record used.
+GENERIC_BALLOT = "2026 United States elections polling"
 APPROVAL = "Opinion polling on the second Trump presidency"
 OVERVIEW = {
     "house": "2026 United States House of Representatives elections",

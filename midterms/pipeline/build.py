@@ -117,6 +117,36 @@ def generic_polls() -> tuple[list[dict], dict]:
     return out, {"title": page["title"], "revid": page["revid"]}
 
 
+def generic_ledger() -> tuple[list[dict], dict]:
+    """The generic-ballot polls. Also {title: revid} of the pages they came
+    from, when they are not this run's download.
+
+    Wikipedia reorganizes its poll pages after an election. On Nov 13, 2026
+    it deleted the template this list came from, and every refresh stopped
+    here until the title was changed. So when the page can't be read, or
+    has no polls, the committed data/polls/generic.csv carries over, as the
+    FEC filings and the VoteHub polls do."""
+    path = POLLS / "generic.csv"
+    try:
+        rows = generic_polls()[0]
+    except SystemExit as e:
+        if not path.exists():
+            raise
+        why = str(e)
+    else:
+        if rows or not path.exists():
+            return rows, {}
+        why = f"wikipedia: {states.GENERIC_BALLOT!r}: no generic-ballot polls on the page"
+    with open(path, newline="") as f:
+        rows = list(csv.DictReader(f))
+    print(f"build: {why} — keeping the committed data/polls/generic.csv")
+    revs = {}
+    for r in rows:
+        title, _, rev = r["source"].removeprefix("wikipedia:").rpartition("@")
+        revs[title] = int(rev)
+    return rows, revs
+
+
 def generic_averages() -> list[dict]:
     tables = extract_tables(_page(states.OVERVIEW["house"])["html"])
     out = []
@@ -296,7 +326,7 @@ def main() -> None:
           f"({vh_info['already_on_wikipedia']} of {vh_info['candidates']} already there; "
           f"{vh_info['excluded_fabricated']} fabricated dropped; {vh_info['basis']})")
     poll_rows += vh_rows
-    gen_rows, gen_page = generic_polls()
+    gen_rows, gen_revs = generic_ledger()
     gen_rows, fake_gen = excluded.split(gen_rows)
     if fake_race or fake_gen:
         print(f"build: dropped {len(fake_race) + len(fake_gen)} fabricated polls from Wikipedia's tables")
@@ -328,6 +358,7 @@ def main() -> None:
     # revisions in data/backtest_*.yaml instead
     wiki_revs = {k.split(":", 1)[1]: v.get("revid") for k, v in files.items()
                  if k.startswith("wikipedia:") and "2026" in k}
+    wiki_revs.update(gen_revs)          # a carried-over generic ballot names its page
     other = {k: {"url": v["url"], "fetched": v["fetched"], "sha256": v["sha256"]}
              for k, v in files.items() if not k.startswith("wikipedia:") and k not in RAW_RATINGS}
     other.update(ratings_prov)          # the pinned copy, wherever this build ran
