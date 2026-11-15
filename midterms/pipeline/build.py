@@ -193,6 +193,22 @@ FIN_COLS = ["race", "side", "candidate", "fec_id", "fec_name", "receipts", "tota
             "cash_on_hand", "coverage_end"]
 
 
+def carry_filing(old: dict | None, race: str, side: str, name: str) -> dict:
+    """A side's finance row when this build has no FEC download: `old` is
+    its committed row. A filing is never dropped. After the election,
+    Wikipedia's pages respell nominees ('Carrie Buck' became 'Carrie Ann
+    Buck'), name the wrong candidate for days, or lose every name for a
+    while (Missouri's page, Nov 6-7, 2026). When a changed name dropped the
+    filing, 26 were lost by Nov 15. Now the row takes the new name only if
+    it is the filing's (the FEC matcher's surname test); otherwise the row
+    stays as committed, naming whose filing it is."""
+    if old and old["fec_id"]:
+        if name and finance._names_match(name, old["fec_name"]):
+            return {**old, "candidate": name}
+        return old
+    return {"race": race, "side": side, "candidate": name, **dict.fromkeys(FIN_COLS[3:], "")}
+
+
 def keep_provenance(files: dict, vh_info: dict, before: dict, fec_reused: bool) -> tuple[dict, dict]:
     """(files, vh_info) for meta.yaml when this build reused committed data
     instead of a download: after the deadline only Wikipedia is pulled, and
@@ -289,10 +305,10 @@ def main() -> None:
     if (SOURCES / "fec" / "webl26.zip").exists():
         fec_idx = finance.index(finance.load())
     else:
-        # the download failed this run (pull warns and goes on): keep the
-        # committed filings for every side whose candidate hasn't changed
+        # no download this run (after the deadline only Wikipedia is pulled;
+        # before it, a failed download): the committed filings stand
         with open(DATA / "finance.csv", newline="") as f:
-            carried = {(r["race"], r["side"], r["candidate"]): r for r in csv.DictReader(f)}
+            carried = {(r["race"], r["side"]): r for r in csv.DictReader(f)}
         print("build: no FEC download — keeping the committed data/finance.csv filings")
     fin_rows = []
     for r in house + statewide:
@@ -303,10 +319,7 @@ def main() -> None:
         dist = "00" if office == "S" or x["label"].endswith("-AL") else x["label"].split("-")[1]
         for side, name, party in (("D", x["d_cand"], x["d_side"]), ("R", x["r_cand"], x["r_side"])):
             if carried is not None:
-                old = carried.get((x["id"], side, name))
-                # a candidate whose name changed since (a Wikipedia edit) has no filing
-                fin_rows.append(old or {"race": x["id"], "side": side, "candidate": name,
-                                        **dict.fromkeys(FIN_COLS[3:], "")})
+                fin_rows.append(carry_filing(carried.get((x["id"], side)), x["id"], side, name))
                 continue
             hit = finance.match(fec_idx, office, x["state"], dist, name, party) if name else None
             fin_rows.append({"race": x["id"], "side": side, "candidate": name,

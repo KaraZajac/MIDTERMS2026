@@ -1,6 +1,7 @@
-"""The build's fallback when the generic-ballot page can't be read: the
-committed polls carry over (Wikipedia deleted the template they came from
-on Nov 13, 2026, and every refresh stopped at the build)."""
+"""The build's carry-overs: the generic-ballot polls when their page can't
+be read (Wikipedia deleted the template they came from on Nov 13, 2026, and
+every refresh stopped at the build), and the FEC filings, which no Wikipedia
+edit may drop."""
 
 import contextlib
 import io
@@ -59,6 +60,39 @@ class TestGenericLedger(unittest.TestCase):
     def test_nothing_committed_still_stops_the_build(self):
         with self.assertRaises(SystemExit):
             self.ledger(side_effect=SystemExit("wikipedia: gone"))
+
+
+def filing(race, side, candidate, fec_id="", fec_name="", receipts=""):
+    return {"race": race, "side": side, "candidate": candidate, "fec_id": fec_id, "fec_name": fec_name,
+            "receipts": receipts, "total_receipts": receipts, "cash_on_hand": "1", "coverage_end": "10/14/2026"}
+
+
+class TestCarryFiling(unittest.TestCase):
+    """What happened to 26 filings between Nov 4 and Nov 15, 2026."""
+
+    BUCK = filing("house:NV-01", "R", "Carrie Buck", "H6NV01331", "BUCK, CARRIE", "1789814")
+    PRATT = filing("house:MN-02", "R", "Eric Pratt", "H6MN02263", "PRATT, ERIC", "479952")
+    WAGNER = filing("house:MO-02", "R", "Ann Wagner", "H2MO02102", "WAGNER, ANN L.", "2354886")
+
+    def test_a_respelled_nominee_keeps_the_filing(self):
+        row = build.carry_filing(self.BUCK, "house:NV-01", "R", "Carrie Ann Buck")
+        self.assertEqual(row, {**self.BUCK, "candidate": "Carrie Ann Buck"})
+
+    def test_a_wrong_name_for_a_while_leaves_the_filing_with_its_nominee(self):
+        row = build.carry_filing(self.PRATT, "house:MN-02", "R", "Joe Teirab")
+        self.assertEqual(row, self.PRATT)
+        # and the page put right: still there
+        self.assertEqual(build.carry_filing(row, "house:MN-02", "R", "Eric Pratt"), self.PRATT)
+
+    def test_a_page_without_names_drops_nothing(self):
+        self.assertEqual(build.carry_filing(self.WAGNER, "house:MO-02", "R", ""), self.WAGNER)
+
+    def test_a_side_without_a_filing_takes_the_new_name(self):
+        none = filing("house:MO-01", "R", "Paul Berry")
+        self.assertEqual(build.carry_filing(none, "house:MO-01", "R", "Paul Berry III"),
+                         {**dict.fromkeys(build.FIN_COLS, ""), "race": "house:MO-01", "side": "R",
+                          "candidate": "Paul Berry III"})
+        self.assertEqual(build.carry_filing(None, "house:MO-01", "R", "Paul Berry III")["fec_id"], "")
 
 
 if __name__ == "__main__":

@@ -7,6 +7,24 @@ model and pipeline that produced it. Automated six-hourly refreshes
 
 ## Unreleased — final pre-election forecast
 
+### 2026-11-15 — FEC filings kept when Wikipedia renames a nominee (no model change)
+- After the deadline the build pulls only Wikipedia and carries the
+  committed FEC filings over. It kept a filing only while the nominee's
+  name stayed exactly the same, so Wikipedia's edits since Election Day
+  dropped 26 of the 871 filings:
+  - 7 when a name was respelled (NV-01, NV-02 and NV-04 on Nov 15; MI-08,
+    MI-10, MI-12, MN-05);
+  - 5 when a page named another candidate for a while (MN-02, MN-04,
+    MN-08, and the New Hampshire and Montana Senate races);
+  - 14 when Missouri's House page had no names for 15 hours (Nov 6–7).
+- A dropped filing never came back, even after the page was put right.
+- All 26 are restored from the sealed commit (0ab1b66), the forecast of
+  record's data, under today's spelling of each name. 871 of 906 sides
+  have a filing again, as at the seal.
+- The carry-over (`build.carry_filing`) now never drops a filing. A row
+  takes a new name only when the FEC matcher's surname test says it is the
+  filing's. Otherwise the row stays as committed, naming whose filing it is.
+
 ### 2026-11-15 — the generic-ballot polls moved on Wikipedia (no model change)
 - At 18:28Z on Nov 13, Wikipedia merged
   `Template:2026 United States elections/polling` into the article
