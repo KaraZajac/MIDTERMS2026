@@ -1,8 +1,8 @@
-generated: '2026-11-15T17:50:39Z'
+generated: '2026-11-15T18:06:22Z'
 generator: python3 -m midterms build
 asof: '2026-11-15'
 election_day: '2026-11-03'
-sources_digest: 19770c2868a939bf
+sources_digest: 7f774b69131b0c7b
 counts:
   house_races: 435
   senate_races: 35
@@ -110,7 +110,7 @@ sources:
     2026 United States House of Representatives elections in Virginia: 1385608588
     2026 United States House of Representatives elections in Washington: 1385715967
     2026 United States House of Representatives elections in West Virginia: 1385069509
-    2026 United States House of Representatives elections in Wisconsin: 1385642922
+    2026 United States House of Representatives elections in Wisconsin: 1385867629
     2026 United States Senate election in Alabama: 1385699377
     2026 United States Senate election in Alaska: 1385833207
     2026 United States Senate election in Arkansas: 1385858673
