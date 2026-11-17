@@ -150,7 +150,7 @@ races:
   label: Kansas
   winner: D
   winner_name: Cindy Holscher
-  margin: 0.85
+  margin: 1.03
   p_winner: 0.396
   p_d_side:
     lite: 0.4572
@@ -222,7 +222,7 @@ races:
   label: Ohio
   winner: D
   winner_name: Amy Acton
-  margin: 8.19
+  margin: 8.2
   p_winner: 0.8132
   p_d_side:
     lite: 0.8092
@@ -1218,7 +1218,7 @@ races:
   label: Kansas
   winner: D
   winner_name: Adam Hamilton
-  margin: 5.39
+  margin: 5.57
   p_winner: 0.666
   p_d_side:
     lite: 0.7619
@@ -1757,7 +1757,7 @@ others:
         calls: 5/5
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-16T06:40:17Z'
+  asof: '2026-11-16T22:13:05Z'
   called: 482
   scoreboard:
     lite:
