@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 115
+resolved: 116
 open:
 - governor:AL
 - governor:AR
@@ -64,38 +64,38 @@ open:
 - house:CA-25
 - house:CA-26
 - house:CA-27
-open_count: 374
+open_count: 373
 scoreboard:
   lite:
-    n: 115
-    brier: 0.0857
-    log_loss: 0.2561
-    calls: 97/115
+    n: 116
+    brier: 0.0851
+    log_loss: 0.2552
+    calls: 98/116
   classic:
-    n: 115
-    brier: 0.1029
-    log_loss: 0.3079
-    calls: 97/115
+    n: 116
+    brier: 0.102
+    log_loss: 0.3053
+    calls: 98/116
   deluxe:
-    n: 115
-    brier: 0.1146
-    log_loss: 0.4265
-    calls: 99/115
+    n: 116
+    brier: 0.1136
+    log_loss: 0.4228
+    calls: 100/116
   ratings:
-    n: 115
-    brier: 0.1347
-    log_loss: 0.5634
-    calls: 93/115
+    n: 116
+    brier: 0.1335
+    log_loss: 0.5585
+    calls: 94/116
   lean-only:
-    n: 115
-    brier: 0.1405
-    log_loss: 0.4462
-    calls: 88/115
+    n: 116
+    brier: 0.1393
+    log_loss: 0.4424
+    calls: 89/116
   coin-flip:
-    n: 115
+    n: 116
     brier: 0.25
     log_loss: 0.6931
-    calls: 41/115
+    calls: 42/116
 races:
 - id: governor:AK
   slug: governor/ak
@@ -210,7 +210,7 @@ races:
   label: Michigan
   winner: D
   winner_name: Jocelyn Benson
-  margin: 11.02
+  margin: 11.05
   p_winner: 0.9497
   p_d_side:
     lite: 0.9436
@@ -1237,6 +1237,18 @@ races:
     classic: 0.0055
     deluxe: 0.0008
   called_right: true
+- id: house:UT-04
+  slug: house/ut-04
+  label: UT-04
+  winner: R
+  winner_name: Mike Kennedy
+  margin: -14.96
+  p_winner: 0.9996
+  p_d_side:
+    lite: 0.1426
+    classic: 0.0012
+    deluxe: 0.0004
+  called_right: true
 - id: house:WY-AL
   slug: house/wy-al
   label: WY-AL
@@ -1350,7 +1362,7 @@ races:
   label: Michigan
   winner: D
   winner_name: Abdul El-Sayed
-  margin: 7.23
+  margin: 7.26
   p_winner: 0.8724
   p_d_side:
     lite: 0.8419
@@ -1487,18 +1499,18 @@ others:
   raters:
   - name: Cook
     source: The Cook Political Report
-    n: 115
+    n: 116
     theirs:
-      n: 115
-      brier: 0.1358
-      log_loss: 0.5026
-      calls: 87/101
+      n: 116
+      brier: 0.1346
+      log_loss: 0.4983
+      calls: 88/102
       tossups: 14
     ours:
-      n: 115
-      brier: 0.1146
-      log_loss: 0.4265
-      calls: 99/115
+      n: 116
+      brier: 0.1136
+      log_loss: 0.4228
+      calls: 100/116
     competitive:
       n: 52
       theirs:
@@ -1514,18 +1526,18 @@ others:
         calls: 37/52
   - name: DDHQ
     source: Decision Desk HQ
-    n: 115
+    n: 116
     theirs:
-      n: 115
-      brier: 0.1389
-      log_loss: 0.4647
-      calls: 91/108
+      n: 116
+      brier: 0.1377
+      log_loss: 0.4607
+      calls: 92/109
       tossups: 7
     ours:
-      n: 115
-      brier: 0.1146
-      log_loss: 0.4265
-      calls: 99/115
+      n: 116
+      brier: 0.1136
+      log_loss: 0.4228
+      calls: 100/116
     competitive:
       n: 52
       theirs:
@@ -1541,18 +1553,18 @@ others:
         calls: 37/52
   - name: Inside Elections
     source: Inside Elections
-    n: 115
+    n: 116
     theirs:
-      n: 115
-      brier: 0.1349
-      log_loss: 0.5824
-      calls: 89/106
+      n: 116
+      brier: 0.1337
+      log_loss: 0.5774
+      calls: 90/107
       tossups: 9
     ours:
-      n: 115
-      brier: 0.1146
-      log_loss: 0.4265
-      calls: 99/115
+      n: 116
+      brier: 0.1136
+      log_loss: 0.4228
+      calls: 100/116
     competitive:
       n: 52
       theirs:
@@ -1568,18 +1580,18 @@ others:
         calls: 37/52
   - name: Sabato
     source: Sabato's Crystal Ball
-    n: 115
+    n: 116
     theirs:
-      n: 115
-      brier: 0.1304
-      log_loss: 0.5285
-      calls: 97/115
+      n: 116
+      brier: 0.1293
+      log_loss: 0.5239
+      calls: 98/116
       tossups: 0
     ours:
-      n: 115
-      brier: 0.1146
-      log_loss: 0.4265
-      calls: 99/115
+      n: 116
+      brier: 0.1136
+      log_loss: 0.4228
+      calls: 100/116
     competitive:
       n: 52
       theirs:
@@ -1595,18 +1607,18 @@ others:
         calls: 37/52
   - name: Silver Bulletin
     source: Silver Bulletin
-    n: 49
+    n: 50
     theirs:
-      n: 49
-      brier: 0.1204
-      log_loss: 0.5158
-      calls: 38/43
+      n: 50
+      brier: 0.118
+      log_loss: 0.5055
+      calls: 39/44
       tossups: 6
     ours:
-      n: 49
-      brier: 0.107
-      log_loss: 0.3269
-      calls: 43/49
+      n: 50
+      brier: 0.1049
+      log_loss: 0.3203
+      calls: 44/50
     competitive:
       n: 31
       theirs:
@@ -1865,7 +1877,7 @@ others:
         calls: 6/6
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-18T20:40:21Z'
+  asof: '2026-11-19T07:33:36Z'
   called: 483
   scoreboard:
     lite:
