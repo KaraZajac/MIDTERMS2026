@@ -258,7 +258,7 @@ races:
   label: Ohio
   winner: D
   winner_name: Amy Acton
-  margin: 8.2
+  margin: 8.39
   p_winner: 0.8132
   p_d_side:
     lite: 0.8092
@@ -486,7 +486,7 @@ races:
   label: MI-01
   winner: R
   winner_name: Jack Bergman
-  margin: -9.76
+  margin: -9.73
   p_winner: 0.9991
   p_d_side:
     lite: 0.0946
@@ -498,7 +498,7 @@ races:
   label: MI-03
   winner: D
   winner_name: Hillary Scholten
-  margin: 15.95
+  margin: 16.01
   p_winner: 0.9995
   p_d_side:
     lite: 0.9808
@@ -510,7 +510,7 @@ races:
   label: MI-04
   winner: D
   winner_name: Sean McCann
-  margin: 1.8
+  margin: 1.81
   p_winner: 0.5423
   p_d_side:
     lite: 0.3711
@@ -522,7 +522,7 @@ races:
   label: MI-05
   winner: R
   winner_name: Tim Walberg
-  margin: -20.96
+  margin: -21.06
   p_winner: 0.9997
   p_d_side:
     lite: 0.03
@@ -534,7 +534,7 @@ races:
   label: MI-06
   winner: D
   winner_name: Debbie Dingell
-  margin: 37.98
+  margin: 38.02
   p_winner: 0.9999
   p_d_side:
     lite: 0.9991
@@ -546,7 +546,7 @@ races:
   label: MI-07
   winner: D
   winner_name: William Lawrence
-  margin: 3.36
+  margin: 3.39
   p_winner: 0.7372
   p_d_side:
     lite: 0.7908
@@ -570,7 +570,7 @@ races:
   label: MI-10
   winner: D
   winner_name: Christina Hines
-  margin: 7.34
+  margin: 7.37
   p_winner: 0.5894
   p_d_side:
     lite: 0.2973
@@ -582,7 +582,7 @@ races:
   label: MI-11
   winner: D
   winner_name: Jeremy Moss
-  margin: 24.58
+  margin: 24.61
   p_winner: 0.9998
   p_d_side:
     lite: 0.9968
@@ -594,7 +594,7 @@ races:
   label: MI-12
   winner: D
   winner_name: Rashida Tlaib
-  margin: 56.37
+  margin: 56.36
   p_winner: 1.0
   p_d_side:
     lite: 0.9999
@@ -606,7 +606,7 @@ races:
   label: MI-13
   winner: D
   winner_name: Donavan McKinney
-  margin: 58.78
+  margin: 58.84
   p_winner: 1.0
   p_d_side:
     lite: 0.9994
@@ -1889,7 +1889,7 @@ others:
         calls: 6/6
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-19T20:45:10Z'
+  asof: '2026-11-20T07:26:24Z'
   called: 484
   scoreboard:
     lite:
