@@ -1361,46 +1361,57 @@ house:NY-26,Sabato,Sabato's Crystal Ball,Safe D,3.0,2025-09-18
 house:OH-01,DDHQ,Decision Desk HQ,Likely D,2.0,2026-09-25
 house:OH-01,Cook,The Cook Political Report,Likely D,2.0,2026-10-16
 house:OH-01,Inside Elections,Inside Elections,Lean D,1.0,2026-10-29
+house:OH-01,Silver Bulletin,Silver Bulletin,Likely D,2.0,2026-11-03
 house:OH-01,Sabato,Sabato's Crystal Ball,Likely D,2.0,2026-10-20
 house:OH-02,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:OH-02,Cook,The Cook Political Report,Solid R,-3.0,2025-11-02
 house:OH-02,Inside Elections,Inside Elections,Solid R,-3.0,2025-10-31
+house:OH-02,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-03
 house:OH-02,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:OH-03,DDHQ,Decision Desk HQ,Safe D,3.0,2026-07-14
 house:OH-03,Cook,The Cook Political Report,Solid D,3.0,2025-11-02
 house:OH-03,Inside Elections,Inside Elections,Solid D,3.0,2025-10-31
+house:OH-03,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-03
 house:OH-03,Sabato,Sabato's Crystal Ball,Safe D,3.0,2025-04-10
 house:OH-04,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:OH-04,Cook,The Cook Political Report,Solid R,-3.0,2025-11-02
 house:OH-04,Inside Elections,Inside Elections,Solid R,-3.0,2025-10-31
+house:OH-04,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-03
 house:OH-04,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:OH-05,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:OH-05,Cook,The Cook Political Report,Solid R,-3.0,2025-11-02
 house:OH-05,Inside Elections,Inside Elections,Solid R,-3.0,2025-10-31
+house:OH-05,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-03
 house:OH-05,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:OH-06,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:OH-06,Cook,The Cook Political Report,Solid R,-3.0,2025-11-02
 house:OH-06,Inside Elections,Inside Elections,Solid R,-3.0,2025-10-31
+house:OH-06,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-03
 house:OH-06,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:OH-07,Cook,The Cook Political Report,Tossup,0.0,2026-08-10
 house:OH-07,DDHQ,Decision Desk HQ,Tossup,0.0,2026-07-14
 house:OH-07,Inside Elections,Inside Elections,Tilt D (flip),0.5,2026-10-29
+house:OH-07,Silver Bulletin,Silver Bulletin,Likely D (flip),2.0,2026-11-03
 house:OH-07,Sabato,Sabato's Crystal Ball,Lean D (flip),1.0,2026-11-02
 house:OH-08,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
 house:OH-08,Cook,The Cook Political Report,Solid R,-3.0,2025-11-02
 house:OH-08,Inside Elections,Inside Elections,Solid R,-3.0,2025-10-31
+house:OH-08,Silver Bulletin,Silver Bulletin,Solid R,-3.0,2026-11-03
 house:OH-08,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:OH-09,DDHQ,Decision Desk HQ,Likely D,2.0,2026-11-03
 house:OH-09,Cook,The Cook Political Report,Lean D,1.0,2026-10-30
 house:OH-09,Inside Elections,Inside Elections,Tilt D,0.5,2026-10-29
+house:OH-09,Silver Bulletin,Silver Bulletin,Lean D,1.0,2026-11-03
 house:OH-09,Sabato,Sabato's Crystal Ball,Lean D,1.0,2026-11-02
 house:OH-10,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
 house:OH-10,Cook,The Cook Political Report,Lean R,-1.0,2026-10-16
 house:OH-10,Inside Elections,Inside Elections,Lean R,-1.0,2026-10-29
+house:OH-10,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-11-03
 house:OH-10,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-27
 house:OH-11,DDHQ,Decision Desk HQ,Safe D,3.0,2026-07-14
 house:OH-11,Cook,The Cook Political Report,Solid D,3.0,2025-11-02
 house:OH-11,Inside Elections,Inside Elections,Solid D,3.0,2025-10-31
+house:OH-11,Silver Bulletin,Silver Bulletin,Solid D,3.0,2026-11-03
 house:OH-11,Sabato,Sabato's Crystal Ball,Safe D,3.0,2025-04-10
 house:OH-12,DDHQ,Decision Desk HQ,Safe R,-3.0,2026-07-14
 house:OH-12,Cook,The Cook Political Report,Solid R,-3.0,2025-11-02
@@ -1417,6 +1428,7 @@ house:OH-14,Sabato,Sabato's Crystal Ball,Safe R,-3.0,2025-04-10
 house:OH-15,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-07-14
 house:OH-15,Cook,The Cook Political Report,Lean R,-1.0,2026-10-16
 house:OH-15,Inside Elections,Inside Elections,Lean R,-1.0,2026-10-29
+house:OH-15,Silver Bulletin,Silver Bulletin,Lean R,-1.0,2026-11-03
 house:OH-15,Sabato,Sabato's Crystal Ball,Lean R,-1.0,2026-10-27
 house:OH-15,The Economist,The Economist,Lean R,-1.0,2026-04-24
 house:OK-01,DDHQ,Decision Desk HQ,Likely R,-2.0,2026-10-30
