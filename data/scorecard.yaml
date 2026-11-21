@@ -150,7 +150,7 @@ races:
   label: California
   winner: D
   winner_name: Xavier Becerra
-  margin: 31.24
+  margin: 31.29
   p_winner: 0.9999
   p_d_side:
     lite: 0.9997
@@ -2057,7 +2057,7 @@ others:
         calls: 6/6
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-20T20:33:34Z'
+  asof: '2026-11-21T07:18:44Z'
   called: 484
   scoreboard:
     lite:
