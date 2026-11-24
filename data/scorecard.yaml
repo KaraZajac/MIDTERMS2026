@@ -102,7 +102,7 @@ races:
   label: Alaska
   winner: D
   winner_name: Jonathan Kreiss-Tomkins
-  margin: 29.41
+  margin: 29.43
   p_winner: 0.9847
   p_d_side:
     lite: 0.9924
@@ -258,7 +258,7 @@ races:
   label: Michigan
   winner: D
   winner_name: Jocelyn Benson
-  margin: 11.05
+  margin: 11.06
   p_winner: 0.9497
   p_d_side:
     lite: 0.9436
@@ -1374,7 +1374,7 @@ races:
   label: Alaska
   winner: D
   winner_name: Mary Peltola
-  margin: 4.53
+  margin: 4.54
   p_winner: 0.6095
   p_d_side:
     lite: 0.6806
@@ -1386,7 +1386,7 @@ races:
   label: Alabama
   winner: R
   winner_name: Barry Moore
-  margin: -9.42
+  margin: -9.49
   p_winner: 0.9984
   p_d_side:
     lite: 0.0105
@@ -2165,7 +2165,7 @@ others:
         calls: 7/7
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-24T00:00:14Z'
+  asof: '2026-11-24T10:02:19Z'
   called: 484
   scoreboard:
     lite:
