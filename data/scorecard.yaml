@@ -2,7 +2,7 @@ forecast: 2026-11-03T091024Z.json
 forecast_generated: '2026-11-03T09:10:24Z'
 deadline: '2026-11-03T10:00:00Z'
 headline: deluxe
-resolved: 151
+resolved: 152
 open:
 - governor:FL
 - governor:GA
@@ -64,38 +64,38 @@ open:
 - house:CA-41
 - house:CA-42
 - house:CA-43
-open_count: 338
+open_count: 337
 scoreboard:
   lite:
-    n: 151
-    brier: 0.0761
-    log_loss: 0.2324
-    calls: 132/151
+    n: 152
+    brier: 0.0777
+    log_loss: 0.2363
+    calls: 132/152
   classic:
-    n: 151
-    brier: 0.0859
-    log_loss: 0.2647
-    calls: 132/151
+    n: 152
+    brier: 0.0855
+    log_loss: 0.264
+    calls: 133/152
   deluxe:
-    n: 151
-    brier: 0.0927
-    log_loss: 0.3484
-    calls: 134/151
+    n: 152
+    brier: 0.0922
+    log_loss: 0.3472
+    calls: 135/152
   ratings:
-    n: 151
-    brier: 0.1061
-    log_loss: 0.4463
-    calls: 129/151
+    n: 152
+    brier: 0.1059
+    log_loss: 0.4453
+    calls: 130/152
   lean-only:
-    n: 151
-    brier: 0.1235
-    log_loss: 0.3968
-    calls: 121/151
+    n: 152
+    brier: 0.123
+    log_loss: 0.3959
+    calls: 122/152
   coin-flip:
-    n: 151
+    n: 152
     brier: 0.25
     log_loss: 0.6931
-    calls: 56/151
+    calls: 56/152
 races:
 - id: governor:AK
   slug: governor/ak
@@ -1477,6 +1477,18 @@ races:
     classic: 0.0012
     deluxe: 0.0004
   called_right: true
+- id: house:WA-03
+  slug: house/wa-03
+  label: WA-03
+  winner: D
+  winner_name: Marie Gluesenkamp Perez
+  margin: 8.38
+  p_winner: 0.8531
+  p_d_side:
+    lite: 0.4405
+    classic: 0.8542
+    deluxe: 0.8531
+  called_right: true
 - id: house:WY-AL
   slug: house/wy-al
   label: WY-AL
@@ -1919,112 +1931,112 @@ others:
   raters:
   - name: Cook
     source: The Cook Political Report
-    n: 151
+    n: 152
     theirs:
-      n: 151
-      brier: 0.1078
-      log_loss: 0.3997
-      calls: 121/135
+      n: 152
+      brier: 0.1072
+      log_loss: 0.3982
+      calls: 122/136
       tossups: 16
     ours:
-      n: 151
-      brier: 0.0927
-      log_loss: 0.3484
-      calls: 134/151
+      n: 152
+      brier: 0.0922
+      log_loss: 0.3472
+      calls: 135/152
     competitive:
-      n: 67
+      n: 68
       theirs:
-        n: 67
-        brier: 0.228
-        log_loss: 0.7632
-        calls: 38/51
+        n: 68
+        brier: 0.225
+        log_loss: 0.7546
+        calls: 39/52
         tossups: 16
       ours:
-        n: 67
-        brier: 0.1939
-        log_loss: 0.6838
-        calls: 51/67
+        n: 68
+        brier: 0.1914
+        log_loss: 0.676
+        calls: 52/68
   - name: DDHQ
     source: Decision Desk HQ
-    n: 151
+    n: 152
     theirs:
-      n: 151
-      brier: 0.1174
-      log_loss: 0.4049
-      calls: 124/142
+      n: 152
+      brier: 0.1166
+      log_loss: 0.4023
+      calls: 125/143
       tossups: 9
     ours:
-      n: 151
-      brier: 0.0927
-      log_loss: 0.3484
-      calls: 134/151
+      n: 152
+      brier: 0.0922
+      log_loss: 0.3472
+      calls: 135/152
     competitive:
-      n: 67
+      n: 68
       theirs:
-        n: 67
-        brier: 0.2503
-        log_loss: 0.8531
-        calls: 41/58
+        n: 68
+        brier: 0.2466
+        log_loss: 0.8409
+        calls: 42/59
         tossups: 9
       ours:
-        n: 67
-        brier: 0.1939
-        log_loss: 0.6838
-        calls: 51/67
+        n: 68
+        brier: 0.1914
+        log_loss: 0.676
+        calls: 52/68
   - name: Inside Elections
     source: Inside Elections
-    n: 151
+    n: 152
     theirs:
-      n: 151
-      brier: 0.1104
-      log_loss: 0.4785
+      n: 152
+      brier: 0.1114
+      log_loss: 0.4799
       calls: 124/141
-      tossups: 10
+      tossups: 11
     ours:
-      n: 151
-      brier: 0.0927
-      log_loss: 0.3484
-      calls: 134/151
+      n: 152
+      brier: 0.0922
+      log_loss: 0.3472
+      calls: 135/152
     competitive:
-      n: 67
+      n: 68
       theirs:
-        n: 67
-        brier: 0.234
-        log_loss: 0.9408
+        n: 68
+        brier: 0.2342
+        log_loss: 0.9372
         calls: 41/57
-        tossups: 10
+        tossups: 11
       ours:
-        n: 67
-        brier: 0.1939
-        log_loss: 0.6838
-        calls: 51/67
+        n: 68
+        brier: 0.1914
+        log_loss: 0.676
+        calls: 52/68
   - name: Sabato
     source: Sabato's Crystal Ball
-    n: 151
+    n: 152
     theirs:
-      n: 151
-      brier: 0.1005
-      log_loss: 0.4117
-      calls: 133/151
+      n: 152
+      brier: 0.1
+      log_loss: 0.4101
+      calls: 134/152
       tossups: 0
     ours:
-      n: 151
-      brier: 0.0927
-      log_loss: 0.3484
-      calls: 134/151
+      n: 152
+      brier: 0.0922
+      log_loss: 0.3472
+      calls: 135/152
     competitive:
-      n: 67
+      n: 68
       theirs:
-        n: 67
-        brier: 0.2116
-        log_loss: 0.7903
-        calls: 50/67
+        n: 68
+        brier: 0.2089
+        log_loss: 0.7812
+        calls: 51/68
         tossups: 0
       ours:
-        n: 67
-        brier: 0.1939
-        log_loss: 0.6838
-        calls: 51/67
+        n: 68
+        brier: 0.1914
+        log_loss: 0.676
+        calls: 52/68
   - name: Silver Bulletin
     source: Silver Bulletin
     n: 78
@@ -2160,6 +2172,33 @@ others:
         brier: 0.1599
         log_loss: 0.5179
         calls: 23/28
+  - name: Split Ticket
+    source: Split Ticket
+    n: 36
+    theirs:
+      n: 36
+      brier: 0.0567
+      log_loss: 0.2032
+      calls: 33/35
+      tossups: 1
+    ours:
+      n: 36
+      brier: 0.0625
+      log_loss: 0.2194
+      calls: 34/36
+    competitive:
+      n: 17
+      theirs:
+        n: 17
+        brier: 0.12
+        log_loss: 0.4289
+        calls: 14/16
+        tossups: 1
+      ours:
+        n: 17
+        brier: 0.1323
+        log_loss: 0.4629
+        calls: 15/17
   - name: FiftyPlusOne
     source: FiftyPlusOne
     n: 35
@@ -2209,33 +2248,6 @@ others:
         log_loss: 0.841
         calls: 7/11
         tossups: 5
-      ours:
-        n: 16
-        brier: 0.1392
-        log_loss: 0.4819
-        calls: 14/16
-  - name: Split Ticket
-    source: Split Ticket
-    n: 35
-    theirs:
-      n: 35
-      brier: 0.0583
-      log_loss: 0.2084
-      calls: 32/34
-      tossups: 1
-    ours:
-      n: 35
-      brier: 0.0637
-      log_loss: 0.2211
-      calls: 33/35
-    competitive:
-      n: 16
-      theirs:
-        n: 16
-        brier: 0.1275
-        log_loss: 0.4542
-        calls: 13/15
-        tossups: 1
       ours:
         n: 16
         brier: 0.1392
@@ -2297,7 +2309,7 @@ others:
         calls: 7/7
 provisional:
   basis: race calls so far (civicAPI's decision desk), not final results
-  asof: '2026-11-27T08:44:55Z'
+  asof: '2026-11-27T21:25:14Z'
   called: 484
   scoreboard:
     lite:
